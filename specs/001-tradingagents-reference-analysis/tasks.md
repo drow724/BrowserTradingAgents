@@ -130,19 +130,19 @@ is enforced by the verification gates V-01…V-12 from plan.md (Phase 12).
 
 **Scope**: only semantics needed for Feature 001 questions; no vendor internals.
 
-- [ ] T033 [P] [US2] Inspect `tradingagents/agents/structured.py` (or mapping): `with_structured_output` usage, failure fallback to free text, whether fallback causes a second LLM invocation; record in RD §5 and link from affected Node Analysis Records.
-- [ ] T034 [P] [US2] Inspect `tradingagents/agents/context.py` and the message-clear node factory: message deletion, placeholder message creation, analyst context isolation; write the message-clear node record in RD §4.
-- [ ] T035 [P] [US2] Inspect `tradingagents/agents/tools.py` (or mapping): injected state (e.g. trade date), tool definitions per analyst, ToolNode semantics; record in RD §6.
-- [ ] T036 [P] [US2] Inspect `tradingagents/default_config.py`: quick-thinking and deep-thinking model defaults, default max debate rounds, default max risk discussion rounds; record in RD §5, §7, §8.
+- [X] T033 [P] [US2] Inspect `tradingagents/agents/structured.py` (or mapping): `with_structured_output` usage, failure fallback to free text, whether fallback causes a second LLM invocation; record in RD §5 and link from affected Node Analysis Records.
+- [X] T034 [P] [US2] Inspect `tradingagents/agents/context.py` and the message-clear node factory: message deletion, placeholder message creation, analyst context isolation; write the message-clear node record in RD §4.
+- [X] T035 [P] [US2] Inspect `tradingagents/agents/tools.py` (or mapping): injected state (e.g. trade date), tool definitions per analyst, ToolNode semantics; record in RD §6.
+- [X] T036 [P] [US2] Inspect `tradingagents/default_config.py`: quick-thinking and deep-thinking model defaults, default max debate rounds, default max risk discussion rounds; record in RD §5, §7, §8.
 
 ---
 
 ## Phase 9: Top-Level Graph Integration (US2)
 
-- [ ] T037 [US2] Trace quick/deep LLM construction in `tradingagents/graph/trading_graph.py` and which LLM instance is passed to each node factory; fill the LLM class field in all 12 Node Analysis Records and write RD §5 LLM Invocation Map (quick / deep / structured / fallback / tool-bound / repeatable via tool loop).
-- [ ] T038 [US2] Trace GraphSetup invocation, graph compile, initial state creation, invoke/stream, final state, and final decision extraction in `tradingagents/graph/trading_graph.py`; record in RD §2 (entry/exit) and §3 (initial/final state flow).
-- [ ] T039 [US2] Identify checkpoint, memory, reflection, reporting, and backtesting dependencies wired in `tradingagents/graph/trading_graph.py` at interface level only; record each as input for EXCLUDE decisions in RD §6 (external dependencies). No deep analysis of their internals.
-- [ ] T040 [US2] Finalize RD §3 Read-by / Written-by columns and RD §5 repeatable-call entries by cross-checking against all 12 Node Analysis Records; resolve any inconsistency by re-reading source.
+- [X] T037 [US2] Trace quick/deep LLM construction in `tradingagents/graph/trading_graph.py` and which LLM instance is passed to each node factory; fill the LLM class field in all 12 Node Analysis Records and write RD §5 LLM Invocation Map (quick / deep / structured / fallback / tool-bound / repeatable via tool loop).
+- [X] T038 [US2] Trace GraphSetup invocation, graph compile, initial state creation, invoke/stream, final state, and final decision extraction in `tradingagents/graph/trading_graph.py`; record in RD §2 (entry/exit) and §3 (initial/final state flow).
+- [X] T039 [US2] Identify checkpoint, memory, reflection, reporting, and backtesting dependencies wired in `tradingagents/graph/trading_graph.py` at interface level only; record each as input for EXCLUDE decisions in RD §6 (external dependencies). No deep analysis of their internals.
+- [X] T040 [US2] Finalize RD §3 Read-by / Written-by columns and RD §5 repeatable-call entries by cross-checking against all 12 Node Analysis Records; resolve any inconsistency by re-reading source.
 
 **Checkpoint**: US2 complete — 12 records, state map, LLM and tool maps, both debate mechanics.
 
@@ -152,19 +152,19 @@ is enforced by the verification gates V-01…V-12 from plan.md (Phase 12).
 
 **Prerequisite**: Phases 2–9 complete. Spec candidates are inputs, not answers.
 
-- [ ] T041 [US3] Write RD §10 PRESERVE / SIMPLIFY / EXCLUDE table: one row per major upstream concept, exactly one class, a reason citing the RD section it rests on and the minimum-browser-workload purpose.
-- [ ] T042 [US3] Write RD §11 Intentional Adaptations: for each candidate (e.g. independent analyst parallelization, 4→2 analysts, 3-way risk → single reviewer, smaller state, deterministic fixtures) record Upstream behavior / Proposed Browser behavior / Why / Semantic cost / Dogfood value / Status, plus SOURCE FACT / DESIGN INFERENCE / STATUS.
-- [ ] T043 [US3] Replace every `TBD (Phase 10)` placeholder: in all 12 Node Analysis Records in RD §4 fill "Could be parallelized as BrowserTradingAgents adaptation" (DESIGN INFERENCE from state read/write dependencies, never merged with "Can run in parallel in upstream"), "Required for browser dogfood" (YES / NO / PARTIAL), and "Reason"; fill the RD §3 "Required for minimum browser graph" column; all consistent with RD §10 and §11. Confirm 0 `TBD (Phase 10)` remain.
-- [ ] T044 [US3] Write RD §12 Minimum Browser Graph (proposal only, not implemented), answering from source analysis: Can Market + News represent the analyst stage? Must Bull/Bear be kept? Is Research Manager needed (given its `investment_plan` boundary)? Is Trader needed? Is the full 3-way risk debate needed? How can Portfolio Manager / final synthesis be simplified? Label every deviation from upstream as an adaptation.
+- [X] T041 [US3] Write RD §10 PRESERVE / SIMPLIFY / EXCLUDE table: one row per major upstream concept, exactly one class, a reason citing the RD section it rests on and the minimum-browser-workload purpose.
+- [X] T042 [US3] Write RD §11 Intentional Adaptations: for each candidate (e.g. independent analyst parallelization, 4→2 analysts, 3-way risk → single reviewer, smaller state, deterministic fixtures) record Upstream behavior / Proposed Browser behavior / Why / Semantic cost / Dogfood value / Status, plus SOURCE FACT / DESIGN INFERENCE / STATUS.
+- [X] T043 [US3] Replace every `TBD (Phase 10)` placeholder: in all 12 Node Analysis Records in RD §4 fill "Could be parallelized as BrowserTradingAgents adaptation" (DESIGN INFERENCE from state read/write dependencies, never merged with "Can run in parallel in upstream"), "Required for browser dogfood" (YES / NO / PARTIAL), and "Reason"; fill the RD §3 "Required for minimum browser graph" column; all consistent with RD §10 and §11. Confirm 0 `TBD (Phase 10)` remain.
+- [X] T044 [US3] Write RD §12 Minimum Browser Graph (proposal only, not implemented), answering from source analysis: Can Market + News represent the analyst stage? Must Bull/Bear be kept? Is Research Manager needed (given its `investment_plan` boundary)? Is Trader needed? Is the full 3-way risk debate needed? How can Portfolio Manager / final synthesis be simplified? Label every deviation from upstream as an adaptation.
 
 ---
 
 ## Phase 11: Findings & Final Deliverable (US4, Priority P3)
 
-- [ ] T045 [US4] Consolidate RD §13 Findings: F001-001 (resolved in T012) and any `F001-NNN` raised during Phases 1–10, all in spec Finding format; do not create AkariSP findings without evidence.
-- [ ] T046 [US4] Answer all 17 spec success questions in RD §14, each with at least one citation to an RD evidence entry.
-- [ ] T047 [US4] Fill every field of the spec's Required Final Deliverable in RD §14, including `AkariSP production changes: 0`, `BrowserTradingAgents implementation changes: 0`, and Recommended Feature 002 scope as a recommendation only.
-- [ ] T048 [US4] If any finding contradicts a factual statement in `specs/001-tradingagents-reference-analysis/spec.md` or `plan.md`, apply a minimal factual correction and note it in RD §13; otherwise record "no correction needed". No scope changes. If a finding contradicts a factual statement in `.specify/memory/constitution.md` (notably Principle XI's statement on v0.5.1 sequential execution), do NOT edit the constitution: record it in RD §13 as a finding marked "constitution amendment candidate" for a separate amendment outside Feature 001.
+- [X] T045 [US4] Consolidate RD §13 Findings: F001-001 (resolved in T012) and any `F001-NNN` raised during Phases 1–10, all in spec Finding format; do not create AkariSP findings without evidence.
+- [X] T046 [US4] Answer all 17 spec success questions in RD §14, each with at least one citation to an RD evidence entry.
+- [X] T047 [US4] Fill every field of the spec's Required Final Deliverable in RD §14, including `AkariSP production changes: 0`, `BrowserTradingAgents implementation changes: 0`, and Recommended Feature 002 scope as a recommendation only.
+- [X] T048 [US4] If any finding contradicts a factual statement in `specs/001-tradingagents-reference-analysis/spec.md` or `plan.md`, apply a minimal factual correction and note it in RD §13; otherwise record "no correction needed". No scope changes. If a finding contradicts a factual statement in `.specify/memory/constitution.md` (notably Principle XI's statement on v0.5.1 sequential execution), do NOT edit the constitution: record it in RD §13 as a finding marked "constitution amendment candidate" for a separate amendment outside Feature 001.
 
 ---
 
