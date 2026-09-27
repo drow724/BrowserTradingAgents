@@ -172,16 +172,16 @@ is enforced by the verification gates V-01…V-12 from plan.md (Phase 12).
 
 **Rule**: A failed gate → fix RD (re-reading source as needed) → re-run that gate. No gate runs before Phase 11 is complete.
 
-- [ ] T049 V-01: Re-run `git rev-parse HEAD` in `UP` (== `35543d0248bf89fcb92b17a15858ad0c0e940687`) and re-confirm version `0.5.1`; confirm RD §1 matches.
-- [ ] T050 V-02: Confirm RD §1 path table covers every path from spec.md/plan.md and every non-present path has a mapping or a finding.
-- [ ] T051 V-03: Confirm RD §4 contains the 12 agent records (Market, Sentiment, News, Fundamentals, Bull, Bear, Research Manager, Trader, Aggressive, Conservative, Neutral, Portfolio Manager) plus the ToolNode record and the message-clear record, with no empty fields and no `TBD (Phase 10)` remaining.
-- [ ] T052 V-04 / V-05: Confirm every edge in the RD §2 diagram has an inventory row with citation (0 uncited) and every conditional route lists router, condition, targets, citation.
-- [ ] T053 V-06: Confirm every Evidence Claim in RD has path + symbol + line range + frozen-SHA permalink, evidence class is only `STATIC_CODE_ANALYSIS`, and no implementation claim rests on README/diagrams/paper alone. Sample-verify correctness (SC-006): for at least one claim per RD section §2–§9, re-open the cited file and line range in `UP` and confirm it shows the claimed behavior; record the sampled claims and result in RD §14.
-- [ ] T054 V-07 / V-08: Confirm every RD §10 entry has a reason; every RD §11/§12 deviation carries SOURCE FACT / DESIGN INFERENCE / STATUS; the three parallelism terms are never merged.
-- [ ] T055 V-09: Confirm all 17 success questions and all Final Deliverable fields in RD §14 are filled and F001-001 is resolved.
-- [ ] T056 V-10: Re-check `git rev-parse HEAD` in this repository and record the SHA or `UNAVAILABLE` in RD §1 and §14.
-- [ ] T057 V-11 / V-12: Run `git diff --name-only <T001 baseline SHA>` and `git status --porcelain` in this repository and, excluding the pre-existing untracked paths recorded in T001, confirm changes exist only under `specs/001-tradingagents-reference-analysis/` (plus `.specify/feature.json`); confirm no `src/`, `package.json`, dependency, or AkariSP change and that no upstream source was copied into the repository.
-- [ ] T058 Feature completion verification: confirm and record in RD §14 the completion state below; any line not satisfied → return to the owning phase.
+- [X] T049 V-01: Re-run `git rev-parse HEAD` in `UP` (== `35543d0248bf89fcb92b17a15858ad0c0e940687`) and re-confirm version `0.5.1`; confirm RD §1 matches.
+- [X] T050 V-02: Confirm RD §1 path table covers every path from spec.md/plan.md and every non-present path has a mapping or a finding.
+- [X] T051 V-03: Confirm RD §4 contains the 12 agent records (Market, Sentiment, News, Fundamentals, Bull, Bear, Research Manager, Trader, Aggressive, Conservative, Neutral, Portfolio Manager) plus the ToolNode record and the message-clear record, with no empty fields and no `TBD (Phase 10)` remaining.
+- [X] T052 V-04 / V-05: Confirm every edge in the RD §2 diagram has an inventory row with citation (0 uncited) and every conditional route lists router, condition, targets, citation.
+- [X] T053 V-06: Confirm every Evidence Claim in RD has path + symbol + line range + frozen-SHA permalink, evidence class is only `STATIC_CODE_ANALYSIS`, and no implementation claim rests on README/diagrams/paper alone. Sample-verify correctness (SC-006): for at least one claim per RD section §2–§9, re-open the cited file and line range in `UP` and confirm it shows the claimed behavior; record the sampled claims and result in RD §14.
+- [X] T054 V-07 / V-08: Confirm every RD §10 entry has a reason; every RD §11/§12 deviation carries SOURCE FACT / DESIGN INFERENCE / STATUS; the three parallelism terms are never merged.
+- [X] T055 V-09: Confirm all 17 success questions and all Final Deliverable fields in RD §14 are filled and F001-001 is resolved.
+- [X] T056 V-10: Re-check `git rev-parse HEAD` in this repository and record the SHA or `UNAVAILABLE` in RD §1 and §14.
+- [X] T057 V-11 / V-12: Run `git diff --name-only <T001 baseline SHA>` and `git status --porcelain` in this repository and, excluding the pre-existing untracked paths recorded in T001, confirm changes exist only under `specs/001-tradingagents-reference-analysis/` (plus `.specify/feature.json`); confirm no `src/`, `package.json`, dependency, or AkariSP change and that no upstream source was copied into the repository.
+- [X] T058 Feature completion verification: confirm and record in RD §14 the completion state below; any line not satisfied → return to the owning phase.
 
 ```text
 Original TradingAgents analyzed: YES

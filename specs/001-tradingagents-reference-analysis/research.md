@@ -6,7 +6,7 @@ Canonical source-analysis artifact for Feature 001. Evidence class for every cla
 Permalink base (`PL`):
 `https://github.com/TauricResearch/TradingAgents/blob/35543d0248bf89fcb92b17a15858ad0c0e940687/`
 
-Status: Phases 1–11 complete (T001–T048). §1–§9 are source facts; §10–§12 are design judgments. Sections marked *Pending* are filled by later phases.
+Status: COMPLETE (T001–T058; verification record §14.5–14.6). §1–§9 are source facts; §10–§12 are design judgments. Sections marked *Pending* are filled by later phases.
 
 ## 1. Reference Baseline
 
@@ -20,7 +20,7 @@ Status: Phases 1–11 complete (T001–T048). §1–§9 are source facts; §10�
 | Graph library pin (context) | `langgraph>=0.4.8`, `langchain-core>=0.3.81` | `pyproject.toml` L12, L16 |
 | Analysis date | 2026-09-28 | — |
 | AkariSP baseline | drow724/akariSP `main` @ `7e8202e6ab91af386abc9e2416d9cb07fdfacecf`, `akarisp@0.1.0-alpha.2`, registry verification: match (as provided; recorded only, not analyzed) | T001 |
-| BrowserTradingAgents | drow724/BrowserTradingAgents `main` @ `37b4fad41696c84bc49091eb4a9db36fcf92d564` (execution baseline) | T001: `git rev-parse HEAD` |
+| BrowserTradingAgents | drow724/BrowserTradingAgents `main` @ `37b4fad41696c84bc49091eb4a9db36fcf92d564` (execution baseline; re-checked in T056 — progress commits `922be89`, `2af7bcc`) | T001 / T056: `git rev-parse HEAD`, `git log` |
 | Constitution | v1.0.0 (`.specify/memory/constitution.md`) | T001 |
 | Active feature | `specs/001-tradingagents-reference-analysis` (`.specify/feature.json`) | T001 |
 | Evidence class | `STATIC_CODE_ANALYSIS` only | — |
@@ -679,7 +679,10 @@ Purpose: argue for the low-risk adjustment of the trader's decision
 Input state: same shape as Aggressive, with opponents = current_aggressive_response and
   current_neutral_response (L16–21); trader_investment_plan; four reports; portfolio_context
 Opponent dependency: YES — both other analysts' latest responses + history
-Output state / LLM calls / Tools: as Aggressive (1 plain quick call per turn; setup.py L92)
+Output state: {"risk_debate_state": {...}} (conservative_debator.py L52–68)
+LLM calls: 1 plain llm.invoke per turn (conservative_debator.py L48)
+LLM class: quick (setup.py L92)
+Tools: none
 Can run in parallel in upstream: NO
 Could be parallelized as BrowserTradingAgents adaptation: NO — reads the other two risk analysts' latest arguments (§8.3)
 Depends on: as Aggressive
@@ -701,7 +704,10 @@ Purpose: argue for a balanced adjustment of the trader's decision
 Input state: same shape, opponents = current_aggressive_response and
   current_conservative_response (L16–21); trader_investment_plan; four reports; portfolio_context
 Opponent dependency: YES — both other analysts' latest responses + history
-Output state / LLM calls / Tools: as Aggressive (1 plain quick call per turn; setup.py L91)
+Output state: {"risk_debate_state": {...}} (neutral_debator.py L52–66)
+LLM calls: 1 plain llm.invoke per turn (neutral_debator.py L48)
+LLM class: quick (setup.py L91)
+Tools: none
 Can run in parallel in upstream: NO
 Could be parallelized as BrowserTradingAgents adaptation: NO — reads the other two risk analysts' latest arguments (§8.3)
 Depends on: as Aggressive
@@ -1513,6 +1519,62 @@ topology, Sentiment pre-fetch description, Research Manager boundary and pre-est
 all match the source. **No correction needed.** Constitution Principle XI is consistent with the
 source (analysts, Bull/Bear and risk debates sequential); no amendment candidate.
 
-### 14.5 Pending
+### 14.5 Verification record (Phase 12, T049–T058)
 
-Phase 12 verification gates (T049–T058) and the completion record.
+| Gate | Task | Result | Evidence |
+|---|---|---|---|
+| V-01 | T049 | PASS | `UP` HEAD = `35543d0248bf89fcb92b17a15858ad0c0e940687`, clean checkout; `pyproject.toml` L7 `version = "0.5.1"`; every permalink in this file uses that one SHA |
+| V-02 | T050 | PASS | §1 path table: 22/22 spec/plan paths "exact path present"; no mapping or finding needed |
+| V-03 | T051 | PASS after fix | 12 agent records + ToolNode + message-clear record, all spec fields present; 26 state rows, no empty cells; unresolved Phase-10 placeholders = 0. Fix: Conservative/Neutral records had a combined "Output state / LLM calls / Tools" line — split into separate fields with their own citations (conservative L48, L52–68; neutral L48, L52–66) and re-checked |
+| V-04 / V-05 | T052 | PASS | all 10 edge-registration sites in `setup.py` (L112, 116, 119, 121, 125, 129, 134, 135, 138, 144) map to E01–E14; the §2.5 diagram uses exactly E01–E14; R1–R3 each list router, conditions, targets, citation |
+| V-06 | T053 | PASS | see sampled claims below; evidence class for all Feature 001 claims is `STATIC_CODE_ANALYSIS` (other class names appear only in the Feature 002 recommendation, §14.3) |
+| V-07 / V-08 | T054 | PASS | every §10.1 row has a reason; 14 adaptations (A1–A14) each with upstream behavior / proposal / why / cost / value; §1–§9 contain no claim that upstream runs anything in parallel; A1 is labeled "not upstream topology" |
+| V-09 | T055 | PASS | 17/17 success questions answered with section references (§14.1); all 26 Final Deliverable fields present (§14.2); F001-001 CONFIRMED |
+| V-10 | T056 | PASS | execution baseline `37b4fad41696c84bc49091eb4a9db36fcf92d564` unchanged; research progress commits after it: `922be89` (agent semantics), `2af7bcc` (browser adaptation); the Feature 001 completion commit follows this record |
+| V-11 / V-12 | T057 | PASS | `git diff --name-only 37b4fad` → only `research.md`, `tasks.md` under `specs/001-tradingagents-reference-analysis/`; untracked paths identical to the T001 snapshot; no `src/`, no `package.json`; no upstream file copied into the repository |
+
+**Sampled source re-checks (T053, SC-006)** — each cited range re-opened in `UP`; all match:
+
+| Section | Claim | Source re-opened |
+|---|---|---|
+| §2 topology | last clear node → Bull Researcher | setup.py L124–125 |
+| §3 state | `AgentState(MessagesState)`; initial `messages=[("human", company)]` | state.py L47; propagation.py L31 |
+| §4 analysts | report only when no tool calls; Sentiment calls `get_news.func` directly | market_analyst.py L82–83; sentiment_analyst.py L61 |
+| §7 Bull/Bear | `"Bull Analyst: "` / `"Bear Analyst: "` prefixes; prefix routing | bull L53; bear L55; conditional_logic.py L19–21 |
+| §4.8 Research Manager | reads debate `history`; writes `investment_plan` | research_manager.py L19, L72 |
+| §4.9 Trader | reads `investment_plan`, `market_report`, portfolio; writes `trader_investment_plan` | trader.py L28, L34–35, L97 |
+| §8 risk | `latest_speaker = "Aggressive"`; A → C → N routing | aggressive_debator.py L57; conditional_logic.py L29–33 |
+| §4.13 Portfolio Manager | reads risk history, plan, trader plan; writes `final_trade_decision` | portfolio_manager.py L33–36, L104 |
+| §5.2 / §4.5a helpers | structured → one free-text fallback; clear removes all messages | structured.py L73–88; context.py L223–227 |
+| §6.3 tools | `InjectedState("trade_date")` | tools.py L22 |
+| §2.6 / §5.1 TradingAgentsGraph | GraphSetup(quick, deep, logic); compile without checkpointer; decision extraction | trading_graph.py L97–101, L113, L344 |
+| §5.4 config | debate/risk rounds 1, recursion limit 100 | default_config.py L115–117 |
+
+**Verification observation (not a finding)**: a local checkout `../akariSP` exists with a clean
+working tree at `78804aa`, one commit *behind* the recorded AkariSP baseline `7e8202e` (the
+baseline commit exists locally; `78804aa` is its parent-side ancestor). Feature 001 neither read
+nor modified AkariSP; the baseline is recorded as provided. Relevant only for Feature 002, which
+should consume `akarisp@0.1.0-alpha.2` / `7e8202e` explicitly.
+
+### 14.6 Completion record (T058)
+
+```text
+T001–T058: COMPLETE
+Original TradingAgents analyzed: YES
+Frozen source analysis: COMPLETE
+12 agent records: COMPLETE
+ToolNode / message-clear records: COMPLETE
+Graph topology: fully evidence-backed
+Conditional routing: fully evidence-backed
+Upstream analyst parallelism: SEQUENTIAL
+Bull/Bear semantics: resolved
+Risk semantics: resolved
+F001-001: CONFIRMED
+PRESERVE/SIMPLIFY/EXCLUDE: complete
+Intentional Browser adaptations: explicitly separated
+Minimum Browser graph: proposed, not implemented
+Unresolved Phase-10 placeholders: 0
+AkariSP production changes: 0
+BrowserTradingAgents application source changes: 0
+Feature 001: COMPLETE
+```
