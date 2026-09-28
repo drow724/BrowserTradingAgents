@@ -128,10 +128,29 @@ const scenarios: Record<string, () => Promise<Scenario>> = {
     await until(() => runtime.snapshot().active === 0);
     const snapshotAfter = snap(runtime);
     const after = await op(model.invoke(ask('Say "C".'))).then(() => 'PASS', describe);
-    const ok = callerError.startsWith('TaskError:cancelled') && queuedAfterCancel === 0
+    const queuedOk = callerError.startsWith('TaskError:cancelled') && queuedAfterCancel === 0
       && snapshotAfter.active === 0 && snapshotAfter.queued === 0 && after === 'PASS';
-    return { outcome: ok ? 'PASS' : 'FAIL', target: 'queued', callerError, taskErrorCode: callerError.split(/[: ]/)[1],
-      snapshotAfter, requestAfter: after };
+
+    // Active cancellation: abort a request that holds the slot (the stand-in holds it inside prompt()).
+    control.hold();
+    const activeController = new AbortController();
+    const running = op(model.invoke(ask(LONG), { signal: activeController.signal }));
+    await until(() => runtime.snapshot().active === 1);
+    await new Promise((r) => setTimeout(r, 200)); // let the task reach the model before aborting
+    activeController.abort(new Error('harness cancelled active request'));
+    const activeCallerError = await running.then(() => 'RESOLVED (finished before the abort)', describe);
+    control.resume();
+    await until(() => runtime.snapshot().active === 0);
+    const active = {
+      callerError: activeCallerError,
+      snapshotAfter: snap(runtime),
+      requestAfter: await op(model.invoke(ask('Say "D".'))).then(() => 'PASS', describe),
+    };
+    const activeOk = activeCallerError.startsWith('TaskError:cancelled') && active.snapshotAfter.active === 0
+      && active.snapshotAfter.queued === 0 && active.requestAfter === 'PASS';
+
+    return { outcome: queuedOk && activeOk ? 'PASS' : 'FAIL', target: 'queued+active', callerError,
+      taskErrorCode: callerError.split(/[: ]/)[1], snapshotAfter, requestAfter: after, active };
   }),
 
   S5_structured: () => withOwner(async (_runtime, model) => {

@@ -17,7 +17,8 @@ One JSON object per harness run, committed under `evidence/` as
     "S1_single":      { "outcome": "PASS | FAIL | BLOCKED", "output": "…", "timing": {} },
     "S2_reuse":       { "outcome": "…", "runtimeConstructions": 1, "requests": 2 },
     "S3_concurrent2": { "outcome": "…", "snapshotWhileRunning": { "active": 1, "queued": 1 }, "timings": [] },
-    "S4_cancel":      { "outcome": "…", "target": "queued", "callerError": "…", "taskErrorCode": "cancelled", "snapshotAfter": { "active": 0, "queued": 0 }, "requestAfter": "PASS" },
+    "S4_cancel":      { "outcome": "…", "target": "queued+active", "callerError": "…", "taskErrorCode": "cancelled", "snapshotAfter": { "active": 0, "queued": 0 }, "requestAfter": "PASS",
+                        "active": { "callerError": "TaskError:cancelled …", "snapshotAfter": { "active": 0, "queued": 0 }, "requestAfter": "PASS" } },
     "S5_structured":  { "outcome": "…", "kind": "structured | freetext", "logicalRequests": 1, "fallbacks": 0 },
     "S6_systemRole":  { "outcome": "OBSERVED | BLOCKED", "observation": "supported | rejected | transformed | unavailable", "note": "observation only (research R8); never decides Feature PASS/FAIL" },
     "S7_cleanup":     { "outcome": "…", "snapshotAfterShutdown": { "state": "closed", "active": 0, "queued": 0 }, "secondShutdown": "resolved", "requestAfterShutdown": "TaskError:closed" }

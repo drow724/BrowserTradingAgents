@@ -26,6 +26,9 @@ test('stand-in provider: S1–S5 and S7 PASS, S6 observed', async ({ page }) => 
   expect(s.S3_concurrent2.snapshotWhileRunning).toMatchObject({ active: 1, queued: 1 });
   expect(s.S4_cancel.snapshotAfter).toMatchObject({ active: 0, queued: 0 });
   expect(s.S4_cancel.taskErrorCode).toBe('cancelled');
+  expect(s.S4_cancel.active.callerError).toMatch(/^TaskError:cancelled/);
+  expect(s.S4_cancel.active.snapshotAfter).toMatchObject({ active: 0, queued: 0 });
+  expect(s.S4_cancel.active.requestAfter).toBe('PASS');
   expect(s.S5_structured.fallbacks).toBeLessThanOrEqual(1);
   expect(s.S7_cleanup.snapshotAfterShutdown).toEqual({ state: 'closed', active: 0, queued: 0 });
   mkdirSync(`${FD}/evidence`, { recursive: true });
