@@ -310,3 +310,176 @@ Dirty smoke (SMOKE ONLY — not gate evidence): `npm run test:prompt-api -- -g "
 (47.1 s); record revision `4627c73…+dirty`, `MODEL_AVAILABLE`, `success`, 8/8/0/NOT EXPOSED,
 `graphMs` 29 369, fan-out `{ready,1,1}`, before shutdown `{ready,0,0}`. Discarded; T058 reruns at the
 clean T057 commit.
+
+### T057 Commit (MANUAL / APPROVAL)
+
+Maintainer approved (2026-09-28). Local commit `a0584fd` on `004-browser-tradingagents-fixture-graph`
+(no push); `.claude/`, `.specify/*` tooling, `CLAUDE.md` excluded.
+`git status --porcelain -- index.html src test harness e2e package.json package-lock.json vite.config.ts`
+empty → the bundle revision is clean (untracked tooling is outside `vite.config.ts` code paths).
+
+### T058 Native run (MANUAL)
+
+`npm run test:prompt-api -- -g "eight-role"` at `a0584fd`: 1 passed (40.6 s). Installed Google Chrome
+153.0.8010.53 (userAgent `HeadlessChrome/153.0.0.0`), headless, per-run clone of the golden profile,
+runner `playwright`, provider `native`, availability `MODEL_AVAILABLE` (raw `available`).
+
+### T059 Validation — `evidence/real-browser-2026-09-28-a0584fd.json` (byte-identical copy of the raw record)
+
+| Contract field | Record | |
+|---|---|---|
+| `evidenceClass` / `provider` / `runner` | `REAL_BROWSER_PROMPT_API` / `native` / `playwright` | PASS |
+| `environment.availability` | `MODEL_AVAILABLE` | PASS |
+| `revision.browserTradingAgents` | `a0584fdcf03c52aa679eb5b8ffc3a9d8104222b7` (no `+dirty`) = T057 commit | PASS |
+| versions | akarisp 0.1.0-alpha.2, core 1.2.13, langgraph 1.4.18 = `node_modules` | PASS |
+| `fixture` / `graph.version` | `tradingagents-fixture@1` / `tradingagents-fixture-graph@1` | PASS |
+| `runtimeOptions` | `{limit 1, queueCapacity 32}` | PASS |
+| nodes | eight `done`, `executions 1`, `modelRequests 1`, `reads` present | PASS |
+| event order | Market start, News start (both before either done) → both done → Bull → Bear → RM → Trader → Risk → Final (seq 1–16) | PASS |
+| counts | `logicalRequests` 8, `fallbackRequests` 0 (measured), `providerInvocations` NOT EXPOSED | PASS |
+| fan-out | `{ready, active 1, queued 1}` after 1 ms — graph fan-out + AkariSP backpressure, not native parallelism | observed |
+| lifecycle | before shutdown `{ready,0,0}`, `settledBeforeShutdown` true; after `{closed,0,0}` | PASS |
+| `outcome` / `error` / `result.finalDecision` | `success` / null / present (wording not evaluated) | PASS |
+| `timing.graphMs` | 26 174 ms (< 90 000 — no watchdog-review observation; watchdog stays 180 s) | recorded |
+
+SC-016: **PASS** (`REAL_BROWSER_PROMPT_API`). Findings: none. The T056 dirty smoke is not used.
+Working tree after saving: dirty only by this evidence file, `verification.md` and `tasks.md`
+(post-run; execution-time revision was clean).
+
+## Checkpoint E — audit, coverage, completion (2026-09-28)
+
+Repository: branch `004-browser-tradingagents-fixture-graph`, HEAD = implementation commit `a0584fd`;
+working tree dirty only in `specs/004…/` (tasks, verification, evidence) and `docs/roadmap.md` —
+post-run documentation, not code paths.
+
+### T060 Findings review
+
+**No Findings.** Carried observations (not findings): O-1 the `/web` entry does not pass the graph's
+signal to models called in nodes → every node forwards `config.signal` (G11, T032); O-2 LangGraph
+rejects the caller before in-flight work settles → settlement checked on a `ready` runtime before
+`shutdown()` (L3/L4, app (b), T042/T051). Adaptations, not findings: A11 deviation — all eight role
+outputs plain text, no structured fallback (8 logical requests); A4 simplification — no tools, facts
+come from the fixture. The Checkpoint B L4 count correction (5 earlier roles, not 6) was a
+documentation fix.
+
+### T061 Clean verification at `a0584fd`
+
+`npm ci` (0 vulnerabilities; `package-lock.json` unchanged) → typecheck exit 0 → build PASS
+(`dist/index.html` + `dist/assets/`) → `npm test` 43/43 → `npm run test:browser` 7/7 →
+`npm ls`: `akarisp@0.1.0-alpha.2`, `@langchain/core@1.2.13` (single copy, all others `deduped`),
+`@langchain/langgraph@1.4.18`. Test (a)'s record (revision `a0584fd…` without `+dirty`,
+`BROWSER_AUTOMATED`, `standin`, `success`, 8 logical requests, `graphMs` 61) saved byte-identical as
+`evidence/browser-automated-2026-09-28-a0584fd.json` (SC-021).
+
+### T062 Static audit
+
+| Check | Result |
+|---|---|
+| `git diff 4627c73 -- package.json package-lock.json src/integration` | empty — dependencies, `AkariChatModel`, AkariSP changes 0/0 |
+| root `@langchain/langgraph` imports (`src`, `test`, `e2e`) | 0; `src` uses `/web` only |
+| `akarisp` imports in `src/graph/` | 0 — roles reach AkariSP only via `AkariChatModel` |
+| `fetch(` / URLs / API key / axios / proxy in `src/` | 0 |
+| tools, RAG, retrieval, checkpoint, memory, interrupt in `src/` | 0 |
+| new classes / `*Runtime` / `*Registry` / `*Engine` / `*Pool` in `src/` | 0 (only the unchanged Feature 002 `AkariChatModel`) |
+| Sentiment/Fundamentals analysts, multi-round debate, three-person risk debate | 0 (grep hits: `Math.round` ×2, "grounded") |
+| `structuredOrFreeText` in `src/graph/`, `src/main.ts` | 0 |
+| Feature 005 work | 0 |
+| canonical `index.html` | one (plus the Feature 002 `harness/index.html`) |
+| topology (`trading-graph.ts`) | START→Market, START→News; `[Market, News]`→Bull; Bull→Bear→RM→Trader→Risk→Final→END (Bull and Bear sequential) |
+
+FR-024 audit (`test/`, `e2e/`): every assertion on model output uses fake tokens (`out-*`,
+`bull-said-7f3a`, Feature 002 fakes such as `hello back`), the `stand-in reply to:` prefix, fixture
+sentinels, `""` (G16) or presence (`toBeTruthy`, `#result` equals the recorded value). Buy/sell,
+profit, quality or correctness assertions: 0.
+
+### T063 Historical hashes
+
+`shasum -a 256 -c` against the 33 T003 lines: 33 OK, 0 mismatch (specs/001 5, specs/002 13,
+specs/003 13, harness 2); no new/untracked files under those paths. The T053 deletions
+(`src/graph/minimal-graph.ts`, `src/graph/fixture.ts`, `test/minimal-graph.test.ts`,
+`test/graph-integration.test.ts`) are outside these paths: all four absent, references 0.
+
+### T064 Requirement coverage
+
+| Req | Tasks | Evidence |
+|---|---|---|
+| FR-001 | T007–T010, T012, T045 | role-table test, G1; app (a); native record (8 nodes) |
+| FR-002 | T006, T017 | G2 sentinels; `fixture: tradingagents-fixture@1` in both records |
+| FR-003 | T017 | G2 |
+| FR-004 | T018, T037 | G3; L2; app (a) fan-out |
+| FR-005 | T019–T020, T014 | G4 both orders; G1 |
+| FR-006 | T021 | G5 (`bull-said-7f3a` in Bear) |
+| FR-007 | T023–T026 | G6–G9 (includes + excludes) |
+| FR-008 | T008, T012, T023–T024 | role-table test; G6, G7 |
+| FR-009 | T007, T014 | G1 (nine fields, own writer); T062 no message list |
+| FR-010 | T015, T062 | G10 (one user message, 0 fallbacks); `structuredOrFreeText` 0 |
+| FR-011 | T027, T062 | G11; static: `src/integration` diff empty, `akarisp` in `src/graph` 0 |
+| FR-012 | T036, T046, T050 | L1; app (e) |
+| FR-013 | T027, T032 | G11 + Regression A mutation |
+| FR-014 | T028–T029, T038–T039, T049 | G12, G13; L3, L4; app (b) |
+| FR-015 | T030–T031, T040 | G14, G15; L5 |
+| FR-016 | T036, T038–T042, T048–T051 | L1, L3–L5 + T042; app (a)(b) + T051 |
+| FR-017 | T047–T048, T059 | app (a); native record (`nodeEvents`, nodes, counts, snapshots) |
+| FR-018 | T047–T048, T059 | app (a) counts/concurrency fields; native record |
+| FR-019 | T045–T050 | app (a)–(e) |
+| FR-020 | T048, T050, T059 | app (a) `BROWSER_AUTOMATED`, (c) `BLOCKED`; native `REAL_BROWSER_PROMPT_API` |
+| FR-021 | T047, T059 | T059 contract table |
+| FR-022 | T003, T063 | 33/33 hashes |
+| FR-023 | T062 | static audit |
+| FR-024 | T062 | FR-024 audit |
+| FR-025 | T060 | findings review (none) |
+| SC-001 | T014 | G1 |
+| SC-002 | T018 | G3 |
+| SC-003 | T017 | G2 |
+| SC-004 | T019–T020 | G4 both orders |
+| SC-005 | T021 | G5 |
+| SC-006 | T023 | G6 |
+| SC-007 | T024–T026 | G7–G9 |
+| SC-008 | T014, T026, T059 | G1, G9; native `result.finalDecision` |
+| SC-009 | T015, T036, T048, T059 | G10; L1; app (a); native 8/0 |
+| SC-010 | T030–T031, T040 | G14, G15; L5 |
+| SC-011 | T028–T029, T038–T039 | G12, G13; L3, L4 |
+| SC-012 | T038–T042 | L3–L5 + T042 |
+| SC-013 | T037, T048, T059 | L2; app (a); native `{ready,1,1}` |
+| SC-014 | T027, T062 | G11; static audit |
+| SC-015 | T048–T049 | app (a), (b) |
+| SC-016 | T058–T059 | `evidence/real-browser-2026-09-28-a0584fd.json` |
+| SC-017 | T062 | `git diff 4627c73 -- src/integration package*.json` empty |
+| SC-018 | T062 | static audit |
+| SC-019 | T062 | static audit; one `index.html` |
+| SC-020 | T063 | 33/33 |
+| SC-021 | T061 | clean verification |
+
+FR 25/25, SC 21/21 mapped; documentation-only rows 0.
+
+### T065 Roadmap
+
+`docs/roadmap.md`: Feature 004 complete (real Prompt API, `a0584fd`), carry-overs A11 deviation and
+A4 simplification; Feature 005 = real market/news data boundary (next candidate).
+
+### T066 Completion record
+
+- Revision: `a0584fdcf03c52aa679eb5b8ffc3a9d8104222b7` (clean at execution for both records).
+- Versions: akarisp 0.1.0-alpha.2, @langchain/core 1.2.13, @langchain/langgraph 1.4.18.
+- Graph/fixture: `tradingagents-fixture-graph@1` / `tradingagents-fixture@1`.
+- Import surface: `@langchain/langgraph/web` in `src/graph/trading-graph.ts`; AkariSP only through
+  `src/integration/akari-chat-model.ts`.
+- AkariSP changes: 0 source / 0 public API. External data 0. Tool calling 0.
+- Gates: `DETERMINISTIC_TEST` PASS (G1–G16 + role table), `NODE_INTEGRATION` PASS (L1–L6),
+  `BROWSER_AUTOMATED` PASS (app (a)–(e)), `REAL_BROWSER_PROMPT_API` PASS (T058/T059).
+- Provenance verified per role: Market, News (G2); Bull, Bear (G5); Research Manager (G6); Trader
+  (G7); Risk Reviewer (G8); Final Decision (G9).
+- Fan-out G3/L2; fan-in G4 both orders. C1 G12/L3/app (b); C2 G13/L4. F1 G14/L5; F2 G15.
+  Regression A T032; Regression B T042 (Node) + T051 (`main.ts`); mutation residue 0.
+- Orphaned work: 0 (every cancel/failure case settles `ready 0/0` before shutdown).
+- Native: logical requests 8, fallback 0 (observed); provider invocations NOT EXPOSED; native
+  concurrency NOT CLAIMED (fan-out `{ready,1,1}` = AkariSP backpressure); `timing.graphMs` 26 174 ms
+  (< 90 s, no watchdog review; watchdog 180 s).
+
+**Implementation status: COMPLETE. Real-provider validation: PASS. Feature status: COMPLETE**
+(spec Completion Model: SC-001–SC-015, SC-017–SC-021 and SC-016 with `REAL_BROWSER_PROMPT_API`).
+
+Final gate after the T060–T066 documentation updates: typecheck exit 0, build exit 0, `npm test`
+43/43, `npm run test:browser` 7/7, `npm ls` 0.1.0-alpha.2 / 1.2.13 / 1.4.18; code paths clean
+(`git status --porcelain -- index.html src test harness e2e package.json package-lock.json vite.config.ts`
+empty), so both evidence records still represent the final code. Native not re-run (no code change).
