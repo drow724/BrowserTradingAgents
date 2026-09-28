@@ -186,3 +186,19 @@ the bridge contract. Notes:
   failure.
 
 **Real-provider validation: PASS** (`REAL_BROWSER_PROMPT_API`).
+
+## Harness update: active cancellation in S4 (after Checkpoint D)
+
+- `ae0c5e3`: S4 now cancels a **queued** request and then an **active** request (slot held,
+  inside the model), checking the caller error, settlement through `snapshot()` and reuse
+  (closes the Checkpoint D coverage gap once a real-browser run of this revision is recorded).
+- **Stale-revision incident (corrected)**: the stand-in record regenerated right after `ae0c5e3`
+  was stamped `5dac1a2` because Playwright reused an already-running dev server, and Vite embeds
+  `__BTA_REVISION__` when the server **starts** (the served code was current; the label was not).
+  Fix `e18a100`: Playwright always starts its own server on port 5174 (`reuseExistingServer:
+  false`). `evidence/browser-automated-2026-09-28.json` regenerated: revision `e18a100`, S4
+  `target: queued+active` PASS (active part: caller `TaskError:cancelled`, then `0/0`, further
+  request PASS), counts 14 operations / 14 logical requests / stand-in prompts 12.
+- **Rule for real-browser runs**: restart `npm run harness` after any commit before running, so
+  the page's revision matches the code it serves. The existing real-browser record
+  (`5dac1a2`) is unaffected: that server started at `5dac1a2` with identical code.
