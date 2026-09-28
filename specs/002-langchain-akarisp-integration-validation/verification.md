@@ -57,3 +57,39 @@ Notes from this checkpoint:
   rejects immediately on an already-aborted signal, as `Runtime.run` does. No production change.
 - `src/` contains exactly `integration/akari-chat-model.ts` (52 lines) and
   `integration/structured.ts` (26 lines). No queue, pool, timer, retry or registry.
+
+## Checkpoint B — real AkariSP runtime, stand-in provider (T014–T022)
+
+Evidence class: **`NODE_INTEGRATION` (stand-in)** — real `akarisp@0.1.0-alpha.2` `createRuntime()`
+behind the bridge; `globalThis.LanguageModel` replaced by `test/standin.ts`. **Not** browser
+evidence and **not** Prompt API evidence. Environment: Node 23.9.0, macOS.
+Commands: `npm run typecheck` → exit 0; `npm test` → 19 tests, 19 pass, 0 fail
+(`test/node-integration.test.ts`: 6/6; 5 additional repeat runs of that file: 0 failures).
+
+| Scenario | Result | Public observation |
+|---|---|---|
+| S1 single (T015) | PASS | `AIMessage` content = stand-in output; `state: 'ready'` |
+| S2 reuse (T016) | PASS | 2 sequential requests, `createRuntime()` calls = 1; `snapshot()` `ready 0/0` after; stand-in-only corroboration: creates 1, clones 2, prompts 2 |
+| S3 concurrent ×2 (T017) | PASS | default `limit` 1; while A held: `{ active: 1, queued: 1 }` with 2 bridge `start` events (both calls reached `runtime.run` — no bridge queue); both resolve; B `timing.queueWait > 0`; then `0/0` |
+| S4 queued cancellation (T018) | PASS | B aborted while queued → caller rejects with **`TaskError` code `cancelled`**; queue drains to 0 while A stays active; bridge event `errorKind: 'cancelled'`; A then resolves; a further request succeeds |
+| Active cancellation (T019) | PASS | A aborted while in `prompt()` → caller rejects with `TaskError('cancelled')`; `active` returns to 0; further request succeeds |
+| S7 shutdown (T020) | PASS | `shutdown()` twice resolves; `snapshot()` `{ state: 'closed', active: 0, queued: 0 }`; request after shutdown rejects `TaskError('closed')` — matches research R2 |
+
+Counts across the Node integration file (from the bridge; stand-in counts reported separately):
+
+| Metric | Source | Value |
+|---|---|---|
+| Workflow operations | test scenarios | 6 scenarios; each request = 1 operation (no structured helper in this file) |
+| Logical model requests | `AkariChatModel.logicalRequests` / `start` events | per test as asserted (e.g. S3: 2, S4: 3 incl. the post-cancel request) |
+| Fallback requests | — | 0 (structured fallback is covered by `DETERMINISTIC_TEST`, Checkpoint A) |
+| Provider invocations | AkariSP public API | **NOT EXPOSED** |
+| Stand-in prompts | stand-in instrumentation only | e.g. S2: 2 — not an AkariSP metric |
+
+Findings review (T022): **no findings**. Every observation matches the AkariSP public contract
+(research R2). One **planning-document correction** (not a finding, no contract problem):
+
+- **Research N-2 corrected**: planning stated that LangChain rejects the caller before AkariSP
+  settles. Observed and confirmed in source: `BaseChatModel.invoke` does not race the signal on
+  the non-streaming path, so the caller receives AkariSP's `TaskError('cancelled')` after the task
+  settles. `research.md` R4 / notes table and `contracts/bridge.md` updated accordingly; tests keep
+  checking settlement through `snapshot()` regardless.

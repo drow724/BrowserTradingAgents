@@ -62,13 +62,17 @@ From `dist/index.d.ts`, `dist/core/runtime.d.ts`, `dist/browser/runtime.d.ts` an
 
 ## R4. Cancellation semantics across LangChain → bridge → AkariSP
 
-- **Fact (note N-2)**: `Runnable.invoke` wraps the call in `raceWithSignal` (`dist/utils/signal.js`):
-  on abort the caller's promise rejects **immediately** with the signal's reason (or
-  `Error("Aborted")`), without waiting for the model call to settle. The underlying
-  `runtime.run()` still receives the same signal and settles later with
-  `TaskError('cancelled')`.
+- **Note N-2 (corrected 2026-09-28 during T018, source + test win over the planning statement)**:
+  planning assumed `Runnable.invoke`'s `raceWithSignal` makes the caller reject before the model
+  call settles. In `@langchain/core@1.2.13`, `BaseChatModel.invoke` **overrides** `Runnable.invoke`
+  (`dist/language_models/chat_models.js` L82–85) and the non-streaming `_generateUncached` path
+  calls `_generate` without `raceWithSignal`. Observed in `NODE_INTEGRATION` (stand-in): for both
+  queued and active cancellation the caller rejects with AkariSP's own `TaskError` code
+  `cancelled` (propagated unchanged by the bridge), i.e. **after** AkariSP settles the task.
+  `raceWithSignal` still applies to other Runnable paths (e.g. chains), so verification keeps
+  checking settlement through `snapshot()` rather than inferring it from the caller.
 - **Decision**: the bridge forwards `options.signal` unchanged to `runtime.run`. Cancellation
-  verification observes both sides: (a) caller rejects with an abort error, not a response;
+  verification observes both sides: (a) caller rejects with a cancellation error (observed: `TaskError('cancelled')`), not a response;
   (b) AkariSP settles — confirmed by waiting until `snapshot()` shows `active + queued = 0` and by
   the bridge's own log event carrying `TaskError.code === 'cancelled'`.
 - **Scenario chosen**: **queued-request cancellation** with `limit: 1` and two concurrent
@@ -152,7 +156,7 @@ From `dist/index.d.ts`, `dist/core/runtime.d.ts`, `dist/browser/runtime.d.ts` an
 | ID | Note | Impact |
 |---|---|---|
 | N-1 | registry `gitHead` `bd5b66e` ≠ reference `7e8202e`; production source identical | none; baseline unchanged |
-| N-2 | LangChain rejects the caller on abort before the model call settles | verification waits on `snapshot()` |
+| N-2 | (corrected) chat-model `invoke` does not race the signal; caller receives AkariSP's `TaskError('cancelled')` after settlement | verification still checks `snapshot()` |
 | N-3 | `withStructuredOutput` needs tool calling | application-local fallback helper |
 | N-4 | AkariSP `run()` forwards only `signal` to `prompt()` | no constrained decoding via AkariSP; not required |
 | N-5 | `createCoreRuntime`/`SessionProvider` not publicly exported | deterministic AkariSP tests use a platform stand-in |

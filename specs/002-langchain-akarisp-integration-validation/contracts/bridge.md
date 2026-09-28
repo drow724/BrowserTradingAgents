@@ -24,7 +24,7 @@ Behavior:
 | `invoke(messages)` | `runtime.run(converted, { signal })` once; resolves an `AIMessage` whose `content` is `TaskResult.output` |
 | caller passes `{ signal }` | the same `AbortSignal` reaches `runtime.run` |
 | `runtime.run` rejects (`TaskError` or other) | the same error object is rethrown; never a success message |
-| caller aborts | caller rejects with the abort error (LangChain `raceWithSignal`); the AkariSP task settles separately (`TaskError('cancelled'` or per contract) |
+| caller aborts | the AkariSP task settles and the caller rejects with its `TaskError` (code `cancelled`), propagated unchanged (verified T018/T019, research N-2 corrected) |
 | parallel `invoke()` calls | each goes straight to `runtime.run`; ordering/queueing is AkariSP's |
 | unsupported message type / non-string content | `TypeError` before any request |
 
