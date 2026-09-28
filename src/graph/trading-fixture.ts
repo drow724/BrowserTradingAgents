@@ -15,3 +15,10 @@ export const FIXTURE: TradingFixture = {
     'A regional supplier reported delays in glass components (news fact N2).',
   ].join(' '),
 };
+
+// Feature 005 live mode: the News Analyst still runs, on committed news that names no company, so a
+// real instrument is never paired with invented company news (specs/005…/spec.md FR-005, FR-005a).
+export const NEUTRAL_NEWS = {
+  id: 'neutral-news@1',
+  text: 'No company-specific news is supplied for this run (committed neutral fixture; no news source is connected).',
+};
