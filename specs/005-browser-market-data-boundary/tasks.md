@@ -387,7 +387,7 @@ The tests share one file and run sequentially.
     - native + fixture is proven by T044
     - native + live and SC-016 are proven by L5 (T051)
     - FEATURE_COMPLETE still needs P-1 + L4 + L5 + the final audit (T056)
-- [ ] T043 **APPROVAL REQUIRED — commit.**
+- [X] T043 **APPROVAL REQUIRED — commit.**
   - With the maintainer's approval, commit the implementation to `005-browser-market-data-boundary`
     (no push unless asked). Exclude `.claude/`, `.specify/*` tooling, `CLAUDE.md` and `.local/`.
   - Confirm that

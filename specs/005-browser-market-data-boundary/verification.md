@@ -477,3 +477,13 @@ identical).
 - real Massive + stand-in, including authenticated success-response CORS (L4, T048)
 - native + real Massive = SC-016 (L5, T051)
 - the final audit (T052–T056)
+
+### T043 Commit (APPROVAL REQUIRED)
+
+Maintainer approved (2026-09-28). Local commit `9da4164cfee82c2c31501572b178d47a59d9ad3f` on
+`005-browser-market-data-boundary`, no push. Excluded: `.claude/`, `.specify/*` tooling, `CLAUDE.md`,
+`.local/`, `test-results/`, `dist/`, scratchpad files (R0 probe). Code paths clean afterwards
+(`git status --porcelain -- index.html src test harness e2e package.json package-lock.json
+vite.config.ts` empty). The T043 record itself is committed in a documentation-only follow-up
+commit (no code-path change); T044 runs at that follow-up HEAD. Any code/test change before T044
+requires a new clean commit.
