@@ -1,18 +1,18 @@
-// BrowserTradingAgents canonical page (Feature 003): runs the minimal graph once per click and prints
-// one evidence record (specs/003-…/contracts/evidence.md). One graph run owns one AkariSP runtime.
+// BrowserTradingAgents canonical page (Feature 004): runs the TradingAgents fixture graph once per click and prints
+// one evidence record (specs/004-…/contracts/evidence.md). One graph run owns one AkariSP runtime.
 // `?provider=standin` loads the test stand-in (BROWSER_AUTOMATED); otherwise the native Prompt API
 // is used and only `availability()` is consulted before running — this page never starts a download.
 import { createRuntime, TaskError, type Runtime } from 'akarisp';
 import { AkariChatModel, type BridgeEvent } from './integration/akari-chat-model.ts';
-import { FIXTURE } from './graph/fixture.ts';
-import { buildMinimalGraph, type NodeEvent } from './graph/minimal-graph.ts';
+import { FIXTURE } from './graph/trading-fixture.ts';
+import { buildTradingGraph, ROLES, type NodeEvent } from './graph/trading-graph.ts';
 
 declare const __BTA_REVISION__: string;
 declare const __AKARISP_VERSION__: string;
 declare const __LANGCHAIN_CORE_VERSION__: string;
 declare const __LANGGRAPH_VERSION__: string;
 
-const NODES = ['branchA', 'branchB', 'synthesize', 'decide'] as const;
+const NODES = ROLES.map((r) => r.node);
 const RUNTIME_OPTIONS = { limit: 1, queueCapacity: 32 };
 const WATCHDOG_MS = 180_000; // page protection only; not an AkariSP, LangGraph or Prompt API timeout
 
@@ -79,15 +79,16 @@ async function run() {
   for (const n of NODES) $(`node-${n}`).textContent = 'waiting';
 
   const base = {
-    feature: '003-langgraph-akarisp-minimal-graph',
+    feature: '004-browser-tradingagents-fixture-graph',
     provider,
     runner,
     environment: { userAgent: navigator.userAgent, date: new Date().toISOString().slice(0, 10), ...availability },
     revision: { browserTradingAgents: __BTA_REVISION__, akarisp: __AKARISP_VERSION__,
       langchainCore: __LANGCHAIN_CORE_VERSION__, langgraph: __LANGGRAPH_VERSION__ },
     fixture: FIXTURE.id,
-    prompts: 'src/graph/minimal-graph.ts',
-    graph: { topology: 'START→{branchA,branchB}; [branchA,branchB]→synthesize; synthesize→decide; decide→END',
+    prompts: 'src/graph/trading-graph.ts',
+    graph: { version: 'tradingagents-fixture-graph@1',
+      topology: 'START→{marketAnalyst,newsAnalyst}; [marketAnalyst,newsAnalyst]→bullResearcher; bullResearcher→bearResearcher→researchManager→trader→riskReviewer→finalDecisionMaker→END',
       entry: '@langchain/langgraph/web' },
     runtimeOptions: RUNTIME_OPTIONS,
   };
@@ -95,17 +96,17 @@ async function run() {
   let record: Record<string, unknown>;
   if (provider === 'native' && availability.availability !== 'MODEL_AVAILABLE') {
     record = { ...base, evidenceClass: 'BLOCKED', outcome: 'not-run', error: null,
-      nodes: Object.fromEntries(NODES.map((n) => [n, { status: 'waiting', executions: 0, modelRequests: 0 }])),
+      nodes: Object.fromEntries(ROLES.map((r) => [r.node, { status: 'waiting', executions: 0, modelRequests: 0, reads: r.reads }])),
       blocked: {
         reason: `native Prompt API availability: ${availability.availability}`,
         stillVerified: ['DETERMINISTIC_TEST', 'NODE_INTEGRATION (stand-in)', 'BROWSER_AUTOMATED (stand-in)'],
-        unverified: ['full minimal graph on the native Prompt API'],
+        unverified: ['full eight-role fixture graph on the native Prompt API'],
       } };
   } else {
     record = await runGraph(base);
   }
   $('evidence').textContent = JSON.stringify(record, null, 2);
-  $('result').textContent = (record.result as { decision?: string } | undefined)?.decision ?? String(record.error ?? '');
+  $('result').textContent = (record.result as { finalDecision?: string } | undefined)?.finalDecision ?? String(record.error ?? '');
   $('status').dataset.state = 'done';
   $('status').textContent = `done: ${record.evidenceClass} · ${record.outcome}`;
   ($('run') as HTMLButtonElement).disabled = false;
@@ -143,7 +144,7 @@ async function runGraph(base: Record<string, unknown>) {
       }
     },
   });
-  const { graph, modelRequests } = buildMinimalGraph(model, (e) => {
+  const { graph, modelRequests } = buildTradingGraph(model, (e) => {
     nodeEvents.push(e);
     $(`node-${e.node}`).textContent = e.event === 'start' ? 'running' : e.event;
   });
@@ -153,6 +154,8 @@ async function runGraph(base: Record<string, unknown>) {
   let state: Awaited<ReturnType<typeof graph.invoke>> | undefined;
   let settledBeforeShutdown = false;
   let snapshotBeforeShutdown: ReturnType<typeof snap> | undefined;
+  let graphMs = 0;
+  const t0 = performance.now();
   try {
     state = await graph.invoke({ input: FIXTURE }, { signal: runController.signal });
     outcome = 'success';
@@ -160,6 +163,7 @@ async function runGraph(base: Record<string, unknown>) {
     outcome = runController.signal.aborted ? 'cancelled' : 'failed';
     error = describe(e);
   } finally {
+    graphMs = Math.round(performance.now() - t0); // caller settlement; operational evidence only
     runEnded = true;
     clearTimeout(watchdog);
     // Caller settlement is not task settlement: AkariSP must drain by itself, on a `ready` runtime,
@@ -182,11 +186,11 @@ async function runGraph(base: Record<string, unknown>) {
     evidenceClass,
     outcome,
     error,
-    nodes: Object.fromEntries(NODES.map((n) => {
-      const own = nodeEvents.filter((e) => e.node === n);
+    nodes: Object.fromEntries(ROLES.map((r) => {
+      const own = nodeEvents.filter((e) => e.node === r.node);
       const last = own.at(-1)?.event;
-      return [n, { status: last === 'start' ? 'running' : (last ?? 'waiting'),
-        executions: own.filter((e) => e.event === 'start').length, modelRequests: modelRequests[n] }];
+      return [r.node, { status: last === 'start' ? 'running' : (last ?? 'waiting'),
+        executions: own.filter((e) => e.event === 'start').length, modelRequests: modelRequests[r.node], reads: r.reads }];
     })),
     nodeEvents,
     modelRequests: bridge.map((e) => ({ logicalRequestId: e.logicalRequestId, event: e.event,
@@ -204,6 +208,7 @@ async function runGraph(base: Record<string, unknown>) {
       nativeProvider: 'not observed (out of scope)',
     },
     lifecycle: { settledBeforeShutdown, snapshotBeforeShutdown, snapshotAfterShutdown: snap(runtime) },
-    ...(state ? { result: { decision: state.decision, synthesis: state.synthesis } } : {}),
+    timing: { graphMs },
+    ...(state ? { result: Object.fromEntries(ROLES.map((r) => [r.writes, state![r.writes]])) } : {}),
   };
 }
