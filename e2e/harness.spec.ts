@@ -1,8 +1,6 @@
 // BROWSER_AUTOMATED (stand-in): the harness in Playwright Chromium. Not Prompt API evidence.
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 import { expect, test, type Page } from '@playwright/test';
-
-const FD = 'specs/002-langchain-akarisp-integration-validation';
 
 async function run(page: Page, url: string) {
   await page.goto(url);
@@ -11,7 +9,7 @@ async function run(page: Page, url: string) {
   return JSON.parse((await page.locator('#evidence').textContent()) ?? '{}');
 }
 
-test('stand-in provider: S1–S5 and S7 PASS, S6 observed', async ({ page }) => {
+test('stand-in provider: S1–S5 and S7 PASS, S6 observed', async ({ page }, testInfo) => {
   const record = await run(page, '/?provider=standin');
   const s = record.scenarios;
   expect(record.evidenceClass).toBe('BROWSER_AUTOMATED');
@@ -31,8 +29,8 @@ test('stand-in provider: S1–S5 and S7 PASS, S6 observed', async ({ page }) => 
   expect(s.S4_cancel.active.requestAfter).toBe('PASS');
   expect(s.S5_structured.fallbacks).toBeLessThanOrEqual(1);
   expect(s.S7_cleanup.snapshotAfterShutdown).toEqual({ state: 'closed', active: 0, queued: 0 });
-  mkdirSync(`${FD}/evidence`, { recursive: true });
-  writeFileSync(`${FD}/evidence/browser-automated-${record.environment.date}.json`, JSON.stringify(record, null, 2) + '\n');
+  // Routine runs never overwrite committed Feature evidence; copy this file there deliberately.
+  writeFileSync(testInfo.outputPath('evidence.json'), JSON.stringify(record, null, 2) + '\n');
 });
 
 test('native provider in Playwright Chromium: no Prompt API model → BLOCKED, nothing PASS', async ({ page }) => {

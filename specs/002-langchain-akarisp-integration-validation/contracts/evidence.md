@@ -7,6 +7,7 @@ One JSON object per harness run, committed under `evidence/` as
 {
   "evidenceClass": "REAL_BROWSER_PROMPT_API | BROWSER_AUTOMATED | BLOCKED",
   "provider": "native | standin",
+  "runner": "manual | playwright",
   "environment": { "userAgent": "…", "browserLabel": "Chrome 153", "date": "YYYY-MM-DD",
                    "availability": "API_ABSENT | API_PRESENT_UNAVAILABLE | MODEL_DOWNLOADABLE | MODEL_DOWNLOADING | MODEL_AVAILABLE | UNKNOWN_AVAILABILITY" },
   "feature": "002-langchain-akarisp-integration-validation",
@@ -34,3 +35,8 @@ Rules: `provider: "standin"` can never have `evidenceClass: "REAL_BROWSER_PROMPT
 any stand-in is installed), also in stand-in runs. `S6_systemRole.observation` carries the provider
 suffix (e.g. `supported (standin)`); a stand-in observation says nothing about the Prompt API. A
 `BLOCKED` record fills `blocked`. Skipped scenarios are `BLOCKED`, never `PASS`.
+
+`runner` (added after Feature 002 completion, infra `infra-real-prompt-api-playwright`) is declared
+by whoever opens the page (`?runner=playwright`); default `manual`. A `REAL_BROWSER_PROMPT_API`
+record with `runner: playwright` comes from `npm run test:prompt-api` (Playwright driving the
+installed Google Chrome on a cloned model profile).

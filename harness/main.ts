@@ -17,6 +17,7 @@ type Scenario = { outcome: Outcome; [key: string]: unknown };
 const $ = (id: string) => document.getElementById(id)!;
 const params = new URLSearchParams(location.search);
 const provider = params.get('provider') === 'standin' ? 'standin' : 'native';
+const runner = params.get('runner') === 'playwright' ? 'playwright' : 'manual'; // declared by the opener
 const runtimeOptions = { limit: 1, queueCapacity: 32 };
 const WATCHDOG_MS = 120_000; // harness behavior, not AkariSP behavior
 
@@ -212,6 +213,7 @@ async function runAll() {
   const record = {
     evidenceClass,
     provider,
+    runner,
     environment,
     feature: '002-langchain-akarisp-integration-validation',
     revision: { browserTradingAgents: __BTA_REVISION__, akarisp: __AKARISP_VERSION__, langchainCore: __LANGCHAIN_CORE_VERSION__ },

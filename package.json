@@ -9,8 +9,10 @@
     "typecheck": "tsc --noEmit",
     "build": "vite build",
     "test": "node --test test/*.test.ts",
-    "test:browser": "playwright test",
-    "harness": "vite"
+    "test:browser": "playwright test --project=chromium",
+    "harness": "vite",
+    "test:prompt-api": "playwright test --project=prompt-api",
+    "prepare:prompt-api": "sh scripts/prepare-prompt-api-profile.sh"
   },
   "dependencies": {
     "@langchain/core": "1.2.13",
