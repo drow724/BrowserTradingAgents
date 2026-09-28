@@ -23,7 +23,7 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 | Feature | Scope | Status |
 |---|---|---|
 | 001 | TradingAgents v0.5.1 reference analysis | complete |
-| 002 | LangChain.js ↔ AkariSP integration validation (thin bridge) | in progress |
+| 002 | LangChain.js ↔ AkariSP integration validation (thin bridge) | complete — real Prompt API evidence (Chrome 152/153); carry-over: N-6 JSON code fences trigger the structured fallback, N-7 `system` role accepted but not a contract |
 | 003 | LangGraph.js ↔ AkariSP: minimal graph, parallel branches, fan-in, sequential nodes | candidate |
 | 00N | User-runnable browser app: Feature 001 minimum graph (Market ‖ News → Bull → Bear → Research Manager → Trader → Risk Reviewer → Final Decision) on fixtures, static build, result page | candidate |
 | later | Real market/news data (see below) | deferred (Constitution IX) |
