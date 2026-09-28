@@ -1,0 +1,204 @@
+{
+  "feature": "003-langgraph-akarisp-minimal-graph",
+  "provider": "native",
+  "runner": "playwright",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+    "date": "2026-09-28",
+    "availability": "MODEL_AVAILABLE",
+    "raw": "available"
+  },
+  "revision": {
+    "browserTradingAgents": "4e64472f3b9425f2e5c76a14dc6cbdf1338821c4",
+    "akarisp": "0.1.0-alpha.2",
+    "langchainCore": "1.2.13",
+    "langgraph": "1.4.18"
+  },
+  "fixture": "minimal-graph-fixture@1",
+  "prompts": "src/graph/minimal-graph.ts",
+  "graph": {
+    "topology": "START→{branchA,branchB}; [branchA,branchB]→synthesize; synthesize→decide; decide→END",
+    "entry": "@langchain/langgraph/web"
+  },
+  "runtimeOptions": {
+    "limit": 1,
+    "queueCapacity": 32
+  },
+  "evidenceClass": "REAL_BROWSER_PROMPT_API",
+  "outcome": "success",
+  "error": null,
+  "nodes": {
+    "branchA": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1
+    },
+    "branchB": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1
+    },
+    "synthesize": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1
+    },
+    "decide": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1
+    }
+  },
+  "nodeEvents": [
+    {
+      "node": "branchA",
+      "event": "start",
+      "seq": 1
+    },
+    {
+      "node": "branchB",
+      "event": "start",
+      "seq": 2
+    },
+    {
+      "node": "branchA",
+      "event": "done",
+      "seq": 3
+    },
+    {
+      "node": "branchB",
+      "event": "done",
+      "seq": 4
+    },
+    {
+      "node": "synthesize",
+      "event": "start",
+      "seq": 5
+    },
+    {
+      "node": "synthesize",
+      "event": "done",
+      "seq": 6
+    },
+    {
+      "node": "decide",
+      "event": "start",
+      "seq": 7
+    },
+    {
+      "node": "decide",
+      "event": "done",
+      "seq": 8
+    }
+  ],
+  "modelRequests": [
+    {
+      "logicalRequestId": 1,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 2,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 1,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 1945.4000000953674,
+        "queueWait": 0,
+        "acquire": 3.1999998092651367,
+        "prompt": 1941.9000000953674
+      }
+    },
+    {
+      "logicalRequestId": 2,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 3250.2000000476837,
+        "queueWait": 1945.4000000953674,
+        "acquire": 1.2000000476837158,
+        "prompt": 1303.5
+      }
+    },
+    {
+      "logicalRequestId": 3,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 3,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 2186.7000000476837,
+        "queueWait": 0,
+        "acquire": 0.39999985694885254,
+        "prompt": 2186.2000000476837
+      }
+    },
+    {
+      "logicalRequestId": 4,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 4,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 423.7000000476837,
+        "queueWait": 0,
+        "acquire": 0.20000004768371582,
+        "prompt": 423.5
+      }
+    }
+  ],
+  "counts": {
+    "graphRuns": 1,
+    "nodeExecutions": 4,
+    "logicalRequests": 4,
+    "fallbackRequests": 0,
+    "providerInvocations": "NOT EXPOSED"
+  },
+  "concurrency": {
+    "graph": "branch requests submitted before either completed: 2",
+    "akarisp": {
+      "fanOutSnapshot": {
+        "snapshot": {
+          "state": "ready",
+          "active": 1,
+          "queued": 1,
+          "limit": 1,
+          "queueCapacity": 32
+        },
+        "pollMs": 0
+      }
+    },
+    "nativeProvider": "not observed (out of scope)"
+  },
+  "lifecycle": {
+    "settledBeforeShutdown": true,
+    "snapshotBeforeShutdown": {
+      "state": "ready",
+      "active": 0,
+      "queued": 0
+    },
+    "snapshotAfterShutdown": {
+      "state": "closed",
+      "active": 0,
+      "queued": 0
+    }
+  },
+  "result": {
+    "decision": "POSITIVE\n",
+    "synthesis": "The Riverside Community Library is thriving, appreciated for its children's programs despite upcoming roof repairs scheduled for autumn.  Recently, the library also enhanced its services by opening a new reading room in March and extending weekday hours to 8 PM.\n\n\n\n"
+  }
+}

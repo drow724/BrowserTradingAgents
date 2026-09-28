@@ -343,3 +343,169 @@ the watchdog now starts after the runtime exists (it never could cancel `createR
 catch no longer clears it; result/error display moved to one line in `run()`. Gates: typecheck,
 build PASS; `npm test` 36/36; `npm run test:browser` 6/6. T053 mutation repeated (shutdown before
 the settle poll): `app.spec.ts` (a) and (b) fail; restored (`cmp` identical, marker 0), 6/6 again.
+
+## Native gate and final verification (2026-09-28)
+
+Implementation commit: `4e64472f3b9425f2e5c76a14dc6cbdf1338821c4` (pushed to
+`origin/003-langgraph-akarisp-minimal-graph`). All runs below: bundled code paths clean at that
+commit (no `+dirty`).
+
+### T060 Clean verification
+
+- `npm ci`: added 45 packages. `npm ls`: `akarisp@0.1.0-alpha.2`, `@langchain/core@1.2.13`
+  (single, deduped), `@langchain/langgraph@1.4.18`.
+- `npm run typecheck`: PASS. `npm run build`: PASS (`dist/index.html` only; chunk-size warning).
+- `npm test`: 36 tests, 36 pass (Feature 002 19; Feature 003 deterministic 12; Node integration 5).
+- `npm run test:browser`: 6 passed (`app.spec.ts` 4, `harness.spec.ts` 2).
+- `npm run test:prompt-api`: 2 passed (Feature 002 harness S1–S5/S7 PASS; Feature 003 canonical graph).
+
+### T066 Browser automated record (clean)
+
+`evidence/browser-automated-2026-09-28-4e64472.json`: `BROWSER_AUTOMATED`, stand-in, `success`,
+logical 4, fallback 0, providers NOT EXPOSED, `fanOutSnapshot {ready, 1, 1}` (0 ms),
+`settledBeforeShutdown` true. The earlier `browser-automated-2026-09-28.json` (`6c79c91+dirty`,
+before the Run-button readiness fix and poll simplification) is kept as a historical record.
+
+### T057 Native run
+
+Run on the maintainer's machine with `npm run test:prompt-api` (runner `playwright`, one of the two
+runners T057 allows), executed by Claude on the maintainer's explicit instruction ("자동화 테스트
+진행"), after the implementation commit. Installed Google Chrome 153.0.8010.53, headless, golden
+profile model `2025.8.8.1141`, `OptimizationHints` re-enabled; no model download.
+
+### T058 Native evidence validation — `evidence/real-browser-2026-09-28-4e64472.json`
+
+| Check | Value | Result |
+|---|---|---|
+| evidenceClass / provider / runner | `REAL_BROWSER_PROMPT_API` / `native` / `playwright` | PASS |
+| availability | `MODEL_AVAILABLE` (UA `HeadlessChrome/153.0.0.0`) | PASS |
+| revision | `4e64472f…` (clean) | PASS |
+| versions | akarisp 0.1.0-alpha.2, core 1.2.13, langgraph 1.4.18 | PASS |
+| fixture / runtimeOptions | `minimal-graph-fixture@1` / `{limit 1, queueCapacity 32}` | PASS |
+| outcome / error | `success` / null | PASS |
+| nodes | 4 × `{done, executions 1, modelRequests 1}` | PASS |
+| order | A start, B start, A done, B done, synthesize start/done, decide start/done | PASS |
+| logical / fallback / providers | 4 / 0 / NOT EXPOSED (measured) | PASS (SC-021) |
+| fan-out | `{ready, active 1, queued 1}` after 0 ms — AkariSP backpressure; native concurrency not observed | recorded |
+| lifecycle | `settledBeforeShutdown` true (`ready 0/0`), after shutdown `closed 0/0` | PASS |
+| result | present (decision `"POSITIVE\n"`; wording not evaluated) | PASS |
+
+SC-011: **PASS**.
+
+### T059 Findings review
+
+Findings (spec format): none. No LangGraph/LangChain/AkariSP contract mismatch required an
+application workaround beyond the planned design or an AkariSP change.
+
+Observations (not findings, not AkariSP change requests):
+- **O-1**: LangGraph's browser entry (`web.js`) does not propagate the graph's `AbortSignal` into a
+  model called inside a node (no AsyncLocalStorage). Handled by explicit `config.signal`
+  forwarding; guarded by G8/G9 + T026 mutation and browser test (b).
+- **O-2**: LangGraph rejects the caller before in-flight node work settles. Handled by checking
+  AkariSP settlement on a `ready` runtime before `shutdown()`; guarded by L3/L4, app (b), T034/T053.
+- Application bugs fixed during implementation (own code): fan-out poll timing (Checkpoint C),
+  click-before-handler race (T055), unhandled `createRuntime()` rejection (T065).
+- Spec edge cases without dedicated tests: abort before the run starts (Cancel is a no-op when idle;
+  the controller is per run), abort during Synthesis/Decision (same signal path as G9, not run
+  separately), empty model response (not observed; would be stored as the node's output) — recorded
+  as observations only.
+
+### T061 Static scope audit
+
+- `git diff 6c79c91 -- src/integration`: empty (FR-005). `akarisp` imported only as the package
+  root (FR-003). AkariSP source/API changes: 0/0 (SC-012, SC-013).
+- TradingAgents role names in `src/`: 0 (SC-014). `fetch(`/URLs/WebSocket in `src/`: 0; production
+  deps = `@langchain/core`, `@langchain/langgraph`, `akarisp` (SC-015).
+- Classes, `Send`, conditional edges, checkpointer, `retryPolicy`, tools in `src/graph` +
+  `src/main.ts`: 0 (SC-016).
+- HTML entries: `index.html` (canonical) + historical `harness/index.html`; no new Feature-specific
+  app (SC-017). Root-entry LangGraph imports in `src test e2e`: 0.
+- Feature 002 files (`harness/`, `specs/002-…/`): 15/15 SHA-256 identical to T003 (FR-024).
+
+### T063 Requirement coverage
+
+| Req | Evidence |
+|---|---|
+| FR-001 | T004/T005: one new prod dep `@langchain/langgraph@1.4.18`, exact, lockfile; `npm ls` clean |
+| FR-002 | `@langchain/core@1.2.13` single copy (T005, T060) |
+| FR-003 | T061: root `akarisp` imports only; 0 AkariSP changes |
+| FR-004 | T027/T061: no `akarisp` in `src/graph`; G7 + "user-role" test: all 4 `run()` via `AkariChatModel` |
+| FR-005 | T061: `src/integration` diff empty |
+| FR-006 | `src/graph/minimal-graph.ts` edges; G1, G3, G5 |
+| FR-007 | G1, G2 |
+| FR-008 | G3 (both orders), G4 |
+| FR-009 | G5 |
+| FR-010 | `Annotation.Root` with 5 last-value keys, no reducer (code review) |
+| FR-011 | `src/graph/fixture.ts`; T061 no network |
+| FR-012 | L1, L5; `src/main.ts` one runtime per run; app (a)/(b) closed after shutdown |
+| FR-013 | `runtimeOptions {1, 32}` in every record; L2 |
+| FR-014 | user-role test; no `SystemMessage`/`structuredOrFreeText` in `src/graph`/`src/main.ts`; fallback 0 |
+| FR-015 | G8, G9, L3, app (b); T026 mutation |
+| FR-016 | G9, L3, app (b) `cancelled`, no result |
+| FR-017 | G10, L4 |
+| FR-018 | L3, L4, L5, app (a)/(b) `settledBeforeShutdown`; T034/T053 mutations |
+| FR-019 | record `nodes`, `nodeEvents`, `modelRequests`, `counts`, `fanOutSnapshot`, `lifecycle` (app (a), native record) |
+| FR-020 | `counts` keys; `providerInvocations: NOT EXPOSED` asserted |
+| FR-021 | `concurrency` block (graph / akarisp / nativeProvider) in every record |
+| FR-022 | `index.html` + `src/main.ts`; app (a)(b)(c)(d); no UI framework |
+| FR-023 | app (a) `standin`; app (c) native default; stand-in chunk loaded only with `?provider=standin` |
+| FR-024 | T049, T061: Feature 002 hashes 15/15; harness tests at `/harness/` pass |
+| FR-025 | DETERMINISTIC 12, NODE_INTEGRATION 5, BROWSER_AUTOMATED 4, REAL_BROWSER_PROMPT_API 1 |
+| FR-026 | record fields asserted in app (a) and T058 |
+| FR-027 | T059: findings none; observations O-1, O-2 |
+| SC-001 | FR-001 |
+| SC-002 | G6, G7, L1 |
+| SC-003 | G1, G2 |
+| SC-004 | G3 (A first, B first), G4 |
+| SC-005 | G5 |
+| SC-006 | FR-004 |
+| SC-007 | G8, G9, L3, app (b) |
+| SC-008 | G10, L4 |
+| SC-009 | L3, L4, L5, app (a)/(b) |
+| SC-010 | app (a) success, app (b) cancel |
+| SC-011 | T058: `real-browser-2026-09-28-4e64472.json` — PASS |
+| SC-012 / SC-013 | T061: 0 / 0 |
+| SC-014 | T061: 0 |
+| SC-015 | T061: 0 |
+| SC-016 | T061: 0 |
+| SC-017 | T061: one canonical `index.html` |
+| SC-018 | T060: typecheck, build, 36/36, 6/6, 2/2 |
+| SC-019 | `concurrency` block in all records; no native-parallelism claim |
+| SC-020 | `NOT EXPOSED` in every record |
+| SC-021 | measured logical 4 / fallback 0 in G7, L1, app (a), native record |
+
+Unmapped: none.
+
+### T064 Completion record
+
+| Item | Value |
+|---|---|
+| BrowserTradingAgents revision | `4e64472f3b9425f2e5c76a14dc6cbdf1338821c4` (implementation) |
+| AkariSP | 0.1.0-alpha.2 |
+| LangChain core | 1.2.13 |
+| LangGraph | 1.4.18 |
+| LangGraph import surface | `@langchain/langgraph/web` |
+| AkariSP production / public API changes | 0 / 0 |
+| TradingAgents agent semantics | 0 |
+| External market dependencies | 0 |
+| typecheck / build | PASS / PASS |
+| deterministic graph tests | PASS (12) |
+| Node integration | PASS (5) |
+| Browser automated | PASS (4 canonical + 2 harness) |
+| REAL_BROWSER_PROMPT_API | PASS |
+| fan-out | verified |
+| fan-in | verified (both completion orders) |
+| Synthesis exactly once | verified |
+| Decision dependency | verified |
+| explicit graph AbortSignal forwarding | verified (incl. mutation) |
+| controlled branch failure | verified |
+| settled before shutdown after cancellation | verified |
+| settled before shutdown after failure | verified |
+| AkariSP active/queued orphaned work | 0 |
+| logical requests, successful graph | 4 (deterministic, Node, stand-in browser, native) |
+| fallback requests | 0 |
+| provider invocation count | NOT EXPOSED |
+| native provider concurrency | NOT CLAIMED |
+| Implementation status | COMPLETE |
+| Real-provider validation | PASS |
+| **Feature status** | **COMPLETE** |
