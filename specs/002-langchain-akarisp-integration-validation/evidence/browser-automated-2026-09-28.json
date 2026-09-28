@@ -1,0 +1,102 @@
+{
+  "evidenceClass": "BROWSER_AUTOMATED",
+  "provider": "standin",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36",
+    "date": "2026-09-28",
+    "availability": "MODEL_DOWNLOADABLE",
+    "raw": "downloadable"
+  },
+  "feature": "002-langchain-akarisp-integration-validation",
+  "revision": {
+    "browserTradingAgents": "85cdef2be2bf00d70d2a2a96c7adbffc2fd9da10",
+    "akarisp": "0.1.0-alpha.2",
+    "langchainCore": "1.2.13"
+  },
+  "runtimeOptions": {
+    "limit": 1,
+    "queueCapacity": 32
+  },
+  "scenarios": {
+    "S1_single": {
+      "outcome": "PASS",
+      "output": "stand-in reply to: Reply with one short sentence: what is HTTP?",
+      "state": "ready"
+    },
+    "S2_reuse": {
+      "outcome": "PASS",
+      "runtimeConstructions": 1,
+      "requests": 2,
+      "snapshotAfter": {
+        "state": "ready",
+        "active": 0,
+        "queued": 0
+      }
+    },
+    "S3_concurrent2": {
+      "outcome": "PASS",
+      "snapshotWhileRunning": {
+        "state": "ready",
+        "active": 1,
+        "queued": 1
+      },
+      "snapshotAfter": {
+        "state": "ready",
+        "active": 0,
+        "queued": 0
+      }
+    },
+    "S4_cancel": {
+      "outcome": "PASS",
+      "target": "queued+active",
+      "callerError": "TaskError:cancelled (Error: harness cancelled queued request)",
+      "taskErrorCode": "cancelled",
+      "snapshotAfter": {
+        "state": "ready",
+        "active": 0,
+        "queued": 0
+      },
+      "requestAfter": "PASS",
+      "active": {
+        "callerError": "TaskError:cancelled (Error: harness cancelled active request)",
+        "snapshotAfter": {
+          "state": "ready",
+          "active": 0,
+          "queued": 0
+        },
+        "requestAfter": "PASS"
+      }
+    },
+    "S5_structured": {
+      "outcome": "PASS",
+      "kind": "structured",
+      "logicalRequests": 1,
+      "fallbacks": 0,
+      "value": {
+        "answer": "stand-in"
+      }
+    },
+    "S6_systemRole": {
+      "outcome": "OBSERVED",
+      "observation": "supported (standin)",
+      "output": "stand-in reply to: What color is the sky?",
+      "note": "observation only (research R8); never decides Feature PASS/FAIL"
+    },
+    "S7_cleanup": {
+      "outcome": "PASS",
+      "snapshotAfterShutdown": {
+        "state": "closed",
+        "active": 0,
+        "queued": 0
+      },
+      "secondShutdown": "resolved",
+      "requestAfterShutdown": "TaskError:closed"
+    }
+  },
+  "counts": {
+    "workflowOperations": 14,
+    "logicalRequests": 14,
+    "fallbackRequests": 0,
+    "providerInvocations": "12 (stand-in prompt count; not an AkariSP metric)"
+  }
+}

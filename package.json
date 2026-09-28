@@ -1,0 +1,25 @@
+{
+  "name": "browser-trading-agents",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "vite build",
+    "test": "node --test test/*.test.ts",
+    "test:browser": "playwright test",
+    "harness": "vite"
+  },
+  "dependencies": {
+    "@langchain/core": "1.2.13",
+    "akarisp": "0.1.0-alpha.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.4",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.1"
+  }
+}
