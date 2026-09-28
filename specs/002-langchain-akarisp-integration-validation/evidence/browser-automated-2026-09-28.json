@@ -9,7 +9,7 @@
   },
   "feature": "002-langchain-akarisp-integration-validation",
   "revision": {
-    "browserTradingAgents": "e18a1009d4a0f211ef83630a8b287749d266beb6",
+    "browserTradingAgents": "85cdef2be2bf00d70d2a2a96c7adbffc2fd9da10",
     "akarisp": "0.1.0-alpha.2",
     "langchainCore": "1.2.13"
   },

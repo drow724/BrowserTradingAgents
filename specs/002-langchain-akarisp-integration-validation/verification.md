@@ -226,3 +226,123 @@ server and Chrome; saved verbatim; not observed or operated by the agent).
 
 The first record (`real-browser-2026-09-28.json`, revision `5dac1a2`, Chrome 152 per user agent)
 is kept unchanged as the original Checkpoint D evidence.
+
+## Checkpoint E — final verification (T036–T044)
+
+Revision under verification: `85cdef2be2bf00d70d2a2a96c7adbffc2fd9da10`.
+
+**T036 gates (clean `npm ci` in this repository)**: `npm ci` OK · G1 `npm run typecheck` exit 0 ·
+G2 `npm run build` exit 0 · G3/G4 `npm test` 19/19 pass (13 `DETERMINISTIC_TEST`, 6
+`NODE_INTEGRATION` stand-in) · G5 `npm run test:browser` 2/2 pass (`BROWSER_AUTOMATED` stand-in;
+`evidence/browser-automated-2026-09-28.json` regenerated at `85cdef2`).
+
+**T037 versions (G7)**: `npm ls` → `akarisp@0.1.0-alpha.2`, `@langchain/core@1.2.13`; lockfile
+`akarisp` resolved `https://registry.npmjs.org/akarisp/-/akarisp-0.1.0-alpha.2.tgz`, integrity
+`sha512-ntzf/l02…E9xQ==` (= research R1).
+
+**T038 import boundary (SC-001)**: all 6 AkariSP imports in `src`, `test`, `harness`, `e2e` are
+`from 'akarisp'` (package root). Occurrences of `akarisp/`, `akariSP`, `file:` in code and
+`package.json`: 0. **Private/internal AkariSP imports: 0.**
+
+**T039 scope (G8)**: `langgraph` in `package.json` / lockfile: 0; agent/graph identifiers
+(`LangGraph`, `StateGraph`, Market Analyst, Bull, Bear, Research Manager, Trader, Risk Reviewer) in
+code: 0; `src/` = exactly `integration/akari-chat-model.ts` and `integration/structured.ts`; the
+only `queue`/`retry` words in `src/` are the two comments stating the bridge has neither.
+
+**T040 AkariSP unchanged — observation**: the literal check "`../akariSP` equals the T001 record"
+**does not hold**: HEAD is now `7e8202e` (T001: `78804aa`) and an untracked
+`experiments/prompt-api-concurrency/` directory exists. The reflog shows `checkout main` +
+`pull --ff-only` at 2026-09-28 11:52:02 +0900 — **not performed by this Feature** (only read-only
+git commands were run there). `git diff 78804aa 7e8202e -- src package.json` is empty and
+`git status -- src package.json` is clean, so **AkariSP production changes: 0** (source, public API,
+runtime dependencies). The new HEAD is exactly the Feature 002 reference commit. This repository's
+changes since the execution baseline `4f95b3c` are only: bootstrap/config files, `src/integration/*`,
+`test/*`, `harness/*`, `e2e/*`, and `specs/002-…/*` — all allowed by plan.md.
+
+**T041 evidence truthfulness**: zero statements that present `NODE_INTEGRATION` as browser
+evidence, stand-in results as native Prompt API, stand-in counters as AkariSP provider metrics,
+caller cancellation as immediate AkariSP task termination, or S6 as guaranteed system-role
+support. Evidence files: `browser-automated-2026-09-28.json` → `BROWSER_AUTOMATED`, `standin`,
+native availability `MODEL_DOWNLOADABLE`; both `real-browser-*` → `REAL_BROWSER_PROMPT_API`,
+`native`, `MODEL_AVAILABLE`. Two truthfulness bugs found and fixed earlier (stand-in availability,
+stale dev-server revision) are recorded above.
+
+**T043 reproducibility (SC-012)**: fresh `git clone` into a scratch directory, checkout `85cdef2`,
+`package-lock.json` SHA-256
+`844a251bed4f5c3771abd5033119c55f557e967c9aa7d8f0319d67d086a4a017`, Node v23.9.0, macOS:
+`npm ci` 0 · typecheck 0 · build 0 · `npm test` 19 pass / 0 fail · `npm run test:browser` 2 passed.
+Real-browser prerequisites and steps: `quickstart.md` (Chrome with Prompt API and an available
+on-device model; restart `npm run harness` after any commit before a run).
+
+### T042 coverage
+
+| Req | Evidence |
+|---|---|
+| FR-001 | T003/T006/T037: exact `akarisp@0.1.0-alpha.2` from registry, lockfile integrity |
+| FR-002 | T038: package-root imports only, private imports 0 |
+| FR-003 | `src/integration/akari-chat-model.ts` (application-local) |
+| FR-004 | `test/akari-chat-model.test.ts` (user → `[{role:'user',content}]`) |
+| FR-005 | same test (output → `AIMessage`); real S1 |
+| FR-006 | Node S1; real S1 `REAL_BROWSER_PROMPT_API` |
+| FR-007 | Node S2; real S2 |
+| FR-008 | Node S3; stand-in and real S3 (`active 1, queued 1`) |
+| FR-009 | Node S3 (2 `start` events while 1 active/1 queued); T039 (no queue code in `src/`) |
+| FR-010 | S3 snapshots in Node, Playwright and real Chrome |
+| FR-011 | Node S4 + active cancel; real S4 `queued+active` (`TaskError:cancelled`, `0/0`) |
+| FR-012 | bridge tests (same `TaskError` / error object rethrown); S7 `TaskError:closed` |
+| FR-013 | `test/structured.test.ts` (1 fallback); real S5 (fallback fired once) |
+| FR-014 | structured test "fallback failure: its error propagates, no third request" |
+| FR-015 | counts in every evidence record (workflow operations / logical requests / fallbacks) |
+| FR-016 | `providerInvocations: NOT EXPOSED` (native); stand-in count labeled separately |
+| FR-017 | Node S7; stand-in and real S7 (idempotent shutdown, `closed 0/0`) |
+| FR-018 | 13 `DETERMINISTIC_TEST` tests |
+| FR-019 | two real-browser records (Chrome 152 per UA, Chrome 153) |
+| FR-020 | real records classified `REAL_BROWSER_PROMPT_API` by the harness rule (native + available + S1) |
+| FR-021 | T039: LangGraph 0, agent/graph code 0 |
+| FR-022 | T040: AkariSP production changes 0 |
+| FR-023 | findings reviews T022/T035 (none); research N-2 corrected by evidence, no core change proposed |
+| SC-001 | T037 + T038 |
+| SC-002 | bridge tests + Node S1 |
+| SC-003 | `evidence/real-browser-2026-09-28.json`, `evidence/real-browser-2026-09-28-ce3f946.json` |
+| SC-004 | S2 (1 runtime construction, 2 requests) in Node and real Chrome |
+| SC-005 | S3 in Node, Playwright, real Chrome |
+| SC-006 | S4 queued + active in Node and real Chrome; orphaned work 0 (`0/0`) |
+| SC-007 | structured tests (≤ 1 fallback, abort → 0); real S5 fallbacks 1 |
+| SC-008 | evidence counts; provider invocations `NOT EXPOSED` |
+| SC-009 | S7 everywhere; every harness scenario shuts its runtime down |
+| SC-010 | 13 deterministic tests pass |
+| SC-011 | T039 + T040 |
+| SC-012 | T043 clean-clone reproduction |
+
+### T044 completion record
+
+```text
+AkariSP installed version: 0.1.0-alpha.2
+LangChain installed version: 1.2.13
+private AkariSP imports: 0
+LangGraph dependencies: 0
+AkariSP production changes: 0
+typecheck: PASS
+build: PASS
+deterministic tests: PASS (13/13)
+Node integration: PASS (6/6, stand-in)
+Playwright stand-in: PASS (2/2)
+REAL_BROWSER_PROMPT_API: PASS (Chrome 152 per UA @ 5dac1a2; Chrome 153 @ ce3f946)
+single request: verified
+reuse: verified
+concurrent x2: verified
+queue: verified
+cancellation: verified (queued + active, real Prompt API)
+structured fallback: verified (real model fallback fired exactly once)
+abort fallback count: 0
+shutdown: verified
+provider invocation count: NOT EXPOSED
+Implementation status: COMPLETE
+Real-provider validation: PASS
+Feature status: COMPLETE
+```
+
+Observations carried forward (not findings): N-1 registry `gitHead`; N-2 corrected; N-6 real
+model wraps JSON in code fences (fallback fires); N-7 `system` role accepted in two real runs
+(not a contract); `@types/node` dev-dependency deviation; `../akariSP` moved externally to
+`7e8202e` during the Feature (no production change).

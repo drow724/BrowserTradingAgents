@@ -131,15 +131,15 @@ Rules; spec FR-018): deterministic tests are written before the code they check.
 
 ## Phase 10: Final Verification
 
-- [ ] T036 Re-run `npm run typecheck`, `npm run build`, `npm test`, `npm run test:browser` from a clean `npm ci`; all pass. Record commands and exit codes in `FD/verification.md` (G1–G5).
-- [ ] T037 Record installed versions via `npm ls akarisp @langchain/core` (must be exactly `0.1.0-alpha.2` and `1.2.13`) and re-check the lockfile `resolved`/`integrity` for `akarisp` (G7).
-- [ ] T038 Import-boundary audit: `grep -rn "akarisp" src test harness e2e` shows only `from 'akarisp'` (plus types from it); zero `akarisp/dist`, zero `../akariSP`, zero `file:`; record private AkariSP imports = 0 (SC-001).
-- [ ] T039 Scope audit (G8): no `@langchain/langgraph` in `package.json` / `package-lock.json`; `grep -rniE "langgraph|StateGraph|Market Analyst|Bull|Bear|Research Manager|Trader|Risk Reviewer" src test harness e2e` returns nothing that implements agents or graphs; `src/` contains exactly `integration/akari-chat-model.ts` and `integration/structured.ts`; no queue/pool/limiter/retry code in `src/`.
-- [ ] T040 AkariSP unchanged: `git -C ../akariSP status --porcelain` and `rev-parse HEAD` equal the T001 record; `git diff --name-only <T001 revision>` in this repo lists only files allowed by plan.md; record AkariSP production changes = 0 (SC-011, FR-022).
-- [ ] T041 Evidence truthfulness audit over `FD/verification.md` and `FD/evidence/*.json`: zero statements that call `NODE_INTEGRATION` browser evidence, call stand-in results native Prompt API, present stand-in counters as AkariSP provider-invocation metrics, claim caller cancellation ended the AkariSP task immediately, or claim guaranteed system-role support from S6.
-- [ ] T042 Write the FR-001…FR-023 and SC-001…SC-012 coverage table in `FD/verification.md`, each mapped to the task(s) and evidence (test name or evidence file) that satisfy it; any row without evidence blocks completion.
-- [ ] T043 Reproducibility check (SC-012): follow `quickstart.md` exactly from a clean checkout of the recorded revision; record the revision, lockfile hash (`shasum -a 256 package-lock.json`), Node and Chrome versions and outcome.
-- [ ] T044 Write the completion record in `FD/verification.md`:
+- [X] T036 Re-run `npm run typecheck`, `npm run build`, `npm test`, `npm run test:browser` from a clean `npm ci`; all pass. Record commands and exit codes in `FD/verification.md` (G1–G5).
+- [X] T037 Record installed versions via `npm ls akarisp @langchain/core` (must be exactly `0.1.0-alpha.2` and `1.2.13`) and re-check the lockfile `resolved`/`integrity` for `akarisp` (G7).
+- [X] T038 Import-boundary audit: `grep -rn "akarisp" src test harness e2e` shows only `from 'akarisp'` (plus types from it); zero `akarisp/dist`, zero `../akariSP`, zero `file:`; record private AkariSP imports = 0 (SC-001).
+- [X] T039 Scope audit (G8): no `@langchain/langgraph` in `package.json` / `package-lock.json`; `grep -rniE "langgraph|StateGraph|Market Analyst|Bull|Bear|Research Manager|Trader|Risk Reviewer" src test harness e2e` returns nothing that implements agents or graphs; `src/` contains exactly `integration/akari-chat-model.ts` and `integration/structured.ts`; no queue/pool/limiter/retry code in `src/`.
+- [X] T040 AkariSP unchanged: `git -C ../akariSP status --porcelain` and `rev-parse HEAD` equal the T001 record; `git diff --name-only <T001 revision>` in this repo lists only files allowed by plan.md; record AkariSP production changes = 0 (SC-011, FR-022).
+- [X] T041 Evidence truthfulness audit over `FD/verification.md` and `FD/evidence/*.json`: zero statements that call `NODE_INTEGRATION` browser evidence, call stand-in results native Prompt API, present stand-in counters as AkariSP provider-invocation metrics, claim caller cancellation ended the AkariSP task immediately, or claim guaranteed system-role support from S6.
+- [X] T042 Write the FR-001…FR-023 and SC-001…SC-012 coverage table in `FD/verification.md`, each mapped to the task(s) and evidence (test name or evidence file) that satisfy it; any row without evidence blocks completion.
+- [X] T043 Reproducibility check (SC-012): follow `quickstart.md` exactly from a clean checkout of the recorded revision; record the revision, lockfile hash (`shasum -a 256 package-lock.json`), Node and Chrome versions and outcome.
+- [X] T044 Write the completion record in `FD/verification.md`:
 
 ```text
 AkariSP installed version: 0.1.0-alpha.2
