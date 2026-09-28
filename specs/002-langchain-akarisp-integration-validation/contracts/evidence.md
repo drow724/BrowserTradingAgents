@@ -28,5 +28,8 @@ One JSON object per harness run, committed under `evidence/` as
 }
 ```
 
-Rules: `provider: "standin"` can never have `evidenceClass: "REAL_BROWSER_PROMPT_API"`. A
+Rules: `provider: "standin"` can never have `evidenceClass: "REAL_BROWSER_PROMPT_API"`.
+`environment.availability` always describes the browser's **native** Prompt API (classified before
+any stand-in is installed), also in stand-in runs. `S6_systemRole.observation` carries the provider
+suffix (e.g. `supported (standin)`); a stand-in observation says nothing about the Prompt API. A
 `BLOCKED` record fills `blocked`. Skipped scenarios are `BLOCKED`, never `PASS`.

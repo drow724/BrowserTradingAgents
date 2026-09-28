@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>BrowserTradingAgents — Feature 002 harness</title>
+  </head>
+  <body>
+    <h1>Feature 002 — LangChain.js ↔ AkariSP harness</h1>
+    <p>Runs S1–S7 once and prints one evidence record. Nothing is sent anywhere; no model download is started.</p>
+    <p id="availability">availability: checking…</p>
+    <button id="run">Run</button>
+    <button id="copy">Copy JSON</button>
+    <p id="status" data-state="idle">idle</p>
+    <pre id="evidence"></pre>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
