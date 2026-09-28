@@ -394,7 +394,7 @@ The tests share one file and run sequentially.
     `git status --porcelain -- index.html src test harness e2e package.json package-lock.json vite.config.ts`
     is empty, so the revision is clean.
 
-- [ ] T044 [US2] **APPROVAL REQUIRED — native + fixture clean-revision gate** (no credential; not
+- [X] T044 [US2] **APPROVAL REQUIRED — native + fixture clean-revision gate** (no credential; not
   gated by P-1):
   - At the T043 commit with the code paths clean, in installed Google Chrome with `MODEL_AVAILABLE`,
     run the repository's canonical native test: `npm run test:prompt-api -- -g "eight-role"`.

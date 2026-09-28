@@ -487,3 +487,68 @@ Maintainer approved (2026-09-28). Local commit `9da4164cfee82c2c31501572b178d47a
 vite.config.ts` empty). The T043 record itself is committed in a documentation-only follow-up
 commit (no code-path change); T044 runs at that follow-up HEAD. Any code/test change before T044
 requires a new clean commit.
+
+## T044 Native + fixture clean-revision gate (APPROVAL REQUIRED; run 2026-09-28T15:52Z)
+
+- Pre-run: HEAD `0543a6942f0aaaa5dc3ad8b2580ac880c0e011fe`. This is the documentation-only
+  follow-up to `9da4164` (T043 record); the code is identical. `git diff HEAD` empty; code paths
+  clean; mutation residue 0; `BTA_MASSIVE_KEY` not set.
+- Command (tasks.md, package.json unchanged): `npm run test:prompt-api -- -g "eight-role"`. It
+  selects exactly 1 test: `native Prompt API: canonical eight-role fixture graph completes in installed
+  Google Chrome`. The owner-run live test is not selected.
+- Browser: installed Google Chrome 153.0.8010.53 (`channel: 'chrome'`, golden-profile clone,
+  headless; UA `HeadlessChrome/153.0.0.0`). Runner `playwright`. Result: 1 passed (47.3 s).
+- Record `evidence/real-browser-fixture-2026-09-28-0543a69.json` (byte-identical copy of the raw record):
+
+| Check | Record |
+|---|---|
+| class / provider / availability | `REAL_BROWSER_PROMPT_API` / `native` / `MODEL_AVAILABLE` (raw `available`); no stand-in |
+| revision | `0543a69…` without `+dirty`; akarisp 0.1.0-alpha.2, core 1.2.13, langgraph 1.4.18 |
+| data | `dataSource {mode: fixture, fixture: tradingagents-fixture@1}`; `input` fixture ids; `fixture` field kept; `reads` Market `subject,marketFacts`, News `subject,newsFacts` |
+| graph | `tradingagents-fixture-graph@1`; 8/8 roles `done` ×1; order Market ‖ News → Bull → Bear → RM → Trader → Risk → Final |
+| counts | `logicalRequests` 8, `fallbackRequests` 0 (measured), `providerInvocations` NOT EXPOSED |
+| fan-out | `{ready, 1, 1}`: AkariSP backpressure, not native parallelism |
+| lifecycle | before shutdown `{ready,0,0}`, `settledBeforeShutdown` true, after `{closed,0,0}` |
+| outcome | `success`, `error` null, no `failure`; full fixture `result` (8 fields) |
+| timing | `graphMs` 26 922 |
+
+- Massive requests: **not directly instrumented in T044**. The zero is established by the fixture
+  code path (fixture mode never calls `acquireDailyBars`) and by the earlier L3 network-guard proof
+  (T025: 0 Massive and 0 external requests in fixture mode). The record has no `massive` text and no
+  live provenance. No key was set or entered. This gate proves nothing about live acquisition; its
+  purpose is the native + fixture regression.
+- Changes during T044: none (`src/`, `index.html`, `harness/`, e2e, AkariSP, dependencies).
+
+**T044: PASS.** Native + fixture at a clean revision matches Feature 004 semantics after Feature 005.
+IMPLEMENTATION_COMPLETE = true; FEATURE_COMPLETE = false. Next: T045 (P-1, EXTERNAL PREREQUISITE).
+
+## T045 P-1 — permitted-use prerequisite (EXTERNAL; status: UNRESOLVED)
+
+This is not a code task. No real key, no authenticated request and no L4/L5 until it is resolved.
+The maintainer (the Massive account owner) sends the inquiry; the agent does not contact Massive and
+does not judge the answer.
+
+The scope to confirm is the actual usage pattern, not only "may I call the API":
+1. A single individual developer requests Stocks REST data (daily aggregates, end-of-day, one
+   symbol, one request per run) **directly from a browser application** running locally on their
+   own machine (`localhost`), with their own key entered at run time.
+2. The response is **normalized and derived locally**: last up to 5 sessions, close, change %, range,
+   average volume. The derived text is used as **input to an on-device LLM** (Chrome Prompt API),
+   which runs locally and sends nothing to third parties.
+3. **Raw and derived values are displayed only on the owner's own screen.**
+4. Use is for **personal research, testing and development** only; no commercial use.
+5. **No redistribution**: neither the key nor raw or derived datasets are shared or published.
+   Committed test evidence holds only hashes (SHA-256 digests) and timestamps, not market values.
+6. Whether the owner's **current plan/licence** (e.g. Stocks Basic, individual) permits items 1–5,
+   in particular given the Market Data Terms §5(d) wording on "non-display use or to create
+   derivative works".
+7. Whether publishing the **application source code** on public GitHub is acceptable, given that it
+   contains no credential and no market dataset (tests use synthetic, invented values).
+
+Record when answered (no credential, no personal data beyond what is needed):
+- date; channel (support ticket or email) and reference; plan/licence named in the answer
+- verbatim scope quote(s), under 25 words each, per item 1–7, or "not addressed"
+- the maintainer's decision: `P-1 PASS` (every item 1–6 permitted; item 7 confirmed or not
+  required) or `UNRESOLVED` / `DENIED`
+- `UNRESOLVED` or `DENIED` → L4 and L5 are `BLOCKED (P-1)`; Checkpoints G–H are skipped; Feature 005
+  stays `BLOCKED / INCOMPLETE`
