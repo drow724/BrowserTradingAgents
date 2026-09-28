@@ -93,3 +93,47 @@ Findings review (T022): **no findings**. Every observation matches the AkariSP p
   the non-streaming path, so the caller receives AkariSP's `TaskError('cancelled')` after the task
   settles. `research.md` R4 / notes table and `contracts/bridge.md` updated accordingly; tests keep
   checking settlement through `snapshot()` regardless.
+
+## Checkpoint C — browser harness and Playwright stand-in (T023–T031)
+
+Code revision: `0933e3d139513aa4c4dc0c4554c9b5725ce610a1` (harness, e2e, `vite.config.ts`).
+
+- **G1 typecheck** `npm run typecheck` → exit 0. **G3/G4** `npm test` → 19/19 pass.
+- **G2 build** (T028) `npm run build` → exit 0: `dist/index.html`, `dist/assets/index-*.js`
+  (540.57 kB, gzip 144.61 kB), `dist/assets/standin-*.js` (0.83 kB, separate chunk — loaded only with
+  `?provider=standin`). Vite prints a >500 kB chunk-size warning caused by the `@langchain/core`
+  bundle; informational only, bundle size is not a Feature 002 criterion.
+- **G5 browser automated** (T029–T031) `npm run test:browser` → 2 passed, Playwright 1.63.0,
+  "Chrome for Testing 153.0.8010.12" (playwright chromium v1243, already present in the local
+  Playwright cache — **no browser download was needed**).
+
+| Playwright test | Evidence class | Result |
+|---|---|---|
+| `?provider=standin` | **`BROWSER_AUTOMATED` (stand-in)** — not Prompt API evidence | S1, S2, S3, S4, S5, S7 PASS; S6 `OBSERVED` (`supported (standin)`); record saved to `evidence/browser-automated-2026-09-28.json` |
+| `/` (native provider) | `BLOCKED` | Chrome for Testing exposes `LanguageModel` but reports `downloadable` → `MODEL_DOWNLOADABLE`; all scenarios `BLOCKED`, none `PASS`; the page did not start a download (Browser Unsupported Policy exercised) |
+
+Stand-in record (`evidence/browser-automated-2026-09-28.json`, revision `0933e3d`): S3 snapshot
+while running `{ active: 1, queued: 1 }`; S4 caller error `TaskError:cancelled`, then `0/0` and a
+further request PASS; S5 `kind: structured`, 1 request, 0 fallbacks; S7 `closed 0/0`, second
+shutdown resolved, request after shutdown `TaskError:closed`. Counts: workflow operations 12,
+logical requests 12, fallback requests 0, provider invocations `NOT EXPOSED` by AkariSP — the
+stand-in counted 10 prompts (the queued-cancelled request and the post-shutdown request never
+reached the model), which illustrates logical requests ≠ provider invocations but is **not** an
+AkariSP metric.
+
+Corrections made during this checkpoint (evidence truthfulness, before any record was kept):
+
+1. The first stand-in record reported `environment.availability: MODEL_AVAILABLE` — that was the
+   stand-in's own `availability()`. The harness now classifies the browser's native Prompt API
+   **before** installing the stand-in; `contracts/evidence.md` states this rule and the e2e test
+   asserts it.
+2. S6 under the stand-in reported `observation: supported`, which says nothing about the Prompt
+   API. Observations now carry the provider suffix (`supported (standin)`), asserted in e2e.
+3. The embedded revision is now marked `+dirty` when bundled code differs from HEAD; the kept
+   record was regenerated after committing the code, so it carries the clean revision `0933e3d`.
+
+Findings review: no findings (no AkariSP or LangChain contract mismatch in the browser engine).
+
+**Implementation status after Checkpoint C**: source, tests, build, deterministic tests, Node
+integration and Playwright stand-in complete. **Feature status: not complete** — the
+`REAL_BROWSER_PROMPT_API` gate (Checkpoint D, manual) is still open.
