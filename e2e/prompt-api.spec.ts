@@ -67,9 +67,10 @@ test('native Prompt API: S1–S5 and S7 PASS in installed Google Chrome', async 
   }
 });
 
-// Feature 003 canonical page (index.html → src/main.ts) on the native Prompt API. Asserts the run,
-// not the model's wording; logicalRequests is measured and validated separately (tasks.md T058).
-test('native Prompt API: canonical minimal graph completes in installed Google Chrome', async ({ baseURL }, testInfo) => {
+// Feature 004 canonical page (index.html → src/main.ts, eight-role fixture graph) on the native Prompt
+// API. Asserts the run, not the model's wording; logicalRequests is measured and validated separately
+// (specs/004…/tasks.md T059).
+test('native Prompt API: canonical eight-role fixture graph completes in installed Google Chrome', async ({ baseURL }, testInfo) => {
   test.setTimeout(10 * 60_000);
   const { context, close } = await launchNativeChrome(testInfo);
   try {
@@ -85,7 +86,10 @@ test('native Prompt API: canonical minimal graph completes in installed Google C
     expect(record.environment.availability).toBe('MODEL_AVAILABLE');
     expect(record.runner).toBe('playwright');
     expect(record.outcome, JSON.stringify(record.error)).toBe('success');
-    for (const n of ['branchA', 'branchB', 'synthesize', 'decide']) expect(record.nodes[n].status, n).toBe('done');
+    expect(record.graph.version).toBe('tradingagents-fixture-graph@1');
+    for (const n of ['marketAnalyst', 'newsAnalyst', 'bullResearcher', 'bearResearcher', 'researchManager', 'trader',
+      'riskReviewer', 'finalDecisionMaker']) expect(record.nodes[n].status, n).toBe('done');
+    expect(record.result.finalDecision).toBeTruthy();
     expect(record.lifecycle.settledBeforeShutdown).toBe(true);
   } finally {
     await close();

@@ -6,18 +6,22 @@
   </head>
   <body>
     <h1>BrowserTradingAgents</h1>
-    <p>Minimal graph (Feature 003): Branch A ‖ Branch B → Synthesis → Decision, through AkariChatModel → AkariSP → browser model. Nothing is sent anywhere; no model download is started.</p>
+    <p>TradingAgents fixture graph (Feature 004): Market Analyst ‖ News Analyst → Bull → Bear → Research Manager → Trader → Risk Reviewer → Final Decision, through AkariChatModel → AkariSP → browser model, on a fictional fixture. Nothing is sent anywhere; no model download is started; no output is investment advice.</p>
     <p id="availability">availability: checking…</p>
     <button id="run" disabled>Run Graph</button>
     <button id="cancel">Cancel</button>
     <p id="status" data-state="idle">idle</p>
     <table>
-      <tr><td>Branch A</td><td id="node-branchA">waiting</td></tr>
-      <tr><td>Branch B</td><td id="node-branchB">waiting</td></tr>
-      <tr><td>Synthesis</td><td id="node-synthesize">waiting</td></tr>
-      <tr><td>Decision</td><td id="node-decide">waiting</td></tr>
+      <tr><td>Market Analyst</td><td id="node-marketAnalyst">waiting</td></tr>
+      <tr><td>News Analyst</td><td id="node-newsAnalyst">waiting</td></tr>
+      <tr><td>Bull Researcher</td><td id="node-bullResearcher">waiting</td></tr>
+      <tr><td>Bear Researcher</td><td id="node-bearResearcher">waiting</td></tr>
+      <tr><td>Research Manager</td><td id="node-researchManager">waiting</td></tr>
+      <tr><td>Trader</td><td id="node-trader">waiting</td></tr>
+      <tr><td>Risk Reviewer</td><td id="node-riskReviewer">waiting</td></tr>
+      <tr><td>Final Decision</td><td id="node-finalDecisionMaker">waiting</td></tr>
     </table>
-    <p>Result: <span id="result"></span></p>
+    <p>Final decision: <span id="result"></span></p>
     <p>Runtime: <span id="runtime">—</span></p>
     <pre id="evidence"></pre>
     <script type="module" src="/src/main.ts"></script>
