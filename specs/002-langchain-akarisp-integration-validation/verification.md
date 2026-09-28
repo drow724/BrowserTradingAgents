@@ -137,3 +137,52 @@ Findings review: no findings (no AkariSP or LangChain contract mismatch in the b
 **Implementation status after Checkpoint C**: source, tests, build, deterministic tests, Node
 integration and Playwright stand-in complete. **Feature status: not complete** — the
 `REAL_BROWSER_PROMPT_API` gate (Checkpoint D, manual) is still open.
+
+## Checkpoint D — real Chrome Prompt API (T032–T035)
+
+**T032 environment**: harness served by `npm run harness` on `http://localhost:5173/`; run by the
+user in their Google Chrome on macOS. Revision under test: `5dac1a2` (bundled code identical to
+`0933e3d`: `git diff 0933e3d 5dac1a2 -- src test harness e2e package.json package-lock.json
+vite.config.ts` is empty; no `+dirty`). **Browser version**: the record's user agent reports
+`Chrome/152.0.0.0` (major only), while the installed binary reports `Google Chrome 153.0.8010.53`.
+Most likely a Chrome process started before an on-disk update; the run is therefore recorded as
+**Chrome 152 (per user agent)**. The exact running build was not captured.
+
+**T033 MANUAL CHECKPOINT**: JSON supplied by the user and saved verbatim to
+`evidence/real-browser-2026-09-28.json`. The agent did not observe or operate the run itself.
+
+**T034 validation** against `contracts/evidence.md`: `provider: native`,
+`availability: MODEL_AVAILABLE` (`raw: "available"`), S1 PASS → `evidenceClass:
+REAL_BROWSER_PROMPT_API` is consistent with the classification rule; `providerInvocations:
+NOT EXPOSED`; no `blocked` block (not applicable).
+
+| Scenario | Evidence class | Result | Observation |
+|---|---|---|---|
+| S1 single | `REAL_BROWSER_PROMPT_API` | PASS | LangChain `invoke` → AkariChatModel → akarisp → native Prompt API returned a one-sentence answer; `state: ready` |
+| S2 reuse | `REAL_BROWSER_PROMPT_API` | PASS | 2 requests, 1 runtime construction, then `ready 0/0` |
+| S3 concurrent ×2 | `REAL_BROWSER_PROMPT_API` | PASS | while running `{ active: 1, queued: 1 }`, then `0/0` |
+| S4 cancellation (queued) | `REAL_BROWSER_PROMPT_API` | PASS | caller `TaskError:cancelled`, then `0/0`, further request PASS |
+| S5 structured | `REAL_BROWSER_PROMPT_API` | PASS | the model wrapped its JSON in a Markdown code fence → strict parse failed → **exactly 1 free-text fallback** (`kind: freetext`, 2 logical requests) |
+| S6 system role | observation only | OBSERVED | `supported (native)`: `[system, user]` input to `prompt()` returned "Blue." in this run — an observation, not a guarantee |
+| S7 cleanup | `REAL_BROWSER_PROMPT_API` | PASS | second shutdown resolved; `closed 0/0`; request after shutdown `TaskError:closed` |
+
+Counts (real provider): workflow operations 12, logical requests 13 (= 12 + 1 fallback), fallback
+requests 1, provider invocations **NOT EXPOSED**.
+
+**T035 findings review**: **no findings** — every result matches the AkariSP public contract and
+the bridge contract. Notes:
+
+- **N-6 (real-model structured output)**: the on-device model returned
+  ```` ```json … ``` ```` around valid JSON, so the strict `JSON.parse` failed and the one allowed
+  fallback fired. This is the Feature 001 workload property (structured failure adds one request)
+  occurring with a real model. A small application-side fence strip would avoid the fallback; not
+  added here (not required by the spec) — candidate for the Feature that introduces agent schemas.
+- **N-7 (system role)**: in this run the native Prompt API accepted a `system` message inside
+  `prompt()` input. Research R8 remains "observed once", not a contract; Feature 003 may still
+  prefer AkariSP templates (`initialPrompts`) for agent instructions.
+- **Coverage note**: the real-browser run covered **queued** cancellation (the spec requires at
+  least one path). **Active** cancellation was verified only in `NODE_INTEGRATION` (stand-in,
+  Checkpoint B); the harness has no real-browser active-cancel scenario. Recorded as a gap, not a
+  failure.
+
+**Real-provider validation: PASS** (`REAL_BROWSER_PROMPT_API`).
