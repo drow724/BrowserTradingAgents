@@ -4,11 +4,17 @@
 // BROWSER_AUTOMATED, never REAL_BROWSER_PROMPT_API. Its counters are stand-in instrumentation,
 // not AkariSP provider-invocation metrics (those are NOT EXPOSED by AkariSP's public API).
 // No Node APIs: the browser harness imports this file too.
+// A prompt containing STANDIN_FAIL rejects at once (even while held) with a plain Error, which
+// AkariSP reports as TaskError('failed'). Not a DOMException InvalidStateError: AkariSP's browser
+// provider treats that one as a broken runtime.
 
 type Message = { role: string; content: string };
 
+const lastContent = (input: string | readonly Message[]) =>
+  typeof input === 'string' ? input : (input.at(-1)?.content ?? '');
+
 function reply(input: string | readonly Message[]) {
-  const last = typeof input === 'string' ? input : (input.at(-1)?.content ?? '');
+  const last = lastContent(input);
   // The harness's structured scenario asks for JSON; answer it deterministically.
   return /\bJSON\b/.test(last) ? '{"answer":"stand-in"}' : `stand-in reply to: ${last}`;
 }
@@ -23,6 +29,7 @@ export function installStandIn(target: Record<string, unknown> = globalThis as R
       standinCounters.prompts++;
       return new Promise<string>((resolve, reject) => {
         if (signal.aborted) return reject(signal.reason);
+        if (lastContent(input).includes('STANDIN_FAIL')) return reject(new Error('stand-in failure'));
         const done = () => {
           waiting.delete(done);
           signal.removeEventListener('abort', onAbort);

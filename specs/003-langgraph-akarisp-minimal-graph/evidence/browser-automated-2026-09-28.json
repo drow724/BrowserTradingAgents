@@ -1,0 +1,204 @@
+{
+  "feature": "003-langgraph-akarisp-minimal-graph",
+  "provider": "standin",
+  "runner": "manual",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36",
+    "date": "2026-09-28",
+    "availability": "MODEL_DOWNLOADABLE",
+    "raw": "downloadable"
+  },
+  "revision": {
+    "browserTradingAgents": "6c79c918b186c6c749900cdb52aa2192b542ed43+dirty",
+    "akarisp": "0.1.0-alpha.2",
+    "langchainCore": "1.2.13",
+    "langgraph": "1.4.18"
+  },
+  "fixture": "minimal-graph-fixture@1",
+  "prompts": "src/graph/minimal-graph.ts",
+  "graph": {
+    "topology": "START→{branchA,branchB}; [branchA,branchB]→synthesize; synthesize→decide; decide→END",
+    "entry": "@langchain/langgraph/web"
+  },
+  "runtimeOptions": {
+    "limit": 1,
+    "queueCapacity": 32
+  },
+  "evidenceClass": "BROWSER_AUTOMATED",
+  "outcome": "success",
+  "error": null,
+  "nodes": {
+    "branchA": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1
+    },
+    "branchB": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1
+    },
+    "synthesize": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1
+    },
+    "decide": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1
+    }
+  },
+  "nodeEvents": [
+    {
+      "node": "branchA",
+      "event": "start",
+      "seq": 1
+    },
+    {
+      "node": "branchB",
+      "event": "start",
+      "seq": 2
+    },
+    {
+      "node": "branchA",
+      "event": "done",
+      "seq": 3
+    },
+    {
+      "node": "branchB",
+      "event": "done",
+      "seq": 4
+    },
+    {
+      "node": "synthesize",
+      "event": "start",
+      "seq": 5
+    },
+    {
+      "node": "synthesize",
+      "event": "done",
+      "seq": 6
+    },
+    {
+      "node": "decide",
+      "event": "start",
+      "seq": 7
+    },
+    {
+      "node": "decide",
+      "event": "done",
+      "seq": 8
+    }
+  ],
+  "modelRequests": [
+    {
+      "logicalRequestId": 1,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 2,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 1,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 32.59999990463257,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 32.40000009536743
+      }
+    },
+    {
+      "logicalRequestId": 2,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 34.69999980926514,
+        "queueWait": 32.59999990463257,
+        "acquire": 0.40000009536743164,
+        "prompt": 1.5999999046325684
+      }
+    },
+    {
+      "logicalRequestId": 3,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 3,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 0,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 0
+      }
+    },
+    {
+      "logicalRequestId": 4,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 4,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 0.09999990463256836,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 0.09999990463256836
+      }
+    }
+  ],
+  "counts": {
+    "graphRuns": 1,
+    "nodeExecutions": 4,
+    "logicalRequests": 4,
+    "fallbackRequests": 0,
+    "providerInvocations": "NOT EXPOSED"
+  },
+  "concurrency": {
+    "graph": "branch requests submitted before either completed: 2",
+    "akarisp": {
+      "fanOutSnapshot": {
+        "snapshot": {
+          "state": "ready",
+          "active": 1,
+          "queued": 1,
+          "limit": 1,
+          "queueCapacity": 32
+        },
+        "pollMs": 0
+      }
+    },
+    "nativeProvider": "not observed (out of scope)"
+  },
+  "lifecycle": {
+    "settledBeforeShutdown": true,
+    "snapshotBeforeShutdown": {
+      "state": "ready",
+      "active": 0,
+      "queued": 0
+    },
+    "snapshotAfterShutdown": {
+      "state": "closed",
+      "active": 0,
+      "queued": 0
+    }
+  },
+  "result": {
+    "decision": "stand-in reply to: Reply with one word, POSITIVE, NEUTRAL or NEGATIVE, for the overall tone of this text: stand-in reply to: Combine these two summaries into two sentences.\nSummary A: stand-in reply to: Summarize these facts about the Riverside community library in one sentence: It opened a second reading room in March and extended weekday hours to 8pm.\nSummary B: stand-in reply to: Summarize these facts about the Riverside community library in one sentence: A local newspaper praised its children's programme; the roof needs repairs this autumn.",
+    "synthesis": "stand-in reply to: Combine these two summaries into two sentences.\nSummary A: stand-in reply to: Summarize these facts about the Riverside community library in one sentence: It opened a second reading room in March and extended weekday hours to 8pm.\nSummary B: stand-in reply to: Summarize these facts about the Riverside community library in one sentence: A local newspaper praised its children's programme; the roof needs repairs this autumn."
+  }
+}

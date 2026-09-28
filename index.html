@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>BrowserTradingAgents</title>
+  </head>
+  <body>
+    <h1>BrowserTradingAgents</h1>
+    <p>Minimal graph (Feature 003): Branch A ‖ Branch B → Synthesis → Decision, through AkariChatModel → AkariSP → browser model. Nothing is sent anywhere; no model download is started.</p>
+    <p id="availability">availability: checking…</p>
+    <button id="run" disabled>Run Graph</button>
+    <button id="cancel">Cancel</button>
+    <p id="status" data-state="idle">idle</p>
+    <table>
+      <tr><td>Branch A</td><td id="node-branchA">waiting</td></tr>
+      <tr><td>Branch B</td><td id="node-branchB">waiting</td></tr>
+      <tr><td>Synthesis</td><td id="node-synthesize">waiting</td></tr>
+      <tr><td>Decision</td><td id="node-decide">waiting</td></tr>
+    </table>
+    <p>Result: <span id="result"></span></p>
+    <p>Runtime: <span id="runtime">—</span></p>
+    <pre id="evidence"></pre>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

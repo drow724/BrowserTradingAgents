@@ -10,7 +10,7 @@ async function run(page: Page, url: string) {
 }
 
 test('stand-in provider: S1–S5 and S7 PASS, S6 observed', async ({ page }, testInfo) => {
-  const record = await run(page, '/?provider=standin');
+  const record = await run(page, '/harness/?provider=standin');
   const s = record.scenarios;
   expect(record.evidenceClass).toBe('BROWSER_AUTOMATED');
   expect(record.provider).toBe('standin');
@@ -34,7 +34,7 @@ test('stand-in provider: S1–S5 and S7 PASS, S6 observed', async ({ page }, tes
 });
 
 test('native provider in Playwright Chromium: no Prompt API model → BLOCKED, nothing PASS', async ({ page }) => {
-  const record = await run(page, '/');
+  const record = await run(page, '/harness/');
   expect(record.provider).toBe('native');
   expect(record.environment.availability).not.toBe('MODEL_AVAILABLE');
   expect(record.evidenceClass).toBe('BLOCKED');
