@@ -1,7 +1,7 @@
 # BrowserTradingAgents Roadmap Notes
 
 Working notes, not governance. The constitution (`.specify/memory/constitution.md`) prevails.
-Last updated: 2026-09-28.
+Last updated: 2026-09-28 (Feature 003).
 
 ## Intended end state (candidate, not yet a Feature)
 
@@ -24,7 +24,7 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 |---|---|---|
 | 001 | TradingAgents v0.5.1 reference analysis | complete |
 | 002 | LangChain.js ↔ AkariSP integration validation (thin bridge) | complete — real Prompt API evidence (Chrome 152/153); carry-over: N-6 JSON code fences trigger the structured fallback, N-7 `system` role accepted but not a contract |
-| 003 | LangGraph.js ↔ AkariSP: minimal graph, parallel branches, fan-in, sequential nodes | candidate |
+| 003 | LangGraph.js ↔ AkariSP: minimal graph, parallel branches, fan-in, sequential nodes | complete — canonical app `index.html` → `src/main.ts` (Feature 002 harness at `/harness/`); real Prompt API evidence (Chrome 153); carry-over: O-1 LangGraph's browser entry does not pass the graph's AbortSignal to models called inside nodes (forward `config.signal` explicitly), O-2 LangGraph rejects the caller before in-flight node work settles (check AkariSP settlement before `shutdown()`) |
 | 00N | User-runnable browser app: Feature 001 minimum graph (Market ‖ News → Bull → Bear → Research Manager → Trader → Risk Reviewer → Final Decision) on fixtures, static build, result page | candidate |
 | later | Real market/news data (see below) | deferred (Constitution IX) |
 

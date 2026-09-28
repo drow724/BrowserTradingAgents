@@ -1,11 +1,11 @@
-// REAL_BROWSER_PROMPT_API with runner "playwright": the harness in the installed Google Chrome with
-// the native Prompt API, on a per-run APFS clone of the golden profile built by
+// REAL_BROWSER_PROMPT_API with runner "playwright": the Feature 002 harness (/harness/) and the
+// canonical page (/) in the installed Google Chrome with the native Prompt API, on a per-run APFS clone of the golden profile built by
 // scripts/prepare-prompt-api-profile.sh. macOS, on the machine that holds the model.
 // Run with `npm run test:prompt-api`; it is not part of `npm run test:browser`.
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { chromium, expect, test } from '@playwright/test';
+import { chromium, expect, test, type TestInfo } from '@playwright/test';
 
 const GOLDEN = process.env.PROMPT_API_PROFILE ?? `${homedir()}/.cache/browser-trading-agents/prompt-api-profile`;
 
@@ -22,8 +22,8 @@ const PLAYWRIGHT_DISABLED_FEATURES = [
   'AutoDeElevate', 'OptimizationHints', 'msForceBrowserSignIn', 'msEdgeUpdateLaunchServicesPreferredVersion',
 ];
 
-test('native Prompt API: S1–S5 and S7 PASS in installed Google Chrome', async ({ baseURL }, testInfo) => {
-  test.setTimeout(10 * 60_000);
+// Installed Google Chrome on a per-run APFS clone of the golden profile, OptimizationHints re-enabled.
+async function launchNativeChrome(testInfo: TestInfo) {
   const installed = JSON.parse(readFileSync('node_modules/@playwright/test/package.json', 'utf8')).version;
   expect(installed, 'update PLAYWRIGHT_DISABLED_FEATURES for this Playwright version').toBe(PLAYWRIGHT_VERSION);
   expect(existsSync(`${GOLDEN}/OptGuideOnDeviceModel`), `run scripts/prepare-prompt-api-profile.sh (${GOLDEN})`).toBe(true);
@@ -36,9 +36,19 @@ test('native Prompt API: S1–S5 and S7 PASS in installed Google Chrome', async 
     ignoreDefaultArgs: [`--disable-features=${PLAYWRIGHT_DISABLED_FEATURES.join(',')}`],
     args: [`--disable-features=${PLAYWRIGHT_DISABLED_FEATURES.filter((f) => f !== 'OptimizationHints').join(',')}`],
   });
+  const close = async () => {
+    await context.close();
+    rmSync(profile, { recursive: true, force: true });
+  };
+  return { context, close };
+}
+
+test('native Prompt API: S1–S5 and S7 PASS in installed Google Chrome', async ({ baseURL }, testInfo) => {
+  test.setTimeout(10 * 60_000);
+  const { context, close } = await launchNativeChrome(testInfo);
   try {
     const page = await context.newPage();
-    await page.goto(`${baseURL}/?runner=playwright`);
+    await page.goto(`${baseURL}/harness/?runner=playwright`);
     await page.getByRole('button', { name: 'Run' }).click();
     await expect(page.locator('#status')).toHaveAttribute('data-state', 'done', { timeout: 9 * 60_000 });
     const record = JSON.parse((await page.locator('#evidence').textContent()) ?? '{}');
@@ -53,7 +63,31 @@ test('native Prompt API: S1–S5 and S7 PASS in installed Google Chrome', async 
     }
     expect(record.scenarios.S6_systemRole.outcome).toBe('OBSERVED');
   } finally {
-    await context.close();
-    rmSync(profile, { recursive: true, force: true });
+    await close();
+  }
+});
+
+// Feature 003 canonical page (index.html → src/main.ts) on the native Prompt API. Asserts the run,
+// not the model's wording; logicalRequests is measured and validated separately (tasks.md T058).
+test('native Prompt API: canonical minimal graph completes in installed Google Chrome', async ({ baseURL }, testInfo) => {
+  test.setTimeout(10 * 60_000);
+  const { context, close } = await launchNativeChrome(testInfo);
+  try {
+    const page = await context.newPage();
+    await page.goto(`${baseURL}/?runner=playwright`);
+    await page.getByRole('button', { name: 'Run Graph', exact: true }).click();
+    await expect(page.locator('#status')).toHaveAttribute('data-state', 'done', { timeout: 9 * 60_000 });
+    const record = JSON.parse((await page.locator('#evidence').textContent()) ?? '{}');
+    writeFileSync(testInfo.outputPath('evidence.json'), JSON.stringify(record, null, 2) + '\n');
+
+    expect(record.evidenceClass).toBe('REAL_BROWSER_PROMPT_API');
+    expect(record.provider).toBe('native');
+    expect(record.environment.availability).toBe('MODEL_AVAILABLE');
+    expect(record.runner).toBe('playwright');
+    expect(record.outcome, JSON.stringify(record.error)).toBe('success');
+    for (const n of ['branchA', 'branchB', 'synthesize', 'decide']) expect(record.nodes[n].status, n).toBe('done');
+    expect(record.lifecycle.settledBeforeShutdown).toBe(true);
+  } finally {
+    await close();
   }
 });
