@@ -202,3 +202,27 @@ the bridge contract. Notes:
 - **Rule for real-browser runs**: restart `npm run harness` after any commit before running, so
   the page's revision matches the code it serves. The existing real-browser record
   (`5dac1a2`) is unaffected: that server started at `5dac1a2` with identical code.
+
+## Second real-browser run — active cancellation and Chrome 153
+
+`evidence/real-browser-2026-09-28-ce3f946.json` (supplied by the user after restarting the harness
+server and Chrome; saved verbatim; not observed or operated by the agent).
+
+- Revision `ce3f946` (served code identical to `ae0c5e3`: empty diff over code paths); no `+dirty`.
+- User agent `Chrome/153.0.0.0` — matches the installed `Google Chrome 153.0.8010.53`; the
+  152/153 discrepancy of the first run is resolved by the restart.
+- `provider: native`, `MODEL_AVAILABLE`, S1 PASS → `REAL_BROWSER_PROMPT_API` (classification rule
+  holds).
+- S1, S2, S3, S5, S7 PASS; S6 `OBSERVED` (`supported (native)`, again).
+- **S4 PASS with `target: queued+active`**: queued request → caller `TaskError:cancelled`, then
+  `0/0`, further request PASS; **active request** (holding the slot, inside the native model) →
+  caller `TaskError:cancelled`, then `0/0`, further request PASS. **The Checkpoint D coverage gap
+  (active cancellation only in `NODE_INTEGRATION`) is closed with `REAL_BROWSER_PROMPT_API`
+  evidence.**
+- S5 again: model wrapped JSON in a code fence → exactly 1 fallback (N-6 reproduced).
+- Counts: workflow operations 14, logical requests 15 (= 14 + 1 fallback), fallback requests 1,
+  provider invocations **NOT EXPOSED**.
+- Findings: none.
+
+The first record (`real-browser-2026-09-28.json`, revision `5dac1a2`, Chrome 152 per user agent)
+is kept unchanged as the original Checkpoint D evidence.
