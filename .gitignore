@@ -6,3 +6,6 @@ playwright-report/
 .next/
 next-env.d.ts
 *.tsbuildinfo
+# Feature 008: generated from node_modules/pixel-agents by scripts/copy-pixel-agents.mjs (the shim is ours)
+public/pixel-agents/*
+!public/pixel-agents/bta-host-shim.js

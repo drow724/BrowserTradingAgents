@@ -1,0 +1,67 @@
+{
+ "name": "failed-with-sibling-working",
+ "legend": "roles: 8 codes in ROLES order; i idle, w waiting, k working, e working + error reported, c completed, f failed, x cancelled, s stopped (error: failed/cancelled unclear), n not run. runtime: state/active/queued or null.",
+ "events": [
+  {
+   "seq": 1,
+   "type": "run-started"
+  },
+  {
+   "seq": 2,
+   "type": "role-started",
+   "role": "marketAnalyst"
+  },
+  {
+   "seq": 3,
+   "type": "role-started",
+   "role": "newsAnalyst"
+  },
+  {
+   "seq": 4,
+   "type": "role-failed",
+   "role": "marketAnalyst"
+  },
+  {
+   "seq": 5,
+   "type": "run-ended",
+   "outcome": "failed",
+   "stage": "graph",
+   "errorKinds": [
+    "failed"
+   ]
+  }
+ ],
+ "expected": [
+  {
+   "run": "running",
+   "roles": "wwwwwwww",
+   "runtime": null,
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "kwwwwwww",
+   "runtime": null,
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "kkwwwwww",
+   "runtime": null,
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "ekwwwwww",
+   "runtime": null,
+   "anomalies": 0
+  },
+  {
+   "run": "failed",
+   "roles": "fxnnnnnn",
+   "runtime": null,
+   "anomalies": 0,
+   "stage": "graph"
+  }
+ ]
+}

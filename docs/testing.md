@@ -151,3 +151,26 @@ Each writes `real-yahoo-evidence.json`. It records:
 - server → Yahoo requests as "not directly instrumented"
 
 A typed market-data failure is recorded as BLOCKED, never as PASS.
+
+## Execution view and Pixel Agents (Feature 008)
+
+- **Text execution view**: under the status table, on by default. It observes the page's status
+  surface read-only and is the canonical display. `?viz=off` removes it entirely.
+- **Pixel Agents canvas**: **off by default**. "Show Pixel Agents" turns it on; the choice is never
+  stored and is unavailable under reduced motion.
+  - The canvas shows only while a run is running and the area is on screen.
+  - It is a sandboxed iframe of the unmodified `pixel-agents@1.4.1` webview.
+  - `predev`, `prebuild` and every Playwright webServer run `scripts/copy-pixel-agents.mjs`. The
+    script copies the webview into git- and vercel-ignored `public/pixel-agents/`, and writes nothing
+    when `VERCEL` is set: public deployment is deferred, see F008-L1.
+- **Tests**:
+  - `test/execution-view.test.ts`: synthetic traces, no model.
+  - `e2e/execution-view.spec.ts`: stand-in, and the canvas tests turn Pixel Agents on explicitly.
+  - `e2e/view-overhead.spec.ts`: SC-014b1 gate (the default within 2 pp of `?viz=off`), and SC-014b2
+    (the opt-in cost, disclosed only). Both are part of `npm run test:browser`, which runs single-worker
+    because the market stub is shared.
+- **Native**: `npm run test:prompt-api` runs the fixture graph twice: default view, and Pixel Agents
+  explicitly enabled.
+- **Performance**: the opt-in canvas is expensive while visible, about 13–16 percentage points of main
+  thread in headless Chromium; in real Chrome it sits in its own process instead. The default path does
+  not pay it.

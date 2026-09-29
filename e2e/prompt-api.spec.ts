@@ -74,32 +74,115 @@ test('native Prompt API: S1–S5 and S7 PASS in installed Google Chrome', async 
 
 // Feature 004 canonical page (index.html → src/main.ts, eight-role fixture graph) on the native Prompt
 // API. Asserts the run, not the model's wording; logicalRequests is measured and validated separately
-// (specs/004…/tasks.md T059).
-test('native Prompt API: canonical eight-role fixture graph completes in installed Google Chrome', async ({ baseURL }, testInfo) => {
-  test.setTimeout(10 * 60_000);
+// (specs/004…/tasks.md T059). Feature 008 T034 runs it twice as independent user runs: A with the default
+// view (text execution view; Pixel Agents off) and B with Pixel Agents explicitly enabled by the host-owned
+// toggle. Native output is nondeterministic, so A and B share structural invariants, not model text. The
+// runtime's `{ready,1,1}` at fan-out is AkariSP admission, not evidence of native parallel inference.
+const ROLE_NODES = ['marketAnalyst', 'newsAnalyst', 'bullResearcher', 'bearResearcher', 'researchManager', 'trader',
+  'riskReviewer', 'finalDecisionMaker'];
+const ROLE_LABELS = ['Market Analyst', 'News Analyst', 'Bull Researcher', 'Bear Researcher', 'Research Manager', 'Trader',
+  'Risk Reviewer', 'Final Decision'];
+
+async function nativeFixtureRun(baseURL: string | undefined, testInfo: TestInfo, pixel: boolean) {
   const { context, close } = await launchNativeChrome(testInfo);
   try {
     const page = await context.newPage();
+    // Test-side counters (top frame only): iframes created; page requests to /api/market and /pixel-agents.
+    await page.addInitScript(() => {
+      if (window !== window.top) return;
+      const w = window as unknown as { __iframes: number };
+      w.__iframes = 0;
+      const create = Document.prototype.createElement;
+      Document.prototype.createElement = function (this: Document, tag: string, ...a: []) {
+        if (String(tag).toLowerCase() === 'iframe') w.__iframes++;
+        return create.call(this, tag, ...a);
+      } as typeof create;
+    });
+    const net = { api: 0, pixel: 0 };
+    page.on('request', (r) => {
+      const path = new URL(r.url()).pathname;
+      if (path === '/api/market') net.api++;
+      if (path.startsWith('/pixel-agents/')) net.pixel++;
+    });
+    const view = page.locator('#execution-view');
+    const toggle = page.locator('#view-pixel-toggle');
     await page.goto(`${baseURL}/?runner=playwright`);
+    await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
+    await expect(page.locator('#view-roles li')).toHaveCount(8);
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false'); // D5: off on every load
+    if (pixel) {
+      await toggle.click(); // the explicit, host-owned opt-in
+      await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+      await expect(view).toHaveAttribute('data-iframes', '0'); // idle: still no canvas
+    }
     await page.getByRole('button', { name: 'Run Graph', exact: true }).click();
+    await page.locator('#view-stage').scrollIntoViewIfNeeded();
+    let sandbox: string | null = null, rolesSeen = 0;
+    if (pixel) {
+      await expect(view).toHaveAttribute('data-iframes', '1', { timeout: 60_000 }); // running and on screen
+      sandbox = await page.locator('#view-stage iframe').getAttribute('sandbox');
+      for (const label of ROLE_LABELS) {
+        await expect(page.frameLocator('#view-stage iframe').getByText(label).first()).toBeVisible({ timeout: 60_000 });
+        rolesSeen++;
+      }
+    }
     await expect(page.locator('#status')).toHaveAttribute('data-state', 'done', { timeout: 9 * 60_000 });
     const record = JSON.parse((await page.locator('#evidence').textContent()) ?? '{}');
     writeFileSync(testInfo.outputPath('evidence.json'), JSON.stringify(record, null, 2) + '\n');
+    const view008 = {
+      scenario: pixel ? 'B: Pixel Agents explicitly enabled' : 'A: default (text view, Pixel off)',
+      iframesCreated: await page.evaluate(() => (window as unknown as { __iframes: number }).__iframes),
+      iframesAtEnd: await view.getAttribute('data-iframes'), sandbox, pixelRolesSeen: rolesSeen,
+      pixelRequests: net.pixel, apiMarketRequests: net.api,
+      textRun: await page.locator('#view-run').textContent(),
+      textRoles: await page.locator('#view-roles li').evaluateAll((ls) => ls.map((l) => (l as HTMLElement).dataset.state)),
+      anomalies: await view.getAttribute('data-anomalies'),
+    };
+    writeFileSync(testInfo.outputPath('view-008.json'), JSON.stringify(view008, null, 2) + '\n');
 
+    // The execution invariants, identical for A and B.
     expect(record.evidenceClass).toBe('REAL_BROWSER_PROMPT_API');
     expect(record.provider).toBe('native');
     expect(record.environment.availability).toBe('MODEL_AVAILABLE');
     expect(record.runner).toBe('playwright');
     expect(record.outcome, JSON.stringify(record.error)).toBe('success');
     expect(record.graph.version).toBe('tradingagents-fixture-graph@1');
-    for (const n of ['marketAnalyst', 'newsAnalyst', 'bullResearcher', 'bearResearcher', 'researchManager', 'trader',
-      'riskReviewer', 'finalDecisionMaker']) expect(record.nodes[n].status, n).toBe('done');
+    for (const n of ROLE_NODES) expect(record.nodes[n].status, n).toBe('done');
     expect(record.result.finalDecision).toBeTruthy();
-    expect(record.lifecycle.settledBeforeShutdown).toBe(true);
     expect(record.dataSource.mode).toBe('fixture'); // Feature 005: credential-free native + fixture gate
+    expect(record.fixture).toBe('tradingagents-fixture@1');
+    expect(record.counts).toMatchObject({ graphRuns: 1, nodeExecutions: 8, logicalRequests: 8, fallbackRequests: 0 });
+    expect(record.nodeEvents).toHaveLength(16); // no extra node execution
+    expect(record.lifecycle.settledBeforeShutdown).toBe(true);
+    expect(record.lifecycle.snapshotBeforeShutdown).toEqual({ state: 'ready', active: 0, queued: 0 });
+    expect(record.lifecycle.snapshotAfterShutdown).toEqual({ state: 'closed', active: 0, queued: 0 });
+    expect(net.api).toBe(0); // no market acquisition in fixture mode, with or without Pixel
+    // The view: text is canonical in both; the canvas exists only in B, and only while running.
+    expect(view008.textRun).toBe('completed');
+    expect(view008.textRoles).toEqual(Array(8).fill('completed'));
+    expect(view008.anomalies).toBe('0');
+    expect(view008.iframesAtEnd).toBe('0'); // terminal: unmounted
+    if (pixel) {
+      expect(view008.iframesCreated).toBeGreaterThanOrEqual(1);
+      expect(view008.sandbox).toBe('allow-scripts');
+      expect(view008.pixelRolesSeen).toBe(8);
+    } else {
+      expect(view008.iframesCreated).toBe(0);
+      expect(view008.pixelRequests).toBe(0);
+    }
   } finally {
     await close();
   }
+}
+
+test('native Prompt API: canonical eight-role fixture graph completes in installed Google Chrome', async ({ baseURL }, testInfo) => {
+  test.setTimeout(10 * 60_000);
+  await nativeFixtureRun(baseURL, testInfo, false); // T034 A: default view, Pixel Agents off
+});
+
+test('native Prompt API: canonical eight-role fixture graph with Pixel Agents explicitly enabled', async ({ baseURL }, testInfo) => {
+  test.setTimeout(10 * 60_000);
+  await nativeFixtureRun(baseURL, testInfo, true); // T034 B: explicit opt-in through the host-owned toggle
 });
 
 // Feature 007 G gate, L5 (opt-in; skipped unless BTA_REAL_YAHOO=1): native Prompt API + live data from
