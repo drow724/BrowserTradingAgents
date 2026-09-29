@@ -4,6 +4,11 @@ import { expect, test, type Page } from '@playwright/test';
 
 async function run(page: Page, url: string) {
   await page.goto(url);
+  // The Run button is enabled from the start, but its click handler is attached only at the end of
+  // harness/main.ts's evaluation. `#availability` changes from "checking…" to "provider: …" in a
+  // `.then` reaction queued on the line before `addEventListener`, so it runs after the handler exists
+  // (Feature 005 F005-002: clicking earlier was a lost click).
+  await expect(page.locator('#availability')).toContainText('provider: ');
   await page.getByRole('button', { name: 'Run' }).click();
   await expect(page.locator('#status')).toHaveAttribute('data-state', 'done', { timeout: 60_000 });
   return JSON.parse((await page.locator('#evidence').textContent()) ?? '{}');

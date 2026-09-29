@@ -1,3 +1,21 @@
+<!--
+Sync Impact Report — amendment 2026-09-29
+- Version: 1.0.0 → 1.1.0 (MINOR: new principle XIII; no principle removed or redefined)
+- Added: XIII. Inference Tiers
+- Reason: ADR 0001 (docs/adr/0001-nextjs-application-shell.md) adopts Next.js as the application
+  shell. Its server side makes remote inference technically reachable (e.g. a future cloud tier
+  such as Vercel AI Gateway, recorded only as a roadmap candidate). Without a rule, remote
+  inference could enter as an implicit default or a silent fallback and erode the project's
+  browser/local inference purpose (Principles IV, VI).
+- Evidence: the maintainer's architecture decision recorded in ADR 0001 (2026-09-29) and the
+  roadmap entry for an optional cloud-inference escalation. This is a decided direction; no
+  failure was observed. Features 002–005 run all inference locally (Prompt API through AkariSP).
+- Affected Features: 001–005 are unaffected (local inference only; no evidence changes). Future
+  Features that add any remote inference must satisfy XIII. Features 006–007 add none.
+- Workflow impact: every plan's Constitution Check adds XIII. Templates need no change (the plan
+  template derives its gates from this file).
+- Vendor neutrality: no vendor or product is named in the principle.
+-->
 # BrowserTradingAgents Constitution
 
 BrowserTradingAgents is an external consumer application that incrementally builds a
@@ -175,6 +193,25 @@ Confidence:
 - `Core change required = YES` MUST NOT be selected without evidence.
 - Classification and reproduction come before any fix.
 
+### XIII. Inference Tiers
+
+Browser/local inference is the default tier.
+
+- The application owns inference-tier routing: which tier serves a request is an application
+  decision, visible in its configuration and UI.
+- Remote (cloud) inference requires explicit escalation. It must be selected deliberately, be
+  visible to the user and be recorded in evidence. It is never a silent fallback for a failed or
+  unavailable local tier.
+- AkariSP owns the local inference lifecycle (Principle IV), not routing semantics. Tier routing
+  MUST NOT be pushed into AkariSP.
+- Evidence MUST state which tier served each run. Remote-tier results MUST NOT be reported as
+  local-provider evidence (Principle VI).
+- This principle names no vendor. Candidate remote-tier implementations belong in the roadmap,
+  not in this constitution.
+
+Rationale: keeping local inference the default protects the project's purpose, dogfooding browser
+inference through AkariSP, while allowing a deliberate cloud tier when a Feature justifies one.
+
 ## Project Scope & Non-Goals
 
 BrowserTradingAgents does NOT aim to:
@@ -231,4 +268,4 @@ Versioning policy (semantic versioning):
 
 The initial constitution version is `1.0.0`.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-28 | **Last Amended**: 2026-09-28
+**Version**: 1.1.0 | **Ratified**: 2026-09-28 | **Last Amended**: 2026-09-29

@@ -2,10 +2,10 @@
 
 | Command | What runs | Evidence class |
 |---|---|---|
-| `npm test` | unit tests (fake `Runtime`), incl. the Feature 004 eight-role fixture graph (`test/trading-graph.test.ts`) + Node integration (real `akarisp`, stand-in `LanguageModel`; `test/node-integration.test.ts`, `test/trading-graph-integration.test.ts`) | `DETERMINISTIC_TEST`, `NODE_INTEGRATION` |
-| `npm run test:browser` | canonical app `/` = eight-role fixture graph (`e2e/app.spec.ts`) and Feature 002 harness `/harness/` (`e2e/harness.spec.ts`) in Playwright's Chromium with the stand-in; native paths must report `BLOCKED` | `BROWSER_AUTOMATED` |
-| `npm run test:prompt-api` | canonical app `/` and Feature 002 harness `/harness/` in the **installed Google Chrome** with the **native Prompt API** (Gemini Nano), headless | `REAL_BROWSER_PROMPT_API`, `runner: playwright` |
-| `npm run dev` | canonical app at `http://localhost:5173/` for a manual run in your own Chrome (`?provider=standin` = stand-in, never Prompt API evidence) | `REAL_BROWSER_PROMPT_API`, `runner: manual` (or `BLOCKED`) |
+| `npm test` | unit tests (fake `Runtime`), incl. the Feature 004 eight-role fixture graph (`test/trading-graph.test.ts`) and the Feature 005 market-data boundary without network (`test/market-data.test.ts`, synthetic bodies; its local-replay check is skipped unless `.local/replay/*.json` exists) + Node integration (real `akarisp`, stand-in `LanguageModel`; `test/node-integration.test.ts`, `test/trading-graph-integration.test.ts`) | `DETERMINISTIC_TEST`, `NODE_INTEGRATION` |
+| `npm run test:browser` | canonical app `/` = eight-role graph (`e2e/app.spec.ts`: fixture mode, and live mode on **controlled** Massive responses via `page.route` — every other non-local request is aborted, dummy key only) and Feature 002 harness `/harness/` (`e2e/harness.spec.ts`) in Playwright's Chromium with the stand-in; native paths must report `BLOCKED` | `BROWSER_AUTOMATED` |
+| `npm run test:prompt-api` | canonical app `/` (fixture mode) and Feature 002 harness `/harness/` in the **installed Google Chrome** with the **native Prompt API** (Gemini Nano), headless; the owner-run live test is skipped unless `BTA_MASSIVE_KEY` is set (see below) | `REAL_BROWSER_PROMPT_API`, `runner: playwright` |
+| `npm run dev` | canonical app at `http://localhost:5173/` for a manual run in your own Chrome (`?provider=standin` = stand-in, never Prompt API evidence; `?data=live` = live market data, see below) | `REAL_BROWSER_PROMPT_API`, `runner: manual` (or `BLOCKED`) |
 | `npm run harness` | same dev server (unchanged command); the Feature 002 harness page is now at `http://localhost:5173/harness/` | Feature 002 record |
 
 ## Real Prompt API without downloading the model again
@@ -47,3 +47,74 @@ the macOS machine that has that Chrome and model (not in cloud sessions).
   `downloadable`/`unavailable`), and Chrome for Testing with those arguments removed
   (`availability()` never resolves). Only the installed Google Chrome with `OptimizationHints`
   re-enabled reports `available`.
+
+## Data modes (Feature 005)
+
+Two independent choices in the canonical page URL:
+
+| | fixture (default) | live (`?data=live`) |
+|---|---|---|
+| stand-in (`?provider=standin`) | `/?provider=standin` | `/?provider=standin&data=live` |
+| native (default) | `/` | `/?data=live` |
+
+- **fixture**: the committed fictional fixture (Feature 004). No market-data request is made.
+- **live**: at run time, the page requests end-of-day daily bars for IBM from Massive
+  (`api.massive.com`) with the key you type into the page. "Live" means *fetched at run time*, not
+  real-time data. News stays a committed, company-neutral text. On success the page shows the
+  snapshot (`#market`) and a local replay artifact (`#replay`). The evidence record (`#evidence`)
+  holds provenance and two digests, never prices, role output text or the key.
+- **Native provider only**: the Prompt API availability check runs before any market-data request.
+  The stand-in never depends on it.
+- **Live failure**: a live failure (no key, network, 401/403, 429, provider error, unusable data,
+  timeout, Cancel) ends the run as a market-data failure before any runtime exists. It never falls
+  back to the fixture.
+
+### Key handling
+
+- The key is read from the password field when you click Run. It is sent only as
+  `Authorization: Bearer …` to `api.massive.com`, and is not stored anywhere by the app: not in
+  storage, the URL, the console, the evidence or the replay artifact.
+- Never put a key in source, `.env*` files or a `VITE_*` variable. A bundler environment variable
+  is inlined into the JavaScript bundle; it is not secret protection.
+- Chrome may offer to save the key typed into the password field. Decline it: that store is outside
+  the application.
+
+### Local replay artifact
+
+Copy the `#replay` JSON of a successful live run into `.local/replay/<name>.json`. `.local/` is
+gitignored; never commit it. It holds the normalized snapshot and `marketFacts` with their digests,
+and no credential. `npm test` then checks that it re-renders to itself and matches a committed
+evidence record by digest.
+
+### Owner-run live gates (L4/L5; Massive key required)
+
+These run only after prerequisite **P-1** is recorded (Massive's written confirmation or a licence
+for personal, local, LLM-assisted analysis — `specs/005-browser-market-data-boundary/tasks.md`).
+Only the key's owner runs them. The agent never handles the key.
+
+- **L4, stand-in**: `npm run dev`, open `/?provider=standin&data=live`, type the key, Run, save
+  `#evidence` unedited.
+- **L5, native, Playwright runner**: the key must never appear in shell history, a process's argv,
+  a file, storage, evidence or test output. Read it silently inside a subshell, export it only to
+  the child process, and it is gone when the subshell exits. This was verified with a dummy value in
+  zsh 5.9 and bash 3.2.
+
+  ```bash
+  # zsh
+  ( read -rs "BTA_MASSIVE_KEY?Massive key: " && export BTA_MASSIVE_KEY && npm run test:prompt-api -- -g "live market data" )
+  ```
+
+  ```bash
+  # bash
+  ( read -rsp "Massive key: " BTA_MASSIVE_KEY && export BTA_MASSIVE_KEY && npm run test:prompt-api -- -g "live market data" )
+  ```
+
+  - Never write the key on the command line, and never run with `DEBUG=pw:api` (it prints `fill`
+    values).
+  - While the subshell runs, its environment is readable by the same OS user.
+  - The test writes the evidence to `test-results/<port>/…/evidence.json`. It asserts that the file
+    does not contain the key.
+- **Checking an artifact for the real key without printing it**: run the same subshell pattern with
+  `grep -rcF -f <(printf '%s\n' "$BTA_MASSIVE_KEY") <paths>`. It prints only counts. The pattern goes
+  through a file descriptor (`printf` is a shell builtin), so the key never becomes a process
+  argument.
