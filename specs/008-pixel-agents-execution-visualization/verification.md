@@ -1823,3 +1823,283 @@ Next: T034, the native + fixture gate (APPROVAL REQUIRED), not run.
   - AkariSP changes 0
   - dependencies: `pixel-agents@1.4.1` (dev) only
 - **Not done**: the native gate has not been run. T034 is still pending approval.
+
+## T034 — Native + fixture gate (maintainer approved, 2026-09-29): **PASS**
+
+- **Tested revision**: `a9203d54f485a9e24928ca252c2b0c0c70de9f48`, the T034 acceptance revision
+  (test-only). The production implementation is `24fea89e5979bfbbf96c36feddb65dabadf129f7`.
+- **Pre-run**: HEAD = the tested SHA; code paths clean; production diff from `24fea89` = 0;
+  `BTA_REAL_YAHOO` unset.
+- **Browser**: installed Google Chrome 154.0.8037.58 (`channel: 'chrome'`, headless, cloned golden
+  profile). The page reports `HeadlessChrome/154.0.0.0` and `MODEL_AVAILABLE`, and the evidence class is
+  `REAL_BROWSER_PROMPT_API`. No stand-in was used.
+
+`npm run test:prompt-api` (rc 0), raw:
+
+```text
+  ✓  1 [prompt-api] › e2e/prompt-api.spec.ts:51:1 › native Prompt API: S1–S5 and S7 PASS in installed Google Chrome (40.2s)
+  ✓  2 [prompt-api] › e2e/prompt-api.spec.ts:178:1 › native Prompt API: canonical eight-role fixture graph completes in installed Google Chrome (58.9s)
+  ✓  3 [prompt-api] › e2e/prompt-api.spec.ts:183:1 › native Prompt API: canonical eight-role fixture graph with Pixel Agents explicitly enabled (59.4s)
+  -  4 [prompt-api] › e2e/prompt-api.spec.ts:191:1 › real Yahoo L5: native Prompt API + live through /api/market (BTA_REAL_YAHOO=1 only)
+  1 skipped
+  3 passed (2.7m)
+```
+
+| | A: default (Pixel off) | B: Pixel explicitly enabled |
+|---|---|---|
+| Toggle | `aria-pressed=false` throughout | clicked → `aria-pressed=true` |
+| iframes | 0 created, 0 at the end, 0 `/pixel-agents` requests | 0 while idle before the run (asserted); 1 while active and visible (asserted); 0 at the end; 1 created |
+| sandbox | — | `allow-scripts` (no `allow-same-origin`) |
+| Pixel role labels observed | — | 8/8 during execution |
+| roles done | 8/8 | 8/8 |
+| graphRuns / nodeExecutions / nodeEvents | 1 / 8 / 16 | 1 / 8 / 16 |
+| logicalRequests / fallbackRequests | **8** / 0 | **8** / 0 |
+| lifecycle | `{ready,0,0}` → `settledBeforeShutdown` true → `{closed,0,0}` | same |
+| `/api/market` requests | 0 | 0 |
+| text view | completed ×8, anomalies 0 | completed ×8, anomalies 0 |
+| fixture / graph | `tradingagents-fixture@1` / `tradingagents-fixture-graph@1` | same |
+| `timing.graphMs` (operational only) | 39 647 | 39 791 |
+
+**Interpretation limits**
+- The fan-out snapshot `{ready, active 1, queued 1}` in both runs is AkariSP admission/backpressure. It
+  is **not** evidence of native parallel inference.
+- The model texts of A and B are not compared (native output is nondeterministic). A and B share the
+  structural invariants above.
+- The two `graphMs` values are single samples. No performance conclusion is drawn; SC-014b2
+  `KNOWN_UPSTREAM_COST` stands.
+- In B, the canvas requested 63 same-origin `/pixel-agents/*` resources (webview, sprites), as the
+  opt-in design implies.
+
+**Evidence** (each file wraps the page record verbatim; the raw record's SHA-256 is inside):
+
+| File | SHA-256 |
+|---|---|
+| `evidence/native-fixture-pixel-off-2026-09-29-a9203d5.json` | `ed792bb33ef18fea8e1dd8ce8e056ce7e35b852e4cb183378d141304b857cc3a` |
+| `evidence/native-fixture-pixel-on-2026-09-29-a9203d5.json` | `26d3e8f01a1f38df746751050ed769b74797dd24b9fec530889156492222ac46` |
+
+In `pixelLifecycle`, the `idleBeforeRun: 0` and `activeVisible: 1` values are the conditions asserted
+by the passing test. `iframesCreated`, `terminal`, `sandbox` and `roleLabelsSeen` are recorded values
+(`view008`).
+
+**Real Yahoo**: L5 was SKIPPED (`BTA_REAL_YAHOO` unset). Both runs made 0 `/api/market` requests and
+no real Yahoo request. The cumulative real-Yahoo count is unchanged (3, Feature 007).
+
+**Post-run**
+- **Protected set**: 96/96 unchanged.
+- **Hashes**: `src/main.ts` `bd34bf98…`; `runGraph` `922db752…`.
+- **Upstream**: inventory `ec6dfa08…`, unchanged.
+- **AkariSP**: changes 0.
+- **Production implementation**: changes 0.
+- **Code paths**: clean.
+
+State: **IMPLEMENTATION_COMPLETE**. Next: T035 (final audit), which is not started. The T034 records
+(this section, the evidence files and the `tasks.md` checkbox) are uncommitted docs-only changes.
+
+## T035 — Final audit (2026-09-29)
+
+### Revisions
+
+| SHA | Role |
+|---|---|
+| `07f8f34` | base (Feature 007 merge, PR #8) |
+| `24fea89e5979bfbbf96c36feddb65dabadf129f7` | **Feature 008 production implementation** (T001–T032) |
+| `a9203d54f485a9e24928ca252c2b0c0c70de9f48` | **T034 native acceptance-coverage revision**. Its production diff from `24fea89` is 0: it changes only `e2e/prompt-api.spec.ts`, `tasks.md` and `verification.md`. The T034 evidence was produced here |
+
+**Diff scope**:
+- `07f8f34..24fea89` touches only planned Feature 008 files:
+  - `src/view/*` (4), `components/ExecutionView.tsx`, `app/page.tsx`, `next.config.ts`
+  - `scripts/copy-pixel-agents.mjs`, `public/pixel-agents/bta-host-shim.js`, `.gitignore`,
+    `.vercelignore`, package files, `playwright.config.ts`
+  - tests, e2e, traces, and specs/008
+- The diff of `src/main.ts`, `src/graph`, `src/integration`, `src/server`, `src/market-bundle.ts`,
+  `app/api` and `harness` is **0 lines**.
+
+### User stories
+
+| US | Observable evidence | Result |
+|---|---|---|
+| US1 see agents working | T021: the text view by default; explicit opt-in → a 480×320 sandboxed canvas with the 8 fixed roles while running; T034 B (native) shows the 8 labels | PASS |
+| US2 understand flow | T022 stepped run: each role works once, topology order, Bull after both analysts | PASS |
+| US3 waiting vs working | T023 fan-out: both analysts `working (graph)`, runtime `active 1 · queued 1`, 0 roles queued or inferring | PASS |
+| US4 completion, failure, cancellation | T024: acquisition failure and cancel; graph cancel; Bull failure; ambiguous sibling → `stopped`; `createRuntime` failure; BLOCKED; second run; L1 traces | PASS |
+| US5 preserve trading behavior | T025 ON/OFF (fixture ×6 variants, live); T026 controls, forged messages and off-screen remount; T028 Strict Mode; T034 A/B native with 8 logical requests each | PASS |
+| US6 same visualizer across modes | T027 fixture and live, stand-in; T034 native | PASS |
+| US7 test without inference | 13 traces, 26 L1 tests, no model and no network | PASS |
+
+### Functional requirements
+
+| FR | Evidence | Result |
+|---|---|---|
+| 001–005 event boundary, one-way, observed only | `src/view/execution-events.ts` (record-level facts, H1); read-only observer; T026 (no webview message reaches execution) | PASS |
+| 006 identity | `ROLE_IDENTITY` (palette, hue, seat), L1; T021 `existingAgents` equals the identity | PASS |
+| 007 / 007a / 008 states | the reducer's 10 states; `not-run` is derived only at `run-ended`; `stopped` is used when the error kinds do not attribute; L1 and T024 | PASS |
+| 009 monotonic | traces `late-event-after-cancel` and `duplicate-and-out-of-order`; T024 "no change 500 ms later" | PASS |
+| 010–011 attribution bounds | no role queued or inferring in any trace or browser run; the runtime panel is shown verbatim | PASS |
+| 012 run status and stage | `runText`; T024 (acquisition, graph, preflight) | PASS |
+| 013–017 flow, failure, cancellation, late events | T022, T024, traces | PASS |
+| 018–020 non-interference, containment, cleanup | T025 (evidence equal across 6 variants), decoder and host failure isolated; lifecycle intact in every run including T034 | PASS |
+| 021 no trigger on mount | every idle page: `#status` idle, `#runtime` `—`; T028 | PASS |
+| 022 Strict Mode | T028: `data-mounts` 2, 1 observer, 1 graph run | PASS |
+| 023 removable | `?viz=off`: no section, no iframe, equal evidence (T025, T031) | PASS |
+| 024–025 modes and status | T027 mode line; runtime panel | PASS |
+| 026–028 synthetic traces and replay | 13 traces, replay twice identical; SC-014b1/b2 replay harness | PASS |
+| 029 text, not color | T031 `<Label>: completed` text | PASS |
+| 030 reduced motion | T031: toggle disabled, 0 iframes, 0 Pixel requests | PASS |
+| 031 release resources | T029 SC-014a; no timer or rAF in `ExecutionView` | PASS |
+| 032 no off-origin data | 0 off-origin requests in every Feature 008 test; no telemetry (C0 grep) | PASS |
+| 033 layout | T031 at 375 px: the canvas fits, controls not covered, no added width | PASS |
+| 034–037 no fork, pinned, license | npm 1.4.1 exact, SHA `3537e140`, MIT recorded; upstream patches 0; fork 0; F008-L1 documented | PASS |
+| 038–039 protected scope, separate evidence | protected 96/96; separate `evidence/` for Feature 008 | PASS |
+| 040 default off, host-owned control | T021, T034 A (`aria-pressed=false`, 0 iframes, 0 Pixel requests) | PASS |
+| 041 session-only | T021: storage `[0, 0, '']` after the toggle; the reload resets to off; `grep`: no storage API | PASS |
+| 042 enabled ∧ running ∧ visible | T021 (idle 0, running 1, terminal 0, next run remounts); T026 (off-screen 0, back 1); T034 B | PASS |
+| 043 off during a run only unmounts | T021: off during the run → 0 iframes, and the run completes with 8/8 and 8 requests | PASS |
+| 044 reduced motion | T031: toggle disabled with the "unavailable" note | PASS |
+
+### Success criteria
+
+| SC | Evidence | Result |
+|---|---|---|
+| 001, 013 | T022: one working period per role; 17 transitions at ≤ 2.3 ms (≤ 1 s) | PASS |
+| 002, 012 | T025 fixture (snapshotDigest included) and live (F008-010 rule) | PASS |
+| 003 | T023, traces | PASS |
+| 004, 005, 006 | T024, traces | PASS |
+| 007 | T028 | PASS |
+| 008 | L1: 13 traces replayed twice | PASS |
+| 009 | Feature 007 browser tests all pass; T034 native gate | PASS |
+| 010, 011 | AkariSP 0 changes; graph and provenance files unchanged (96/96) | PASS |
+| 014a | T029: 10 canvas runs and 5 reloads, 0 delta | PASS |
+| **014b (original)** | **FAILED → SUPERSEDED_BY_MAINTAINER_DECISION (D5)**; history below | superseded |
+| 014b1 | +0.42 / +0.43 / +0.30 / +0.34 pp (≤ 2) | PASS |
+| 014b2 | +13.46 / +15.93 / +14.94 pp | `KNOWN_UPSTREAM_COST` (disclosed) |
+| 015 | T031 reduced motion | PASS |
+| 016 | 0 off-origin requests (all tests) | PASS |
+| 017 | fork repositories 0 | PASS |
+
+### Performance history (kept; nothing reinterpreted)
+
+1. **INVALID**: +0.71 pp. The canvas was off-screen and Chrome throttled it.
+2. **Original SC-014b FAILED**, with the canvas always on, active and visible:
+   - before optimization: +15.9 to +17.8 pp
+   - after the application-side A/B/C optimization: still +11.72 to +14.95 pp headless
+   - headed Chrome: the sandboxed Pixel out-of-process iframe's main thread was about 12.8 % busy.
+     A GPU does **not** make the cost disappear; it moves to another process.
+3. **Final product (D5)**: Pixel is off by default.
+   - SC-014b1 (default text view): **PASS**, about +0.3 to +0.4 pp.
+   - SC-014b2 (explicit opt-in): `KNOWN_UPSTREAM_COST`, about +13 to +16 pp in controlled headless
+     runs.
+
+Feature completion does **not** mean the Pixel rendering cost is solved. It means that the default
+path does not pay it.
+
+### D5, truth order and state model (consistency across spec, contracts, code and tests)
+
+- **Default**: the text view is on and Pixel is off. The canvas appears only through the host-owned
+  toggle, and the iframe exists iff enabled ∧ running ∧ visible. Terminal or off-screen → 0; reload →
+  off; no persistence; reduced motion → unavailable; `?viz=off` → the whole view is disabled.
+- **Truth order**: execution first, then the text view, then the canvas. Pixel is not a source of
+  orchestration, graph transitions, acquisition, model calls, cancellation, admission or decisions.
+  Webview messages other than `webviewReady` are counted and ignored (T026; T034 B shows 8 requests).
+- **States**: 10 (`idle`, `waiting`, `working`, `queued`\*, `inferring`\*, `completed`, `failed`,
+  `cancelled`, `stopped`, `not-run`). \* These two are never produced: there is no correlation.
+  - `not-run` is derived at `run-ended`.
+  - `stopped` means the attribution is ambiguous ("error (failed/cancelled unclear)").
+  - The runtime aggregate is displayed separately and never mapped onto roles.
+
+### Security, upstream and artifacts
+
+- **Upstream**: `pixel-agents@1.4.1` exact devDependency (pixel-agents-hq @ `3537e140`).
+  - No package import in `src`, `app`, `components` or `scripts`. The CLI and Fastify are never run.
+  - Upstream JS/CSS patches 0. The inventory is `ec6dfa08…`, and `index.html` differs only by the one
+    shim line. Fork 0.
+- **Iframe**: `sandbox="allow-scripts"` only (0 occurrences of `allow-same-origin`,
+  `allow-top-navigation` or `allow-popups`). `parent.document` → `SecurityError`.
+- **Message acceptance**: `event.source`, `data.source` and a string type are all checked.
+- **CORS**: only `/pixel-agents/:path*`, and absent under `VERCEL`. `/api/market` has none (measured).
+- **Artifacts**: the only tracked file under `public/` is the shim. The copied `index.html`, JS, CSS,
+  fonts, sprites and layout are git-ignored and in `.vercelignore`. No screenshot and no image is
+  tracked outside that.
+
+### Dependencies
+
+- **Direct**: only `pixel-agents: 1.4.1` (dev, exact) was added.
+- **Lockfile**: +82 entries, all in the `pixel-agents` dependency tree (`ws` is `devOptional`). 0
+  removals and 0 version changes.
+
+### Regression baseline (final)
+
+| Check | Result |
+|---|---|
+| typecheck | PASS |
+| build | PASS (`/` static; first-load JS 573 927 bytes; no LangGraph in first load) |
+| unit | 133 (132 pass, 1 skip) |
+| production browser | 50 passed, 1 skipped (real Yahoo L4, opt-in); every Feature 007 test passes |
+| dev | 2/2 |
+| T034 (`test:prompt-api`) | 3 passed, 1 skipped (real Yahoo L5, opt-in) |
+
+### Protected execution
+
+- **Protected set**: 96/96 unchanged.
+- **Hashes**: `src/main.ts` `bd34bf98…`; `runGraph` `922db752…`.
+- **Unchanged**: AkariSP, `/api/market`, the Yahoo adapter, MarketBundle, the graph topology and
+  provenance, the prompts, and the Feature 007 evidence semantics (the evidence `feature` field is still
+  Feature 007's).
+
+### Evidence inventory
+
+| File | SHA-256 | Purpose | Tested SHA | Production SHA |
+|---|---|---|---|---|
+| `evidence/native-fixture-pixel-off-2026-09-29-a9203d5.json` | `ed792bb33ef18fea8e1dd8ce8e056ce7e35b852e4cb183378d141304b857cc3a` | T034 A: native + fixture, Pixel off | `a9203d5` | `24fea89` |
+| `evidence/native-fixture-pixel-on-2026-09-29-a9203d5.json` | `26d3e8f01a1f38df746751050ed769b74797dd24b9fec530889156492222ac46` | T034 B: native + fixture, Pixel opt-in | `a9203d5` | `24fea89` |
+
+- Controlled browser and performance evidence (SC-013, SC-014a, SC-014b1/b2, and the original SC-014b
+  history) is recorded inline in this file as raw output. No separate evidence file and no screenshot
+  was committed.
+
+### Findings
+
+| ID | Status |
+|---|---|
+| F008-001, 002, 003, 004, 006 | recorded adaptations, in place |
+| F008-005 font path | RESOLVED (relative in the built CSS) |
+| F008-007 sandbox CORS | RESOLVED (scoped header, B2) |
+| F008-009 ambiguous sibling | RESOLVED (`stopped`) |
+| F008-010 live `snapshotDigest` | RESOLVED (live-only exclusion plus the semantic proof) |
+| F008-011 Pixel cost | RESOLVED_BY_PRODUCT_DECISION (D5) |
+| F008-O1 / O2 | dogfooding observations (no attribution; runtime polled) |
+| **F008-008** cosmetic upstream limits (label hidden when Done, Settings modal over the canvas, wording and toast) | **OPEN**: no upstream patch; the text view is canonical; not a local completion blocker |
+| **F008-L1** character asset license and provenance | **OPEN** → `PUBLIC_DEPLOYMENT_DEFERRED` |
+
+No new finding in T035.
+
+### Completion status
+
+- **Feature 008 implementation**: `IMPLEMENTATION_COMPLETE`.
+- **Local and research scope**: **FEATURE_COMPLETE**. Every current requirement passes. SC-014b
+  (original) is superseded, and its failure is preserved.
+- **`PUBLIC_DEPLOYMENT_DEFERRED`**: F008-L1 is OPEN. FEATURE_COMPLETE ≠ approval for public
+  redistribution of the upstream character assets. The repository's MIT license is not read as
+  covering them.
+- **Remaining limitations**:
+  - The opt-in Pixel mode has a known rendering cost (SC-014b2).
+  - F008-008 cosmetic limits.
+  - `stopped` cannot be refined without role ↔ request attribution (F008-O1).
+  - Reduced motion is sampled at mount only.
+
+`docs/testing.md` (Feature 008 section) and `docs/roadmap.md` (008 complete, local; 009 not started)
+were updated in T035. They await the T036 closeout commit.
+
+## T036 — Closeout commit (maintainer approved, 2026-09-29)
+
+- **Contents**: docs and evidence only, with no production, config, test or dependency change:
+  - `docs/roadmap.md`, `docs/testing.md`
+  - `tasks.md` and this file
+  - the two T034 evidence files
+- **Revisions stay distinct**:
+  - production implementation `24fea89e5979bfbbf96c36feddb65dabadf129f7`
+  - native acceptance `a9203d54f485a9e24928ca252c2b0c0c70de9f48`
+  - this closeout commit, which sits on top of `a9203d5`
+- **Status**: Feature 008 is COMPLETE for local and research use. Public deployment is DEFERRED
+  because F008-L1 (character asset redistribution and license provenance) is unresolved. F008-008
+  remains OPEN.
+- **Push**: none.

@@ -1,7 +1,7 @@
 # BrowserTradingAgents Roadmap Notes
 
 Working notes, not governance. The constitution (`.specify/memory/constitution.md`) prevails.
-Last updated: 2026-09-29 (Feature 007 server market data boundary complete; next: Feature 008).
+Last updated: 2026-09-29 (Feature 008 Pixel Agents execution visualization complete for local/research use; next: Feature 009).
 
 ## Intended end state (candidate, not yet a Feature)
 
@@ -32,8 +32,8 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 | 005 | **Market Data Boundary Experiment** — browser market-data boundary: `?data=live` feeds only the Market Analyst from Massive end-of-day bars through acquire → normalize → render, independent of the LLM provider axis; fixture mode unchanged | implementation complete (L1–L3 controlled evidence; native + fixture `0543a69`); **authenticated provider validation (P-1, L4, L5) deferred** — Massive was chosen for pure-browser feasibility, not from the upstream data contract; permitted use unresolved; no real credential used |
 | 006 | **Next.js Application Shell Migration** (`006-nextjs-application-shell`): move the Vite shell to Next.js App Router with no semantic change (see "Feature 006 scope") | implementation complete — Next.js 16 App Router shell (`/`, `/harness`); graph, AkariSP and Prompt API still run only in the browser; Vite retired; all prior browser guarantees re-proven on the production server; native gates PASS in installed Chrome 154 (pre-retirement `5eb4fc0`; final `a3031920`: native + fixture 8/8, 8 logical / 0 fallback, settled `{ready,0,0}` before shutdown) — **complete** |
 | 007 | **Upstream-Compatible Server Market Data Boundary** (`007-upstream-server-market-data-boundary`): upstream Market Analyst data contract at `35543d0` → same-origin `/api/market` with a Yahoo/yfinance-compatible server adapter and a provider-independent market bundle | **complete** — controlled boundary validation PASS; native + fixture regression PASS (`4b4925f`); real Yahoo L4/L5 validation PASS; Feature 005 browser-direct Massive path retired; AkariSP changes 0 |
-| 008 | **Pixel Agents Execution Visualization**: Pixel Agents as an execution-visualization / observability layer (LangGraph / AkariSP execution events → Pixel Agents; Pixel Agents never makes orchestration decisions) | next candidate (not started) |
-| 009 | **BrowserTradingAgents Effectiveness Benchmark** | candidate (not started) |
+| 008 | **Pixel Agents Execution Visualization**: Pixel Agents as an execution-visualization / observability layer (LangGraph / AkariSP execution events → Pixel Agents; Pixel Agents never makes orchestration decisions). Delivered as an always-on text execution view plus an explicit opt-in Pixel Agents canvas (D5) | complete (local/research; public deployment deferred: F008-L1) |
+| 009 | **BrowserTradingAgents Effectiveness Benchmark** | next candidate (not started) |
 | later | Live news, fundamentals, …; WebLLM; optional cloud-inference escalation (must satisfy constitution XIII) | deferred |
 
 ## Decision 2026-09-29 (later): Next.js application shell — ADR 0001

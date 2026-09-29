@@ -517,7 +517,7 @@ All tests below go in `e2e/execution-view.spec.ts` unless noted.
 
 ## Checkpoint E — Native regression gate (MANUAL, APPROVAL REQUIRED)
 
-- [ ] T034 **APPROVAL REQUIRED**: `npm run test:prompt-api` (native + fixture: the default text view, plus one run with Pixel Agents explicitly enabled) at the T033
+- [X] T034 **APPROVAL REQUIRED**: `npm run test:prompt-api` (native + fixture: the default text view, plus one run with Pixel Agents explicitly enabled) at the T033
   revision.
   - Record `specs/008-pixel-agents-execution-visualization/evidence/real-browser-next-fixture-<date>-<rev>.json`.
   - Expected:
@@ -531,7 +531,7 @@ All tests below go in `e2e/execution-view.spec.ts` unless noted.
 
 ## Checkpoint F — Closeout (APPROVAL REQUIRED)
 
-- [ ] T035 Final audit in `verification.md`:
+- [X] T035 Final audit in `verification.md`:
   - FR-001…FR-039 and SC-001…SC-017, each with its evidence and task
   - findings F008-001…006, L1 (open, D4 gate), O1 and O2
   - analyze repairs H1–L7 as applied
@@ -541,7 +541,7 @@ All tests below go in `e2e/execution-view.spec.ts` unless noted.
     `IMPLEMENTATION_PARTIAL`
   - then update `docs/testing.md`: the view section, `?viz=off`, the copy step, overhead and native
     notes
-- [ ] T036 **APPROVAL REQUIRED — closeout commit.** Commit `tasks.md`, `verification.md`, the evidence
+- [X] T036 **APPROVAL REQUIRED — closeout commit.** Commit `tasks.md`, `verification.md`, the evidence
   and `docs/testing.md`. Update `docs/roadmap.md`: 008 complete, or partial with the reason; 009
   Effectiveness Benchmark next (not started). The update claims no public sprite redistribution.
 
