@@ -76,5 +76,7 @@ test('privacy: no server route, directory module, main.ts or graph module import
     ...(readdirSync('src').includes('directory') ? readdirSync('src/directory').map((f) => `src/directory/${f}`) : [])]
     .filter((f) => /\.tsx?$/.test(f));
   assert.ok(files.length > 3);
-  for (const f of files) assert.ok(!/portfolio/.test(readFileSync(f, 'utf8')), f);
+  // A runtime import of the storage module (type-only imports are erased). Feature 010 (FR-025) lets
+  // src/main.ts run on holding facts handed to it by the shell, but it never reads the stored portfolio itself.
+  for (const f of files) assert.ok(!/^import (?!type ).*from ['"][^'"]*\/portfolio(\.ts)?['"]/m.test(readFileSync(f, 'utf8')), f);
 });

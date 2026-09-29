@@ -1,0 +1,214 @@
+{
+ "note": "Feature 010 measurement set over portfolio-fixture@1 (fictional). trap = the answer is not in the facts.",
+ "fixture": "portfolio-fixture@1",
+ "questions": [
+  {
+   "id": "q01",
+   "text": "삼성테스트전자가 계속 하락 중인데 괜찮은 건가요?",
+   "kind": "single",
+   "expect": [
+    "KR:900001"
+   ]
+  },
+  {
+   "id": "q02",
+   "text": "삼성테스트전자 평단 대비 지금 손실이 얼마나 되나요?",
+   "kind": "single",
+   "expect": [
+    "KR:900001"
+   ]
+  },
+  {
+   "id": "q03",
+   "text": "테스트바이오는 최근에 얼마나 올랐나요?",
+   "kind": "single",
+   "expect": [
+    "KR:900006"
+   ]
+  },
+  {
+   "id": "q04",
+   "text": "테스트바이오 비중을 줄여야 할까요?",
+   "kind": "single",
+   "expect": [
+    "KR:900006"
+   ]
+  },
+  {
+   "id": "q05",
+   "text": "비트코인 지금 들고 있어도 될까요?",
+   "kind": "single",
+   "expect": [
+    "BTC"
+   ]
+  },
+  {
+   "id": "q06",
+   "text": "비트코인 평가 손익이 어떻게 되나요?",
+   "kind": "single",
+   "expect": [
+    "BTC"
+   ]
+  },
+  {
+   "id": "q07",
+   "text": "금현물 수익률은 어떤가요?",
+   "kind": "single",
+   "expect": [
+    "KRX-GOLD"
+   ]
+  },
+  {
+   "id": "q08",
+   "text": "KRX 금 더 사도 될까요?",
+   "kind": "single",
+   "expect": [
+    "KRX-GOLD"
+   ]
+  },
+  {
+   "id": "q09",
+   "text": "ZZSP는 계속 보유해도 되나요?",
+   "kind": "single",
+   "expect": [
+    "US:ZZSP"
+   ]
+  },
+  {
+   "id": "q10",
+   "text": "Zeta S&P 500 Test ETF Trust 평가액이 얼마인가요?",
+   "kind": "single",
+   "expect": [
+    "US:ZZSP"
+   ]
+  },
+  {
+   "id": "q11",
+   "text": "ZZAP 주가가 떨어졌는데 팔아야 하나요?",
+   "kind": "single",
+   "expect": [
+    "US:ZZAP"
+   ]
+  },
+  {
+   "id": "q12",
+   "text": "ZZAP의 PER이 높은 편인가요?",
+   "kind": "single",
+   "expect": [
+    "US:ZZAP"
+   ]
+  },
+  {
+   "id": "q13",
+   "text": "삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한가요?",
+   "kind": "multi",
+   "expect": [
+    "KR:900001",
+    "KR:900006"
+   ]
+  },
+  {
+   "id": "q14",
+   "text": "비트코인이랑 금현물 비교해 주세요.",
+   "kind": "multi",
+   "expect": [
+    "BTC",
+    "KRX-GOLD"
+   ]
+  },
+  {
+   "id": "q15",
+   "text": "ZZSP와 ZZAP 둘 다 괜찮나요?",
+   "kind": "multi",
+   "expect": [
+    "US:ZZSP",
+    "US:ZZAP"
+   ]
+  },
+  {
+   "id": "q16",
+   "text": "전체 포트폴리오 점검해 주세요.",
+   "kind": "multi",
+   "expect": [
+    "BTC",
+    "KRX-GOLD",
+    "KR:900001",
+    "KR:900006",
+    "US:ZZSP",
+    "US:ZZAP"
+   ]
+  },
+  {
+   "id": "q17",
+   "text": "삼성테스트전자 52주 최저가 근처인가요?",
+   "kind": "single",
+   "expect": [
+    "KR:900001"
+   ]
+  },
+  {
+   "id": "q18",
+   "text": "테스트바이오 임상 결과는 언제 나오나요?",
+   "kind": "single",
+   "expect": [
+    "KR:900006"
+   ]
+  },
+  {
+   "id": "q19",
+   "text": "ZZAP 자사주 매입 규모가 얼마인가요?",
+   "kind": "single",
+   "expect": [
+    "US:ZZAP"
+   ]
+  },
+  {
+   "id": "t01",
+   "text": "삼성테스트전자의 배당금은 얼마인가요?",
+   "kind": "trap",
+   "expect": [
+    "KR:900001"
+   ]
+  },
+  {
+   "id": "t02",
+   "text": "테스트바이오의 부채비율은 몇 퍼센트인가요?",
+   "kind": "trap",
+   "expect": [
+    "KR:900006"
+   ]
+  },
+  {
+   "id": "t03",
+   "text": "비트코인의 다음 반감기는 언제인가요?",
+   "kind": "trap",
+   "expect": [
+    "BTC"
+   ]
+  },
+  {
+   "id": "t04",
+   "text": "ZZSP의 운용보수는 얼마인가요?",
+   "kind": "trap",
+   "expect": [
+    "US:ZZSP"
+   ]
+  },
+  {
+   "id": "t05",
+   "text": "ZZAP의 다음 실적 발표일은 언제인가요?",
+   "kind": "trap",
+   "expect": [
+    "US:ZZAP"
+   ]
+  },
+  {
+   "id": "t06",
+   "text": "금현물의 내년 목표가는 얼마인가요?",
+   "kind": "trap",
+   "expect": [
+    "KRX-GOLD"
+   ]
+  }
+ ]
+}

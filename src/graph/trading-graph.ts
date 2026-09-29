@@ -23,11 +23,12 @@ const State = Annotation.Root({
 export type TradingGraphState = typeof State.State;
 
 type OutputKey = Exclude<keyof TradingGraphState, 'input'>;
-type FixtureKey = 'subject' | 'marketFacts' | 'newsFacts';
+type FixtureKey = 'subject' | 'marketFacts' | 'newsFacts' | 'holdingFacts' | 'question';
 type ReadKey = FixtureKey | OutputKey;
 
 const LABELS: Record<ReadKey, string> = {
   subject: 'Company', marketFacts: 'Market facts', newsFacts: 'News facts',
+  holdingFacts: 'Holding facts', question: 'User question',
   marketReport: 'Market report', newsReport: 'News report', bullArgument: 'Bull argument',
   bearArgument: 'Bear argument', researchDecision: 'Research decision', traderPlan: 'Trader plan',
   riskReview: 'Risk review', finalDecision: 'Final decision',
@@ -61,12 +62,25 @@ type Role = (typeof ROLES)[number];
 export type NodeName = Role['node'];
 export type NodeEvent = { node: NodeName; event: 'start' | 'done' | 'error'; seq: number };
 
+const INPUT_KEYS: readonly ReadKey[] = ['subject', 'marketFacts', 'newsFacts', 'holdingFacts', 'question'];
 const valueOf = (state: TradingGraphState, key: ReadKey) =>
-  key === 'subject' || key === 'marketFacts' || key === 'newsFacts' ? state.input[key] : state[key];
+  INPUT_KEYS.includes(key) ? state.input[key as FixtureKey] : state[key as OutputKey];
+
+// Feature 010 adaptation A-010-1: portfolio runs add the holding facts to the roles that weigh the position,
+// and the user's question to the final role only. Demo inputs set neither, so their prompts are unchanged.
+const PORTFOLIO_READS: Partial<Record<NodeName, readonly ReadKey[]>> = {
+  marketAnalyst: ['holdingFacts'], researchManager: ['holdingFacts'], trader: ['holdingFacts'],
+  riskReviewer: ['holdingFacts'], finalDecisionMaker: ['holdingFacts', 'question'],
+};
+export const readsFor = (role: Role, input: TradingFixture): readonly ReadKey[] =>
+  [...role.reads, ...(PORTFOLIO_READS[role.node] ?? []).filter((k) => input[k as 'holdingFacts' | 'question'] !== undefined)];
+const KOREAN_ANSWER = "Answer the user's question in Korean, in at most three sentences, using only the facts given. " +
+  'If the facts do not contain the answer, say so.';
 
 const promptFor = (role: Role, state: TradingGraphState) =>
   `You are the ${role.label}. ${role.ask} Reply in plain text in at most three sentences.\n\n` +
-  role.reads.map((key) => `${LABELS[key]}: ${valueOf(state, key)}`).join('\n');
+  readsFor(role, state.input).map((key) => `${LABELS[key]}: ${valueOf(state, key)}`).join('\n') +
+  (role.node === 'finalDecisionMaker' && state.input.question !== undefined ? `\n\n${KOREAN_ANSWER}` : '');
 
 export function buildTradingGraph(model: AkariChatModel, onNode?: (e: NodeEvent) => void) {
   const modelRequests = Object.fromEntries(ROLES.map((r) => [r.node, 0])) as Record<NodeName, number>;

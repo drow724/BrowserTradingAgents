@@ -85,3 +85,21 @@ test('T047 US7 AS2/AS3: reduced motion — no redraw between identical states, n
   for (const li of await page.locator('#view-roles li').all()) await expect(li).toContainText(': completed');
   await expect(page.locator('[data-office] [data-role="trader"]')).toHaveText('✓ Trader');
 });
+
+test('T034 Feature 010: question, answer window and ledger — keyboard only; flags carry text', async ({ page }) => {
+  await page.goto('/?provider=standin');
+  await page.evaluate(() => localStorage.setItem('bta.portfolio', JSON.stringify({ version: 1, onboardedAt: '2026-09-29T00:00:00.000Z', holdings: [
+    { instrument: { kind: 'fixed', id: 'BTC' }, quantity: 0.25, averagePrice: 95000000, currency: 'KRW', editedAt: '2026-09-29T00:00:00.000Z' }] })));
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled();
+  await tabTo(page, '질문'); await page.keyboard.type('비트코인 괜찮나요?'); await page.keyboard.press('Enter');
+  const w = page.getByRole('dialog', { name: '답변' });
+  await expect(w).toBeVisible();
+  await tabTo(page, '모의 거래로 기록'); await page.keyboard.press('Enter');
+  const l = page.getByRole('dialog', { name: '모의 거래' });
+  await expect(l).toBeVisible();
+  await tabTo(page, '기록'); await page.keyboard.press('Enter');
+  await expect(l.locator('[data-trade]')).toHaveCount(1);
+  await page.keyboard.press('Escape');
+  await expect(l).toBeHidden();
+});

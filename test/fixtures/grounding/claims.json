@@ -1,0 +1,681 @@
+{
+ "note": "Feature 010 SC-002 labelled claims; facts = factSet(holding) of portfolio-fixture@1; known tickers = holding ticker + 'known'",
+ "cases": [
+  {
+   "holding": "KR:900001",
+   "text": "평단 71,000원 대비 현재가는 65,320원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "71,000원",
+     "status": "supported"
+    },
+    {
+     "text": "65,320원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "현재가 7.1만원은 평단과 같습니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "7.1만원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "현재가는 6.5만원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "6.5만원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "현재가는 64,000원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "64,000원",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "평가손실은 8%입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "8%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "평가손실은 -8.00%입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "8.00%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "손실률은 9.5%입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "9.5%",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "보유 수량은 10주입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "10주",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "보유 수량은 12주입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "12주",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "최근 20거래일 동안 11.2% 하락했습니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "20",
+     "status": "supported"
+    },
+    {
+     "text": "11.2%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "50일 이동평균 69,800원 아래입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "50",
+     "status": "supported"
+    },
+    {
+     "text": "69,800원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "52주 최저가는 61,500원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "52주",
+     "status": "supported"
+    },
+    {
+     "text": "61,500원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "3분기 영업이익이 18% 감소할 전망입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "18%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "영업이익이 25% 감소했습니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "25%",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "2026-09-25 기준 가격입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "2026-09-25",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "2026년 9월 25일 기준입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "2026년 9월 25일",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "2026.09.25 종가 기준입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "2026.09.25",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "2026-10-01에 발표됩니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "2026-10-01",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "900001 종목입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "900001",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "005930도 함께 보세요.",
+   "known": [],
+   "expect": [
+    {
+     "text": "005930",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "평단 71000원, 현재 ₩65,320, 즉 65,320 KRW이고 평가액은 653,200원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "71000원",
+     "status": "supported"
+    },
+    {
+     "text": "₩65,320",
+     "status": "supported"
+    },
+    {
+     "text": "65,320 KRW",
+     "status": "supported"
+    },
+    {
+     "text": "653,200원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "손실 금액은 56,800원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "56,800원",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "실적은 2026년 11월 발표 예정입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "2026",
+     "status": "unsupported"
+    },
+    {
+     "text": "11",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "주가는 20% 올랐습니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "20%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "한 달 수익률은 1.8%입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "1.8%",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "900006도 보유 중입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "900006",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "평단은 칠만 천원이고 9천원 올랐습니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "칠만 천원",
+     "status": "unrecognised"
+    },
+    {
+     "text": "9천원",
+     "status": "unrecognised"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "3가지 이유가 있습니다: 첫째, 2개의 지표입니다.",
+   "known": [],
+   "expect": []
+  },
+  {
+   "holding": "KR:900001",
+   "text": "근거는 (fact H3)와 D2, Q3입니다.",
+   "known": [],
+   "expect": []
+  },
+  {
+   "holding": "KR:900001",
+   "text": "거래량은 1,234,567주입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "1,234,567주",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "8퍼센트 손실입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "8퍼센트",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KR:900001",
+   "text": "The position is down 8.00% from the average price of 71,000 KRW.",
+   "known": [],
+   "expect": [
+    {
+     "text": "8.00%",
+     "status": "supported"
+    },
+    {
+     "text": "71,000 KRW",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZSP",
+   "text": "ZZSP는 SPY보다 낫고 ETF입니다.",
+   "known": [
+    "SPY"
+   ],
+   "expect": [
+    {
+     "text": "ZZSP",
+     "status": "supported"
+    },
+    {
+     "text": "SPY",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZSP",
+   "text": "$512.30에 거래 중입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "$512.30",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZSP",
+   "text": "512.3달러에 거래 중입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "512.3달러",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZSP",
+   "text": "$520까지 오를 수 있습니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "$520",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZSP",
+   "text": "평가이익은 6.7%입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "6.7%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZSP",
+   "text": "평가이익은 6.8%입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "6.8%",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZSP",
+   "text": "평가액은 1,280.75 USD입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "1,280.75 USD",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZSP",
+   "text": "사상 최고가 523.30 USD보다 2.1% 낮습니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "523.30 USD",
+     "status": "supported"
+    },
+    {
+     "text": "2.1%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZSP",
+   "text": "Unrealised change: +6.73%.",
+   "known": [],
+   "expect": [
+    {
+     "text": "6.73%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZSP",
+   "text": "평단은 480.00 USD입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "480.00 USD",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "BTC",
+   "text": "0.25 BTC를 보유 중이며 평단은 9,500만원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "0.25 BTC",
+     "status": "supported"
+    },
+    {
+     "text": "9,500만원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "BTC",
+   "text": "현재가는 9,125만원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "9,125만원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "BTC",
+   "text": "현재가는 0.91억원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "0.91억원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "BTC",
+   "text": "현재가는 9.1억원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "9.1억원",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "BTC",
+   "text": "30일 고점은 98,400,000원(2026-09-02)입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "30",
+     "status": "supported"
+    },
+    {
+     "text": "98,400,000원",
+     "status": "supported"
+    },
+    {
+     "text": "2026-09-02",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "BTC",
+   "text": "최근 7일간 4.1% 하락했습니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "4.1%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "BTC",
+   "text": "보유량은 0.5 BTC입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "0.5 BTC",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KRX-GOLD",
+   "text": "금 50g, 평단 13.2만원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "50g",
+     "status": "supported"
+    },
+    {
+     "text": "13.2만원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KRX-GOLD",
+   "text": "하루 거래량은 310kg입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "310kg",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "KRX-GOLD",
+   "text": "금 60그램을 보유 중입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "60그램",
+     "status": "unsupported"
+    }
+   ]
+  },
+  {
+   "holding": "KRX-GOLD",
+   "text": "평가이익은 12.50%입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "12.50%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZAP",
+   "text": "PER 24.3배로 거래됩니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "24.3",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZAP",
+   "text": "자사주 매입 규모는 15,000,000,000 USD입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "15,000,000,000 USD",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "holding": "US:ZZAP",
+   "text": "ZZAP 주가는 188.40 USD입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "ZZAP",
+     "status": "supported"
+    },
+    {
+     "text": "188.40 USD",
+     "status": "supported"
+    }
+   ]
+  }
+ ]
+}

@@ -7,6 +7,8 @@ import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { chromium, expect, test, type TestInfo } from '@playwright/test';
 import { REAL_YAHOO, realYahooEvidence } from './real-yahoo.ts';
+import { measure } from './measure.ts';
+import { PORTFOLIO_FIXTURE } from '../src/analysis/portfolio-fixture.ts';
 
 // No trace, video or screenshot for any test here (these are also the config defaults). The tests use
 // their own persistent context, which those fixtures would not record anyway.
@@ -183,6 +185,30 @@ test('real Yahoo L5: native Prompt API + live through /api/market (BTA_REAL_YAHO
     } else {
       expect(record.failure?.boundary, JSON.stringify(record.failure)).toBe('market-data');
     }
+  } finally {
+    await close();
+  }
+});
+
+// Feature 010 T025 (opt-in, never in CI): the committed measurement set on the native model, BTA_MEASURE_REPS
+// repetitions (default 3) of every question, on the fictional example portfolio; fixture facts only, no network data.
+// The title contains neither "eight-role" nor "canonical", so the native fixture gate never selects it.
+test('native Prompt API: hallucination measurement (BTA_MEASURE=1 only)', async ({ baseURL }, testInfo) => {
+  test.skip(!process.env.BTA_MEASURE, 'opt-in native measurement only (BTA_MEASURE=1)');
+  test.setTimeout(4 * 60 * 60_000);
+  const reps = Number(process.env.BTA_MEASURE_REPS ?? 3);
+  const { context, close } = await launchNativeChrome(testInfo);
+  try {
+    const example = JSON.stringify({ version: 1, onboardedAt: '2026-09-29T00:00:00.000Z', holdings: PORTFOLIO_FIXTURE.portfolio });
+    await context.addInitScript((v) => localStorage.setItem('bta.portfolio', v), example); // after the empty seed
+    const page = await context.newPage();
+    await page.goto(`${baseURL}/?runner=playwright`);
+    await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
+    const ua = await page.evaluate(() => navigator.userAgent.match(/Chrome\/[\d.]+/)?.[0] ?? navigator.userAgent);
+    const report = await measure(page, reps, { model: 'Gemini Nano (Chrome Prompt API)', browser: ua });
+    writeFileSync(testInfo.outputPath('measurement-native.json'), JSON.stringify(report, null, 2) + '\n');
+    console.log('T025 native aggregate', JSON.stringify(report.aggregate), 'verdict', report.verdict);
+    expect(report.evidenceClass).toBe('REAL_BROWSER_PROMPT_API');
   } finally {
     await close();
   }

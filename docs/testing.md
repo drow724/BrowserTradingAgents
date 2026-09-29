@@ -185,3 +185,18 @@ A typed market-data failure is recorded as BLOCKED, never as PASS.
 - **Tests**: `test/portfolio.test.ts`, `test/directory.test.ts` (parsers, once-per-day server cache under
   100 concurrent calls, import boundary, search ≤ 100 ms); `e2e/onboarding.spec.ts`,
   `e2e/directory.spec.ts` (incl. the holdings privacy sentinel), `e2e/a11y.spec.ts`.
+
+## Portfolio analysis and grounding (Feature 010)
+
+- **Runs**: the shell starts a portfolio run with a `bta-analyze` event on `#run`; `src/main.ts` announces each
+  finished record with `bta-done`. Portfolio runs use committed fictional facts (`src/analysis/portfolio-fixture.ts`)
+  and make no network request. The 포트폴리오 window's "예시 포트폴리오" loads the fictional portfolio.
+- **Tests**: `test/analysis.test.ts` (facts, prompts — demo prompts pinned to `e9b2425` in
+  `test/fixtures/grounding/demo-prompts@e9b2425.json` — and question resolution), `test/grounding.test.ts` (71
+  labelled claims in `test/fixtures/grounding/claims.json`, report and verdict), `test/ledger.test.ts`;
+  `e2e/analysis.spec.ts` (runs, flags, questions, overview and cancel, ledger, privacy sentinel),
+  `e2e/measurement.spec.ts` (stand-in measurement, deterministic), `e2e/a11y.spec.ts`.
+- **Native measurement** (opt-in, installed Chrome, long): `BTA_MEASURE=1 npm run test:prompt-api -- -g measurement`
+  (`BTA_MEASURE_REPS`, default 3). The report is written to the test output; its verdict follows SC-007. Stand-in
+  numbers are `NOT_APPLICABLE` (the stand-in echoes its prompt).
+

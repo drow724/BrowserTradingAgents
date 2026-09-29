@@ -34,6 +34,20 @@ export default function Office({ view, roles, icon }: Props) {
     paint.current?.(); // reduced motion: this is the only draw
   }, [view, roles]);
 
+  // Feature 010 (FR-015): after a portfolio run, a fixed line under the narration says how many claims had no
+  // support in the facts; it clears when the next run starts.
+  const [flagged, setFlagged] = useState<number>();
+  useEffect(() => { if (view.run.state === 'running') setFlagged(undefined); }, [view.run.state]);
+  useEffect(() => {
+    const run = document.getElementById('run');
+    const done = (e: Event) => {
+      const g = (e as CustomEvent<{ analysis?: { grounding?: { counts: { unsupported: number } } } }>).detail.analysis?.grounding;
+      if (g) setFlagged(g.counts.unsupported);
+    };
+    run?.addEventListener('bta-done', done);
+    return () => run?.removeEventListener('bta-done', done);
+  }, []);
+
   useEffect(() => {
     const ctx = canvas.current!.getContext('2d')!;
     let img: Record<string, HTMLImageElement> | undefined, frame = 0, timer: number | undefined, disposed = false;
@@ -99,6 +113,7 @@ export default function Office({ view, roles, icon }: Props) {
       {status === 'unavailable' && <p className={styles.unavailable}>오피스를 표시할 수 없습니다</p>}
       <div className={styles.dialog} aria-live="polite" data-office-dialog="">
         {lines.map((l, i) => <p key={`${i}:${l}`}>{l}</p>)}
+        {flagged !== undefined && <p data-office-grounding="">근거 확인 안 됨 {flagged}건</p>}
       </div>
     </div>
   );

@@ -1,0 +1,24 @@
+{
+ "source": "e9b2425 src/graph/trading-graph.ts + trading-fixture.ts",
+ "note": "fake model answers reply:<n> in call order",
+ "fixture": [
+  "You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).",
+  "You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).",
+  "You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: reply:1\nNews report: reply:2",
+  "You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: reply:1\nNews report: reply:2\nBull argument: reply:3",
+  "You are the Research Manager. Judge the bull/bear debate and state an investment recommendation with a short rationale. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nBull argument: reply:3\nBear argument: reply:4",
+  "You are the Trader. Turn the research decision into a concrete Buy, Hold or Sell proposal grounded in the market report. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nResearch decision: reply:5\nMarket report: reply:1",
+  "You are the Risk Reviewer. Review the trader plan for risks and say whether it should be adjusted. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nTrader plan: reply:6\nResearch decision: reply:5\nMarket report: reply:1\nNews report: reply:2",
+  "You are the Final Decision. Give the final decision, taking the risk review into account. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nRisk review: reply:7\nResearch decision: reply:5\nTrader plan: reply:6"
+ ],
+ "live": [
+  "You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: International Business Machines Corp. (IBM)\nMarket facts: MARKET FACTS PLACEHOLDER",
+  "You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: International Business Machines Corp. (IBM)\nNews facts: No company-specific news is supplied for this run (committed neutral fixture; no news source is connected).",
+  "You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: International Business Machines Corp. (IBM)\nMarket report: reply:1\nNews report: reply:2",
+  "You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: International Business Machines Corp. (IBM)\nMarket report: reply:1\nNews report: reply:2\nBull argument: reply:3",
+  "You are the Research Manager. Judge the bull/bear debate and state an investment recommendation with a short rationale. Reply in plain text in at most three sentences.\n\nCompany: International Business Machines Corp. (IBM)\nBull argument: reply:3\nBear argument: reply:4",
+  "You are the Trader. Turn the research decision into a concrete Buy, Hold or Sell proposal grounded in the market report. Reply in plain text in at most three sentences.\n\nCompany: International Business Machines Corp. (IBM)\nResearch decision: reply:5\nMarket report: reply:1",
+  "You are the Risk Reviewer. Review the trader plan for risks and say whether it should be adjusted. Reply in plain text in at most three sentences.\n\nCompany: International Business Machines Corp. (IBM)\nTrader plan: reply:6\nResearch decision: reply:5\nMarket report: reply:1\nNews report: reply:2",
+  "You are the Final Decision. Give the final decision, taking the risk review into account. Reply in plain text in at most three sentences.\n\nCompany: International Business Machines Corp. (IBM)\nRisk review: reply:7\nResearch decision: reply:5\nTrader plan: reply:6"
+ ]
+}
