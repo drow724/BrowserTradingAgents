@@ -1,0 +1,71 @@
+{
+  "provider": "standin",
+  "evidenceClass": "BROWSER_AUTOMATED",
+  "reps": 1,
+  "modes": {
+    "on": {
+      "runs": 6,
+      "prepared": 1,
+      "runtimeCreateMs": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "graphMs": [
+        41,
+        43,
+        43,
+        43,
+        44,
+        44
+      ],
+      "totalMs": [
+        566
+      ],
+      "outcomes": [
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success"
+      ],
+      "replacements": 0
+    },
+    "off": {
+      "runs": 6,
+      "prepared": 6,
+      "runtimeCreateMs": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "graphMs": [
+        32,
+        43,
+        43,
+        42,
+        44,
+        44
+      ],
+      "totalMs": [
+        535
+      ],
+      "outcomes": [
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success"
+      ],
+      "replacements": 0
+    }
+  }
+}

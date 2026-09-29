@@ -213,3 +213,55 @@ test('native Prompt API: hallucination measurement (BTA_MEASURE=1 only)', async 
     await close();
   }
 });
+
+// Feature 012 (T014, research R7): reuse on vs off on the native model — example-portfolio overview, alternating
+// order, BTA_REUSE_REPS (default 2) per mode. Opt-in; takes about 5 minutes per overview.
+test('native Prompt API: runtime reuse comparison (BTA_REUSE_COMPARE=1 only)', async ({ baseURL }, testInfo) => {
+  test.skip(!process.env.BTA_REUSE_COMPARE, 'opt-in native comparison only (BTA_REUSE_COMPARE=1)');
+  test.setTimeout(3 * 60 * 60_000);
+  const reps = Number(process.env.BTA_REUSE_REPS ?? 2);
+  const { context, close } = await launchNativeChrome(testInfo);
+  type Rec = { outcome: string; lifecycle: { prepared: boolean; replaced?: unknown; discarded?: unknown }; timing: { graphMs: number; runtimeCreateMs: number } };
+  const modes: Record<'on' | 'off', { runs: number; prepared: number; runtimeCreateMs: number[]; graphMs: number[]; totalMs: number[]; outcomes: string[]; replacements: number }> = {
+    on: { runs: 0, prepared: 0, runtimeCreateMs: [], graphMs: [], totalMs: [], outcomes: [], replacements: 0 },
+    off: { runs: 0, prepared: 0, runtimeCreateMs: [], graphMs: [], totalMs: [], outcomes: [], replacements: 0 },
+  };
+  try {
+    const example = JSON.stringify({ version: 1, onboardedAt: '2026-09-29T00:00:00.000Z', holdings: PORTFOLIO_FIXTURE.portfolio });
+    await context.addInitScript((v) => localStorage.setItem('bta.portfolio', v), example);
+    let ua = '';
+    for (let rep = 0; rep < reps; rep++) {
+      for (const mode of (rep % 2 ? ['off', 'on'] : ['on', 'off']) as ('on' | 'off')[]) {
+        const page = await context.newPage(); // a fresh page = a fresh page session (FR-002)
+        await page.goto(`${baseURL}/?runner=playwright&reuse=${mode}`);
+        await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
+        ua = await page.evaluate(() => navigator.userAgent.match(/Chrome\/[\d.]+/)?.[0] ?? navigator.userAgent);
+        await page.evaluate(() => {
+          const w = window as unknown as { __records: unknown[] };
+          w.__records = [];
+          document.getElementById('run')!.addEventListener('bta-done', (e) => w.__records.push((e as CustomEvent).detail));
+        });
+        const t0 = Date.now();
+        await page.getByRole('button', { name: '전체 점검' }).click();
+        await expect(page.getByRole('dialog', { name: '답변' })).toBeVisible({ timeout: 60 * 60_000 });
+        const recs = (await page.evaluate(() => (window as unknown as { __records: unknown[] }).__records)) as Rec[];
+        const m = modes[mode];
+        m.totalMs.push(Date.now() - t0);
+        m.runs += recs.length;
+        m.prepared += recs.filter((r) => r.lifecycle?.prepared).length;
+        m.runtimeCreateMs.push(...recs.map((r) => r.timing.runtimeCreateMs));
+        m.graphMs.push(...recs.map((r) => r.timing.graphMs));
+        m.outcomes.push(...recs.map((r) => r.outcome));
+        m.replacements += recs.filter((r) => r.lifecycle?.replaced || r.lifecycle?.discarded).length;
+        await page.close();
+      }
+    }
+    const report = { provider: 'native', evidenceClass: 'REAL_BROWSER_PROMPT_API', model: 'Gemini Nano (Chrome Prompt API)', browser: ua,
+      reps, generatedAt: new Date().toISOString(), modes };
+    writeFileSync(testInfo.outputPath('measurement-reuse-native.json'), JSON.stringify(report, null, 2) + '\n');
+    console.log('T014 native reuse comparison', JSON.stringify({ on: modes.on.totalMs, off: modes.off.totalMs }));
+    expect(modes.on.runs).toBe(6 * reps);
+  } finally {
+    await close();
+  }
+});

@@ -199,3 +199,12 @@ A typed market-data failure is recorded as BLOCKED, never as PASS.
   (`BTA_MEASURE_REPS`, default 3). The report is written to the test output; its verdict follows SC-007. Stand-in
   numbers are `NOT_APPLICABLE` (the stand-in echoes its prompt).
 
+
+## Runtime reuse (Feature 012)
+
+- `?reuse=on` keeps one AkariSP runtime for the page session; the default (`off`) keeps one runtime per run. Records
+  carry `lifecycle.mode`, `runtimeId`, `prepared` (and `replaced` / `discarded` when a runtime is swapped).
+- `e2e/reuse.spec.ts` (stand-in): prepare-once, identical results with and without reuse, cancel/failure/pagehide
+  recovery, live-acquisition failure prepares nothing; writes `measurement-reuse-standin.json` to the test output.
+- **Native comparison** (opt-in, installed Chrome, ~5 min per overview):
+  `BTA_REUSE_COMPARE=1 npm run test:prompt-api -- -g reuse` (`BTA_REUSE_REPS`, default 2 per mode, alternating order).

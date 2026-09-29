@@ -6,8 +6,8 @@ import { expect, type Page } from '@playwright/test';
 import { aggregate, trapHandled, verdict, type MeasureRun } from '../src/analysis/report.ts';
 
 // Opens the app with the stand-in and loads the fictional example portfolio (FR-007a).
-export async function loadExample(page: Page) {
-  await page.goto('/?provider=standin');
+export async function loadExample(page: Page, url = '/?provider=standin') {
+  await page.goto(url);
   await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled();
   await page.getByRole('button', { name: '포트폴리오' }).click();
   page.once('dialog', (d) => d.accept());
