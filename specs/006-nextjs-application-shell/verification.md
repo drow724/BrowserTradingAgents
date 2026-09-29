@@ -381,3 +381,126 @@ pre = post). Per group:
   intended-end-state line updated (Vite retired).
 
 Next: T041 (APPROVAL REQUIRED, final commit), not executed.
+- **T041** (maintainer approved): commit `a3031920e63fda3a2c4e6219a0e9807ea4752886` (not pushed);
+  10 files: `docs/roadmap.md`, `docs/testing.md`, `next.config.ts`, `package.json`,
+  `package-lock.json`, `tasks.md`, `verification.md`, the T032 evidence, deleted `index.html` and
+  `vite.config.ts`. After the commit: post-retirement code paths clean; protected 63/63;
+  `src/main.ts`/`harness/main.ts` = T002; specs 001–005 unchanged since `c64021e`;
+  `src/graph`/`src/integration` unchanged; `akarisp` still 0.1.0-alpha.2.
+- **T042** final native gate (maintainer approved), at clean `a3031920e63fda3a2c4e6219a0e9807ea4752886`:
+  - command `npm run test:prompt-api -- -g "eight-role"`, 2026-09-29T04:12:13Z–04:13:29Z; webServer
+    `npx next build && npx next start --port 5174`; installed Google Chrome 154.0.8037.58
+    (`channel: 'chrome'`, headless; record UA `HeadlessChrome/154.0.0.0`). No credential.
+  - result: 1 passed (1.1 m). Evidence saved unedited (`cmp` identical):
+    `evidence/real-browser-next-fixture-2026-09-29-a303192.json` (sha256 `51afc303…6f38a2f`).
+    **This is the Feature 006 canonical native evidence.**
+  - validation (all PASS): `REAL_BROWSER_PROMPT_API`, runner `playwright`; provider `native`;
+    availability `MODEL_AVAILABLE` (`available`); revision `a3031920…` without `+dirty`; versions
+    akarisp 0.1.0-alpha.2 / core 1.2.13 / langgraph 1.4.18; `dataSource {fixture,
+    tradingagents-fixture@1}`, `input` = baseline; outcome `success`, error null; 8/8 `done`,
+    executions 1, modelRequests 1; `graphRuns` 1, `logicalRequests` 8, `fallbackRequests` 0;
+    fan-out snapshot `{ready,1,1}`; nodeEvents: Market and News both start before either is done,
+    Bull starts after both are done, Bull done before Bear start, Bear → Research Manager → Trader →
+    Risk Reviewer → Final Decision sequential; every role's `reads`, `graph`, `prompts`,
+    `runtimeOptions` equal the Vite baseline; `snapshotBeforeShutdown` `{ready,0,0}`,
+    `settledBeforeShutdown` true, `snapshotAfterShutdown` `{closed,0,0}`; no stand-in text; no
+    `Bearer`/`api.massive.com`/dummy key/`apiKey` in the record; graphMs 49154 (operational only).
+  - Network: fixture mode issues no market-data request by design, and the record has no Massive
+    URL, but **market requests were not directly instrumented in this native run**; the measured
+    network guarantees (`net.external` `[]`, `net.massive` 0 in fixture mode) come from the
+    controlled Playwright Chromium suite (T019/T039).
+  - after the run: post-retirement code paths clean (digest pre = post, empty diff). Uncommitted
+    after T041: `tasks.md`, `verification.md` and this evidence file only, all outside the code
+    paths, so the source revision stays clean.
+
+## T043 Final audit
+
+### Requirement coverage
+
+| Req | Result | Tasks / evidence |
+|---|---|---|
+| FR-001 | PASS | `app/page.tsx`, `app/harness/page.tsx`; Vite removed (T034, T038) |
+| FR-002 | PASS | Boot effect import only (T010, T013); graph/AkariSP/Prompt API in the browser (T019, T042) |
+| FR-003 | PASS | prerender of `/`, `/harness` (T013, T039); M1 (T026) |
+| FR-004 | PASS | protected hashes 63/63 (T002, T029, T039, below); T042 reads/prompts = baseline |
+| FR-005 | PASS | T016, T017, T018, T019 |
+| FR-006 | PASS | T032 (`5eb4fc0`), T042 (`a303192`) |
+| FR-007 | PASS | app (c), harness native-unavailable (T019, T021, T039) |
+| FR-008 | PASS | `src/graph`, `src/integration` unchanged; `npm test` 62 incl. signal tests (T029, T039) |
+| FR-009 | PASS | (b), live graph-stage cancel (T019, T024); M3 (T028) |
+| FR-010 | PASS | app (e); creates 1 per click (T016, T022) |
+| FR-011 | PASS | four mode URLs and L3 matrix (T020, T039) |
+| FR-012 | PASS | same ids/initial states (T009, T011); all 28 browser tests (T019–T021) |
+| FR-013 | PASS | `--mode app` / `--mode harness` EQUIVALENT (T018) |
+| FR-014 | PASS | revision regex (T016), `+dirty` (T025), M2 (T027), clean/doc-only (T031), T032/T042 clean |
+| FR-015 | PASS | specs 001–005 unchanged since `c64021e`; hashes 63/63 |
+| FR-016 | PASS | `/harness` (T011, T015, T021) |
+| FR-017 | PASS | 28/28 on the production server (T019–T021, T023, T029, T039 ×3) |
+| FR-018 | PASS | `npm test` 62, 61 pass / 1 skip (T029, T039) |
+| FR-019 | PASS | `dev`/`build`/`start`/`typecheck` scripts (T035), fresh install (T039) |
+| FR-020 | PASS | no custom server, no `output`, default `.next` (T007, T013) |
+| FR-021 | PASS (MAY, not used) | no route handler or probe added, by plan decision (T013) |
+| FR-022 | PASS | credentials used 0; credential grep hits are documentation only (T029, T039) |
+| FR-023 | PASS | retirement only after C–F (T033 preflight, then T034–T038) |
+| FR-024 | PASS | F006-001 reported before the fix, fixed only after approval |
+| FR-025 | PASS | one `Boot` component; no framework/runtime/env abstraction (T013) |
+| SC-001 | PASS | dev 200, build, start 200 (T013, T039) |
+| SC-002 | PASS | T017 (8/8, 8/0, order) |
+| SC-003 | PASS | T042 (T032 pre-retirement) |
+| SC-004 | PASS | 0 (T013, T039); M1 detects a violation (T026) |
+| SC-005 | PASS | T024; M3 (T028) |
+| SC-006 | PASS | 18/18 matrix rows (T033) + T042 |
+| SC-007 | PASS | 62, 61/0/1, unchanged (T029, T039) |
+| SC-008 | PASS | T020, T039 |
+| SC-009 | PASS | `--mode harness` EQUIVALENT (T018), T021 |
+| SC-010 | PASS | T025 (`+dirty`), T031 (clean and doc-only) |
+| SC-011 | PASS | 0 changed (hashes 63/63; `git diff c64021e HEAD` on specs 001–005 empty) |
+| SC-012 | PASS | akarisp 0.1.0-alpha.2, no source/API change |
+| SC-013 | PASS | 0 |
+| SC-014 | PASS | 1 canonical app (`app/page.tsx`) (T038) |
+| SC-015 | PASS | fresh `npm ci` → typecheck, build, start, `npm test`, browser ×3, dev smoke (T039); native runner (T042) |
+
+### Other audit items
+
+- Migration matrix: 18/18 rows with Next proofs (T033 table); row 16 final proof = T042.
+- Protected hashes: `shasum -a 256 -c` 63/63 OK after T042; `src/main.ts` `7a01cad2…`,
+  `harness/main.ts` `d9ec9319…`; `harness/index.html` retained unchanged.
+- Vite removal (T038): complete; `index.html`, `vite.config.ts`, `vite` dependency and Vite scripts
+  gone; docs mention Vite only as retired/history.
+- Mutations: M1 (static Boot import) → scan hit + prerender `ReferenceError: location is not
+  defined`; M2 (`JSON.stringify` revision) → quoted revision fails the regex; M3 (shutdown before
+  settle) → `settledBeforeShutdown` false in both cancel tests. Each restored (`cmp`, hash, diff)
+  and re-passed.
+- Dependency scope (`npm ls --depth=0`): added `next@16.3.6`, `react@19.3.0`, `react-dom@19.3.0`,
+  `@types/react@19.3.0`, `@types/react-dom@19.3.0`; removed `vite`; runtime dependencies
+  (`akarisp`, `@langchain/core`, `@langchain/langgraph`) unchanged.
+- Production diff `git diff c64021e HEAD --stat` (32 files): `app/*`, `components/Boot.tsx`,
+  `next.config.ts`, `tsconfig.json`, `package.json`/lock, `playwright.config.ts`, `.gitignore`,
+  `e2e/*.spec.ts`, `scripts/compare-evidence.mjs`, `docs/testing.md`, `docs/roadmap.md`, deleted
+  `index.html`/`vite.config.ts`, and `specs/006-…`. No change under `src/`, `test/`, `harness/`,
+  specs 001–005. All are planned surfaces.
+- AkariSP changes: 0. Credentials used: 0. Scope leaks: 0 (no WebLLM, Agent Town, AI SDK/Gateway,
+  cloud inference, `/api/*`, new provider, graph/prompt/UI redesign).
+- Findings: F006-001 (Next rewrote `tsconfig.json` without `exclude`) — resolved with approval
+  (planning correction + one `tsconfig.json` line). Minor recorded deviations: `*.tsbuildinfo`
+  ignored; `git check-ignore -q` multi-path form; `<tbody>` in `app/page.tsx`; Chrome 154 instead
+  of the plan's 153. No open finding.
+
+## T044 Completion record
+
+NEXT_SHELL_IMPLEMENTED (T013) → MIGRATION_VALIDATED (T029) → PRE_RETIREMENT_NATIVE_PASS (T032,
+`5eb4fc0`) → VITE_RETIRED (T038) → IMPLEMENTATION_COMPLETE (T039) → **FEATURE_COMPLETE**: T042
+PASS at clean `a3031920e63fda3a2c4e6219a0e9807ea4752886` and T043 clean.
+
+The T042 evidence file and these T042–T044 records are not committed yet (maintainer decides);
+they are documentation outside the revision code paths.
+
+## Convergence (Phase 9)
+
+- **T045** `docs/roadmap.md` Feature 006 row: "final native gate pending (T042)" → native gates
+  PASS (pre-retirement `5eb4fc0`, final `a3031920`), **complete**; Feature 007 row "next
+  candidate (not started)". Documentation only.
+- Also uncommitted since T041: `playwright.config.ts` drops the redundant `testIgnore` of the
+  `chromium-dev` project (ponytail review); `test:browser:dev` 1 passed, `test:browser` 28
+  passed after it. It is a code path, so the working tree reads `a3031920+dirty` until
+  committed; the change only affects test selection, not the application or the native run.

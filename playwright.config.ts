@@ -12,7 +12,7 @@ export default defineConfig({
   outputDir: `test-results/${port}`,
   use: { baseURL: `http://localhost:${port}` },
   projects: devSmoke
-    ? [{ name: 'chromium-dev', testIgnore: /prompt-api\.spec\.ts/, grep: /@dev/, use: { ...devices['Desktop Chrome'] } }]
+    ? [{ name: 'chromium-dev', grep: /@dev/, use: { ...devices['Desktop Chrome'] } }]
     : [
         // Stand-in and BLOCKED-policy checks in Playwright's own Chromium (`npm run test:browser`).
         { name: 'chromium', testIgnore: /prompt-api\.spec\.ts/, grepInvert: /@dev/, use: { ...devices['Desktop Chrome'] } },

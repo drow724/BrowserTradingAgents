@@ -393,17 +393,17 @@ canonical and green.
   - State: **IMPLEMENTATION_COMPLETE**.
 - [X] T040 [P] Update `docs/roadmap.md`: the Feature 006 status (Next.js App Router shell; Vite
   retired; native evidence pending T042).
-- [ ] T041 **APPROVAL REQUIRED — final commit.**
+- [X] T041 **APPROVAL REQUIRED — final commit.**
   - With approval, commit the Vite retirement and docs (no push unless asked; same exclusions as
     T030).
   - Record HEAD. Confirm the post-retirement code-path list is clean.
-- [ ] T042 [US2] **APPROVAL REQUIRED — final native gate** at the T041 HEAD.
+- [X] T042 [US2] **APPROVAL REQUIRED — final native gate** at the T041 HEAD.
   - `npm run test:prompt-api -- -g "eight-role"` with the same validation as T032.
   - Save as `…/evidence/real-browser-next-fixture-<date>-<sha>.json`. This is the **Feature 006
     canonical native evidence**. T032 does not substitute for it (FR-006, SC-003).
   - After the run: `git status --porcelain -- src test harness e2e app components package.json package-lock.json next.config.ts tsconfig.json playwright.config.ts` → empty **after** the commands.
   - Unavailable → `BLOCKED`, and the Feature stays incomplete.
-- [ ] T043 Final audit in `verification.md`:
+- [X] T043 Final audit in `verification.md`:
   - the FR-001…FR-025 / SC-001…SC-015 coverage table (task + evidence per row)
   - the 18-row migration matrix with Next proofs
   - protected hashes 63/63 and historical Feature 001–005 integrity
@@ -413,7 +413,7 @@ canonical and green.
     removed, runtime dependencies unchanged)
   - production diff `git diff c64021e --stat` limited to the planned surfaces
   - AkariSP changes 0; credentials used 0; findings (project format) or "none"
-- [ ] T044 Completion record at the end of `verification.md`:
+- [X] T044 Completion record at the end of `verification.md`:
   - states NEXT_SHELL_IMPLEMENTED (T013) → MIGRATION_VALIDATED (T029) →
     PRE_RETIREMENT_NATIVE_PASS (T032) → VITE_RETIRED (T038) → IMPLEMENTATION_COMPLETE (T039) →
     **FEATURE_COMPLETE** only if T042 PASS and T043 clean
@@ -519,3 +519,9 @@ Orphans: 0.
 3. F: an approved clean commit and the native gate. Only then G retires Vite.
 4. H: prove everything again from a fresh install, then an approved final commit, the final native
    gate and the audit.
+
+---
+
+## Phase 9: Convergence
+
+- [X] T045 Update the Feature 006 row in `docs/roadmap.md` from "final native gate pending (T042)" to the recorded outcome (final native gate PASS at `a3031920`, Chrome 154; FEATURE_COMPLETE per T044), and state that Feature 007 `007-upstream-server-data-boundary` is next and not started, per plan: Scale/Scope (`docs/roadmap.md` edited) and T040/T044 (partial)
