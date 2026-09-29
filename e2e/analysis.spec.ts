@@ -9,7 +9,7 @@ const done = (page: Page) => expect(page.locator('#status')).toHaveAttribute('da
 // Analyse one holding from the 포트폴리오 window and return the record; counts non-asset requests meanwhile.
 export async function analyse(page: Page, id: string) {
   const requests: string[] = [];
-  const on = (r: { url(): string }) => { const p = new URL(r.url()).pathname; if (!p.startsWith('/_next/') && !p.startsWith('/office-art/') && !p.startsWith('/fonts/')) requests.push(p); };
+  const on = (r: { url(): string }) => { const p = new URL(r.url()).pathname; if (!p.startsWith('/_next/') && !p.startsWith('/office/') && !p.startsWith('/fonts/')) requests.push(p); };
   if (await page.getByRole('dialog', { name: '답변' }).isVisible()) await page.keyboard.press('Escape'); // opened by the last run
   if (!(await page.getByRole('dialog', { name: '포트폴리오' }).isVisible())) await page.getByRole('button', { name: '포트폴리오' }).click();
   page.on('request', on);

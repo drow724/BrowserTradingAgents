@@ -34,8 +34,7 @@ export default defineConfig({
     {
       // Exactly one app server, own port and never reuse: next.config.ts embeds the git revision when the
       // build (or dev server) starts, so a reused (older) server would stamp evidence with a stale revision.
-      // `npx next …` skips npm's predev/prebuild, so the office art copy (Feature 009) runs explicitly first.
-      command: `node scripts/copy-office-art.mjs && ${devSmoke ? `npx next dev --port ${port}` : `npx next build && npx next start --port ${port}`}`,
+      command: `${devSmoke ? `npx next dev --port ${port}` : `npx next build && npx next start --port ${port}`}`,
       url: `http://localhost:${port}`,
       reuseExistingServer: false,
       timeout: 180_000,

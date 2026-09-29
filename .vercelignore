@@ -1,4 +1,4 @@
-# Feature 009 (MD-6): upstream office art is local only (F008-L1 open); never upload a local copy.
+# Feature 011: the retired upstream art folder; never upload a stale local copy.
 public/office-art/
 # Feature 009: server-only secrets are set in the Vercel project, never uploaded from a local file
 .env*.local

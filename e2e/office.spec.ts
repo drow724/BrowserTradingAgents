@@ -66,8 +66,19 @@ test('T018 US3/FR-026: 375×812 — the office fits and every tag stays inside t
   await page.close();
 });
 
+test('Feature 011 FR-001/SC-002: the office loads only own art from /office/ — no /office-art/ request, load or run', async ({ page }) => {
+  const art: string[] = [];
+  page.on('request', (r) => { const p = new URL(r.url()).pathname; if (p.startsWith('/office')) art.push(p); });
+  await page.goto('/?provider=standin');
+  await expect(office(page)).toHaveAttribute('data-office', 'ready');
+  await page.getByRole('button', { name: 'Run Graph', exact: true }).click();
+  await expect(page.locator('#status')).toHaveAttribute('data-state', 'done', { timeout: 60_000 });
+  expect(art.length).toBeGreaterThan(0);
+  expect(art.filter((p) => !p.startsWith('/office/'))).toEqual([]);
+});
+
 test('T018 FR-029: art missing → "office unavailable", the text view stays and a run still succeeds', async ({ page }) => {
-  await page.route('**/office-art/**', (r) => r.fulfill({ status: 404 }));
+  await page.route('**/office/**', (r) => r.fulfill({ status: 404 }));
   await page.goto('/?provider=standin');
   await expect(office(page)).toHaveAttribute('data-office', 'unavailable');
   await expect(page.getByText('오피스를 표시할 수 없습니다')).toBeVisible();

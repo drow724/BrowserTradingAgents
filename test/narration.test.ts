@@ -67,14 +67,14 @@ test('narration: failure, cancel and unclear errors', () => {
   assert.equal(blocked.at(-1), '분석을 시작할 수 없습니다.');
 });
 
-// T015: the scene is data; every path is under the ignored art folder.
-test('office scene: 8 desks inside the world, unique; identity i % 6 with a 180° hue shift for roles 7–8', () => {
+// T015: the scene is data; every path is under the committed own art folder (Feature 011).
+test('office scene: 8 desks inside the world, unique; one own sheet per role, no hue shift', () => {
   assert.equal(DESKS.length, 8);
   assert.equal(new Set(DESKS.map((d) => `${d.x},${d.y}`)).size, 8);
   for (const d of DESKS) assert.ok(d.x >= 0 && d.x + 48 <= WORLD.w && d.y >= 0 && d.y + 32 <= WORLD.h);
   const ids = ROLES.map((_, i) => `${character(i).sheet.src}/${character(i).hueShift}`);
   assert.equal(new Set(ids).size, 8);
-  assert.deepEqual(ROLES.map((_, i) => character(i).hueShift), [0, 0, 0, 0, 0, 0, 180, 180]);
-  for (const p of [...Object.values(SPRITES), ...ROLES.map((_, i) => character(i).sheet.src)]) assert.match(p, /^\/office-art\//);
+  assert.deepEqual(ROLES.map((_, i) => character(i).hueShift), [0, 0, 0, 0, 0, 0, 0, 0]);
+  for (const p of [...Object.values(SPRITES), ...ROLES.map((_, i) => character(i).sheet.src)]) assert.match(p, /^\/office\//);
   for (const d of DECOR) assert.ok(d.sprite in SPRITES);
 });
