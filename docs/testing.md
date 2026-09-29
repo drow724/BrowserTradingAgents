@@ -158,10 +158,9 @@ A typed market-data failure is recorded as BLOCKED, never as PASS.
   read-only; `?viz=off` removes it and the office entirely.
 - **Office** (Feature 009): the same view state drawn by our own canvas renderer, on by default
   (Feature 008 D5 re-decided, MD-4). Korean dialog-box narration; name tags carry every state as text.
-  - Art is temporary: the upstream Pixel Agents sprites, copied by `scripts/copy-office-art.mjs` (run by
-    `predev`, `prebuild` and every Playwright webServer) from the pinned `pixel-agents@1.4.1`
-    devDependency into git- and vercel-ignored `public/office-art/`. Nothing is copied when `VERCEL` is
-    set; the office then says it is unavailable. Public deployment stays deferred (F008-L1).
+  - Art is our own (Feature 011): text pixel maps in `art/office/` → committed PNGs in `public/office/` by
+    `node scripts/build-office-art.mjs` (byte-deterministic; `--check` fails when a PNG is out of date, and
+    `test/office-art.test.ts` runs it). Provenance: `art/office/PROVENANCE.md`, one row per file.
   - The Feature 008 Pixel Agents iframe was retired (MD-5).
 - **Tests**:
   - `test/execution-view.test.ts`, `test/narration.test.ts`: synthetic traces, no model.

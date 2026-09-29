@@ -6,7 +6,7 @@ playwright-report/
 .next/
 next-env.d.ts
 *.tsbuildinfo
-# Feature 009 (MD-6): temporary upstream art copied by scripts/copy-office-art.mjs; never committed (F008-L1)
+# Feature 011: the retired upstream art folder stays ignored so a stale local copy is never committed
 public/office-art/
 # Feature 009: server-only secrets (e.g. BTA_DATA_GO_KR_KEY); never commit
 .env*.local

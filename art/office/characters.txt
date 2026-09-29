@@ -1,0 +1,8 @@
+0 H=#3b2a20 S=#f1c9a5 C=#3f7fbf T=#2e3440
+1 H=#d9a441 S=#e8b894 C=#c0504d T=#3a3a48
+2 H=#1f1f24 S=#c68c5a C=#4f9d5a T=#2e3440
+3 H=#8a3b2a S=#f1c9a5 C=#7a5aa6 T=#3a3a48
+4 H=#6b6b6b S=#e8b894 C=#2f4f6f T=#26262e
+5 H=#2a1a14 S=#a8703f C=#e0a030 T=#2e3440
+6 H=#c9c9c9 S=#f1c9a5 C=#3a9a9a T=#3a3a48
+7 H=#111111 S=#e8b894 C=#b04a7a T=#26262e

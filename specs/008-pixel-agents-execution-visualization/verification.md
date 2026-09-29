@@ -2103,3 +2103,9 @@ were updated in T035. They await the T036 closeout commit.
   because F008-L1 (character asset redistribution and license provenance) is unresolved. F008-008
   remains OPEN.
 - **Push**: none.
+
+## F008-L1 — closed by Feature 011 (2026-09-30)
+
+- The upstream Pixel Agents sprites are no longer used, copied or depended on; the office draws own art generated
+  in the repository (`art/office/`, provenance in `art/office/PROVENANCE.md`). **F008-L1: CLOSED.** Public
+  deployment is a separate maintainer decision (`specs/011-own-office-art/verification.md`).
