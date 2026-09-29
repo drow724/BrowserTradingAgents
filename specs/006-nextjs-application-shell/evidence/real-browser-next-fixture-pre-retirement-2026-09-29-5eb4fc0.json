@@ -1,0 +1,392 @@
+{
+  "feature": "005-browser-market-data-boundary",
+  "provider": "native",
+  "runner": "playwright",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+    "date": "2026-09-29",
+    "availability": "MODEL_AVAILABLE",
+    "raw": "available"
+  },
+  "revision": {
+    "browserTradingAgents": "5eb4fc06f2c56e23d75222784f166ec6aa288b02",
+    "akarisp": "0.1.0-alpha.2",
+    "langchainCore": "1.2.13",
+    "langgraph": "1.4.18"
+  },
+  "prompts": "src/graph/trading-graph.ts",
+  "graph": {
+    "version": "tradingagents-fixture-graph@1",
+    "topology": "START→{marketAnalyst,newsAnalyst}; [marketAnalyst,newsAnalyst]→bullResearcher; bullResearcher→bearResearcher→researchManager→trader→riskReviewer→finalDecisionMaker→END",
+    "entry": "@langchain/langgraph/web"
+  },
+  "runtimeOptions": {
+    "limit": 1,
+    "queueCapacity": 32
+  },
+  "fixture": "tradingagents-fixture@1",
+  "input": {
+    "id": "tradingagents-fixture@1",
+    "news": "tradingagents-fixture@1"
+  },
+  "dataSource": {
+    "mode": "fixture",
+    "fixture": "tradingagents-fixture@1"
+  },
+  "evidenceClass": "REAL_BROWSER_PROMPT_API",
+  "outcome": "success",
+  "error": null,
+  "nodes": {
+    "marketAnalyst": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "marketFacts"
+      ]
+    },
+    "newsAnalyst": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "newsFacts"
+      ]
+    },
+    "bullResearcher": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "marketReport",
+        "newsReport"
+      ]
+    },
+    "bearResearcher": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "marketReport",
+        "newsReport",
+        "bullArgument"
+      ]
+    },
+    "researchManager": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "bullArgument",
+        "bearArgument"
+      ]
+    },
+    "trader": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "researchDecision",
+        "marketReport"
+      ]
+    },
+    "riskReviewer": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "traderPlan",
+        "researchDecision",
+        "marketReport",
+        "newsReport"
+      ]
+    },
+    "finalDecisionMaker": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "riskReview",
+        "researchDecision",
+        "traderPlan"
+      ]
+    }
+  },
+  "nodeEvents": [
+    {
+      "node": "marketAnalyst",
+      "event": "start",
+      "seq": 1
+    },
+    {
+      "node": "newsAnalyst",
+      "event": "start",
+      "seq": 2
+    },
+    {
+      "node": "marketAnalyst",
+      "event": "done",
+      "seq": 3
+    },
+    {
+      "node": "newsAnalyst",
+      "event": "done",
+      "seq": 4
+    },
+    {
+      "node": "bullResearcher",
+      "event": "start",
+      "seq": 5
+    },
+    {
+      "node": "bullResearcher",
+      "event": "done",
+      "seq": 6
+    },
+    {
+      "node": "bearResearcher",
+      "event": "start",
+      "seq": 7
+    },
+    {
+      "node": "bearResearcher",
+      "event": "done",
+      "seq": 8
+    },
+    {
+      "node": "researchManager",
+      "event": "start",
+      "seq": 9
+    },
+    {
+      "node": "researchManager",
+      "event": "done",
+      "seq": 10
+    },
+    {
+      "node": "trader",
+      "event": "start",
+      "seq": 11
+    },
+    {
+      "node": "trader",
+      "event": "done",
+      "seq": 12
+    },
+    {
+      "node": "riskReviewer",
+      "event": "start",
+      "seq": 13
+    },
+    {
+      "node": "riskReviewer",
+      "event": "done",
+      "seq": 14
+    },
+    {
+      "node": "finalDecisionMaker",
+      "event": "start",
+      "seq": 15
+    },
+    {
+      "node": "finalDecisionMaker",
+      "event": "done",
+      "seq": 16
+    }
+  ],
+  "modelRequests": [
+    {
+      "logicalRequestId": 1,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 2,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 1,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 9877.39999961853,
+        "queueWait": 0,
+        "acquire": 0.9000000953674316,
+        "prompt": 9875
+      }
+    },
+    {
+      "logicalRequestId": 2,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 15483.299999713898,
+        "queueWait": 9876.799999713898,
+        "acquire": 2.799999713897705,
+        "prompt": 5603.5
+      }
+    },
+    {
+      "logicalRequestId": 3,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 3,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 6622.199999809265,
+        "queueWait": 0,
+        "acquire": 0.6999998092651367,
+        "prompt": 6621.400000095367
+      }
+    },
+    {
+      "logicalRequestId": 4,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 4,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 6219.199999809265,
+        "queueWait": 0,
+        "acquire": 0.7000002861022949,
+        "prompt": 6217.699999809265
+      }
+    },
+    {
+      "logicalRequestId": 5,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 5,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 4543,
+        "queueWait": 0,
+        "acquire": 0.5,
+        "prompt": 4542.400000095367
+      }
+    },
+    {
+      "logicalRequestId": 6,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 6,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 7719.800000190735,
+        "queueWait": 0,
+        "acquire": 0.5,
+        "prompt": 7719.200000286102
+      }
+    },
+    {
+      "logicalRequestId": 7,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 7,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 6120.900000095367,
+        "queueWait": 0,
+        "acquire": 2.799999713897705,
+        "prompt": 6117.800000190735
+      }
+    },
+    {
+      "logicalRequestId": 8,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 8,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 4606.199999809265,
+        "queueWait": 0,
+        "acquire": 0.19999980926513672,
+        "prompt": 4605.800000190735
+      }
+    }
+  ],
+  "counts": {
+    "graphRuns": 1,
+    "nodeExecutions": 8,
+    "logicalRequests": 8,
+    "fallbackRequests": 0,
+    "providerInvocations": "NOT EXPOSED"
+  },
+  "concurrency": {
+    "graph": "branch requests submitted before either completed: 2",
+    "akarisp": {
+      "fanOutSnapshot": {
+        "snapshot": {
+          "state": "ready",
+          "active": 1,
+          "queued": 1,
+          "limit": 1,
+          "queueCapacity": 32
+        },
+        "pollMs": 1
+      }
+    },
+    "nativeProvider": "not observed (out of scope)"
+  },
+  "lifecycle": {
+    "settledBeforeShutdown": true,
+    "snapshotBeforeShutdown": {
+      "state": "ready",
+      "active": 0,
+      "queued": 0
+    },
+    "snapshotAfterShutdown": {
+      "state": "closed",
+      "active": 0,
+      "queued": 0
+    }
+  },
+  "timing": {
+    "graphMs": 51363
+  },
+  "result": {
+    "marketReport": "Northwind Lamps Ltd. demonstrated positive market sentiment in the last quarter, with a 6% average share price increase (M1).  Current trading indicates the stock is performing above its short-term trend, sitting slightly above its 50-day moving average (M2).  This suggests potential continued bullish momentum for the company's stock.\n\n\n\n",
+    "newsReport": "Northwind Lamps Ltd. today unveiled a new line of energy-efficient desk lamps aimed at consumers looking to reduce their carbon footprint. However, the company anticipates potential production delays due to reported disruptions in the supply of glass components from a regional supplier.  Northwind Lamps is working to mitigate these delays and minimize impact on product availability.\n\n\n\n",
+    "bullArgument": "Investing in Northwind Lamps presents a compelling opportunity; recent positive market sentiment and performance above the 50-day moving average signal continued bullish momentum. While supply chain disruptions are a concern, the innovative new product line addressing a growing market trend positions Northwind for future growth.  The company's proactive approach to mitigating delays indicates strong operational awareness, suggesting manageable risks alongside significant potential rewards.\n\n\n\n",
+    "bearArgument": "As a Bear Researcher, I strongly advise against investing in Northwind Lamps. The reported supply chain disruption, even with mitigation efforts, poses a significant, unpredictable risk to their production and profitability.  Positive market sentiment is fleeting, easily overshadowed by operational problems; dismissing these concerns as manageable is overly optimistic. Ultimately, the company's potential risks outweigh the purported rewards at this time.\n\n\n\n",
+    "researchDecision": "**Investment Recommendation: Neutral.** The debate highlights a fundamental risk-reward imbalance. While the innovative product line offers potential, ongoing supply chain issues create significant uncertainty. A neutral stance allows monitoring of the company's ability to navigate these challenges and deliver sustained profitability.\n\n\n\n",
+    "traderPlan": "Given the neutral investment recommendation from our research, coupled with positive market sentiment evidenced by a 6% share price increase last quarter and current trading above the 50-day moving average, I propose a **Hold** position on Northwind Lamps Ltd. We should continue monitoring their supply chain efforts closely, as that is the key risk factor impacting their future performance. A Buy decision is premature given the uncertainty, but we aren't ready to Sell given the current positive momentum.\n\n\n\n",
+    "riskReview": "The trader plan's \"Hold\" position aligns with the neutral research recommendation, acknowledging the supply chain risk. However, the plan lacks a specific contingency for a potential deterioration in supply chain stability, which should be added.  Consider defining trigger points for adjusting to a \"Sell\" position if supply chain issues escalate significantly despite mitigation efforts.\n\n\n\n",
+    "finalDecision": "Final Decision: Hold. The proposed \"Hold\" position aligns with the neutral research recommendation and current market momentum. However, implement a contingency plan to transition to a \"Sell\" position if supply chain instability worsens significantly despite mitigation efforts.\n\n\n\n"
+  }
+}
