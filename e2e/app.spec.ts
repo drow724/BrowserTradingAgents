@@ -2,11 +2,12 @@
 // graph in Playwright Chromium. Real LangGraph + AkariChatModel + akarisp in the browser bundle, where a
 // node's model call does not inherit the graph's signal implicitly. Not Prompt API evidence. Role
 // provenance is proven deterministically (test/trading-graph.test.ts), not here. Live-mode tests
-// (Feature 005 L3) answer Massive requests with synthetic bodies via page.route; every other non-local
-// request is aborted, so no test reaches the real network, and the key is a dummy string.
+// (Feature 007 L3) go through the app's /api/market to a local Yahoo stand-in with synthetic data; every
+// non-local browser request is aborted, so no test reaches the real network.
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
-import { expect, test, type Page, type Request, type Route } from '@playwright/test';
+import { expect, test, type Page, type Request } from '@playwright/test';
+import { REAL_YAHOO, realYahooEvidence } from './real-yahoo.ts';
 
 const ROLES = ['marketAnalyst', 'newsAnalyst', 'bullResearcher', 'bearResearcher', 'researchManager', 'trader',
   'riskReviewer', 'finalDecisionMaker'];
@@ -60,12 +61,12 @@ test('stand-in: full eight-role graph succeeds through LangGraph → AkariChatMo
   expect(typeof r.timing.graphMs).toBe('number');
   expect(r.result.finalDecision).toBeTruthy();
   await expect(page.locator('#result')).toHaveText(r.result.finalDecision);
-  // Feature 005: fixture mode is the Feature 004 path, labelled, with no market-data request.
+  // Fixture mode is the Feature 004 path, labelled, with no market-data request of any kind.
   expect(r.dataSource).toEqual({ mode: 'fixture', fixture: 'tradingagents-fixture@1' });
   expect(r.input).toEqual({ id: 'tradingagents-fixture@1', news: 'tradingagents-fixture@1' });
   expect(r.result.finalDecision).toContain('Northwind Lamps Ltd. (fictional)');
   expect(r.result.finalDecision).toContain('news fact N1');
-  expect(net.massive).toHaveLength(0);
+  expect(net.api).toHaveLength(0);
   expect(net.external).toEqual([]);
   // Routine runs never overwrite committed Feature evidence; copy this file there deliberately.
   writeFileSync(testInfo.outputPath('evidence.json'), JSON.stringify(r, null, 2) + '\n');
@@ -164,39 +165,36 @@ test('@dev stand-in + fixture under next dev (Strict Mode): one click = one runt
 });
 
 // ---------------------------------------------------------------------------------------------
-// Feature 005 L3 — live mode on controlled responses (specs/005-…/tasks.md T026–T033)
+// Feature 007 L3 — live mode through the app's own /api/market, which reaches the local Yahoo stand-in
+// (e2e/market-stub.mjs via BTA_YAHOO_BASE_URL). The browser never contacts a provider; values are synthetic.
 
-const DUMMY_KEY = 'l3-dummy-key-not-real';
-const LEAK_VALUES = ['184.61', '183.29', '178.30', '185.40', '4200000', 'market fact L'];
-const EXPECTED_FACTS = "On the 2026-09-25 close IBM traded at 184.61 USD, +0.72% from the previous session's 183.29 " +
-  '(market fact L1). Over the last 5 sessions it ranged from 178.30 to 185.40 on average daily volume of 4200000 ' +
-  'shares (market fact L2).';
+const STUB = `http://127.0.0.1:${Number(process.env.STUB_PORT ?? Number(process.env.HARNESS_PORT ?? 5174) + 24)}`;
 const NEUTRAL = 'No company-specific news is supplied for this run';
-// Synthetic Massive Custom Bars body (invented values; `t` = midnight ET of each session date).
-const T = [1789617600000, 1789704000000, 1789963200000, 1790049600000, 1790136000000, 1790222400000, 1790308800000];
-const OHLCV = [[170.00, 171.50, 169.40, 170.11, 3100000], [170.20, 172.10, 169.90, 171.22, 3200000],
-  [179.00, 181.90, 178.30, 181.17, 4100000], [181.20, 183.10, 180.60, 182.53, 4300000],
-  [182.40, 182.90, 179.10, 179.88, 3900000], [180.00, 183.70, 179.60, 183.29, 4200000],
-  [183.30, 185.40, 182.80, 184.61, 4500000]];
-const BARS = OHLCV.map(([o, h, l, c, v], i) => ({ v, vw: c, o, c, h, l, t: T[i], n: 1 }));
-const body = (results: unknown[] = BARS, status = 'OK') =>
-  ({ ticker: 'IBM', queryCount: results.length, resultsCount: results.length, adjusted: true, results, status, request_id: 'synthetic-l3', count: results.length });
-const CORS = { 'access-control-allow-origin': '*' };
-const reply = (status: number, b: unknown) => (route: Route) => route.fulfill({ status, headers: CORS, json: b });
-const etDate = (ms: number) => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date(ms));
 const sha256 = (text: string) => `sha256:${createHash('sha256').update(text).digest('hex')}`;
+type StubStats = { requests: number; lastPath: string | null; lastQuery: Record<string, string> | null; closedSockets: number };
+const stub = {
+  use: async (name: string, endDate?: string) => {
+    await fetch(`${STUB}/__reset`, { method: 'POST' });
+    await fetch(`${STUB}/__scenario`, { method: 'POST', body: JSON.stringify({ name, endDate }) });
+  },
+  stats: async (): Promise<StubStats> => (await fetch(`${STUB}/__stats`)).json(),
+};
+const todayET = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
 
-// Abort every non-local request; record Massive requests (answered by `massive()` routes).
+// Abort every non-local request (so no provider origin can be reached) and record them; record the
+// browser's /api/market calls and any Authorization header it sends.
 async function guardNetwork(page: Page) {
-  const net = { external: [] as string[], massive: [] as Request[] };
+  const net = { external: [] as string[], api: [] as Request[], authorization: [] as string[] };
   await page.route((url) => url.hostname !== 'localhost', (route) => {
     net.external.push(route.request().url());
     return route.abort();
   });
-  page.on('request', (r) => { if (r.url().startsWith('https://api.massive.com/')) net.massive.push(r); });
+  page.on('request', (r) => {
+    if (new URL(r.url()).pathname === '/api/market') net.api.push(r);
+    if (r.headers().authorization) net.authorization.push(r.url());
+  });
   return net;
 }
-const massive = (page: Page, handler: (route: Route) => unknown) => page.route('https://api.massive.com/**', handler);
 // Test-side instrumentation: count LanguageModel.create — AkariSP's createRuntime calls it eagerly.
 const countCreates = (page: Page) => page.evaluate(() => {
   const w = window as unknown as { LanguageModel: { create: (...a: unknown[]) => unknown }; __creates: number };
@@ -206,30 +204,30 @@ const countCreates = (page: Page) => page.evaluate(() => {
 });
 const creates = (page: Page) => page.evaluate(() => (window as unknown as { __creates: number }).__creates);
 
-async function openLive(page: Page, url = '/?provider=standin&data=live', key = DUMMY_KEY) {
+async function openLive(page: Page, url = '/?provider=standin&data=live') {
   await page.goto(url);
   await expect(runButton(page)).toBeEnabled();
   if (url.includes('provider=standin')) await countCreates(page);
-  if (key) await page.fill('#key', key);
 }
 
-test('stand-in + live: controlled Massive reply → eight roles, 8/0, provenance + digests, no values in the record', async ({ page }) => {
+test('stand-in + live via /api/market: eight roles, 8/0, provenance + digests, no values, no provider origin', async ({ page }, testInfo) => {
+  await stub.use('valid');
   const net = await guardNetwork(page);
-  await massive(page, reply(200, body()));
   await openLive(page);
   await runButton(page).click();
   await done(page);
   const r = await evidence(page);
 
-  // Request contract: one GET, ET window, key only in the Authorization header, no retry.
-  expect(net.massive).toHaveLength(1);
-  const req = net.massive[0];
-  const now = Date.now();
-  expect(req.method()).toBe('GET');
-  expect(req.url()).toBe(`https://api.massive.com/v2/aggs/ticker/IBM/range/1/day/${etDate(now - 10 * 86_400_000)}/${etDate(now)}?adjusted=true&sort=asc`);
-  expect(req.url()).not.toContain(DUMMY_KEY);
-  expect(req.headers().authorization).toBe(`Bearer ${DUMMY_KEY}`);
+  // Network layers: the browser called only /api/market; the server made exactly one stub request.
+  expect(net.api).toHaveLength(1);
+  expect(net.api[0].method()).toBe('GET');
+  expect(new URL(net.api[0].url()).search).toBe('?symbol=IBM');
   expect(net.external).toEqual([]);
+  expect(net.authorization).toEqual([]);
+  const s = await stub.stats();
+  expect(s.requests).toBe(1);
+  expect(s.lastPath).toBe('/v8/finance/chart/IBM');
+  expect(s.lastQuery).toMatchObject({ interval: '1d', includePrePost: 'false', events: 'div,splits' });
 
   expect(r.evidenceClass).toBe('BROWSER_AUTOMATED');
   expect(r.provider).toBe('standin');
@@ -239,124 +237,141 @@ test('stand-in + live: controlled Massive reply → eight roles, 8/0, provenance
   expect(r.counts).toMatchObject({ logicalRequests: 8, fallbackRequests: 0, providerInvocations: 'NOT EXPOSED' });
   expect(r.lifecycle.settledBeforeShutdown).toBe(true);
   expect(r.lifecycle.snapshotBeforeShutdown).toEqual({ state: 'ready', active: 0, queued: 0 });
-  expect(r.lifecycle.snapshotAfterShutdown.state).toBe('closed');
+  expect(r.lifecycle.snapshotAfterShutdown).toEqual({ state: 'closed', active: 0, queued: 0 });
   expect(await creates(page)).toBe(1);
-  expect(r.input).toEqual({ id: 'live-market@1', news: 'neutral-news@1' });
+  expect(r.input).toEqual({ id: 'live-market@2', news: 'neutral-news@1' });
   expect(r.fixture).toBeUndefined();
-  expect(r.dataSource).toMatchObject({ mode: 'live', source: 'massive', symbol: 'IBM',
-    endpoint: '/v2/aggs/ticker/{symbol}/range/1/day/{from}/{to}', httpStatus: 200, providerStatus: 'OK',
-    requestId: 'synthetic-l3', bars: 7, asOf: '2026-09-25' });
-  for (const k of ['requestedAt', 'receivedAt']) expect(Date.parse(r.dataSource[k]), k).not.toBeNaN();
-  expect(typeof r.dataSource.ageHours).toBe('number');
+  expect(r.dataSource).toMatchObject({ mode: 'live', boundary: 'server', endpoint: '/api/market', symbol: 'IBM',
+    provider: 'yahoo-chart@1', analysisDate: todayET(), sessions: 30 });
+  expect(Object.keys(r.dataSource).sort()).toEqual(['acquiredAt', 'analysisDate', 'boundary', 'endpoint',
+    'historySessions', 'marketAsOf', 'marketFactsDigest', 'mode', 'provider', 'receivedAt', 'sessions',
+    'snapshotDigest', 'symbol', 'usedAt']);
+  const { acquiredAt, receivedAt, usedAt } = r.dataSource;
+  for (const t of [acquiredAt, receivedAt, usedAt]) expect(Date.parse(t)).not.toBeNaN();
+  expect(Date.parse(acquiredAt)).toBeLessThanOrEqual(Date.parse(receivedAt));
+  expect(Date.parse(receivedAt)).toBeLessThanOrEqual(Date.parse(usedAt));
   expect(typeof r.timing.acquisitionMs).toBe('number');
 
-  // Redaction: live mode keeps presence and length only, whatever the provider.
-  for (const [field, v] of Object.entries(r.result)) {
-    expect(v, field).toEqual({ present: true, length: expect.any(Number) });
-    expect((v as { length: number }).length, field).toBeGreaterThan(0);
-  }
-  const text = (await page.locator('#evidence').textContent())!;
-  for (const leak of [...LEAK_VALUES, 'stand-in reply', 'Authorization', 'Bearer', DUMMY_KEY]) expect(text, leak).not.toContain(leak);
-
-  // Replay: values + identities, re-derivable, no credential.
+  // Replay: the validated bundle + its rendering + identities; the record carries identities only.
   const replayText = (await page.locator('#replay').textContent())!;
   const replay = JSON.parse(replayText);
-  expect(Object.keys(replay)).toEqual(['snapshot', 'marketFacts', 'snapshotDigest', 'marketFactsDigest']);
-  expect(replay.marketFacts).toBe(EXPECTED_FACTS);
+  expect(Object.keys(replay)).toEqual(['bundle', 'marketFacts', 'snapshotDigest', 'marketFactsDigest']);
+  expect(replay.bundle.marketAsOf).toBe(r.dataSource.marketAsOf);
   expect(replay.snapshotDigest).toBe(r.dataSource.snapshotDigest);
   expect(replay.marketFactsDigest).toBe(r.dataSource.marketFactsDigest);
-  expect(sha256(JSON.stringify(replay.snapshot))).toBe(replay.snapshotDigest);
+  expect(sha256(JSON.stringify(replay.bundle))).toBe(replay.snapshotDigest);
   expect(sha256(replay.marketFacts)).toBe(replay.marketFactsDigest);
-  expect(replay.snapshot.sessions.map((x: { date: string }) => x.date)).toEqual(['2026-09-21', '2026-09-22', '2026-09-23', '2026-09-24', '2026-09-25']);
-  for (const leak of ['Authorization', 'Bearer', DUMMY_KEY]) expect(replayText, leak).not.toContain(leak);
-  expect(JSON.parse((await page.locator('#market').textContent())!)).toEqual(replay.snapshot);
+  expect(JSON.parse((await page.locator('#market').textContent())!)).toEqual(replay.bundle);
+  const values = [replay.bundle.latest.close, replay.bundle.indicators.rsi, replay.bundle.indicators.close_50_sma]
+    .map((v: number) => v.toFixed(2));
+  const text = (await page.locator('#evidence').textContent())!;
+  for (const leak of [...values, 'market fact L', 'stand-in reply', 'Authorization', 'Bearer', 'yahoo.com']) {
+    expect(text, leak).not.toContain(leak);
+  }
+  for (const [field, v] of Object.entries(r.result)) {
+    expect(v, field).toEqual({ present: true, length: expect.any(Number) });
+  }
 
-  // Roles saw the real subject and the neutral news (the stand-in echoes the Final Decision prompt,
-  // which nests the risk review → news report → news facts).
+  // Market-provider credentials (Feature 005's key field is retired): no key/password input, nothing in
+  // browser storage, no Authorization header on any browser request (asserted above).
+  expect(await page.locator('input[type=password], #key, #key-row').count()).toBe(0);
+  expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0]);
+
+  // The Market Analyst read the rendered marketFacts; news stayed the neutral fixture.
   const shown = (await page.locator('#result').textContent())!;
   expect(shown).toContain('International Business Machines Corp. (IBM)');
   expect(shown).toContain(NEUTRAL);
   expect(shown).not.toContain('Northwind');
-  expect(shown).not.toContain('news fact N');
+  // Routine runs never overwrite committed Feature evidence; copy this file there deliberately.
+  writeFileSync(testInfo.outputPath('evidence.json'), JSON.stringify(r, null, 2) + '\n');
 });
 
-const FAILURES: [string, ((route: Route) => unknown) | null, string][] = [
-  ['network error', (route) => route.abort('failed'), 'network'],
-  ['HTTP 401', reply(401, { status: 'ERROR', error: 'Unknown API Key' }), 'unauthorized'],
-  ['HTTP 403', reply(403, { status: 'NOT_AUTHORIZED' }), 'unauthorized'],
-  ['HTTP 429', reply(429, { status: 'ERROR', error: 'rate limit' }), 'rate-limited'],
-  ['HTTP 500', reply(500, { status: 'ERROR' }), 'provider-error'],
-  ['200 with status ERROR', reply(200, body(BARS, 'ERROR')), 'provider-error'],
-  ['200 with status DELAYED', reply(200, body(BARS, 'DELAYED')), 'provider-error'],
-  ['200 with an invalid price', reply(200, body([...BARS.slice(0, -1), { ...BARS.at(-1), c: 'x' }])), 'invalid-data'],
-  ['200 with one bar', reply(200, body(BARS.slice(-1))), 'unavailable'],
-  ['200 with a non-JSON body', (route) => route.fulfill({ status: 200, headers: CORS, contentType: 'text/html', body: '<html>' }), 'invalid-data'],
-  ['empty key', null, 'credential-missing'],
+// Every contract row the stub can produce. Stale uses a report 11 days old.
+const FAILURES: [string, string, string, string?][] = [
+  ['network', 'acquisition', 'network'],
+  ['unauthorized', 'acquisition', 'unauthorized'],
+  ['forbidden', 'acquisition', 'unauthorized'],
+  ['rate-limited', 'acquisition', 'rate-limited'],
+  ['server-error', 'acquisition', 'provider-error'],
+  ['chart-error', 'acquisition', 'provider-error'],
+  ['non-json', 'normalization', 'invalid-data'],
+  ['missing-adjclose', 'normalization', 'invalid-data'],
+  ['historical-null', 'normalization', 'invalid-data'],
+  ['length-mismatch', 'normalization', 'invalid-data'],
+  ['duplicate-timestamp', 'normalization', 'invalid-data'],
+  ['wrong-time-zone', 'normalization', 'invalid-data'],
+  ['future-bar', 'normalization', 'invalid-data'],
+  ['short', 'normalization', 'unavailable'],
+  ['valid', 'normalization', 'unavailable', 'stale'],
 ];
-
-for (const [name, handler, kind] of FAILURES) {
-  test(`stand-in + live: ${name} → market-data ${kind}; no runtime, no model request, no fixture fallback`, async ({ page }) => {
+for (const [name, stage, kind, label] of FAILURES) {
+  test(`stand-in + live: ${label ?? name} → market-data ${stage}/${kind}; no runtime, no model request, no fixture`, async ({ page }) => {
+    const ymd = (d: Date) => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(d);
+    await stub.use(name, label === 'stale' ? ymd(new Date(Date.now() - 11 * 86_400_000)) : undefined);
     const net = await guardNetwork(page);
-    await massive(page, handler ?? reply(200, body()));
-    await openLive(page, undefined, handler ? DUMMY_KEY : '');
+    await openLive(page);
     await runButton(page).click();
     await done(page);
     const r = await evidence(page);
     expect(r.outcome).toBe('failed');
-    expect(r.failure).toEqual({ boundary: 'market-data', kind });
+    expect(r.failure).toEqual({ boundary: 'market-data', stage, kind });
     expect(await creates(page)).toBe(0);
     expect(r.counts.logicalRequests).toBe(0);
+    expect(r.counts.graphRuns).toBe(0);
     expect(r.lifecycle).toBeNull();
     for (const n of ROLES) expect(r.nodes[n].status, n).toBe('waiting');
     expect(r.result).toBeUndefined();
     expect(r.fixture).toBeUndefined();
-    expect(r.dataSource.mode).toBe('live');
-    expect(r.dataSource.snapshotDigest).toBeUndefined();
-    expect(net.massive).toHaveLength(handler ? 1 : 0); // no retry
+    expect(r.dataSource).toEqual({ mode: 'live', boundary: 'server', endpoint: '/api/market', symbol: 'IBM' });
+    expect(net.api).toHaveLength(1);
+    expect((await stub.stats()).requests).toBe(1); // no retry
     expect(net.external).toEqual([]);
-    await expect(page.locator('#result')).not.toContainText('Northwind');
+    await expect(page.locator('#result')).toBeEmpty();
     await expect(page.locator('#replay')).toBeEmpty();
+    await expect(page.locator('#market')).toBeEmpty();
     await expect(runButton(page)).toBeEnabled();
   });
 }
 
-test('stand-in + live: acquisition limit (page clock +30 s) → market-data timeout, no runtime', async ({ page }) => {
+test('stand-in + live: page limit (page clock +30 s) → market-data timeout, no runtime', async ({ page }) => {
+  await stub.use('hang');
   await page.clock.install();
   const net = await guardNetwork(page);
-  await massive(page, () => {}); // never answers
   await openLive(page);
   await runButton(page).click();
-  await expect.poll(() => net.massive.length).toBe(1);
+  await expect.poll(async () => (await stub.stats()).requests).toBe(1);
   await page.clock.fastForward(30_000);
   await done(page);
   const r = await evidence(page);
-  expect(r.failure).toEqual({ boundary: 'market-data', kind: 'timeout' });
+  expect(r.failure).toEqual({ boundary: 'market-data', stage: 'acquisition', kind: 'timeout' });
   expect(await creates(page)).toBe(0);
   expect(r.counts.logicalRequests).toBe(0);
+  expect(net.external).toEqual([]);
+  await expect.poll(async () => (await stub.stats()).closedSockets).toBe(1); // the server stopped too
 });
 
-test('stand-in + live: Cancel during acquisition → market-data cancelled, no runtime', async ({ page }) => {
+test('stand-in + live: Cancel during acquisition → cancelled; the abort reaches the provider stand-in; no runtime', async ({ page }) => {
+  await stub.use('hang');
   const net = await guardNetwork(page);
-  let release!: () => void;
-  const held = new Promise<void>((r) => { release = r; });
-  await massive(page, async (route) => { await held; await route.fulfill({ status: 200, headers: CORS, json: body() }).catch(() => {}); });
   await openLive(page);
   await runButton(page).click();
-  await expect.poll(() => net.massive.length).toBe(1);
+  await expect.poll(async () => (await stub.stats()).requests).toBe(1);
   await page.getByRole('button', { name: 'Cancel' }).click();
   await done(page);
-  release();
   const r = await evidence(page);
   expect(r.outcome).toBe('cancelled');
-  expect(r.failure).toEqual({ boundary: 'market-data', kind: 'cancelled' });
+  expect(r.failure).toEqual({ boundary: 'market-data', stage: 'acquisition', kind: 'cancelled' });
   expect(await creates(page)).toBe(0);
   expect(r.counts.logicalRequests).toBe(0);
   expect(r.lifecycle).toBeNull();
+  expect(net.api).toHaveLength(1);
+  // browser abort → /api/market request.signal → acquireYahoo → the stand-in sees its socket close
+  await expect.poll(async () => (await stub.stats()).closedSockets).toBe(1);
 });
 
 test('stand-in + live: Cancel during the graph → inference cancelled, AkariSP settles before shutdown', async ({ page }) => {
+  await stub.use('valid');
   await guardNetwork(page);
-  await massive(page, reply(200, body()));
   await openLive(page);
   await standin(page, 'hold');
   await runButton(page).click();
@@ -377,12 +392,12 @@ test('stand-in + live: Cancel during the graph → inference cancelled, AkariSP 
   expect(r.dataSource.snapshotDigest).toMatch(/^sha256:/); // acquisition succeeded before the graph
   expect(r.lifecycle.settledBeforeShutdown).toBe(true);
   expect(r.lifecycle.snapshotBeforeShutdown).toEqual({ state: 'ready', active: 0, queued: 0 });
-  expect(r.lifecycle.snapshotAfterShutdown.state).toBe('closed');
+  expect(r.lifecycle.snapshotAfterShutdown).toEqual({ state: 'closed', active: 0, queued: 0 });
 });
 
 test('native + live in Playwright Chromium: BLOCKED before any market-data request', async ({ page }) => {
+  await stub.use('valid');
   const net = await guardNetwork(page);
-  await massive(page, reply(200, body()));
   await openLive(page, '/?data=live');
   await runButton(page).click();
   await done(page);
@@ -392,11 +407,26 @@ test('native + live in Playwright Chromium: BLOCKED before any market-data reque
   expect(r.outcome).toBe('not-run');
   expect(r.failure).toEqual({ boundary: 'inference', kind: 'native-unavailable' });
   expect(r.dataSource).toEqual({ mode: 'live' });
-  expect(net.massive).toHaveLength(0);
+  expect(net.api).toHaveLength(0);
+  expect((await stub.stats()).requests).toBe(0);
+});
+
+test('stand-in + live: two consecutive runs → two /api/market calls, two provider requests (no caching)', async ({ page }) => {
+  await stub.use('valid');
+  const net = await guardNetwork(page);
+  await openLive(page);
+  for (let i = 0; i < 2; i++) {
+    await runButton(page).click();
+    await done(page);
+    expect((await evidence(page)).outcome).toBe('success');
+  }
+  expect(net.api).toHaveLength(2);
+  expect((await stub.stats()).requests).toBe(2);
+  expect(await creates(page)).toBe(2);
 });
 
 // Mode axes are independently selectable. In Chromium the two native modes are BLOCKED by design:
-// their real proofs are the installed-Chrome gates (T044 native + fixture, T051 native + live).
+// their real proofs are the installed-Chrome gates.
 for (const [url, provider, data, cls] of [
   ['/?provider=standin', 'standin', 'fixture', 'BROWSER_AUTOMATED'],
   ['/', 'native', 'fixture', 'BLOCKED'],
@@ -404,45 +434,42 @@ for (const [url, provider, data, cls] of [
   ['/?data=live', 'native', 'live', 'BLOCKED'],
 ] as const) {
   test(`mode axes: ${url} → provider ${provider}, data ${data}`, async ({ page }) => {
-    await guardNetwork(page);
-    await massive(page, reply(200, body()));
-    await openLive(page, url, data === 'live' ? DUMMY_KEY : '');
+    await stub.use('valid');
+    const net = await guardNetwork(page);
+    await openLive(page, url);
     await expect(page.locator('#mode')).toHaveText(`provider: ${provider} · data: ${data}`);
-    await expect(page.locator('#key-row')).toBeVisible({ visible: data === 'live' });
     await runButton(page).click();
     await done(page);
     const r = await evidence(page);
     expect(r.provider).toBe(provider);
     expect(r.dataSource.mode).toBe(data);
     expect(r.evidenceClass).toBe(cls);
+    expect(net.api).toHaveLength(data === 'live' && provider === 'standin' ? 1 : 0); // fixture never calls it
+    expect(net.external).toEqual([]);
   });
 }
 
-test('stand-in + live: the dummy key appears nowhere but the outgoing Authorization header', async ({ page, context }) => {
+// Feature 007 G gate, L4 (opt-in; skipped unless BTA_REAL_YAHOO=1, which also removes the stand-in):
+// stand-in model + live data from real Yahoo through /api/market. A typed market-data failure is
+// recorded as BLOCKED, never as PASS.
+test('real Yahoo L4: stand-in + live through /api/market (BTA_REAL_YAHOO=1 only)', async ({ page, browser }, testInfo) => {
+  test.skip(!REAL_YAHOO, 'approval-gated real-Yahoo run only (BTA_REAL_YAHOO=1)');
   const net = await guardNetwork(page);
-  const consoleText: string[] = [];
-  page.on('console', (m) => consoleText.push(m.text()));
-  let calls = 0;
-  await massive(page, (route) => (calls++ === 0 ? reply(200, body())(route) : reply(401, { status: 'ERROR' })(route)));
   await openLive(page);
-  for (let i = 0; i < 2; i++) { // one success, then one failure
-    await runButton(page).click();
-    await done(page);
-    const text = (await page.locator('#evidence').textContent())!;
-    for (const leak of [DUMMY_KEY, 'Authorization', 'Bearer']) expect(text, `evidence run ${i}`).not.toContain(leak);
+  await runButton(page).click();
+  await done(page);
+  const r = await evidence(page);
+  const out = realYahooEvidence('L4', r, { chrome: browser.version(),
+    browserYahooRequests: net.external.filter((u) => /yahoo\./.test(new URL(u).hostname)).length });
+  writeFileSync(testInfo.outputPath('real-yahoo-evidence.json'), JSON.stringify(out, null, 2) + '\n');
+  expect(net.external).toEqual([]);
+  expect(net.api).toHaveLength(1);
+  if (r.outcome === 'success') {
+    for (const n of ROLES) expect(r.nodes[n].status, n).toBe('done');
+    expect(r.counts).toMatchObject({ logicalRequests: 8, fallbackRequests: 0 });
+    expect(r.lifecycle.snapshotBeforeShutdown).toEqual({ state: 'ready', active: 0, queued: 0 });
+  } else {
+    expect(r.failure?.boundary, JSON.stringify(r.failure)).toBe('market-data');
+    expect(await creates(page)).toBe(0);
   }
-  expect(net.massive).toHaveLength(2);
-  for (const req of net.massive) {
-    expect(req.url()).not.toContain(DUMMY_KEY);
-    expect(req.headers().authorization).toBe(`Bearer ${DUMMY_KEY}`);
-  }
-  const surfaces = await page.evaluate(() => ({
-    local: JSON.stringify({ ...localStorage }), session: JSON.stringify({ ...sessionStorage }), cookie: document.cookie,
-    html: document.documentElement.outerHTML, // serialization, not the live `value` property of the key field
-  }));
-  for (const [name, value] of Object.entries(surfaces)) expect(value, name).not.toContain(DUMMY_KEY);
-  for (const id of ['#replay', '#market', '#result']) await expect(page.locator(id), id).not.toContainText(DUMMY_KEY);
-  expect(page.url()).not.toContain(DUMMY_KEY);
-  expect(consoleText.join('\n')).not.toContain(DUMMY_KEY);
-  expect(JSON.stringify(await context.cookies())).not.toContain(DUMMY_KEY);
 });
