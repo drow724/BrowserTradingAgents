@@ -107,3 +107,13 @@
 @media (prefers-reduced-motion: reduce) {
   .shell *, .window * { animation: none !important; transition: none !important; }
 }
+
+/* Feature 010: unsupported / unrecognised claims carry a visible text label, not colour alone. */
+.flag { background: var(--bad); color: var(--night); padding: 0 2px; }
+.flag[data-claim='unrecognised'] { background: var(--focus); }
+.flagLabel { font-size: 12px; }
+.ask { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; flex-basis: 100%; }
+.ask label { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 240px; }
+.ask input { flex: 1; min-width: 0; }
+.window table { border-collapse: collapse; margin-bottom: 12px; }
+.window th, .window td { border: 2px solid var(--ink); padding: 2px 8px; }

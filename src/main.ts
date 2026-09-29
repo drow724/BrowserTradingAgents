@@ -8,7 +8,10 @@
 import { createRuntime, TaskError, type Runtime } from 'akarisp';
 import { AkariChatModel, type BridgeEvent } from './integration/akari-chat-model.ts';
 import { FIXTURE, NEUTRAL_NEWS, type TradingFixture } from './graph/trading-fixture.ts';
-import { buildTradingGraph, ROLES, type NodeEvent } from './graph/trading-graph.ts';
+import { buildTradingGraph, readsFor, ROLES, type NodeEvent } from './graph/trading-graph.ts';
+import type { Fact } from './analysis/facts.ts';
+import { ground } from './analysis/grounding.ts';
+import { PORTFOLIO_FIXTURE } from './analysis/portfolio-fixture.ts';
 import {
   fail, FAILURE_KINDS, isFailure, LIVE_INSTRUMENT, replayArtifact, validateBundle, type MarketBundle,
   type MarketDataFailure,
@@ -77,12 +80,19 @@ const snap = (r: Runtime) => { const { state, active, queued } = r.snapshot(); r
 const waitingNodes = () =>
   Object.fromEntries(ROLES.map((r) => [r.node, { status: 'waiting', executions: 0, modelRequests: 0, reads: r.reads }]));
 
+// Feature 010 (contracts/analysis-events.md): the shell starts a portfolio run with `bta-analyze` on #run; every
+// finished record is announced with `bta-done`. A click keeps the demo behaviour.
+type Analysis = { input: TradingFixture; holding: string; question: string; factSetId: string; facts: Fact[]; knownTickers: string[] };
+
 let controller: AbortController | undefined;
 $('cancel').addEventListener('click', () => controller?.abort(new Error('cancelled by user')));
-$('run').addEventListener('click', run);
+$('run').addEventListener('click', () => run());
+$('run').addEventListener('bta-analyze', (e) => {
+  if (!($('run') as HTMLButtonElement).disabled) void run((e as CustomEvent<Analysis>).detail);
+});
 ($('run') as HTMLButtonElement).disabled = false; // enabled only once availability (and stand-in) are ready
 
-async function run() {
+async function run(analysis?: Analysis) {
   ($('run') as HTMLButtonElement).disabled = true; // one run per owner at a time
   $('status').dataset.state = 'running';
   $('status').textContent = 'running…';
@@ -120,6 +130,22 @@ async function run() {
         stillVerified: ['DETERMINISTIC_TEST', 'NODE_INTEGRATION (stand-in)', 'BROWSER_AUTOMATED (stand-in)'],
         unverified: [`full eight-role graph (${data} data) on the native Prompt API`],
       } };
+  } else if (analysis) {
+    // Feature 010: a portfolio run on committed fictional facts (MD-8) — no market-data request.
+    const { input, knownTickers, ...facts } = analysis; // directory tickers: grounding input, not evidence
+    [record, finalDecision] = await runGraph({ ...base, input: { id: input.id },
+      dataSource: { mode: 'portfolio-fixture', fixture: 'portfolio-fixture@1' }, analysis: facts },
+    input, runController, evidenceClass);
+    // FR-014/FR-017: every number, ticker and date in the role outputs and the answer, checked against the facts.
+    const result = record.result as Record<string, string> | undefined;
+    if (result && finalDecision !== undefined) {
+      const known = [...knownTickers, ...Object.keys(PORTFOLIO_FIXTURE.instruments).map((k) => k.split(':').at(-1)!),
+        analysis.holding.split(':').at(-1)!];
+      const outputs = ROLES.map((r) => ({ role: r.node, text: result[r.writes] ?? '' }));
+      // The question is model input too (FR-004): what it names is given, not invented.
+      const given = [...analysis.facts, { id: 'Q1', kind: 'question' as const, text: analysis.question }];
+      Object.assign(facts, { grounding: ground(outputs, finalDecision, given, known), answerLanguage: language(finalDecision) });
+    }
   } else if (data === 'fixture') {
     // Step 2 — data: the committed Feature 004 fixture, unchanged.
     [record, finalDecision] = await runGraph({ ...base, fixture: FIXTURE.id,
@@ -148,6 +174,14 @@ async function run() {
   $('status').dataset.state = 'done';
   $('status').textContent = `done: ${record.evidenceClass} · ${record.outcome}`;
   ($('run') as HTMLButtonElement).disabled = false;
+  $('run').dispatchEvent(new CustomEvent('bta-done', { detail: record }));
+}
+
+// Share of Hangul among letters: the answer language recorded for the measurement (FR-009, FR-019).
+function language(text: string): 'ko' | 'en' | 'mixed' {
+  const ko = (text.match(/[가-힣]/g) ?? []).length, en = (text.match(/[A-Za-z]/g) ?? []).length;
+  const share = ko / Math.max(1, ko + en);
+  return share > 0.5 ? 'ko' : share < 0.1 ? 'en' : 'mixed';
 }
 
 // /api/market → validate → render → identities. Any failure or cancel returns before a runtime exists.
@@ -203,7 +237,9 @@ async function acquireFromServer(signal: AbortSignal): Promise<MarketBundle | Ma
 async function runGraph(base: Record<string, unknown>, input: TradingFixture, runController: AbortController,
   evidenceClass: string, acquisitionMs?: number): Promise<[Record<string, unknown>, string | undefined]> {
   // createRuntime() creates the warm base session, so a LanguageModel.create failure surfaces here.
+  const tCreate = performance.now();
   const runtime = await createRuntime(RUNTIME_OPTIONS).catch((e: unknown) => ({ error: describe(e) }));
+  const runtimeCreateMs = Math.round(performance.now() - tCreate); // Feature 010 dogfooding (operational only)
   if ('error' in runtime) {
     return [{ ...base, evidenceClass, outcome: 'failed', error: runtime.error,
       failure: { boundary: 'inference', kind: 'runtime-create' } }, undefined];
@@ -246,6 +282,7 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
   let settledBeforeShutdown = false;
   let snapshotBeforeShutdown: ReturnType<typeof snap> | undefined;
   let graphMs = 0;
+  let shutdownMs = 0;
   const t0 = performance.now();
   try {
     state = await graph.invoke({ input }, { signal: runController.signal });
@@ -265,7 +302,9 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
       return s.state === 'ready' && s.active === 0 && s.queued === 0;
     }, 10_000);
     snapshotBeforeShutdown = snap(runtime);
+    const tShutdown = performance.now();
     await runtime.shutdown();
+    shutdownMs = Math.round(performance.now() - tShutdown);
     clearInterval(ticker);
     showRuntime();
   }
@@ -275,7 +314,7 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
 
   // Live mode: role outputs can quote market values (stand-in echo, native wording), so the record keeps
   // presence and length only, whatever the provider (contracts/evidence.md).
-  const result = state && Object.fromEntries(ROLES.map((r) => [r.writes, data === 'live'
+  const result = state && Object.fromEntries(ROLES.map((r) => [r.writes, data === 'live' && input.holdingFacts === undefined
     ? { present: typeof state![r.writes] === 'string', length: String(state![r.writes] ?? '').length }
     : state![r.writes]]));
 
@@ -289,7 +328,7 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
       const own = nodeEvents.filter((e) => e.node === r.node);
       const last = own.at(-1)?.event;
       return [r.node, { status: last === 'start' ? 'running' : (last ?? 'waiting'),
-        executions: own.filter((e) => e.event === 'start').length, modelRequests: modelRequests[r.node], reads: r.reads }];
+        executions: own.filter((e) => e.event === 'start').length, modelRequests: modelRequests[r.node], reads: readsFor(r, input) }];
     })),
     nodeEvents,
     modelRequests: bridge.map((e) => ({ logicalRequestId: e.logicalRequestId, event: e.event,
@@ -307,7 +346,7 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
       nativeProvider: 'not observed (out of scope)',
     },
     lifecycle: { settledBeforeShutdown, snapshotBeforeShutdown, snapshotAfterShutdown: snap(runtime) },
-    timing: { ...(acquisitionMs === undefined ? {} : { acquisitionMs }), graphMs },
+    timing: { ...(acquisitionMs === undefined ? {} : { acquisitionMs }), graphMs, runtimeCreateMs, shutdownMs },
     ...(result ? { result } : {}),
   }, state?.finalDecision];
 }

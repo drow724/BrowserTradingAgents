@@ -18,8 +18,9 @@ const TYPE: Record<ProductType, string> = { stock: '주식', preferred: '우선�
 const classOf = (i: InstrumentRef): AssetClass => (i.kind === 'fixed' ? i.id : i.assetClass);
 const money = (h: Holding) => `${h.averagePrice.toLocaleString('ko-KR')} ${h.currency}`;
 
-export function HoldingList({ holdings, onEdit, onRemove, missing }: {
-  holdings: Holding[]; onEdit?: (h: Holding) => void; onRemove?: (h: Holding) => void; missing?: (h: Holding) => boolean;
+export function HoldingList({ holdings, onEdit, onRemove, onAnalyze, missing }: {
+  holdings: Holding[]; onEdit?: (h: Holding) => void; onRemove?: (h: Holding) => void; onAnalyze?: (h: Holding) => void;
+  missing?: (h: Holding) => boolean;
 }) {
   if (!holdings.length) return <p className={styles.muted}>아직 등록한 자산이 없습니다.</p>;
   return (
@@ -29,6 +30,7 @@ export function HoldingList({ holdings, onEdit, onRemove, missing }: {
           <span>{instrumentName(h.instrument)}{h.instrument.kind === 'listing' && ` (${h.instrument.ticker})`}</span>
           <span>{h.quantity.toLocaleString('ko-KR', { maximumFractionDigits: 8 })} {unitFor(h.instrument)} · 평균 {money(h)}</span>
           {missing?.(h) && <span className={styles.warn}>현재 목록에 없음</span>}
+          {onAnalyze && <button type="button" onClick={() => onAnalyze(h)}>이 종목 분석</button>}
           {onEdit && <button type="button" onClick={() => onEdit(h)}>수정</button>}
           {onRemove && <button type="button" onClick={() => onRemove(h)}>삭제</button>}
         </li>
@@ -118,8 +120,9 @@ export function HoldingForm({ holdings, editing, search, onSave, onCancel, onEdi
 }
 
 // The holdings editor used by both the onboarding and the 포트폴리오 window.
-export function HoldingsEditor({ holdings, onChange, search, readOnly, missing }: {
+export function HoldingsEditor({ holdings, onChange, search, readOnly, missing, onAnalyze }: {
   holdings: Holding[]; onChange: (hs: Holding[]) => void; search?: Search; readOnly?: boolean; missing?: (h: Holding) => boolean;
+  onAnalyze?: (h: Holding) => void;
 }) {
   const [form, setForm] = useState<{ editing?: Holding } | null>(null);
   const put = (h: Holding) => {
@@ -128,7 +131,7 @@ export function HoldingsEditor({ holdings, onChange, search, readOnly, missing }
   };
   return (
     <div>
-      <HoldingList holdings={holdings} missing={missing}
+      <HoldingList holdings={holdings} missing={missing} onAnalyze={onAnalyze}
         onEdit={readOnly ? undefined : (h) => setForm({ editing: h })}
         onRemove={readOnly ? undefined : (h) => onChange(holdings.filter((x) => x !== h))} />
       {!readOnly && (form ? (

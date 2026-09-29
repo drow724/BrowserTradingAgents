@@ -1,7 +1,9 @@
 // Committed input for the Feature 004 TradingAgents fixture graph. Fictional and neutral: it exists
 // to show which role read what. Each fact carries a tag (M1…, N1…) that tests search for to prove
 // provenance; answer quality is never evaluated. Bump the id suffix when content changes.
-export type TradingFixture = { id: string; subject: string; marketFacts: string; newsFacts: string };
+export type TradingFixture = { id: string; subject: string; marketFacts: string; newsFacts: string;
+  // Feature 010 portfolio runs only (src/analysis/facts.ts); demo inputs never set them.
+  holdingFacts?: string; question?: string };
 
 export const FIXTURE: TradingFixture = {
   id: 'tradingagents-fixture@1',
