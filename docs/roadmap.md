@@ -1,18 +1,22 @@
 # BrowserTradingAgents Roadmap Notes
 
 Working notes, not governance. The constitution (`.specify/memory/constitution.md`) prevails.
-Last updated: 2026-09-29 (Feature 005 close-out).
+Last updated: 2026-09-29 (Feature 005 close-out; ADR 0001 Next.js application shell).
 
 ## Intended end state (candidate, not yet a Feature)
 
 A user opens the app in a browser and runs a TradingAgents-style multi-agent analysis there:
 input (ticker, date) → agents run in the browser → result shown on the page.
 
-- Delivered as a **static build** (`npm run build` → `dist/`) served over `http(s)` (localhost or
-  static hosting). Opening `index.html` via `file://` will not work: the Prompt API needs a secure
-  context and npm packages need bundling.
+- Delivered as a **Next.js (App Router) application** (ADR 0001): browser + a server-capable
+  runtime (Node or serverless, e.g. Vercel). The server side holds data acquisition and secrets;
+  it does not run the agents. Features 001–005 still use the Vite static page until Feature 006
+  migrates the shell. The Prompt API needs a secure context (`localhost` or HTTPS).
 - LLM inference runs **in the browser** through AkariSP (Chrome Prompt API; WebLLM possible
-  later). It cannot move to a server: the Prompt API exists only in the user's Chrome.
+  later). The Prompt API exists only in the user's Chrome. Browser/local inference is the default
+  tier. A remote (cloud) tier would be an explicit, user-visible escalation owned by the
+  application (proposed constitution principle in ADR 0001; candidate implementation: Vercel AI
+  Gateway). It is not planned in Features 005–007.
 - Requires a Chrome with the Prompt API and an available on-device model; other browsers get an
   "unsupported" notice.
 - First versions use **committed fixtures** as market/news input (Constitution II, IX; Feature 001
@@ -26,11 +30,77 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 | 002 | LangChain.js ↔ AkariSP integration validation (thin bridge) | complete — real Prompt API evidence (Chrome 152/153); carry-over: N-6 JSON code fences trigger the structured fallback, N-7 `system` role accepted but not a contract |
 | 003 | LangGraph.js ↔ AkariSP: minimal graph, parallel branches, fan-in, sequential nodes | complete — canonical app `index.html` → `src/main.ts` (Feature 002 harness at `/harness/`); real Prompt API evidence (Chrome 153); carry-over: O-1 LangGraph's browser entry does not pass the graph's AbortSignal to models called inside nodes (forward `config.signal` explicitly), O-2 LangGraph rejects the caller before in-flight node work settles (check AkariSP settlement before `shutdown()`) |
 | 004 | TradingAgents-style fixture graph on the canonical page: Market ‖ News → Bull → Bear → Research Manager → Trader → Risk Reviewer → Final Decision; reference role boundaries selectively preserved, documented browser adaptations, deterministic fixture `tradingagents-fixture@1` | complete — real Prompt API evidence (Chrome 153, `a0584fd`, 8 logical requests, ~26 s); carry-over: A11 deviation (all role outputs plain text, no structured fallback), A4 simplification (no tools; facts come from the fixture) |
-| 005 | Browser market-data boundary: `?data=live` feeds only the Market Analyst from Massive end-of-day bars through acquire → normalize → render, independent of the LLM provider axis; fixture mode unchanged | implementation complete (L1–L3 controlled evidence; native + fixture `0543a69`); **authenticated provider validation (P-1, L4, L5) deferred** — Massive was chosen for pure-browser feasibility, not from the upstream data contract; permitted use unresolved; no real credential used |
-| 006 | **Research**: upstream TradingAgents data contract + server-side data boundary (see "Decision 2026-09-29") | next candidate |
-| later | Live news, and further data (fundamentals, indicators, …) as the research decides | deferred; renumbered after the research (the previously planned "006 live News boundary" moved here) |
+| 005 | **Market Data Boundary Experiment** — browser market-data boundary: `?data=live` feeds only the Market Analyst from Massive end-of-day bars through acquire → normalize → render, independent of the LLM provider axis; fixture mode unchanged | implementation complete (L1–L3 controlled evidence; native + fixture `0543a69`); **authenticated provider validation (P-1, L4, L5) deferred** — Massive was chosen for pure-browser feasibility, not from the upstream data contract; permitted use unresolved; no real credential used |
+| 006 | **Next.js Application Shell Migration** (`006-nextjs-application-shell`): move the Vite shell to Next.js App Router with no semantic change (see "Feature 006 scope") | next candidate |
+| 007 | **Upstream-Compatible Server Data Boundary** (`007-upstream-server-data-boundary`): upstream TradingAgents data/tool contract at a pinned SHA → `/api/market` contract, server normalization, provider choice, permitted-use constraints (see "Feature 007 scope") | candidate after 006 |
+| later | Live news, fundamentals, indicators, … as Feature 007's research decides; Agent Town visualization; WebLLM; optional cloud-inference escalation (needs the constitution amendment in ADR 0001) | deferred; renumbered later (the previously planned "live News boundary" moved here) |
+
+## Decision 2026-09-29 (later): Next.js application shell — ADR 0001
+
+**Decision**: the maintainer adopts Next.js (App Router) as the long-term application shell
+([ADR 0001](adr/0001-nextjs-application-shell.md)). The rationale is not CORS but:
+- a future market/news/fundamentals server data boundary
+- a server-only secret boundary
+- client-side LangGraph, AkariSP, Prompt API and WebLLM, which stay in the browser
+- Agent Town client visualization
+- a future optional cloud-inference boundary
+- Vercel deployment ergonomics
+
+This closes question B below. Questions A and C move to Feature 007.
+
+**Sequence**: 005 Market Data Boundary Experiment → 006 Next.js Application Shell Migration → 007
+Upstream-Compatible Server Data Boundary.
+
+### Feature 006 scope — `006-nextjs-application-shell`
+
+Move the Vite application shell to Next.js App Router **without changing any BrowserTradingAgents
+semantics**.
+
+- **Preserve**:
+  - the eight-role graph
+  - fixture mode, including the Feature 005 data axis as implemented
+  - the stand-in provider and the native Prompt API
+  - LangGraph client execution, `AkariChatModel`, AkariSP
+  - explicit AbortSignal forwarding and settlement-before-shutdown
+  - evidence and revision (`+dirty`) provenance
+  - the Feature 002 harness guarantees (how the protected harness files are hosted is a plan
+    decision; the files stay byte-identical unless the Feature records a deliberate
+    historical-file decision)
+  - the canonical Playwright suites and the installed-Chrome native test
+- **Non-goals**:
+  - a real market provider or production `/api/market` semantics
+  - the upstream data contract implementation
+  - news or fundamentals APIs
+  - WebLLM, Agent Town, the Vercel AI SDK/Gateway, cloud inference
+  - new agent semantics, AkariSP changes
+  - A trivial Route Handler probe (no market or domain semantics) is allowed only to show that the
+    Next.js server boundary exists.
+- **Success criteria (proposed)**:
+  - Every canonical guarantee from the Vite shell reproduces under Next.js client execution:
+    deterministic + Node integration suites unchanged; the browser suite (fixture, stand-in,
+    BLOCKED, Feature 005 controlled live cases, harness) passes on the Next.js server.
+  - LangGraph and AkariSP never execute during server rendering.
+  - Revision provenance, including `+dirty`, is equivalent.
+  - The installed-Chrome native Prompt API fixture graph completes **8/8** at a **clean Next.js
+    revision** (8 logical, 0 fallback, settled before shutdown).
+  - `src/graph/trading-graph.ts`, `src/integration/*` and AkariSP are unchanged.
+
+### Feature 007 scope — `007-upstream-server-data-boundary` (candidate)
+
+- **First** (plan/research): the actual market-data/tool contract of TauricResearch/TradingAgents at
+  a pinned upstream SHA: what each analyst reads, granularity, history window, freshness, and
+  provider-specific assumptions.
+- **Then**: the `/api/market` contract, the server normalization boundary, the provider choice
+  (Yahoo/yfinance-equivalent such as server-side `yahoo-finance2`, Alpha Vantage, others), and
+  permitted-use constraints. Each provider records TECHNICAL_VIABILITY and PERMITTED_USE separately;
+  without an official basis, PERMITTED_USE = UNRESOLVED.
+- Massive stays Feature 005's experimental adapter and is not the canonical provider. Its
+  P-1/L4/L5 stay DEFERRED.
 
 ## Decision 2026-09-29: research the data contract before choosing a provider
+
+> Partly superseded the same day by ADR 0001: B is decided (Next.js); A and C move to Feature 007;
+> Feature 006 is the shell migration, not this research.
 
 - **Previous direction**: Feature 005 Massive browser boundary → Feature 006 live News boundary.
 - **New direction**: Feature 005 implementation preserved, authenticated validation deferred →
@@ -76,6 +146,9 @@ User-Agent. Terms of use and rate limits were not reviewed.
 **Conclusion**: the upstream data layer cannot be moved into the browser as is.
 
 ## Architecture direction for real data (recommendation, decide in that Feature)
+
+> Superseded by ADR 0001 (2026-09-29): Next.js App Router is the application shell; data
+> acquisition goes behind Next.js Route Handlers (Feature 007). Kept below as the earlier reasoning.
 
 ```text
 Browser:  UI + LangChain/LangGraph + AkariSP + Prompt API   (inference stays here)
