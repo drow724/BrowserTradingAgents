@@ -434,7 +434,7 @@ merge). Untracked: this feature directory and unrelated Spec Kit/Claude tooling 
   - Exclude `.claude/`, `.specify/*`, `CLAUDE.md`, `.local/`, `.next/`, `next-env.d.ts`,
     `test-results/`, `*.tsbuildinfo`.
   - Record the full SHA; code paths clean.
-- [ ] T028 [US1] **APPROVAL REQUIRED — native + fixture gate** at the T027 SHA:
+- [X] T028 [US1] **APPROVAL REQUIRED — native + fixture gate** at the T027 SHA:
   - Run `npm run test:prompt-api -- -g "eight-role"`. This is never native + live.
   - Apply the same validation as Feature 006 T042.
   - Save it unedited as `evidence/real-browser-next-fixture-<date>-<sha>.json`.
@@ -445,7 +445,7 @@ merge). Untracked: this feature directory and unrelated Spec Kit/Claude tooling 
 
 ## Checkpoint G — Real Yahoo (US7, MANUAL, APPROVAL REQUIRED)
 
-- [ ] T029 [US7] **APPROVAL REQUIRED** — at the **exact T027 SHA** with code paths clean (checked
+- [X] T029 [US7] **APPROVAL REQUIRED** — at the **exact T027 SHA** with code paths clean (checked
   before and after):
   - `BTA_REAL_YAHOO=1 npx playwright test --project=chromium -g "real Yahoo"` (L4), then
     `BTA_REAL_YAHOO=1 npm run test:prompt-api -- -g "real Yahoo"` (L5)
@@ -453,7 +453,7 @@ merge). Untracked: this feature directory and unrelated Spec Kit/Claude tooling 
     `…/real-yahoo-native-<date>-<sha>.json`.
   - Record `REAL_PROVIDER_VALIDATED`, `BLOCKED` (with kind) or `DEFERRED` if not approved (SC-017).
   - A real Yahoo failure does not invalidate the controlled results (B–F).
-- [ ] T030 Final audit and completion record in `verification.md`:
+- [X] T030 Final audit and completion record in `verification.md`:
   - FR-001…FR-033 / SC-001…SC-017 table (task + evidence)
   - ledger A-M1…A-M12 still accurate
   - hashes equal
@@ -464,7 +464,7 @@ merge). Untracked: this feature directory and unrelated Spec Kit/Claude tooling 
     CONTROLLED_BOUNDARY_VALIDATED → DIRECT_BROWSER_PATH_RETIRED → IMPLEMENTATION_COMPLETE →
     **FEATURE_COMPLETE** when T028 PASS and T029 recorded (any of PASS/BLOCKED/DEFERRED). A real
     Yahoo PASS is not required.
-- [ ] T031 **APPROVAL REQUIRED — closeout commit** of `verification.md`, `tasks.md` and the T028/T029
+- [X] T031 **APPROVAL REQUIRED — closeout commit** of `verification.md`, `tasks.md` and the T028/T029
   evidence (docs and evidence only; code paths unchanged; same exclusions).
 
 ---

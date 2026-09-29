@@ -454,3 +454,270 @@ Observed venv versions (not upstream pins; upstream declares `>=`): `stockstats 
   - Protected hashes 78/78; `runGraph` `922db752…`; specs 001–006 unchanged; `package.json` and
     lock unchanged; AkariSP 0; no server process left running.
   - Real Yahoo requests: **1** (T008 only).
+- **T027** (maintainer approved): commit `4b4925f4a589d7e9712c32f4dc1c979991be8310` (not pushed).
+  - 30 files: 6 modified, 2 deleted (`src/market-data.ts`, `test/market-data.test.ts`), 22 added
+    (route, adapter, bundle, stubs, fixtures, tests, the Feature 007 spec directory including the
+    controlled-live evidence).
+  - Excluded: `.claude/`, `.specify/*`, `CLAUDE.md` and generated output.
+  - The staged review found no 001–006 file, package file or AkariSP change. The two `MUTATION`
+    matches in the staged diff are sentences in this file.
+  - The evidence has no Bearer/Authorization/cookie/Yahoo URL/OHLC field; role outputs are
+    presence + length.
+  - After the commit: code paths clean; protected 78/78; `runGraph` `922db752…`; `package.json`
+    and lock unchanged since `f4d976c`; real Yahoo requests 1.
+- **T028** native + fixture gate (maintainer approved), at clean `4b4925f4a589d7e9712c32f4dc1c979991be8310`:
+  - `npm run test:prompt-api -- -g "eight-role"`, 2026-09-29T06:37:58Z–06:39:18Z; production server;
+    installed Google Chrome **154.0.8037.58** (`--version`; the record's reduced user agent reads
+    `HeadlessChrome/154.0.0.0`), `channel: 'chrome'`, headless; `BTA_REAL_YAHOO` unset.
+  - 1 passed (1.2 m). Evidence saved unedited (`cmp` identical):
+    `evidence/real-browser-next-fixture-2026-09-29-4b4925f.json` (sha256 `09df8dab…0574281`).
+  - Validation, all PASS:
+    - `REAL_BROWSER_PROMPT_API`, runner `playwright`, provider `native`, `MODEL_AVAILABLE`
+    - revision = the T027 SHA without `+dirty`; `feature` 007
+    - `dataSource {fixture, tradingagents-fixture@1}`; outcome `success`
+    - 8/8 `done` with executions 1 / modelRequests 1; graphRuns 1, logicalRequests 8,
+      fallbackRequests 0
+    - `{ready,0,0}` before shutdown, `settledBeforeShutdown` true, `{closed,0,0}` after
+    - no stand-in text; graphMs 46442 (operational only)
+  - Network: fixture mode does not use the live acquisition path. Browser and server market
+    requests were not separately instrumented in this run. The cumulative real-Yahoo count stays
+    **1** per this record (only T008 sent one; no real-Yahoo test was enabled).
+  - After the run: code paths clean (digest pre = post, empty diff); protected 78/78; `runGraph`
+    unchanged; no server left running.
+  - State: **IMPLEMENTATION_COMPLETE**.
+
+## Checkpoint G
+
+- **T029** real Yahoo (maintainer approved), sequentially at clean `4b4925f4a589d7e9712c32f4dc1c979991be8310`.
+  `BTA_REAL_YAHOO=1` removes the stand-in and selects only the "real Yahoo" tests. Code paths
+  were clean before and after each run (digest pre = post, empty diff).
+  - **Request accounting**:
+    - The webServer log (`DEBUG=pw:webserver`) shows exactly **one** `/api/market` acquisition
+      log line per run (`{"adapter":"yahoo-chart@1","status":"2xx"}`).
+    - Each acquisition is one provider `fetch` with `redirect: 'manual'` and no retry.
+    - The Yahoo network request itself was not packet-instrumented: the evidence states
+      server → Yahoo as "not directly instrumented".
+    - Cumulative real Yahoo requests: T008 1 + L4 1 + L5 1 = **3**.
+  - **L4** `BTA_REAL_YAHOO=1 npx playwright test --project=chromium -g "real Yahoo"`
+    (2026-09-29T06:44:23Z–06:44:30Z): 1 passed.
+    - Browser: Playwright Chromium 153.0.8010.12; stand-in model.
+    - Browser direct Yahoo requests 0 (every non-local request aborted and recorded: none);
+      `/api/market` 1.
+    - `dataSource` live/server/`yahoo-chart@1`, `analysisDate` 2026-09-29, `marketAsOf`
+      2026-09-28, `historySessions` 1254, `sessions` 30.
+    - 8/8, 8/0, `{ready,0,0}` → `{closed,0,0}`.
+    - Evidence `evidence/real-yahoo-standin-2026-09-29-4b4925f.json` (sha256 `8ff6e53b…67e4`),
+      classification PASS.
+  - **L5** `BTA_REAL_YAHOO=1 npm run test:prompt-api -- -g "real Yahoo"`
+    (06:44:48Z–06:45:54Z), run after L4 PASS: 1 passed.
+    - Installed Google Chrome 154.0.8037.58; `REAL_BROWSER_PROMPT_API`, native,
+      `MODEL_AVAILABLE`.
+    - Live/server/`yahoo-chart@1`, `analysisDate` 2026-09-29, `marketAsOf` 2026-09-28,
+      `historySessions` 1254.
+    - 8/8 `done` (executions 1, modelRequests 1); logicalRequests 8, fallbackRequests 0.
+    - `{ready,0,0}` before shutdown, `settledBeforeShutdown` true, `{closed,0,0}` after.
+    - No stand-in; `acquiredAt ≤ receivedAt ≤ usedAt`; browser direct Yahoo 0.
+    - Evidence `evidence/real-yahoo-native-2026-09-29-4b4925f.json` (sha256 `0b046cf2…d6b`),
+      classification PASS.
+  - Both evidence files were copied unedited (`cmp`). They hold metadata and digests only: no
+    OHLCV fields, `adjclose`, `marketFacts` text, cookie, crumb or auth header; role outputs are
+    presence + length.
+  - After both runs: protected 78/78; `runGraph` `922db752…`; `package.json` and lock unchanged;
+    AkariSP 0.
+  - **T029 status: PASS** → `REAL_PROVIDER_VALIDATED`. This means that, in this local environment
+    on 2026-09-29, browser → Next server → real Yahoo → MarketBundle → the eight-role graph (stand-in
+    and native) succeeded. It does not show Vercel compatibility, endpoint stability, absence of
+    rate limits, official API support or public-service suitability, and it says nothing about
+    trading quality.
+
+## T030 Final audit
+
+Implementation revision: `4b4925f4a589d7e9712c32f4dc1c979991be8310` (base `f4d976c`). Only
+closeout documentation and evidence are uncommitted (outside the revision code paths). `npm test`
+re-run at HEAD: 107 (106 pass, 0 fail, 1 skip).
+
+### Functional requirements
+
+| FR | Implementation | Verification | Status |
+|---|---|---|---|
+| 001 | research R0 (tools, params, dates, indicators, snapshot, router, prompt entry, file/line at `35543d0`) | T003 basis; source re-read at T009/T024 | PASS |
+| 002 | R0.6 table (REPRODUCE/ADAPT/DEFER) + ledger A-M1…A-M12 | ledger audit below | PASS |
+| 003 | `src/market-bundle.ts` types + `validateBundle`; no provider field names | L1 (18 invalid rules), L2 matrix | PASS |
+| 004 | role contract untouched (`src/graph/*` hashed); only `marketFacts` content | 78/78; L3 input id/subject/neutral news | PASS |
+| 005 | `/api/market`; browser `fetch` same-origin only | L3: external 0, `/api/market` 1; L4/L5 browser→Yahoo 0 | PASS |
+| 006 | server = acquisition, normalization, indicators, snapshot, bundle, error translation; graph/AkariSP/Prompt API in browser | route/adapter code; L3 graph runs in page; T028/T029 L5 native in browser | PASS |
+| 007 | browser imports only `market-bundle.ts` | import scan; `.next/static` provider strings 0 | PASS |
+| 008 | one adapter, no registry/selection/fallback | code review; scan | PASS |
+| 009–011 | provider decision recorded (R10: Yahoo canonical, others future) | T008 PASS; T029 PASS | PASS |
+| 012 | axes independent; `live` = server path | L3 four mode URLs; native+live BLOCKED | PASS |
+| 013 | fixture never calls `/api/market` | test (a) `/api/market` 0; T028 native+fixture | PASS |
+| 014 | `prepareLive` acquires/validates before `runGraph` | L3 15-row matrix creates 0; mutation C | PASS |
+| 015 | failures return typed record, no fixture | L3: empty result/replay/market, no Northwind | PASS |
+| 016 | route passes `request.signal`; adapter forwards | L2 abort; L3 cancel (stub socket closed); mutation B | PASS |
+| 017 | `runGraph` untouched | L3 graph-stage cancel; hash `922db752…` | PASS |
+| 018 | kinds + `stage`; `invalid-request` added | L2/L3 exact `{boundary, stage, kind}` | PASS |
+| 019 | market-data vs inference boundaries | L3 (market-data) vs graph cancel (inference) | PASS |
+| 020 | no filling/defaulting; ratio or invalid | L2 null/length/duplicate/missing adjclose; mutation A | PASS |
+| 021 | `Intl` exchange-zone dating | L1 TZ=UTC vs Asia/Seoul identical | PASS |
+| 022 | `force-dynamic`, `no-store` fetch + header | L2 two calls → 2; L3 two runs → 2 | PASS |
+| 023 | single fetch, no retry, `redirect: 'manual'` | L2/L3 stub count 1; T029 one acquisition log line per run | PASS |
+| 024 | no provider secret; key UI retired | L3 0 password/key inputs, empty storage, 0 Authorization | PASS |
+| 025 | docs state the boundary does not resolve terms | `docs/testing.md` data-modes section | PASS |
+| 026 | Massive path retired after D/E proofs | T021 after T018–T020; one live path | PASS |
+| 027 | `dataSource` provenance + freshness + digests | L3 key set + time order; T029 evidence | PASS |
+| 028 | replay = bundle + marketFacts + digests | L1 round-trip + local artifact check; L3 digest linkage | PASS |
+| 029 | L1/L2/L3 controlled suites | 107 unit; 32 browser | PASS |
+| 030 | browser vs server evidence separated | L3 guard vs stub stats; T029 "not directly instrumented" | PASS |
+| 031 | opt-in real tests, separate evidence | default skipped; T029 L4/L5 files | PASS |
+| 032 | graph/prompts/AkariChatModel/AkariSP unchanged | 78/78; deps unchanged | PASS |
+| 033 | Feature 001–006 untouched | `git diff f4d976c 4b4925f -- specs/00[1-6]*` empty | PASS |
+
+**33/33 PASS.**
+
+### Success criteria
+
+| SC | Evidence | Status |
+|---|---|---|
+| 001 | R0 answers every FR-001 question with file/line or "not present" | PASS |
+| 002 | every bundle field traces to R0.6/ledger (data-model sources column) | PASS |
+| 003 | fixture: test (a) + T028 native+fixture 8/8, 8/0, no credential | PASS |
+| 004 | L3 provider-origin browser requests 0 | PASS |
+| 005 | L3 controlled success 8/8, 8/0 | PASS |
+| 006 | 15 failure rows + cancel: creates 0, model requests 0 | PASS |
+| 007 | silent fallback 0 (L3 failure assertions) | PASS |
+| 008 | graph-stage cancel `{ready,0,0}`, settled, `{closed,0,0}` | PASS |
+| 009 | provider secret occurrences 0 (no secret exists; no key UI; bundle/evidence/storage checks) | PASS |
+| 010 | provider fields in the browser contract 0 | PASS |
+| 011 | TZ=UTC vs Asia/Seoul identical | PASS |
+| 012 | server-side claims are stub-measured (L2/L3) or stated "not directly instrumented" (T029) | PASS |
+| 013 | 78/78 hashes; specs 001–006 diff empty | PASS |
+| 014 | AkariSP/deps unchanged; topology/provenance/prompts unchanged | PASS |
+| 015 | one canonical live path (`/api/market`) | PASS |
+| 016 | R10: candidates with separate technical/permitted-use findings; maintainer decision Yahoo canonical | PASS |
+| 017 | real-provider result recorded: PASS (T029 L4 + L5), separate from SC-001–015 | PASS |
+
+**17/17 PASS.** SC-001–015 are the controlled completion criteria; SC-016–017 are the provider
+decision and the real-provider result.
+
+### User stories
+
+- **US1** fixture: test (a); T028 native+fixture.
+- **US2** live through the server: L3 success; T029 L4/L5.
+- **US3** upstream-derived contract: R0 + golden parity.
+- **US4** failure/cancel before runtime: L3 matrix + cancel, mutation C.
+- **US5** controlled validation: L1/L2/L3 offline.
+- **US6** evidence layers: L3 guard vs stub stats; stage provenance.
+- **US7** real provider: T029 PASS.
+
+All 7 are observable.
+
+### Ledger audit (A-M1…A-M12 vs code)
+
+| Entry | Checked against | Result |
+|---|---|---|
+| A-M1 | no tool loop: one bundle before the runtime (`prepareLive`) | matches |
+| A-M2 | `analysisDate` from the server ET clock (route) | matches |
+| A-M3 | all 12 indicators at the latest session (`computeIndicators`) | matches |
+| A-M4 | unfilled history; nulls fail except A-M11 | matches |
+| A-M5 | 5-year request per call, no cache (L2 query + two-call test) | matches |
+| A-M6 | JSON contract, browser renders `marketFacts` | matches |
+| A-M7 | no retry/chain/cache; typed failures before any model | matches |
+| A-M8 | provider by recorded decision (R10) | matches |
+| A-M9 | missing `adjclose` → `invalid-data` (L2) | matches |
+| A-M10 | raw `fetch`, no crumb/cookie/retry/cache; "Yahoo-compatible, not identical" in docs | matches |
+| A-M11 | analysis-date bar before 16:00 and unsettled final bar dropped; historical nulls fail (L2) | matches |
+| A-M12 | `recent` = 30 sessions with full OHLCV | matches |
+
+Hidden drift: none found. Recorded implementation details:
+- the OHLC ordering tolerance of 1e-9 (data-model)
+- `cancelled` → HTTP 499 at the route (only seen by a disconnected client)
+
+### Upstream fidelity
+
+The following reproduce the reference, with every difference in the ledger:
+- adjusted daily OHLCV via the yfinance formula; 5-year request; no future rows
+- unfinished/unsettled latest session dropped; stale `> 10` days
+- 12-indicator universe with stockstats formulas (golden ≤ 5.9e-14 relative); the snapshot's 11
+  (no `vwma`) are a subset
+- 30 recent sessions; latest row as the verified source of truth
+
+### Evidence inventory
+
+| File | sha256 | Purpose | Tested SHA |
+|---|---|---|---|
+| `controlled-live-standin-2026-09-29-f4d976c-dirty.json` | `cb65aca976de579b…` | L3 controlled live (stand-in + Yahoo stand-in) | pre-commit working tree (`f4d976c+dirty`) |
+| `real-browser-next-fixture-2026-09-29-4b4925f.json` | `09df8daba9a33dca…` | **canonical native inference regression** (native + fixture) | `4b4925f…` clean |
+| `real-yahoo-standin-2026-09-29-4b4925f.json` | `8ff6e53b12fc73b7…` | real Yahoo L4 (stand-in model, Playwright Chromium 153) | `4b4925f…` clean |
+| `real-yahoo-native-2026-09-29-4b4925f.json` | `0b046cf2868bcb33…` | real Yahoo L5 (native, Chrome 154) | `4b4925f…` clean |
+
+- The L5 real-Yahoo run does not replace the native + fixture gate; the two answer different
+  questions.
+- All four files contain 0 of: Bearer, Authorization, cookie, crumb, `open`/`high`/`low`/`close`,
+  `adjclose`, `timestamp`, `market fact`.
+- Role outputs are presence + length. Synthetic prices exist only in `test/fixtures/market/`.
+
+### Network accounting
+
+| Stage | What was observed |
+|---|---|
+| T008 | local Node reachability, 1 request |
+| L2/L3 | the stand-in counted every server request directly |
+| T029 L4/L5 | one acquisition log line per run; the Yahoo network request itself not packet-instrumented |
+
+Cumulative real Yahoo acquisition attempts: **3** (T008 1, L4 1, L5 1), with 0 retries, 0
+redirects followed and 0 fallbacks.
+
+### Other audits
+
+- **Feature 005 retirement**:
+  - `src/market-data.ts` and its 19 tests removed (mapping in Checkpoint E)
+  - key input and browser `Authorization` gone; storage empty
+  - live = `/api/market`
+  - `specs/005-…` unchanged
+- **Security**: adapter and `BTA_YAHOO_BASE_URL` server-only; no user-controlled URL; no
+  credential UI or secret; failure bodies without Yahoo text; `.next/static` provider strings 0.
+- **Dependencies**: `package.json` and lock unchanged vs `f4d976c` (no `yahoo-finance2`,
+  stockstats port, TA library, `server-only` or SDK).
+- **AkariSP**: unchanged; fetch, cancellation and provider logic live in the app route/adapter.
+- **Graph/lifecycle**: `runGraph` `922db752…`; topology and provenance unchanged.
+- **Mutations**: A, B and C each failed their designated test for the intended reason and were
+  restored exactly (`cmp`, hashes). Code residue 0; the "MUTATION" matches are sentences in this
+  file.
+- **Diff scope** `f4d976c..4b4925f`: 30 files, all in `src/`, `app/api/`, `app/page.tsx`,
+  `e2e/`, `test/`, `docs/testing.md`, `playwright.config.ts`, `specs/007-…`. No change to
+  `next.config.ts`, `tsconfig.json`, `components/`, `harness/`, `src/graph`, `src/integration`,
+  specs 001–006 or package files.
+- **Deterministic results**:
+  - unit 107 (106/0/1 skip = local bundle replay)
+  - production browser 32 passed + 1 skipped (opt-in real Yahoo) ×3
+  - dev smoke 1/1
+
+### Remaining limitations (non-blocking)
+
+- The Yahoo endpoint is unofficial and unsupported, and its rate limits are undocumented.
+- T008 is a local Node result, not a Vercel proof. Vercel/shared-IP behaviour is unproven.
+- The 16:00 ET cutoff does not model early-close days.
+- Public multi-user service suitability was not evaluated. Yahoo Terms §2.4 is recorded, not
+  resolved.
+- Trading quality was not evaluated.
+- Numeric identity with Python yfinance/Yahoo over time is not guaranteed (A-M10).
+- Constitution IX "initial phase" wording remains a LOW documentation ambiguity. No patch was made
+  here; the interpretation rests on the Feature 005 precedent and on this Feature being separately
+  scoped.
+- `docs/roadmap.md` still lists Feature 007 as "next candidate (not started)". No task in this
+  Feature updates it; it is proposed for the closeout commit.
+
+### Completion record
+
+UPSTREAM_CONTRACT_FROZEN (T003) → SERVER_CONTRACT_DEFINED (T007) → LOCAL_NODE_REACHABILITY = PASS
+(T008) → CONTROLLED_BOUNDARY_VALIDATED (T018) → DIRECT_BROWSER_PATH_RETIRED (T025) →
+IMPLEMENTATION_COMPLETE (T028) → **FEATURE_COMPLETE** (T030).
+- FEATURE_COMPLETE means the deterministic controlled implementation and the native + fixture
+  regression are complete, and a real-provider result is recorded.
+- Separately: **REAL_PROVIDER_VALIDATED** (T029 L4 + L5 PASS on the actual Yahoo path).
+- **T031** closeout commit (maintainer approved): documentation and evidence only.
+  - Contents: `tasks.md`, `verification.md`, the T028/T029 evidence files, and the
+    `docs/roadmap.md` update (Feature 007 complete; next candidate 008 Pixel Agents Execution
+    Visualization; then 009 Effectiveness Benchmark).
+  - The implementation revision remains `4b4925f4a589d7e9712c32f4dc1c979991be8310`. This commit
+    changes no code path.
