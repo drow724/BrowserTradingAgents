@@ -1,7 +1,7 @@
 # BrowserTradingAgents Roadmap Notes
 
 Working notes, not governance. The constitution (`.specify/memory/constitution.md`) prevails.
-Last updated: 2026-09-29 (Feature 008 Pixel Agents execution visualization complete for local/research use; next: Feature 009).
+Last updated: 2026-09-29 (Feature 009 JRPG shell, portfolio onboarding and own office renderer; the Effectiveness Benchmark moves after the portfolio expansion).
 
 ## Intended end state (candidate, not yet a Feature)
 
@@ -32,9 +32,24 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 | 005 | **Market Data Boundary Experiment** — browser market-data boundary: `?data=live` feeds only the Market Analyst from Massive end-of-day bars through acquire → normalize → render, independent of the LLM provider axis; fixture mode unchanged | implementation complete (L1–L3 controlled evidence; native + fixture `0543a69`); **authenticated provider validation (P-1, L4, L5) deferred** — Massive was chosen for pure-browser feasibility, not from the upstream data contract; permitted use unresolved; no real credential used |
 | 006 | **Next.js Application Shell Migration** (`006-nextjs-application-shell`): move the Vite shell to Next.js App Router with no semantic change (see "Feature 006 scope") | implementation complete — Next.js 16 App Router shell (`/`, `/harness`); graph, AkariSP and Prompt API still run only in the browser; Vite retired; all prior browser guarantees re-proven on the production server; native gates PASS in installed Chrome 154 (pre-retirement `5eb4fc0`; final `a3031920`: native + fixture 8/8, 8 logical / 0 fallback, settled `{ready,0,0}` before shutdown) — **complete** |
 | 007 | **Upstream-Compatible Server Market Data Boundary** (`007-upstream-server-market-data-boundary`): upstream Market Analyst data contract at `35543d0` → same-origin `/api/market` with a Yahoo/yfinance-compatible server adapter and a provider-independent market bundle | **complete** — controlled boundary validation PASS; native + fixture regression PASS (`4b4925f`); real Yahoo L4/L5 validation PASS; Feature 005 browser-direct Massive path retired; AkariSP changes 0 |
-| 008 | **Pixel Agents Execution Visualization**: Pixel Agents as an execution-visualization / observability layer (LangGraph / AkariSP execution events → Pixel Agents; Pixel Agents never makes orchestration decisions). Delivered as an always-on text execution view plus an explicit opt-in Pixel Agents canvas (D5) | complete (local/research; public deployment deferred: F008-L1) |
-| 009 | **BrowserTradingAgents Effectiveness Benchmark** | next candidate (not started) |
+| 008 | **Pixel Agents Execution Visualization**: Pixel Agents as an execution-visualization / observability layer (LangGraph / AkariSP execution events → Pixel Agents; Pixel Agents never makes orchestration decisions). Delivered as an always-on text execution view plus an explicit opt-in Pixel Agents canvas (D5) | complete (local/research; public deployment deferred: F008-L1); the opt-in Pixel Agents canvas was retired in Feature 009 (MD-5) |
+| 009 | **JRPG Fullscreen Shell, Portfolio Onboarding and Own Pixel Renderer** (`009-jrpg-portfolio-onboarding`): paper trading only; first-visit Korean onboarding; holdings (BTC, KRX gold spot, KR and US listings) stored only in the browser; `/api/directory` refreshed at most once per Seoul day from data.go.kr (keyed) and Nasdaq Trader; fullscreen office drawn by our own renderer from the Feature 008 view state | in progress (local/research; public deployment deferred: F008-L1) |
+| 010 | **Portfolio-aware analysis** (candidate): question input, analysis of held instruments, paper-trade ledger, shown in the same office | candidate (not started) |
+| 011 | **BrowserTradingAgents Effectiveness Benchmark** (was 009; moved after the portfolio expansion, MD-2) | candidate (not started) |
 | later | Live news, fundamentals, …; WebLLM; optional cloud-inference escalation (must satisfy constitution XIII) | deferred |
+
+## Decision 2026-09-29 (latest): portfolio expansion first — Feature 009
+
+- **MD-1** Paper trading only: no broker API, no real or simulated order placement.
+- **MD-2** The portfolio expansion (Features 009, 010) comes before the Effectiveness Benchmark.
+- **MD-3** Our own lightweight canvas renderer draws the fullscreen office (a scratch spike measured about
+  +0.3 pp for it vs about +16 pp for Pixel Agents fullscreen).
+- **MD-4** Feature 008 D5 is re-decided: the office view is on by default.
+- **MD-5** The Feature 008 opt-in Pixel Agents iframe is retired.
+- **MD-6** The upstream Pixel Agents sprites are the temporary office art, copied locally and never
+  committed (the repository is public; F008-L1 open); replacing them changes asset files only.
+- Follow-up candidate F009-F1: a scheduled directory build into a private store, only once a public
+  deployment makes per-instance source calls matter.
 
 ## Decision 2026-09-29 (later): Next.js application shell — ADR 0001
 

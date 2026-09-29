@@ -1,0 +1,134 @@
+{
+ "response": {
+  "header": {
+   "resultCode": "00",
+   "resultMsg": "NORMAL SERVICE."
+  },
+  "body": {
+   "numOfRows": 13,
+   "pageNo": 1,
+   "totalCount": 13,
+   "items": {
+    "item": [
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900001",
+      "isinCd": "KRTEST9000010",
+      "mrktCtg": "KOSPI",
+      "itmsNm": "삼성테스트전자",
+      "crno": "0000000000000",
+      "corpNm": "삼성테스트전자(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900002",
+      "isinCd": "KRTEST9000020",
+      "mrktCtg": "KOSPI",
+      "itmsNm": "삼성테스트전자우",
+      "crno": "0000000000000",
+      "corpNm": "삼성테스트전자우(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900003",
+      "isinCd": "KRTEST9000030",
+      "mrktCtg": "KOSPI",
+      "itmsNm": "한빛가상화학",
+      "crno": "0000000000000",
+      "corpNm": "한빛가상화학(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900004",
+      "isinCd": "KRTEST9000040",
+      "mrktCtg": "KOSPI",
+      "itmsNm": "한빛가상화학우B",
+      "crno": "0000000000000",
+      "corpNm": "한빛가상화학우B(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900005",
+      "isinCd": "KRTEST9000050",
+      "mrktCtg": "KOSPI",
+      "itmsNm": "가상리츠",
+      "crno": "0000000000000",
+      "corpNm": "가상리츠(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900006",
+      "isinCd": "KRTEST9000060",
+      "mrktCtg": "KOSDAQ",
+      "itmsNm": "테스트바이오",
+      "crno": "0000000000000",
+      "corpNm": "테스트바이오(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900007",
+      "isinCd": "KRTEST9000070",
+      "mrktCtg": "KOSDAQ",
+      "itmsNm": "가상소프트",
+      "crno": "0000000000000",
+      "corpNm": "가상소프트(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900008",
+      "isinCd": "KRTEST9000080",
+      "mrktCtg": "KOSDAQ",
+      "itmsNm": "가상게임즈",
+      "crno": "0000000000000",
+      "corpNm": "가상게임즈(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900009",
+      "isinCd": "KRTEST9000090",
+      "mrktCtg": "KONEX",
+      "itmsNm": "코넥스가상",
+      "crno": "0000000000000",
+      "corpNm": "코넥스가상(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900010",
+      "isinCd": "KRTEST9000100",
+      "mrktCtg": "KOSPI",
+      "itmsNm": "미래가상에너지",
+      "crno": "0000000000000",
+      "corpNm": "미래가상에너지(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900011",
+      "isinCd": "KRTEST9000110",
+      "mrktCtg": "KOSDAQ",
+      "itmsNm": "가상로보틱스",
+      "crno": "0000000000000",
+      "corpNm": "가상로보틱스(주)"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "A900012",
+      "isinCd": "KRTEST9000120",
+      "mrktCtg": "KOSPI",
+      "itmsNm": "가상인프라리츠",
+      "crno": "0000000000000",
+      "corpNm": "가상인프라리츠(주)"
+     },
+     {
+      "basDt": "20260924",
+      "srtnCd": "A900099",
+      "isinCd": "KRTEST9000990",
+      "mrktCtg": "KOSPI",
+      "itmsNm": "어제만있던가상",
+      "crno": "0",
+      "corpNm": "x"
+     }
+    ]
+   }
+  }
+ }
+}

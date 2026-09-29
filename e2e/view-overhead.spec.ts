@@ -1,12 +1,10 @@
 // Feature 008 main-thread busy ratio while a fixed synthetic trace is replayed as status writes. The measured
 // window is an ACTIVE run: run-started and the analysts' starts are written before it, run-ended only after it.
-// No run, model or acquisition takes part; load, Pixel boot, build and server start are outside the window.
+// No run, model or acquisition takes part; load, office art, build and server start are outside the window.
 //
 // SC-014b (original, always-on ≤ 10 pp) is SUPERSEDED_BY_MAINTAINER_DECISION (D5): it FAILED, see verification.md.
-// SC-014b1 (gate): the default page (text view, Pixel toggle untouched = off) vs ?viz=off — ≤ 2 percentage points,
-//   with 0 Pixel iframes and 0 /pixel-agents requests in the default page.
-// SC-014b2 (disclosure, no threshold): Pixel explicitly enabled, canvas visible and animating (≥ 20 fps), vs
-//   ?viz=off — recorded as KNOWN_UPSTREAM_COST.
+// Feature 009 SC-008 (gate; continues SC-014b1): the default page — text view plus the office, visible and
+// animating — vs ?viz=off, ≤ 2 percentage points, with 0 iframes. SC-014b2 (Pixel Agents) was retired (MD-5).
 import { expect, test, type CDPSession, type Page } from '@playwright/test';
 import { replayDom, trace } from './replay-dom.ts';
 
@@ -16,7 +14,7 @@ const events = trace('success');
 const PRE = events.slice(0, 3); // run-started, Market started, News started
 const WINDOW = events.slice(3, -1); // everything up to, not including, run-ended
 const POST = events.slice(-1);
-type Mode = 'off' | 'default' | 'pixel';
+type Mode = 'off' | 'default';
 
 async function taskSeconds(sessions: CDPSession[]) {
   let s = 0;
@@ -26,78 +24,54 @@ async function taskSeconds(sessions: CDPSession[]) {
   }
   return s;
 }
-const pixelFrame = (page: Page) => page.frames().find((f) => f.url().includes('/pixel-agents/'));
 
 async function sample(page: Page, mode: Mode) {
-  let pixelRequests = 0;
-  const count = (r: { url(): string }) => { if (new URL(r.url()).pathname.startsWith('/pixel-agents/')) pixelRequests++; };
-  page.on('request', count);
   await page.goto(mode === 'off' ? '/?viz=off' : '/');
   await expect(page.locator('#run')).toBeEnabled({ timeout: 30_000 }); // provider: native (Playwright Chromium) — never clicked
-  if (mode !== 'off') await expect(page.locator('#view-roles li')).toHaveCount(8);
-  if (mode === 'pixel') await page.locator('#view-pixel-toggle').click();
+  if (mode !== 'off') await expect(page.locator('[data-office]')).toHaveAttribute('data-office', 'ready');
   await replayDom(page, PRE, 0);
-  let fps = 0, canvas = null as { width: number; height: number } | null;
-  if (mode === 'pixel') {
-    await page.locator('#view-stage').scrollIntoViewIfNeeded();
-    await expect(page.locator('#execution-view')).toHaveAttribute('data-iframes', '1', { timeout: 30_000 });
-    await page.frameLocator('#view-stage iframe').getByText('Final Decision').first().waitFor({ timeout: 30_000 });
-    fps = await pixelFrame(page)!.evaluate(() => new Promise<number>((r) => {
-      let n = 0; const t0 = performance.now();
-      const tick = () => { n++; if (performance.now() - t0 < 1000) requestAnimationFrame(tick); else r(n); };
-      requestAnimationFrame(tick);
-    }));
-    expect(fps, 'the Pixel frame animates in the viewport').toBeGreaterThan(20);
-    canvas = await pixelFrame(page)!.evaluate(() => { const c = document.querySelector('canvas')!; return { width: c.width, height: c.height }; });
-  } else if (mode === 'default') {
-    await page.locator('#view-stage').scrollIntoViewIfNeeded(); // same position as `pixel`: nothing may mount
-  } else {
-    await page.locator('#result').scrollIntoViewIfNeeded();
+  await page.locator(mode === 'off' ? '#status' : '[data-office] canvas').scrollIntoViewIfNeeded(); // #result now sits in the closed 결과 window
+  let paintsPerSecond = 0;
+  if (mode === 'default') { // the office is on screen and animating (one wall fill per paint)
+    const paints = () => page.evaluate(() => (window as unknown as { __paints: number }).__paints);
+    const p0 = await paints(); await page.waitForTimeout(1000); paintsPerSecond = (await paints()) - p0;
+    expect(paintsPerSecond, 'the office animates while measured').toBeGreaterThanOrEqual(3);
   }
-  const sessions = [await page.context().newCDPSession(page)];
-  // A sandboxed (opaque-origin) frame may run in its own renderer process: measure it too when it does.
-  const frame = pixelFrame(page);
-  if (frame) await page.context().newCDPSession(frame).then((s) => sessions.push(s), () => {});
-  for (const s of sessions) await s.send('Performance.enable');
-  const t0 = await taskSeconds(sessions), w0 = Date.now();
+  const session = await page.context().newCDPSession(page);
+  await session.send('Performance.enable');
+  const t0 = await taskSeconds([session]), w0 = Date.now();
   await replayDom(page, WINDOW, WINDOW_MS);
-  const busy = (await taskSeconds(sessions)) - t0, wall = (Date.now() - w0) / 1000;
-  const iframesAtEnd = mode === 'off' ? '0' : await page.locator('#execution-view').getAttribute('data-iframes');
+  const busy = (await taskSeconds([session])) - t0, wall = (Date.now() - w0) / 1000;
   const iframesInDom = await page.locator('iframe').count();
-  for (const s of sessions) await s.detach();
+  await session.detach();
   await replayDom(page, POST, 0);
-  page.off('request', count);
-  if (mode === 'pixel') expect(iframesAtEnd, 'the canvas stayed mounted for the whole window').toBe('1');
-  if (mode === 'default') {
-    expect(iframesInDom, 'default mode creates no Pixel iframe').toBe(0);
-    expect(pixelRequests, 'default mode requests nothing from /pixel-agents').toBe(0);
-  }
-  return { busyRatio: busy / wall, separateFrameProcess: sessions.length === 2, fps, canvas };
+  if (mode === 'default') expect(iframesInDom, 'default mode creates no iframe').toBe(0);
+  return { busyRatio: busy / wall, paintsPerSecond };
 }
 
 const median = (xs: number[]) => { const s = [...xs].sort((a, b) => a - b); return (s[(s.length - 1) >> 1] + s[s.length >> 1]) / 2; };
 async function compare(page: Page, mode: Mode) {
-  const off: number[] = [], on: number[] = [], fps: number[] = [];
-  let separate = false, canvas = null as { width: number; height: number } | null;
+  await page.addInitScript(() => { // test-side paint counter (no production hook)
+    const w = window as unknown as { __paints: number };
+    w.__paints = 0;
+    const fill = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function (this: CanvasRenderingContext2D, x: number, y: number, ww: number, h: number) {
+      if (x === 0 && y === 0) w.__paints++;
+      return fill.call(this, x, y, ww, h);
+    };
+  });
+  const off: number[] = [], on: number[] = [], paints: number[] = [];
   for (let i = 0; i < REPS; i++) { // alternating, same browser process
     off.push((await sample(page, 'off')).busyRatio);
     const s = await sample(page, mode);
-    on.push(s.busyRatio); fps.push(s.fps); separate ||= s.separateFrameProcess; canvas = s.canvas;
+    on.push(s.busyRatio); paints.push(s.paintsPerSecond);
   }
-  return { windowMs: WINDOW_MS, off, on, medianOff: median(off), medianOn: median(on),
-    deltaPercentagePoints: (median(on) - median(off)) * 100, pixelFrameInSeparateProcess: separate, pixelFrameFps: fps, canvasBacking: canvas };
+  return { windowMs: WINDOW_MS, off, on, paintsPerSecond: paints, medianOff: median(off), medianOn: median(on), deltaPercentagePoints: (median(on) - median(off)) * 100 };
 }
 
-test('T030 SC-014b1: default mode (text view, Pixel off) vs ?viz=off — median busy-ratio increase ≤ 2 percentage points', async ({ page }) => {
+test('Feature 009 T019 SC-008 (was T030 SC-014b1): default office view vs ?viz=off — median busy-ratio increase ≤ 2 percentage points', async ({ page }) => {
   test.setTimeout(10 * 60_000);
   const r = await compare(page, 'default');
-  console.log('SC-014b1 raw', JSON.stringify(r));
+  console.log('SC-008 raw', JSON.stringify(r));
   expect(r.deltaPercentagePoints).toBeLessThanOrEqual(2);
-});
-
-test('T030 SC-014b2: explicit Pixel mode cost, active and visible (KNOWN_UPSTREAM_COST; disclosed, no threshold)', async ({ page }) => {
-  test.setTimeout(10 * 60_000);
-  const r = await compare(page, 'pixel');
-  console.log('SC-014b2 KNOWN_UPSTREAM_COST raw', JSON.stringify(r));
-  expect(r.canvasBacking).toEqual({ width: 480, height: 320 }); // the compact backing store was measured
 });

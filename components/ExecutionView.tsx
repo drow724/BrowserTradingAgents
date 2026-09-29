@@ -1,12 +1,13 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import type { DomFact, RuntimeSnapshot } from '../src/view/execution-events.ts';
-import type { PixelMessage } from '../src/view/pixel-adapter.ts';
 import type { RoleState, ViewState } from '../src/view/view-state.ts';
+import styles from './ExecutionView.module.css';
+import Office from './Office.tsx';
 
 // Feature 008 execution view (specs/008-…/contracts/). It only reads the status surface src/main.ts
 // already writes — it never writes, clicks or dispatches outside its own section, and never starts a run.
-// The text panel is canonical; the Pixel Agents iframe is a decorative projection of the same state.
+// The text panel is canonical; the office (Feature 009) draws the same state.
 // `?viz=off` disables both. The view modules are imported inside the effect (the Boot pattern): a static
 // import pulls LangGraph (via the ROLES constant) into the page's first-load JS (verification T013, M1).
 const ICON: Record<RoleState, string> = {
@@ -17,23 +18,16 @@ type Loaded = {
   roleText: typeof import('../src/view/view-state.ts').roleText;
   runText: typeof import('../src/view/view-state.ts').runText;
 };
-const count = (el: HTMLElement, key: 'mounts' | 'observers' | 'iframes' | 'ignoredRequests', d: number) => {
+const count = (el: HTMLElement, key: 'mounts' | 'observers', d: number) => {
   el.dataset[key] = String(Number(el.dataset[key] ?? 0) + d);
 };
 
 export default function ExecutionView() {
   const box = useRef<HTMLElement>(null);
-  const stage = useRef<HTMLDivElement>(null);
   const [lib, setLib] = useState<Loaded>();
   const [view, setView] = useState<ViewState>();
   const [health, setHealth] = useState<'ok' | 'off' | 'unavailable' | 'error'>('ok');
   const [mode, setMode] = useState('');
-  // Pixel Agents on demand (D5, F008-011): off on every load, page-session state only — never stored.
-  const [pixelEnabled, setPixelEnabled] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const pixelOn = useRef(false);
-  const syncPixel = useRef<() => void>(undefined);
-  const togglePixel = () => { pixelOn.current = !pixelOn.current; setPixelEnabled(pixelOn.current); syncPixel.current?.(); };
 
   useEffect(() => {
     if (new URLSearchParams(location.search).get('viz') === 'off') { setHealth('off'); return; }
@@ -53,7 +47,6 @@ export default function ExecutionView() {
       const cursor = newCursor();
       let state = vs.initialViewState();
       let broken = false;
-      let onState: ((s: ViewState) => void) | undefined; // the Pixel presentation lifecycle, if enabled
       const readRuntime = (): RuntimeSnapshot | undefined => {
         const d = runtime.dataset;
         return d.state === undefined ? undefined : { state: d.state, active: d.active ?? '', queued: d.queued ?? '' };
@@ -69,9 +62,7 @@ export default function ExecutionView() {
           broken = true; // keep the last good text; never rethrow into the page (FR-019)
           console.error('execution view stopped', e);
           setHealth('error');
-          return;
         }
-        onState?.(state);
       };
 
       // Mount: start from the current DOM, not from idle (M8).
@@ -96,68 +87,6 @@ export default function ExecutionView() {
       observer.observe(runtime, { attributes: true, attributeFilter: ['data-state', 'data-active', 'data-queued'] });
       count(el, 'observers', 1);
       cleanups.push(() => { observer.disconnect(); count(el, 'observers', -1); });
-
-      // Pixel Agents (contracts/pixel-host-protocol.md), a presentation lifecycle only (F008-011): the iframe
-      // exists only while the user enabled it AND the observed run is `running` AND its area is in the
-      // viewport — off, idle, terminal or off-screen means no iframe (no timer, no grace period). It never exists under reduced motion, nor when
-      // this deployment does not serve the webview (D4). Nothing here reads or drives execution.
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { setReducedMotion(true); return; }
-      const stageEl = stage.current!;
-      let running = false, visible = false, off = false, mounting = false;
-      let frame: HTMLIFrameElement | undefined, detach: (() => void) | undefined;
-      let push: ((s: ViewState) => void) | undefined;
-      // Webview check, adapter and decoded sprites: once per view, reused by every mount.
-      let pixel: Promise<Awaited<ReturnType<typeof loadPixel>>> | undefined;
-      const loadPixel = async () => {
-        if (!(await fetch('/pixel-agents/index.html', { method: 'HEAD' })).ok) throw new Error('webview not served');
-        const [adapter, { loadPixelAssets }] = await Promise.all([import('../src/view/pixel-adapter.ts'), import('../src/view/pixel-assets.ts')]);
-        return { ...adapter, assets: await loadPixelAssets() };
-      };
-      const unmount = () => {
-        if (!frame) return;
-        detach!(); frame.remove(); frame = undefined; count(el, 'iframes', -1);
-      };
-      const stop = (e: unknown) => { console.error('pixel view stopped', e); off = true; unmount(); };
-      const mount = async () => {
-        mounting = true;
-        let p: Awaited<ReturnType<typeof loadPixel>>;
-        try { p = await (pixel ??= loadPixel()); } catch (e) { stop(e); return; } finally { mounting = false; }
-        if (disposed || off || frame || !(pixelOn.current && running && visible)) return;
-        const f = (frame = document.createElement('iframe'));
-        f.src = '/pixel-agents/index.html';
-        f.title = 'Pixel Agents office (decorative; the text above is authoritative)';
-        f.setAttribute('sandbox', 'allow-scripts'); // opaque origin: no parent.document (F008-007)
-        // Compact viewport: the upstream canvas backing store follows it (480×320, verification F008-011).
-        f.style.cssText = 'display:block;width:100%;max-width:480px;aspect-ratio:3/2;border:0';
-        let sent: ViewState | null = null;
-        // An opaque-origin frame can only be addressed with '*'; the payload is view state only.
-        const post = (ms: PixelMessage[]) => { for (const m of ms) f.contentWindow?.postMessage(m, '*'); };
-        // Trust: only this frame's window (the sandbox origin "null" is not a signal), our shim's envelope,
-        // and a string type. Only webviewReady gets a response; launchAgent and the rest are never acted on.
-        const onMessage = (e: MessageEvent) => {
-          if (e.source !== f.contentWindow) return;
-          const type = (e.data as { source?: unknown; message?: { type?: unknown } } | null)?.message?.type;
-          if ((e.data as { source?: unknown })?.source !== 'pixel-agents' || typeof type !== 'string') return;
-          if (type !== 'webviewReady') { count(el, 'ignoredRequests', 1); return; }
-          try { post(p.startSequence(p.assets.messages, p.assets.layout)); post(p.messagesFor(null, state)); sent = state; }
-          catch (err) { stop(err); }
-        };
-        push = (s) => { if (!sent) return; try { post(p.messagesFor(sent, s)); sent = s; } catch (err) { stop(err); } };
-        addEventListener('message', onMessage);
-        detach = () => { removeEventListener('message', onMessage); push = undefined; };
-        stageEl.append(f);
-        count(el, 'iframes', 1);
-      };
-      const sync = () => {
-        if (off || broken || disposed || !(pixelOn.current && running && visible)) unmount();
-        else if (!frame && !mounting) void mount();
-      };
-      onState = (s) => { running = s.run.state === 'running'; push?.(s); sync(); };
-      syncPixel.current = sync;
-      const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
-      io.observe(stageEl);
-      cleanups.push(() => { io.disconnect(); unmount(); syncPixel.current = undefined; });
-      onState(state); // a view mounted mid-run starts from the current snapshot
     }, (e) => { console.error('execution view unavailable', e); if (!disposed) setHealth('unavailable'); });
     return () => { disposed = true; for (const c of cleanups) c(); };
   }, []);
@@ -165,8 +94,10 @@ export default function ExecutionView() {
   if (health === 'off') return null;
   const rt = view?.runtime;
   return (
-    <section ref={box} id="execution-view" aria-label="Execution view" data-health={health}
-      data-mounts="0" data-observers="0" data-iframes="0" data-ignored-requests="0" data-anomalies="0">
+    <section ref={box} id="execution-view" aria-label="Execution view" data-health={health} className={styles.view}
+      data-mounts="0" data-observers="0" data-anomalies="0">
+      {lib && view && <Office view={view} roles={lib.roles} icon={ICON} />}
+      <div className={styles.panel}>
       <h2>Execution view</h2>
       {health !== 'ok' && <p id="view-health">status unavailable{health === 'error' ? ' (view error; last known state shown)' : ''}</p>}
       {lib && view && (
@@ -185,20 +116,9 @@ export default function ExecutionView() {
           <p>Runtime (AkariSP, whole runtime): <span id="view-runtime">{rt ? `state ${rt.state} · active ${rt.active} · queued ${rt.queued}` : '—'}</span></p>
           <p>Roles show graph state only: which role&apos;s request is active or queued is not attributed.</p>
           <p>Mode: <span id="view-mode">{mode || '—'}</span></p>
-          <p>
-            <button id="view-pixel-toggle" type="button" aria-pressed={pixelEnabled} disabled={reducedMotion} onClick={togglePixel}>
-              {pixelEnabled ? 'Hide Pixel Agents' : 'Show Pixel Agents'}
-            </button>
-            {' '}
-            <span id="view-pixel-note">
-              {reducedMotion ? 'unavailable: reduced motion is preferred'
-                : pixelEnabled ? 'shown during a run while this area is on screen (decorative; the text above is authoritative)'
-                  : 'off (optional; uses extra rendering resources while shown)'}
-            </span>
-          </p>
         </>
       )}
-      <div ref={stage} id="view-stage" />
+      </div>
     </section>
   );
 }

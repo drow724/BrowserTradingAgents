@@ -21,12 +21,6 @@ const config: NextConfig = {
       __LANGGRAPH_VERSION__: version('@langchain/langgraph'),
     },
   },
-  // Feature 008 (F008-007): the sandboxed Pixel Agents iframe has an opaque origin, and the upstream
-  // index.html loads its JS/CSS with `crossorigin`. Scoped to the generated static webview only — never
-  // /api — and absent on Vercel, where nothing is copied (D4).
-  ...(process.env.VERCEL ? {} : {
-    headers: async () => [{ source: '/pixel-agents/:path*', headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }] }],
-  }),
 };
 
 export default config;

@@ -1,12 +1,11 @@
-// Feature 008 L1: execution events → view state → Pixel messages, from committed synthetic traces.
-// No model, no network, no DOM, no Pixel Agents package.
+// Feature 008 L1: execution events → view state, from committed synthetic traces (the Pixel message
+// adapter was retired in Feature 009, MD-5). No model, no network, no DOM.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { ROLES } from '../src/graph/trading-graph.ts';
 import { mapFacts, newCursor, snapshotFacts, type ExecutionEvent } from '../src/view/execution-events.ts';
 import { initialViewState, reduce, roleText, runText, type ViewState } from '../src/view/view-state.ts';
-import { messagesFor, ROLE_IDENTITY, startSequence } from '../src/view/pixel-adapter.ts';
 
 const DIR = 'test/fixtures/execution-traces';
 type Expected = { run: string; stage?: string; roles: string; runtime: string | null; anomalies: number };
@@ -127,38 +126,11 @@ test('text labels: every state readable as text; run stage shown', () => {
   assert.equal(runText({ state: 'completed', stage: 'graph' }), 'completed');
 });
 
-// ---- Pixel adapter (no package: messages only) ----
-
-test('adapter: deterministic identity, 8 distinct characters, labels from ROLES', () => {
-  const a = startSequence([], null), b = startSequence([], null);
-  assert.deepEqual(a, b);
-  assert.equal(new Set(ROLE_IDENTITY.map((r) => `${r.palette}/${r.hueShift}/${r.seatId}`)).size, 8);
-  assert.deepEqual(a.filter((m) => m.type === 'agentTeamInfo').map((m) => (m as { agentName: string }).agentName), ROLES.map((r) => r.label));
-  assert.equal(a[0].type, 'settingsLoaded');
-  assert.equal((a[0] as { soundEnabled: boolean }).soundEnabled, false);
-});
-
-test('adapter: only working animates; nothing implies queued/inferring; success ends Done', () => {
-  const states = replay(traces.find((t) => t.name === 'success')!.events);
-  const msgs = states.flatMap((s, i) => messagesFor(i ? states[i - 1] : null, s));
-  const text = JSON.stringify(msgs);
-  assert.ok(!/queued|inferring/.test(text));
-  for (const m of msgs.filter((m) => m.type === 'agentStatus' && m.status === 'active')) {
-    const prev = msgs[msgs.indexOf(m) + 1];
-    assert.equal(prev.type, 'agentToolStart'); assert.equal((prev as { status: string }).status, 'working (graph)');
-  }
-  const done = messagesFor(states.at(-2)!, states.at(-1)!); // run-ended changes no role state
-  assert.deepEqual(done, []);
-  const last = new Map<number, string>();
-  for (const m of msgs) if (m.type === 'agentStatus') last.set(m.id as number, m.status as string);
-  assert.deepEqual([...last.values()], Array(8).fill('waiting'));
-});
-
 // ---- T009: the ROLES import is metadata only ----
 
 test('ROLES import: 8 roles; no view module imports akarisp, main or the bridge', () => {
-  assert.equal(ROLE_IDENTITY.length, 8);
-  for (const f of ['execution-events', 'view-state', 'pixel-adapter']) {
+  assert.equal(ROLES.length, 8);
+  for (const f of ['execution-events', 'view-state']) {
     const src = readFileSync(`src/view/${f}.ts`, 'utf8');
     assert.ok(!/from ['"](akarisp|\.\.\/main|\.\.\/integration)/.test(src), f);
     assert.ok(!/buildTradingGraph/.test(src), f);

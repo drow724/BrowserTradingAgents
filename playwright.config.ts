@@ -18,7 +18,10 @@ export default defineConfig({
   // One worker: app.spec.ts and execution-view.spec.ts both drive the one shared market stub (/__scenario).
   workers: 1,
   outputDir: `test-results/${port}`,
-  use: { baseURL: `http://localhost:${port}` },
+  // Feature 009 (R11): every test opens into the office — a finished, empty portfolio in this origin's
+  // localStorage. Onboarding tests override it with an empty state.
+  use: { baseURL: `http://localhost:${port}`, storageState: { cookies: [], origins: [{ origin: `http://localhost:${port}`,
+    localStorage: [{ name: 'bta.portfolio', value: '{"version":1,"onboardedAt":"2026-09-29T00:00:00.000Z","holdings":[]}' }] }] } },
   projects: devSmoke
     ? [{ name: 'chromium-dev', grep: /@dev/, use: { ...devices['Desktop Chrome'] } }]
     : [
@@ -31,13 +34,16 @@ export default defineConfig({
     {
       // Exactly one app server, own port and never reuse: next.config.ts embeds the git revision when the
       // build (or dev server) starts, so a reused (older) server would stamp evidence with a stale revision.
-      // Feature 008: `npx next …` skips npm's predev/prebuild, so the Pixel webview copy runs explicitly first.
-      command: `node scripts/copy-pixel-agents.mjs && ${devSmoke ? `npx next dev --port ${port}` : `npx next build && npx next start --port ${port}`}`,
+      // `npx next …` skips npm's predev/prebuild, so the office art copy (Feature 009) runs explicitly first.
+      command: `node scripts/copy-office-art.mjs && ${devSmoke ? `npx next dev --port ${port}` : `npx next build && npx next start --port ${port}`}`,
       url: `http://localhost:${port}`,
       reuseExistingServer: false,
       timeout: 180_000,
-      // Feature 007: /api/market talks to the local Yahoo stand-in below, never to Yahoo.
-      ...(realYahoo ? {} : { env: { BTA_YAHOO_BASE_URL: `http://127.0.0.1:${stubPort}` } }),
+      // Feature 007: /api/market talks to the local Yahoo stand-in below, never to Yahoo. Feature 009:
+      // /api/directory talks to the same stand-in (never to data.go.kr or Nasdaq Trader), with a fake key.
+      ...(realYahoo ? {} : { env: { BTA_YAHOO_BASE_URL: `http://127.0.0.1:${stubPort}`,
+        BTA_DATA_GO_KR_BASE_URL: `http://127.0.0.1:${stubPort}/1160100/service`,
+        BTA_NASDAQ_TRADER_BASE_URL: `http://127.0.0.1:${stubPort}/dynamic/SymDir`, BTA_DATA_GO_KR_KEY: 'test-key-not-real' } }),
     },
     ...(realYahoo ? [] : [{ command: 'node e2e/market-stub.mjs', url: `http://127.0.0.1:${stubPort}/__stats`,
       reuseExistingServer: false, env: { STUB_PORT: String(stubPort) } }]),

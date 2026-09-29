@@ -275,7 +275,8 @@ test('stand-in + live via /api/market: eight roles, 8/0, provenance + digests, n
   // Market-provider credentials (Feature 005's key field is retired): no key/password input, nothing in
   // browser storage, no Authorization header on any browser request (asserted above).
   expect(await page.locator('input[type=password], #key, #key-row').count()).toBe(0);
-  expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0]);
+  // Feature 009: the seeded portfolio (playwright.config.ts) is the only key; nothing else is stored.
+  expect(await page.evaluate(() => [Object.keys(localStorage).filter((k) => k !== 'bta.portfolio'), sessionStorage.length])).toEqual([[], 0]);
 
   // The Market Analyst read the rendered marketFacts; news stayed the neutral fixture.
   const shown = (await page.locator('#result').textContent())!;
