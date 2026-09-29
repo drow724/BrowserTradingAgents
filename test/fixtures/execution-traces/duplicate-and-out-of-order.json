@@ -1,0 +1,73 @@
+{
+ "name": "duplicate-and-out-of-order",
+ "legend": "roles: 8 codes in ROLES order; i idle, w waiting, k working, e working + error reported, c completed, f failed, x cancelled, s stopped (error: failed/cancelled unclear), n not run. runtime: state/active/queued or null.",
+ "events": [
+  {
+   "seq": 1,
+   "type": "run-started"
+  },
+  {
+   "seq": 2,
+   "type": "role-started",
+   "role": "marketAnalyst"
+  },
+  {
+   "seq": 3,
+   "type": "role-started",
+   "role": "marketAnalyst"
+  },
+  {
+   "seq": 4,
+   "type": "role-completed",
+   "role": "bullResearcher"
+  },
+  {
+   "seq": 3,
+   "type": "role-completed",
+   "role": "marketAnalyst"
+  },
+  {
+   "seq": 5,
+   "type": "role-completed",
+   "role": "marketAnalyst"
+  }
+ ],
+ "expected": [
+  {
+   "run": "running",
+   "roles": "wwwwwwww",
+   "runtime": null,
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "kwwwwwww",
+   "runtime": null,
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "kwwwwwww",
+   "runtime": null,
+   "anomalies": 1
+  },
+  {
+   "run": "running",
+   "roles": "kwwwwwww",
+   "runtime": null,
+   "anomalies": 2
+  },
+  {
+   "run": "running",
+   "roles": "kwwwwwww",
+   "runtime": null,
+   "anomalies": 3
+  },
+  {
+   "run": "running",
+   "roles": "cwwwwwww",
+   "runtime": null,
+   "anomalies": 3
+  }
+ ]
+}

@@ -1,0 +1,92 @@
+{
+ "name": "fanout-active1-queued1",
+ "legend": "roles: 8 codes in ROLES order; i idle, w waiting, k working, e working + error reported, c completed, f failed, x cancelled, s stopped (error: failed/cancelled unclear), n not run. runtime: state/active/queued or null.",
+ "events": [
+  {
+   "seq": 1,
+   "type": "run-started"
+  },
+  {
+   "seq": 2,
+   "type": "role-started",
+   "role": "marketAnalyst"
+  },
+  {
+   "seq": 3,
+   "type": "role-started",
+   "role": "newsAnalyst"
+  },
+  {
+   "seq": 4,
+   "type": "runtime",
+   "runtime": {
+    "state": "ready",
+    "active": "1",
+    "queued": "1"
+   }
+  },
+  {
+   "seq": 5,
+   "type": "role-completed",
+   "role": "marketAnalyst"
+  },
+  {
+   "seq": 6,
+   "type": "runtime",
+   "runtime": {
+    "state": "ready",
+    "active": "1",
+    "queued": "0"
+   }
+  },
+  {
+   "seq": 7,
+   "type": "role-completed",
+   "role": "newsAnalyst"
+  }
+ ],
+ "expected": [
+  {
+   "run": "running",
+   "roles": "wwwwwwww",
+   "runtime": null,
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "kwwwwwww",
+   "runtime": null,
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "kkwwwwww",
+   "runtime": null,
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "kkwwwwww",
+   "runtime": "ready/1/1",
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "ckwwwwww",
+   "runtime": "ready/1/1",
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "ckwwwwww",
+   "runtime": "ready/1/0",
+   "anomalies": 0
+  },
+  {
+   "run": "running",
+   "roles": "ccwwwwww",
+   "runtime": "ready/1/0",
+   "anomalies": 0
+  }
+ ]
+}

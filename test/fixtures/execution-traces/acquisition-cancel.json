@@ -1,0 +1,32 @@
+{
+ "name": "acquisition-cancel",
+ "legend": "roles: 8 codes in ROLES order; i idle, w waiting, k working, e working + error reported, c completed, f failed, x cancelled, s stopped (error: failed/cancelled unclear), n not run. runtime: state/active/queued or null.",
+ "events": [
+  {
+   "seq": 1,
+   "type": "run-started"
+  },
+  {
+   "seq": 2,
+   "type": "run-ended",
+   "outcome": "cancelled",
+   "stage": "acquisition",
+   "errorKinds": []
+  }
+ ],
+ "expected": [
+  {
+   "run": "running",
+   "roles": "wwwwwwww",
+   "runtime": null,
+   "anomalies": 0
+  },
+  {
+   "run": "cancelled",
+   "roles": "nnnnnnnn",
+   "runtime": null,
+   "anomalies": 0,
+   "stage": "acquisition"
+  }
+ ]
+}

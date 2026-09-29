@@ -1,4 +1,5 @@
 import Boot from '../components/Boot.tsx';
+import ExecutionView from '../components/ExecutionView.tsx';
 
 // index.html's body; the table gets the <tbody> the browser inserts anyway.
 export default function Page() {
@@ -24,6 +25,7 @@ export default function Page() {
           <tr><td>Final Decision</td><td id="node-finalDecisionMaker">waiting</td></tr>
         </tbody>
       </table>
+      <ExecutionView />
       <p>Final decision: <span id="result"></span></p>
       <p>Runtime: <span id="runtime">—</span></p>
       <p>Market snapshot (live mode, shown here only):</p>

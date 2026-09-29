@@ -15,6 +15,8 @@ const onlyReal = realYahoo ? { grep: /real Yahoo/ } : {};
 
 export default defineConfig({
   testDir: 'e2e',
+  // One worker: app.spec.ts and execution-view.spec.ts both drive the one shared market stub (/__scenario).
+  workers: 1,
   outputDir: `test-results/${port}`,
   use: { baseURL: `http://localhost:${port}` },
   projects: devSmoke
@@ -29,7 +31,8 @@ export default defineConfig({
     {
       // Exactly one app server, own port and never reuse: next.config.ts embeds the git revision when the
       // build (or dev server) starts, so a reused (older) server would stamp evidence with a stale revision.
-      command: devSmoke ? `npx next dev --port ${port}` : `npx next build && npx next start --port ${port}`,
+      // Feature 008: `npx next …` skips npm's predev/prebuild, so the Pixel webview copy runs explicitly first.
+      command: `node scripts/copy-pixel-agents.mjs && ${devSmoke ? `npx next dev --port ${port}` : `npx next build && npx next start --port ${port}`}`,
       url: `http://localhost:${port}`,
       reuseExistingServer: false,
       timeout: 180_000,
