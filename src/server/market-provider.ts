@@ -31,8 +31,6 @@ export async function acquireYahoo(
 
   // The single timer of the whole acquisition; the caller's signal stays distinguishable from it.
   const limit = AbortSignal.timeout(limitMs);
-  const aborted = () => (signal.aborted ? fail('acquisition', 'cancelled')
-    : limit.aborted ? fail('acquisition', 'timeout') : undefined);
   let text: string;
   try {
     const res = await fetch(url, { cache: 'no-store', redirect: 'manual', signal: AbortSignal.any([signal, limit]) });
@@ -41,7 +39,7 @@ export async function acquireYahoo(
     if (!res.ok) return fail('acquisition', 'provider-error');
     text = await res.text();
   } catch {
-    return aborted() ?? fail('acquisition', 'network');
+    return fail('acquisition', signal.aborted ? 'cancelled' : limit.aborted ? 'timeout' : 'network');
   }
   const acquiredAt = now();
   let body: unknown;
@@ -50,7 +48,7 @@ export async function acquireYahoo(
 }
 
 // Chart JSON → MarketBundle in the fixed order of research R14 (steps 1–7, then the bundle).
-export function normalize(body: unknown, instrument: Instrument, analysisDate: string, acquiredAt: Date) {
+function normalize(body: unknown, instrument: Instrument, analysisDate: string, acquiredAt: Date) {
   const bad = fail('normalization', 'invalid-data');
   const chart = (body as { chart?: { result?: unknown; error?: unknown } } | null)?.chart;
   if (chart?.error) return fail('acquisition', 'provider-error');

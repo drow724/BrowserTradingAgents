@@ -721,3 +721,13 @@ IMPLEMENTATION_COMPLETE (T028) → **FEATURE_COMPLETE** (T030).
     Visualization; then 009 Effectiveness Benchmark).
   - The implementation revision remains `4b4925f4a589d7e9712c32f4dc1c979991be8310`. This commit
     changes no code path.
+
+### Post-closeout ponytail cleanup
+
+- `src/server/market-provider.ts`: the single-use `aborted` helper is inlined into the fetch `catch`
+  (same order: caller abort → `cancelled`, limit → `timeout`, else `network`), and `normalize` is no
+  longer exported (no importer outside the module). Behavior unchanged.
+- Re-run after the change: `npx tsc --noEmit` rc 0; `npm test` 107 (106 pass, 0 fail, 1 skip);
+  `npm run test:browser` 32 passed, 1 skipped (opt-in real Yahoo). `/speckit-converge`: converged.
+- This commit moves HEAD past the evidence revision `4b4925f`; the native and real-Yahoo evidence
+  files keep that revision. No new real Yahoo request (cumulative 3).
