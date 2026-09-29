@@ -1,5 +1,6 @@
 // BrowserTradingAgents canonical page: runs the TradingAgents-style graph once per click and prints one
-// evidence record (specs/005-…/contracts/evidence.md). One graph run owns one AkariSP runtime.
+// evidence record (specs/005-…/contracts/evidence.md). One graph run owns one AkariSP runtime, or with `?reuse=on`
+// (Feature 012) one runtime is kept for the page session.
 // Two independent axes: `?provider=standin` loads the test stand-in (BROWSER_AUTOMATED), otherwise the
 // native Prompt API is used and only `availability()` is consulted — this page never starts a download;
 // `?data=live` feeds the Market Analyst from end-of-day bars that the app's own server fetches (same-origin
@@ -31,6 +32,9 @@ const params = new URLSearchParams(location.search);
 const provider = params.get('provider') === 'standin' ? 'standin' : 'native';
 const runner = params.get('runner') === 'playwright' ? 'playwright' : 'manual'; // declared by the opener
 const data = params.get('data') === 'live' ? 'live' : 'fixture'; // independent of `provider`
+// Feature 012 (research R1): keep one runtime for the page session; off (one runtime per run) until the native
+// comparison decides the default.
+const reuse = params.get('reuse') === 'on';
 
 // The browser's own Prompt API availability, classified before any stand-in replaces it.
 const availability = await classifyAvailability();
@@ -77,6 +81,34 @@ async function poll(predicate: () => boolean, ms: number) {
 }
 
 const snap = (r: Runtime) => { const { state, active, queued } = r.snapshot(); return { state, active, queued }; };
+type Snap = ReturnType<typeof snap>;
+type Replaced = { reason: 'broken' | 'closed' | 'busy' | 'unsettled'; before: Snap; after: Snap };
+const idle = (s: Snap) => s.state === 'ready' && s.active === 0 && s.queued === 0;
+// Feature 012: with ?reuse=on the runtime is kept for the page session (FR-002) and reused only while it reads
+// {ready,0,0}; otherwise it is shut down, recorded and replaced (research R2). AkariSP exposes no runtime
+// identity, so the page numbers them (finding F012-1).
+let kept: { runtime: Runtime; id: number } | undefined;
+let runtimes = 0;
+async function acquireRuntime(): Promise<{ runtime: Runtime; id: number; prepared: boolean; replaced?: Replaced } | { error: string; replaced?: Replaced }> {
+  let replaced: Replaced | undefined;
+  if (reuse && kept) {
+    const before = snap(kept.runtime);
+    if (idle(before)) return { ...kept, prepared: false };
+    await kept.runtime.shutdown();
+    replaced = { reason: before.state === 'ready' ? 'busy' : before.state, before, after: snap(kept.runtime) };
+    kept = undefined;
+  }
+  try {
+    const got = { runtime: await createRuntime(RUNTIME_OPTIONS), id: ++runtimes };
+    if (reuse) kept = got;
+    return { ...got, prepared: true, ...(replaced ? { replaced } : {}) };
+  } catch (e) {
+    return { error: describe(e), ...(replaced ? { replaced } : {}) };
+  }
+}
+// FR-004: on page end, shutdown is requested best effort and not recorded; `kept` stays, so its next use (if the
+// page comes back) sees `closed` and replaces it.
+addEventListener('pagehide', (e) => { if (!e.persisted) void kept?.runtime.shutdown(); });
 const waitingNodes = () =>
   Object.fromEntries(ROLES.map((r) => [r.node, { status: 'waiting', executions: 0, modelRequests: 0, reads: r.reads }]));
 
@@ -238,12 +270,15 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
   evidenceClass: string, acquisitionMs?: number): Promise<[Record<string, unknown>, string | undefined]> {
   // createRuntime() creates the warm base session, so a LanguageModel.create failure surfaces here.
   const tCreate = performance.now();
-  const runtime = await createRuntime(RUNTIME_OPTIONS).catch((e: unknown) => ({ error: describe(e) }));
-  const runtimeCreateMs = Math.round(performance.now() - tCreate); // Feature 010 dogfooding (operational only)
-  if ('error' in runtime) {
-    return [{ ...base, evidenceClass, outcome: 'failed', error: runtime.error,
-      failure: { boundary: 'inference', kind: 'runtime-create' } }, undefined];
+  const got = await acquireRuntime();
+  if ('error' in got) {
+    return [{ ...base, evidenceClass, outcome: 'failed', error: got.error,
+      failure: { boundary: 'inference', kind: 'runtime-create' },
+      ...(got.replaced ? { lifecycle: { mode: 'reuse', replaced: got.replaced } } : {}) }, undefined];
   }
+  const { runtime } = got;
+  // Feature 010 dogfooding (operational only); 0 when a kept runtime is reused (Feature 012).
+  const runtimeCreateMs = got.prepared ? Math.round(performance.now() - tCreate) : 0;
   const watchdog = setTimeout(() => runController.abort(new Error('watchdog: 180 s page limit reached')), WATCHDOG_MS);
   const showRuntime = () => {
     const s = snap(runtime);
@@ -282,7 +317,8 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
   let settledBeforeShutdown = false;
   let snapshotBeforeShutdown: ReturnType<typeof snap> | undefined;
   let graphMs = 0;
-  let shutdownMs = 0;
+  let shutdownMs: number | undefined;
+  let discarded: Replaced | undefined;
   const t0 = performance.now();
   try {
     state = await graph.invoke({ input }, { signal: runController.signal });
@@ -302,9 +338,17 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
       return s.state === 'ready' && s.active === 0 && s.queued === 0;
     }, 10_000);
     snapshotBeforeShutdown = snap(runtime);
-    const tShutdown = performance.now();
-    await runtime.shutdown();
-    shutdownMs = Math.round(performance.now() - tShutdown);
+    // Feature 012: a kept runtime stays only if it settled (research R3); per-run mode always shuts down.
+    if (!reuse || !settledBeforeShutdown) {
+      const tShutdown = performance.now();
+      await runtime.shutdown();
+      shutdownMs = Math.round(performance.now() - tShutdown);
+      if (reuse) {
+        const before = snapshotBeforeShutdown;
+        discarded = { reason: before.state === 'ready' ? 'unsettled' : before.state, before, after: snap(runtime) };
+        if (kept?.runtime === runtime) kept = undefined;
+      }
+    }
     clearInterval(ticker);
     showRuntime();
   }
@@ -345,8 +389,13 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
       akarisp: { fanOutSnapshot: fanOut ? await fanOut : null },
       nativeProvider: 'not observed (out of scope)',
     },
-    lifecycle: { settledBeforeShutdown, snapshotBeforeShutdown, snapshotAfterShutdown: snap(runtime) },
-    timing: { ...(acquisitionMs === undefined ? {} : { acquisitionMs }), graphMs, runtimeCreateMs, shutdownMs },
+    lifecycle: reuse
+      ? { mode: 'reuse', runtimeId: got.id, prepared: got.prepared, ...(got.replaced ? { replaced: got.replaced } : {}),
+        settledAfterRun: settledBeforeShutdown, snapshotAfterRun: snapshotBeforeShutdown, ...(discarded ? { discarded } : {}) }
+      : { mode: 'per-run', runtimeId: got.id, prepared: true, settledBeforeShutdown, snapshotBeforeShutdown,
+        snapshotAfterShutdown: snap(runtime) },
+    timing: { ...(acquisitionMs === undefined ? {} : { acquisitionMs }), graphMs, runtimeCreateMs,
+      ...(shutdownMs === undefined ? {} : { shutdownMs }) },
     ...(result ? { result } : {}),
   }, state?.finalDecision];
 }

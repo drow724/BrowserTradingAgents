@@ -1,0 +1,112 @@
+{
+  "provider": "native",
+  "evidenceClass": "REAL_BROWSER_PROMPT_API",
+  "model": "Gemini Nano (Chrome Prompt API)",
+  "browser": "Chrome/154.0.0.0",
+  "reps": 2,
+  "generatedAt": "2026-09-29T16:40:45.990Z",
+  "modes": {
+    "on": {
+      "runs": 12,
+      "prepared": 2,
+      "runtimeCreateMs": [
+        13631,
+        0,
+        0,
+        0,
+        0,
+        0,
+        57,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "graphMs": [
+        52195,
+        49107,
+        53547,
+        52819,
+        48357,
+        54615,
+        53032,
+        51714,
+        50923,
+        49454,
+        53841,
+        56320
+      ],
+      "totalMs": [
+        324484,
+        318155
+      ],
+      "outcomes": [
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success"
+      ],
+      "replacements": 0
+    },
+    "off": {
+      "runs": 12,
+      "prepared": 12,
+      "runtimeCreateMs": [
+        61,
+        15,
+        8,
+        9,
+        26,
+        12,
+        118,
+        14,
+        13,
+        3,
+        3,
+        2
+      ],
+      "graphMs": [
+        59879,
+        62013,
+        61345,
+        64730,
+        55005,
+        60818,
+        64455,
+        60582,
+        58857,
+        50168,
+        51296,
+        53001
+      ],
+      "totalMs": [
+        364448,
+        339077
+      ],
+      "outcomes": [
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success",
+        "success"
+      ],
+      "replacements": 0
+    }
+  }
+}
