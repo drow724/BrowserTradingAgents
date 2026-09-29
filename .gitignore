@@ -6,6 +6,7 @@ playwright-report/
 .next/
 next-env.d.ts
 *.tsbuildinfo
-# Feature 008: generated from node_modules/pixel-agents by scripts/copy-pixel-agents.mjs (the shim is ours)
-public/pixel-agents/*
-!public/pixel-agents/bta-host-shim.js
+# Feature 009 (MD-6): temporary upstream art copied by scripts/copy-office-art.mjs; never committed (F008-L1)
+public/office-art/
+# Feature 009: server-only secrets (e.g. BTA_DATA_GO_KR_KEY); never commit
+.env*.local

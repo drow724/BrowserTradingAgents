@@ -7,13 +7,13 @@
   },
   "scripts": {
     "typecheck": "next typegen && tsc --noEmit",
-    "prebuild": "node scripts/copy-pixel-agents.mjs",
+    "prebuild": "node scripts/copy-office-art.mjs",
     "build": "next build",
     "start": "next start",
     "test": "node --test test/*.test.ts",
     "test:browser": "playwright test --project=chromium",
     "test:browser:dev": "BTA_DEV_SMOKE=1 playwright test --project=chromium-dev",
-    "predev": "node scripts/copy-pixel-agents.mjs",
+    "predev": "node scripts/copy-office-art.mjs",
     "dev": "next dev",
     "test:prompt-api": "playwright test --project=prompt-api",
     "prepare:prompt-api": "sh scripts/prepare-prompt-api-profile.sh"

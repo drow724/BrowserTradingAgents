@@ -1,0 +1,31 @@
+{
+ "response": {
+  "header": {
+   "resultCode": "00",
+   "resultMsg": "NORMAL SERVICE."
+  },
+  "body": {
+   "numOfRows": 2,
+   "pageNo": 1,
+   "totalCount": 2,
+   "items": {
+    "item": [
+     {
+      "basDt": "20260925",
+      "srtnCd": "Q900201",
+      "isinCd": "KRTESTQ9002010",
+      "itmsNm": "가상 인버스 ETN",
+      "clpr": "5000"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "Q900202",
+      "isinCd": "KRTESTQ9002020",
+      "itmsNm": "테스트 원유 ETN",
+      "clpr": "5000"
+     }
+    ]
+   }
+  }
+ }
+}

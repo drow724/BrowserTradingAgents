@@ -1,0 +1,38 @@
+{
+ "response": {
+  "header": {
+   "resultCode": "00",
+   "resultMsg": "NORMAL SERVICE."
+  },
+  "body": {
+   "numOfRows": 3,
+   "pageNo": 1,
+   "totalCount": 3,
+   "items": {
+    "item": [
+     {
+      "basDt": "20260925",
+      "srtnCd": "900101",
+      "isinCd": "KRTEST9001010",
+      "itmsNm": "가상 200",
+      "clpr": "10000"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "900102",
+      "isinCd": "KRTEST9001020",
+      "itmsNm": "테스트 미국S&P500",
+      "clpr": "10000"
+     },
+     {
+      "basDt": "20260925",
+      "srtnCd": "900103",
+      "isinCd": "KRTEST9001030",
+      "itmsNm": "가상 레버리지",
+      "clpr": "10000"
+     }
+    ]
+   }
+  }
+ }
+}
