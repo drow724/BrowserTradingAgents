@@ -121,7 +121,7 @@ contracts/grounding.md, contracts/measurement.md, quickstart.md.
 - [X] T038 [P] Docs: `docs/roadmap.md` (010 status, P-1 runtime decision, 011 reuse of the set and checker), `docs/testing.md` (analysis suites, `BTA_MEASURE`)
 - [X] T039 Verification record: SC table with evidence classes; AkariSP observations; findings; note the privacy split (analyze C11): Feature 009's sentinel test covers demo evidence (0 holding values), this Feature's T033 covers requests, headers, bodies and logs for portfolio runs, whose local evidence deliberately contains the fact set (FR-025)
 - [X] T040 Stand-in measurement report committed as `specs/010-portfolio-grounded-analysis/evidence/measurement-standin-<date>-<sha>.json`
-- [ ] T041 **APPROVAL REQUIRED** Native measurement: `BTA_MEASURE=1 npm run test:prompt-api -- -g measurement` (~75–90 min); commit the report under `specs/010-portfolio-grounded-analysis/evidence/`; record the verdict; not required for IMPLEMENTATION_COMPLETE
+- [X] T041 **APPROVAL REQUIRED** Native measurement: `BTA_MEASURE=1 npm run test:prompt-api -- -g measurement` (~75–90 min); commit the report under `specs/010-portfolio-grounded-analysis/evidence/`; record the verdict; not required for IMPLEMENTATION_COMPLETE
 - [X] T042 **APPROVAL REQUIRED** Commit (feature dir, source, tests, docs; never tooling, `.env*.local`, `.next/`, `public/office-art/`, `test-results/`)
 
 ---
