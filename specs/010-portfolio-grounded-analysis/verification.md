@@ -122,10 +122,64 @@
 | SC-004 overview 5+ in order; cancel mid-run | T028 (6 holdings; cancel during 3) | BROWSER_AUTOMATED | PASS |
 | SC-005 0 sentinel leaks | T033 | BROWSER_AUTOMATED | PASS |
 | SC-006 stand-in report reproducible | T024 | BROWSER_AUTOMATED | PASS |
-| SC-007 native measurement + verdict | T041 | REAL_BROWSER_PROMPT_API | **pending approval** |
+| SC-007 native measurement + verdict | T041 | REAL_BROWSER_PROMPT_API | recorded: rule verdict **NOT_YET**; hand-classified **LIMITED** (see T041 below) |
 | SC-008 existing suites, native gate 8/8 | T035, T036 | all | PASS |
 | SC-009 paper trade survives reload, labelled | T032 | BROWSER_AUTOMATED | PASS |
 | SC-010 AkariSP 0, topology 0, prompt changes listed | T037, table above | STATIC_CODE_ANALYSIS | PASS |
 
 - Findings: F010-R1 (LOW, open: unit claim supported by a unit-less fact through rounding); P-1, P-2 resolved;
-  F008-L1 open. State: **IMPLEMENTATION_COMPLETE** (local/research); **NATIVE_MEASUREMENT_PENDING** (T041).
+  F008-L1 open. State: **IMPLEMENTATION_COMPLETE** (local/research); native measurement recorded (T041).
+
+## T041 — Native measurement (REAL_BROWSER_PROMPT_API, 2026-09-29/30)
+
+- Command: `BTA_MEASURE=1 npm run test:prompt-api -- -g measurement` on `main` at `59413a6`; installed Chrome
+  154, Gemini Nano (Prompt API); 25 questions (6 traps), 3 repetitions, 99 runs; 1.5 h; exit 0.
+- Report: `evidence/measurement-native-2026-09-29-59413a6.json` (`generatedAt` 2026-09-29T15:34:18Z), unedited.
+
+### Rule result (as reported by `src/analysis/report.ts`, rules unchanged)
+
+| Metric | Value |
+|---|---|
+| runs / completed / failed | 99 / 99 / 0 (no `QuotaExceededError`) |
+| zeroUnsupportedRate | 0.859 |
+| unsupportedPerAnswer / unrecognisedPerAnswer | 0.283 / 0.343 |
+| trapHandledRate (18 trap runs) | 0.333 |
+| koreanRate | 0.99 |
+| mean run time | ≈ 52 s |
+| **verdict** | **NOT_YET** |
+
+### Hand classification (answers read one by one; rules NOT changed)
+
+**Trap runs (18).** All 18 answers decline the missing fact ("제공된 정보에는 … 내용이 없습니다", "명시되어 있지
+않습니다", "나와 있지 않습니다"). 12 were missed by `TRAP_PHRASES`, which lacks these phrasings (checker false
+negatives). 2 runs (t03, repetitions 1 and 3) decline but add wrong BTC amounts (unsupported > 0), so they fail the
+rule's own definition (decline **and** 0 unsupported). Hand-classified trap handling: **16/18 = 0.889**.
+
+**Runs with unsupported claims (14).**
+
+| Class | Runs | Examples |
+|---|---|---|
+| Real — Korean large-unit conversion (억/만) | 9 (all BTC; 9 of 15 BTC runs) | 95,000,000 → "9억 5천만 원"; 91,250,000 → "9억 1천 2백만 원" / "91억 2천 5백 만 원"; 22,812,500 → "2억 2천 8백만 원" (10× errors) |
+| Real — other | 2 | "10주당 약 5,320원 정도의 손실" (q02, wrong arithmetic); "8.00원 하락" (q16, % stated as 원) |
+| Checker false positive | 3 | "73만 8천원" / "73만 8천 원" = 738,000, correct (q03, q16: compound 만+천 not parsed); "2026년 11월" vs fact "November 2026" (q18) |
+
+Hand-classified zero-unsupported rate: (99 − 11) / 99 = **0.889**.
+
+| | zeroUnsupported | trapHandled | Verdict (SC-007 thresholds) |
+|---|---|---|---|
+| Rule (recorded) | 0.859 | 0.333 | **NOT_YET** |
+| Hand-classified | 0.889 | 0.889 | **LIMITED** (≥ 0.7 / ≥ 0.5; USABLE needs ≥ 0.9 / ≥ 0.8) |
+
+### Findings
+
+- **F010-N1 (MEDIUM, model)**: Gemini Nano restates large KRW amounts in 억/만 units wrongly (order-of-magnitude
+  errors); verbatim digits are reproduced correctly. Concentrated in BTC (large amounts): 9/15 BTC runs vs 2/84 other
+  runs with real unsupported claims. Candidate mitigation (hypothesis, to be measured): instruct the final role to
+  copy numbers exactly as written in the facts.
+- **F010-N2 (MEDIUM, checker)**: `TRAP_PHRASES` misses common Korean refusals ("내용이 없", "명시되어 있지 않",
+  "나와 있지 않") → trap handling under-counted (0.333 vs 0.889).
+- **F010-N3 (LOW, checker)**: compound Korean amounts ("73만 8천 원") are not parsed as one number → false
+  positives; plus the known "2026년 11월" vs "November 2026" date mismatch.
+- Checker changes (N2, N3) change the verdict rule's inputs; per the measurement protocol they are made in a
+  later Feature with before/after numbers on this same report. No rule was changed here.
+- AkariSP: 99/99 runs completed with one runtime per run; 0 failures.
