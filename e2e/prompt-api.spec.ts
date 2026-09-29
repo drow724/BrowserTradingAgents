@@ -1,4 +1,4 @@
-// REAL_BROWSER_PROMPT_API with runner "playwright": the Feature 002 harness (/harness/) and the
+// REAL_BROWSER_PROMPT_API with runner "playwright": the Feature 002 harness (/harness) and the
 // canonical page (/) in the installed Google Chrome with the native Prompt API, on a per-run APFS clone of the golden profile built by
 // scripts/prepare-prompt-api-profile.sh. macOS, on the machine that holds the model.
 // Run with `npm run test:prompt-api`; it is not part of `npm run test:browser`.
@@ -53,7 +53,7 @@ test('native Prompt API: S1–S5 and S7 PASS in installed Google Chrome', async 
   const { context, close } = await launchNativeChrome(testInfo);
   try {
     const page = await context.newPage();
-    await page.goto(`${baseURL}/harness/?runner=playwright`);
+    await page.goto(`${baseURL}/harness?runner=playwright`);
     await page.getByRole('button', { name: 'Run' }).click();
     await expect(page.locator('#status')).toHaveAttribute('data-state', 'done', { timeout: 9 * 60_000 });
     const record = JSON.parse((await page.locator('#evidence').textContent()) ?? '{}');

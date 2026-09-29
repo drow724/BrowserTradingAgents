@@ -1,0 +1,392 @@
+{
+  "feature": "005-browser-market-data-boundary",
+  "provider": "standin",
+  "runner": "manual",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36",
+    "date": "2026-09-29",
+    "availability": "MODEL_DOWNLOADABLE",
+    "raw": "downloadable"
+  },
+  "revision": {
+    "browserTradingAgents": "c64021e3dfdac96a46d96fd00e3c564c0cc09fb4+dirty",
+    "akarisp": "0.1.0-alpha.2",
+    "langchainCore": "1.2.13",
+    "langgraph": "1.4.18"
+  },
+  "prompts": "src/graph/trading-graph.ts",
+  "graph": {
+    "version": "tradingagents-fixture-graph@1",
+    "topology": "START→{marketAnalyst,newsAnalyst}; [marketAnalyst,newsAnalyst]→bullResearcher; bullResearcher→bearResearcher→researchManager→trader→riskReviewer→finalDecisionMaker→END",
+    "entry": "@langchain/langgraph/web"
+  },
+  "runtimeOptions": {
+    "limit": 1,
+    "queueCapacity": 32
+  },
+  "fixture": "tradingagents-fixture@1",
+  "input": {
+    "id": "tradingagents-fixture@1",
+    "news": "tradingagents-fixture@1"
+  },
+  "dataSource": {
+    "mode": "fixture",
+    "fixture": "tradingagents-fixture@1"
+  },
+  "evidenceClass": "BROWSER_AUTOMATED",
+  "outcome": "success",
+  "error": null,
+  "nodes": {
+    "marketAnalyst": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "marketFacts"
+      ]
+    },
+    "newsAnalyst": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "newsFacts"
+      ]
+    },
+    "bullResearcher": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "marketReport",
+        "newsReport"
+      ]
+    },
+    "bearResearcher": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "marketReport",
+        "newsReport",
+        "bullArgument"
+      ]
+    },
+    "researchManager": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "bullArgument",
+        "bearArgument"
+      ]
+    },
+    "trader": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "researchDecision",
+        "marketReport"
+      ]
+    },
+    "riskReviewer": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "traderPlan",
+        "researchDecision",
+        "marketReport",
+        "newsReport"
+      ]
+    },
+    "finalDecisionMaker": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "riskReview",
+        "researchDecision",
+        "traderPlan"
+      ]
+    }
+  },
+  "nodeEvents": [
+    {
+      "node": "marketAnalyst",
+      "event": "start",
+      "seq": 1
+    },
+    {
+      "node": "newsAnalyst",
+      "event": "start",
+      "seq": 2
+    },
+    {
+      "node": "marketAnalyst",
+      "event": "done",
+      "seq": 3
+    },
+    {
+      "node": "newsAnalyst",
+      "event": "done",
+      "seq": 4
+    },
+    {
+      "node": "bullResearcher",
+      "event": "start",
+      "seq": 5
+    },
+    {
+      "node": "bullResearcher",
+      "event": "done",
+      "seq": 6
+    },
+    {
+      "node": "bearResearcher",
+      "event": "start",
+      "seq": 7
+    },
+    {
+      "node": "bearResearcher",
+      "event": "done",
+      "seq": 8
+    },
+    {
+      "node": "researchManager",
+      "event": "start",
+      "seq": 9
+    },
+    {
+      "node": "researchManager",
+      "event": "done",
+      "seq": 10
+    },
+    {
+      "node": "trader",
+      "event": "start",
+      "seq": 11
+    },
+    {
+      "node": "trader",
+      "event": "done",
+      "seq": 12
+    },
+    {
+      "node": "riskReviewer",
+      "event": "start",
+      "seq": 13
+    },
+    {
+      "node": "riskReviewer",
+      "event": "done",
+      "seq": 14
+    },
+    {
+      "node": "finalDecisionMaker",
+      "event": "start",
+      "seq": 15
+    },
+    {
+      "node": "finalDecisionMaker",
+      "event": "done",
+      "seq": 16
+    }
+  ],
+  "modelRequests": [
+    {
+      "logicalRequestId": 1,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 2,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 1,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 34.30000019073486,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 33.90000009536743
+      }
+    },
+    {
+      "logicalRequestId": 2,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 35.30000019073486,
+        "queueWait": 34.200000286102295,
+        "acquire": 0.09999990463256836,
+        "prompt": 1
+      }
+    },
+    {
+      "logicalRequestId": 3,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 3,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 0.20000028610229492,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 0.20000028610229492
+      }
+    },
+    {
+      "logicalRequestId": 4,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 4,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 0.09999990463256836,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 0.09999990463256836
+      }
+    },
+    {
+      "logicalRequestId": 5,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 5,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 0.09999990463256836,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 0.09999990463256836
+      }
+    },
+    {
+      "logicalRequestId": 6,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 6,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 0,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 0
+      }
+    },
+    {
+      "logicalRequestId": 7,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 7,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 4.300000190734863,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 4.300000190734863
+      }
+    },
+    {
+      "logicalRequestId": 8,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 8,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 4.700000286102295,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 4.700000286102295
+      }
+    }
+  ],
+  "counts": {
+    "graphRuns": 1,
+    "nodeExecutions": 8,
+    "logicalRequests": 8,
+    "fallbackRequests": 0,
+    "providerInvocations": "NOT EXPOSED"
+  },
+  "concurrency": {
+    "graph": "branch requests submitted before either completed: 2",
+    "akarisp": {
+      "fanOutSnapshot": {
+        "snapshot": {
+          "state": "ready",
+          "active": 1,
+          "queued": 1,
+          "limit": 1,
+          "queueCapacity": 32
+        },
+        "pollMs": 0
+      }
+    },
+    "nativeProvider": "not observed (out of scope)"
+  },
+  "lifecycle": {
+    "settledBeforeShutdown": true,
+    "snapshotBeforeShutdown": {
+      "state": "ready",
+      "active": 0,
+      "queued": 0
+    },
+    "snapshotAfterShutdown": {
+      "state": "closed",
+      "active": 0,
+      "queued": 0
+    }
+  },
+  "timing": {
+    "graphMs": 63
+  },
+  "result": {
+    "marketReport": "stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).",
+    "newsReport": "stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).",
+    "bullArgument": "stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).",
+    "bearArgument": "stand-in reply to: You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).",
+    "researchDecision": "stand-in reply to: You are the Research Manager. Judge the bull/bear debate and state an investment recommendation with a short rationale. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBear argument: stand-in reply to: You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).",
+    "traderPlan": "stand-in reply to: You are the Trader. Turn the research decision into a concrete Buy, Hold or Sell proposal grounded in the market report. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nResearch decision: stand-in reply to: You are the Research Manager. Judge the bull/bear debate and state an investment recommendation with a short rationale. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBear argument: stand-in reply to: You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).",
+    "riskReview": "stand-in reply to: You are the Risk Reviewer. Review the trader plan for risks and say whether it should be adjusted. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nTrader plan: stand-in reply to: You are the Trader. Turn the research decision into a concrete Buy, Hold or Sell proposal grounded in the market report. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nResearch decision: stand-in reply to: You are the Research Manager. Judge the bull/bear debate and state an investment recommendation with a short rationale. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBear argument: stand-in reply to: You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nResearch decision: stand-in reply to: You are the Research Manager. Judge the bull/bear debate and state an investment recommendation with a short rationale. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBear argument: stand-in reply to: You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).",
+    "finalDecision": "stand-in reply to: You are the Final Decision. Give the final decision, taking the risk review into account. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nRisk review: stand-in reply to: You are the Risk Reviewer. Review the trader plan for risks and say whether it should be adjusted. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nTrader plan: stand-in reply to: You are the Trader. Turn the research decision into a concrete Buy, Hold or Sell proposal grounded in the market report. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nResearch decision: stand-in reply to: You are the Research Manager. Judge the bull/bear debate and state an investment recommendation with a short rationale. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBear argument: stand-in reply to: You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nResearch decision: stand-in reply to: You are the Research Manager. Judge the bull/bear debate and state an investment recommendation with a short rationale. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBear argument: stand-in reply to: You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nResearch decision: stand-in reply to: You are the Research Manager. Judge the bull/bear debate and state an investment recommendation with a short rationale. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBear argument: stand-in reply to: You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nTrader plan: stand-in reply to: You are the Trader. Turn the research decision into a concrete Buy, Hold or Sell proposal grounded in the market report. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nResearch decision: stand-in reply to: You are the Research Manager. Judge the bull/bear debate and state an investment recommendation with a short rationale. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBear argument: stand-in reply to: You are the Bear Researcher. Argue the case against investing and rebut the bull argument. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nBull argument: stand-in reply to: You are the Bull Researcher. Argue the case for investing, based on the two reports. The bear analyst has not spoken yet — open the debate. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2).\nNews report: stand-in reply to: You are the News Analyst. Write a short news report from these news facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nNews facts: The company announced a new line of energy-efficient desk lamps (news fact N1). A regional supplier reported delays in glass components (news fact N2).\nMarket report: stand-in reply to: You are the Market Analyst. Write a short market report from these market facts. Reply in plain text in at most three sentences.\n\nCompany: Northwind Lamps Ltd. (fictional)\nMarket facts: The share price rose 6% over the last quarter on average volume (market fact M1). The price is trading slightly above its 50-day moving average (market fact M2)."
+  }
+}

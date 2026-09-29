@@ -5,7 +5,7 @@
 // (Feature 005 L3) answer Massive requests with synthetic bodies via page.route; every other non-local
 // request is aborted, so no test reaches the real network, and the key is a dummy string.
 import { createHash } from 'node:crypto';
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { expect, test, type Page, type Request, type Route } from '@playwright/test';
 
 const ROLES = ['marketAnalyst', 'newsAnalyst', 'bullResearcher', 'bearResearcher', 'researchManager', 'trader',
@@ -16,15 +16,25 @@ const done = (page: Page) =>
   expect(page.locator('#status')).toHaveAttribute('data-state', 'done', { timeout: 60_000 });
 const evidence = async (page: Page) => JSON.parse((await page.locator('#evidence').textContent()) ?? '{}');
 const runButton = (page: Page) => page.getByRole('button', { name: 'Run Graph', exact: true });
+const installed = (pkg: string) =>
+  JSON.parse(readFileSync(`node_modules/${pkg}/package.json`, 'utf8')).version as string;
 const standin = (page: Page, action: 'hold' | 'resume') =>
   page.evaluate((a) => (window as unknown as { __standin: Record<string, () => void> }).__standin[a](), action);
 
 test('stand-in: full eight-role graph succeeds through LangGraph → AkariChatModel → AkariSP', async ({ page }, testInfo) => {
   const net = await guardNetwork(page);
   await page.goto('/?provider=standin');
+  await expect(runButton(page)).toBeEnabled();
+  await countCreates(page);
   await runButton(page).click();
   await done(page);
   const r = await evidence(page);
+  expect(await creates(page)).toBe(1); // one click, one runtime
+  // Build-time constants (next.config.ts compiler.define): raw values, never quoted.
+  expect(r.revision.browserTradingAgents).toMatch(/^[0-9a-f]{40}(\+dirty)?$/);
+  expect(r.revision.akarisp).toBe(installed('akarisp'));
+  expect(r.revision.langchainCore).toBe(installed('@langchain/core'));
+  expect(r.revision.langgraph).toBe(installed('@langchain/langgraph'));
   expect(r.evidenceClass).toBe('BROWSER_AUTOMATED');
   expect(r.provider).toBe('standin');
   expect(r.environment.availability).not.toBe('MODEL_AVAILABLE'); // describes the native API, not the stand-in
@@ -136,6 +146,21 @@ test('stand-in: two consecutive runs are independent (new runtime and model per 
   expect(second.nodeEvents.length).toBe(16); // 8 roles × (start, done) — this run only
   expect(second.lifecycle.settledBeforeShutdown).toBe(true);
   expect(second.lifecycle.snapshotAfterShutdown.state).toBe('closed');
+});
+
+// Only in the `chromium-dev` project (BTA_DEV_SMOKE=1, `next dev`): React Strict Mode runs effects
+// twice in development; the entry module must still be evaluated once.
+test('@dev stand-in + fixture under next dev (Strict Mode): one click = one runtime, one graph run', async ({ page }) => {
+  await page.goto('/?provider=standin');
+  await expect(runButton(page)).toBeEnabled();
+  await countCreates(page);
+  await runButton(page).click();
+  await done(page);
+  const r = await evidence(page);
+  expect(await creates(page)).toBe(1);
+  expect(r.counts.logicalRequests).toBe(8);
+  expect(r.nodeEvents.length).toBe(16);
+  for (const n of ROLES) expect(r.nodes[n].executions, n).toBe(1);
 });
 
 // ---------------------------------------------------------------------------------------------
