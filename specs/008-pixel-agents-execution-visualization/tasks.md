@@ -505,7 +505,7 @@ All tests below go in `e2e/execution-view.spec.ts` unless noted.
   - protected hashes and the `runGraph` hash
   - AkariSP changes 0
   - State: **CONTROLLED_VIEW_VALIDATED**.
-- [ ] T033 **APPROVAL REQUIRED — commit.**
+- [X] T033 **APPROVAL REQUIRED — commit.**
   - **Stage**:
     - `src/view/*`, `components/ExecutionView.tsx`, the `app/page.tsx` line
     - `scripts/copy-pixel-agents.mjs`, `public/pixel-agents/bta-host-shim.js`

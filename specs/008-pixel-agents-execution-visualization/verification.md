@@ -1757,3 +1757,69 @@ SC-014b2 KNOWN_UPSTREAM_COST raw {"windowMs":10000,"off":[0.0014287423955320635,
   - F008-008 (cosmetic) and F008-L1 (asset license, OPEN, `PUBLIC_DEPLOYMENT_DEFERRED`): unchanged.
 
 State: **CONTROLLED_VIEW_VALIDATED**. Next: T033 (APPROVAL REQUIRED — commit).
+
+## T033 — Implementation commit (maintainer approved, 2026-09-29)
+
+- **Commit**: `24fea89e5979bfbbf96c36feddb65dabadf129f7`, "feat: add opt-in Pixel Agents execution
+  visualization (Feature 008 T001-T032)". Parent `07f8f34`.
+- **Contents**: 41 files, +7695/−11.
+  - `src/view/*` (4), `components/ExecutionView.tsx`, `app/page.tsx`, `next.config.ts`
+  - `scripts/copy-pixel-agents.mjs`, `public/pixel-agents/bta-host-shim.js`
+  - `.gitignore`, `.vercelignore`, `package.json`, `package-lock.json`, `playwright.config.ts`
+  - `test/execution-view.test.ts`, 13 trace fixtures
+  - `e2e/execution-view.spec.ts`, `e2e/replay-dom.ts`, `e2e/view-overhead.spec.ts`
+  - `specs/008-pixel-agents-execution-visualization/**`
+- **Generated upstream artifacts committed**: 0. The only tracked file under `public/` is the shim.
+  `public/pixel-agents/index.html` and the rest are git-ignored.
+- **Not staged**: `.claude/`, `.specify/*`, `CLAUDE.md`, `.impeccable/`, `.next/`, `test-results/`,
+  scratch files and screenshots.
+- **Pre-commit checks**:
+  - protected 96/96; `src/main.ts` `bd34bf98…`; `runGraph` `922db752…`
+  - upstream inventory `ec6dfa08…`
+  - `package.json`: only `pixel-agents: 1.4.1` (dev) is added
+  - lockfile: +82 entries, all in the `pixel-agents` dependency tree; 0 removed; 0 version changes
+  - AkariSP changes 0; upstream JS/CSS patches 0
+  - `next.config.ts` CORS only on `/pixel-agents/:path*` and absent on Vercel
+  - sandbox `allow-scripts` only
+- **After the commit**: the revision code paths are clean. This T033 record and the `tasks.md`
+  checkbox are a docs-only change after the implementation revision.
+- **Push**: none. The public deployment stays deferred (F008-L1 OPEN, `PUBLIC_DEPLOYMENT_DEFERRED`).
+  F008-008 stays OPEN (cosmetic).
+
+Next: T034, the native + fixture gate (APPROVAL REQUIRED), not run.
+
+## T034 coverage — test-only commit (maintainer choice (a), 2026-09-29)
+
+- **Why**: T034 requires two native + fixture scenarios, but the native spec had only the
+  default-view run. This adds the missing acceptance coverage. It is **not** a production change: the
+  production diff from `24fea89` is 0 (src, components, app, next.config.ts, scripts, public,
+  package files, playwright.config.ts, harness).
+- **Change**: `e2e/prompt-api.spec.ts`. The shared `nativeFixtureRun(pixel)` drives two independent
+  user runs in installed Chrome with the native Prompt API:
+  - **A**, the existing canonical test title: default view. The toggle is `aria-pressed=false`, 0
+    iframes are created, and there are 0 `/pixel-agents` requests.
+  - **B**, new: the host-owned "Show Pixel Agents" toggle is clicked. While idle there are 0 iframes.
+    While running and on screen there is 1 iframe with `sandbox="allow-scripts"`, and all 8 role
+    labels are visible in the canvas. At the end there are 0 iframes.
+  - **Both** assert the same structural invariants, not the model's text:
+    - `REAL_BROWSER_PROMPT_API`, native, `MODEL_AVAILABLE`, `success`
+    - graph `tradingagents-fixture-graph@1`, fixture `tradingagents-fixture@1`, 8/8 nodes done
+    - `graphRuns` 1, `nodeExecutions` 8, `logicalRequests` 8, `fallbackRequests` 0, 16 node events
+    - lifecycle `{ready,0,0}` → `settledBeforeShutdown` true → `{closed,0,0}`
+    - `/api/market` requests 0
+    - text view completed ×8, anomalies 0
+  - Each run writes `evidence.json` and `view-008.json`.
+  - The fan-out `{ready,1,1}` is AkariSP admission and is not claimed as native parallel inference.
+- **Gating**: the tests run only in the `prompt-api` project (`npm run test:prompt-api`). The ordinary
+  `chromium` suite lists 0 `prompt-api` tests.
+- **Deterministic regression before the commit**:
+  - typecheck rc 0; build rc 0
+  - `npm test`: 133 (132 pass, 1 skip)
+  - `test:browser`: 50 passed, 1 skipped (SC-014b1 +0.34 pp)
+  - `test:browser:dev`: 2/2
+- **Protection**:
+  - protected 96/96; `src/main.ts` `bd34bf98…`; `runGraph` `922db752…`
+  - upstream inventory `ec6dfa08…`
+  - AkariSP changes 0
+  - dependencies: `pixel-agents@1.4.1` (dev) only
+- **Not done**: the native gate has not been run. T034 is still pending approval.
