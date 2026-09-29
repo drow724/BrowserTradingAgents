@@ -5,7 +5,7 @@
   - roadmap "Architecture direction for real data" (static build + tiny proxy; Next.js "only with
     evidence")
   - roadmap "Decision 2026-09-29" question B (Next.js vs Vite + tiny server)
-- **Affects**: roadmap Feature sequence (005 → 006 → 007), the future constitution amendment below
+- **Affects**: roadmap Feature sequence (005 → 006 → 007), constitution Principle XIII (1.1.0)
 
 ## Context
 
@@ -58,10 +58,10 @@ server boundary, the secret boundary and deployment.
   The canonical guarantees must reproduce exactly.
 - **Rendering**: modules that touch `window.LanguageModel` load only on the client (client component
   + dynamic import, no server rendering of that path).
-- **Constitution**: see the proposed inference-tier principle below; to be applied by a separate,
-  explicit amendment.
+- **Constitution**: the inference-tier principle below was applied as Principle XIII (constitution
+  1.1.0).
 
-## Proposed constitution amendment (not yet applied)
+## Constitution amendment (applied 2026-09-29 as Principle XIII, constitution 1.1.0)
 
 A vendor-neutral principle. No vendor is named in the constitution.
 
@@ -70,16 +70,16 @@ A vendor-neutral principle. No vendor is named in the constitution.
 > and recorded in evidence; it is never a silent fallback. AkariSP owns the local inference
 > lifecycle, not routing semantics.
 
-To be applied through the constitution's governance: reason, evidence, affected Features, workflow
-impact, date and version change (expected MINOR, 1.0.0 → 1.1.0), in its own change. This ADR does
-not amend the constitution.
+Applied in its own change as **Principle XIII. Inference Tiers** (constitution 1.0.0 → 1.1.0, MINOR).
+The constitution's Sync Impact Report records reason, evidence, affected Features and workflow
+impact.
 
 ## Roadmap-only candidate: Vercel AI Gateway
 
 Vercel AI Gateway is a **candidate implementation** of the future remote-inference escalation tier
 (one server-side entry point for many hosted models, so users need not manage one key per vendor).
-It is not a constitution rule. It is not part of Features 005–007. Adopting it needs the amendment
-above and its own Feature.
+It is not a constitution rule. It is not part of Features 005–007. Adopting it needs its own Feature that
+satisfies Principle XIII.
 
 ## Feature sequence after this decision
 

@@ -15,7 +15,7 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 - LLM inference runs **in the browser** through AkariSP (Chrome Prompt API; WebLLM possible
   later). The Prompt API exists only in the user's Chrome. Browser/local inference is the default
   tier. A remote (cloud) tier would be an explicit, user-visible escalation owned by the
-  application (proposed constitution principle in ADR 0001; candidate implementation: Vercel AI
+  application (constitution XIII, Inference Tiers; candidate implementation: Vercel AI
   Gateway). It is not planned in Features 005–007.
 - Requires a Chrome with the Prompt API and an available on-device model; other browsers get an
   "unsupported" notice.
@@ -33,7 +33,7 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 | 005 | **Market Data Boundary Experiment** — browser market-data boundary: `?data=live` feeds only the Market Analyst from Massive end-of-day bars through acquire → normalize → render, independent of the LLM provider axis; fixture mode unchanged | implementation complete (L1–L3 controlled evidence; native + fixture `0543a69`); **authenticated provider validation (P-1, L4, L5) deferred** — Massive was chosen for pure-browser feasibility, not from the upstream data contract; permitted use unresolved; no real credential used |
 | 006 | **Next.js Application Shell Migration** (`006-nextjs-application-shell`): move the Vite shell to Next.js App Router with no semantic change (see "Feature 006 scope") | next candidate |
 | 007 | **Upstream-Compatible Server Data Boundary** (`007-upstream-server-data-boundary`): upstream TradingAgents data/tool contract at a pinned SHA → `/api/market` contract, server normalization, provider choice, permitted-use constraints (see "Feature 007 scope") | candidate after 006 |
-| later | Live news, fundamentals, indicators, … as Feature 007's research decides; Agent Town visualization; WebLLM; optional cloud-inference escalation (needs the constitution amendment in ADR 0001) | deferred; renumbered later (the previously planned "live News boundary" moved here) |
+| later | Live news, fundamentals, indicators, … as Feature 007's research decides; Agent Town visualization; WebLLM; optional cloud-inference escalation (must satisfy constitution XIII) | deferred; renumbered later (the previously planned "live News boundary" moved here) |
 
 ## Decision 2026-09-29 (later): Next.js application shell — ADR 0001
 
