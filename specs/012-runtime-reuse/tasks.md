@@ -20,7 +20,7 @@ Feature rebases onto it before its own implementation.
 
 ## Phase 2: Foundational
 
-- [ ] T002 **Conditional on T018** (default stays off → not needed; do it only if the default becomes on): Pin every existing per-run lifecycle assertion to `reuse=off` by adding `&reuse=off` (or `?reuse=off`) to the page URLs they load: e2e/app.spec.ts (lines ~54–56, 94–96, 138–149, 238–240, 394–396), e2e/execution-view.spec.ts (~234–236, 272), e2e/analysis.spec.ts (~34, 161–163, 181–186), e2e/prompt-api.spec.ts (~138–140, 184); meaning unchanged
+- [X] T002 **Not needed — T018 kept the default off** (conditional task; nothing pinned): Pin every existing per-run lifecycle assertion to `reuse=off` by adding `&reuse=off` (or `?reuse=off`) to the page URLs they load: e2e/app.spec.ts (lines ~54–56, 94–96, 138–149, 238–240, 394–396), e2e/execution-view.spec.ts (~234–236, 272), e2e/analysis.spec.ts (~34, 161–163, 181–186), e2e/prompt-api.spec.ts (~138–140, 184); meaning unchanged
 - [X] T003 Add the mode switch in src/main.ts: `const reuse = params.get('reuse') === 'on'` (default off, research R1); `lifecycle.mode` `'reuse' | 'per-run'`, `runtimeId` (page counter, 1-based) and `prepared` added to every record that reached the graph stage (acquisition-failure and BLOCKED records keep `lifecycle: null` / no lifecycle), per-run fields unchanged (contracts/run-record-lifecycle.md)
 
 **Checkpoint**: with `reuse=off` (the default) all existing checks pass; records only gained `mode`, `runtimeId`, `prepared`.
@@ -71,7 +71,7 @@ Feature rebases onto it before its own implementation.
 
 - [X] T016 Record in verification.md: new sha256 of src/main.ts and `runGraph` (changed by design), `npm run typecheck && npm run build && npm test && npm run test:browser` results (SC-006), finding F012-1 (no public runtime identity or creation time in AkariSP) and any other AkariSP observations; AkariSP changes 0
 - [X] T017 [P] Update docs/testing.md (reuse switch, reuse spec, native comparison) and docs/roadmap.md (012 runtime reuse; Effectiveness Benchmark → 013)
-- [ ] T018 Present the native comparison to the maintainer and apply the decision on the default: keep `reuse` off, or make `reuse=on` the default in src/main.ts (tests stay valid because they pin the mode); record the decision in verification.md
+- [X] T018 Present the native comparison to the maintainer and apply the decision on the default: keep `reuse` off, or make `reuse=on` the default in src/main.ts (tests stay valid because they pin the mode); record the decision in verification.md
 
 ## Dependencies & Execution Order
 

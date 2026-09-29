@@ -79,6 +79,8 @@
 
 ## T018 — Default
 
-- **Pending maintainer decision.** Evidence for `on`: 24/24 native runs clean, stand-in isolation proven, ≈ 8–11 %
+- **Decision (maintainer, 2026-09-30): default stays `off`.** `?reuse=on` remains available; re-measure with more
+  repetitions in the Effectiveness Benchmark (013). T002 is therefore not needed.
+- Evidence for `on`: 24/24 native runs clean, stand-in isolation proven, ≈ 8–11 %
   faster overviews (small n, unexplained). Evidence against changing now: the premised saving (≈ 15 s per run) does
   not exist; the observed gain is small and its cause unknown; long-lived session memory use was not measured.
