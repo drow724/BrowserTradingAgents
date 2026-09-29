@@ -1,0 +1,443 @@
+{
+  "feature": "007-upstream-server-market-data-boundary",
+  "provider": "standin",
+  "runner": "manual",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36",
+    "date": "2026-09-29",
+    "availability": "MODEL_DOWNLOADABLE",
+    "raw": "downloadable"
+  },
+  "revision": {
+    "browserTradingAgents": "4b4925f4a589d7e9712c32f4dc1c979991be8310",
+    "akarisp": "0.1.0-alpha.2",
+    "langchainCore": "1.2.13",
+    "langgraph": "1.4.18"
+  },
+  "prompts": "src/graph/trading-graph.ts",
+  "graph": {
+    "version": "tradingagents-fixture-graph@1",
+    "topology": "START→{marketAnalyst,newsAnalyst}; [marketAnalyst,newsAnalyst]→bullResearcher; bullResearcher→bearResearcher→researchManager→trader→riskReviewer→finalDecisionMaker→END",
+    "entry": "@langchain/langgraph/web"
+  },
+  "runtimeOptions": {
+    "limit": 1,
+    "queueCapacity": 32
+  },
+  "input": {
+    "id": "live-market@2",
+    "news": "neutral-news@1"
+  },
+  "dataSource": {
+    "mode": "live",
+    "boundary": "server",
+    "endpoint": "/api/market",
+    "symbol": "IBM",
+    "provider": "yahoo-chart@1",
+    "analysisDate": "2026-09-29",
+    "marketAsOf": "2026-09-28",
+    "acquiredAt": "2026-09-29T06:44:30.170Z",
+    "receivedAt": "2026-09-29T06:44:30.246Z",
+    "sessions": 30,
+    "historySessions": 1254,
+    "snapshotDigest": "sha256:a19d14647ed4824c196088dbf321d6d0689d0d2c4eace3cf0685acfd68ab2169",
+    "marketFactsDigest": "sha256:ed64c301a58da3dddb5b43b9a92c36a68a47882707bacd696b9b03d674193fff",
+    "usedAt": "2026-09-29T06:44:30.248Z"
+  },
+  "evidenceClass": "BROWSER_AUTOMATED",
+  "outcome": "success",
+  "error": null,
+  "nodes": {
+    "marketAnalyst": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "marketFacts"
+      ]
+    },
+    "newsAnalyst": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "newsFacts"
+      ]
+    },
+    "bullResearcher": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "marketReport",
+        "newsReport"
+      ]
+    },
+    "bearResearcher": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "marketReport",
+        "newsReport",
+        "bullArgument"
+      ]
+    },
+    "researchManager": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "bullArgument",
+        "bearArgument"
+      ]
+    },
+    "trader": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "researchDecision",
+        "marketReport"
+      ]
+    },
+    "riskReviewer": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "traderPlan",
+        "researchDecision",
+        "marketReport",
+        "newsReport"
+      ]
+    },
+    "finalDecisionMaker": {
+      "status": "done",
+      "executions": 1,
+      "modelRequests": 1,
+      "reads": [
+        "subject",
+        "riskReview",
+        "researchDecision",
+        "traderPlan"
+      ]
+    }
+  },
+  "nodeEvents": [
+    {
+      "node": "marketAnalyst",
+      "event": "start",
+      "seq": 1
+    },
+    {
+      "node": "newsAnalyst",
+      "event": "start",
+      "seq": 2
+    },
+    {
+      "node": "marketAnalyst",
+      "event": "done",
+      "seq": 3
+    },
+    {
+      "node": "newsAnalyst",
+      "event": "done",
+      "seq": 4
+    },
+    {
+      "node": "bullResearcher",
+      "event": "start",
+      "seq": 5
+    },
+    {
+      "node": "bullResearcher",
+      "event": "done",
+      "seq": 6
+    },
+    {
+      "node": "bearResearcher",
+      "event": "start",
+      "seq": 7
+    },
+    {
+      "node": "bearResearcher",
+      "event": "done",
+      "seq": 8
+    },
+    {
+      "node": "researchManager",
+      "event": "start",
+      "seq": 9
+    },
+    {
+      "node": "researchManager",
+      "event": "done",
+      "seq": 10
+    },
+    {
+      "node": "trader",
+      "event": "start",
+      "seq": 11
+    },
+    {
+      "node": "trader",
+      "event": "done",
+      "seq": 12
+    },
+    {
+      "node": "riskReviewer",
+      "event": "start",
+      "seq": 13
+    },
+    {
+      "node": "riskReviewer",
+      "event": "done",
+      "seq": 14
+    },
+    {
+      "node": "finalDecisionMaker",
+      "event": "start",
+      "seq": 15
+    },
+    {
+      "node": "finalDecisionMaker",
+      "event": "done",
+      "seq": 16
+    }
+  ],
+  "modelRequests": [
+    {
+      "logicalRequestId": 1,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 2,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 1,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 2.700000286102295,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 2.5999999046325684
+      }
+    },
+    {
+      "logicalRequestId": 2,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 3.5,
+        "queueWait": 2.700000286102295,
+        "acquire": 0.09999990463256836,
+        "prompt": 0.6999998092651367
+      }
+    },
+    {
+      "logicalRequestId": 3,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 3,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 0.6999998092651367,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 0.6999998092651367
+      }
+    },
+    {
+      "logicalRequestId": 4,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 4,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 0,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 0
+      }
+    },
+    {
+      "logicalRequestId": 5,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 5,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 0,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 0
+      }
+    },
+    {
+      "logicalRequestId": 6,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 6,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 0.09999990463256836,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 0.09999990463256836
+      }
+    },
+    {
+      "logicalRequestId": 7,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 7,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 4.599999904632568,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 4.599999904632568
+      }
+    },
+    {
+      "logicalRequestId": 8,
+      "event": "start",
+      "errorKind": null,
+      "timing": null
+    },
+    {
+      "logicalRequestId": 8,
+      "event": "done",
+      "errorKind": null,
+      "timing": {
+        "total": 5,
+        "queueWait": 0,
+        "acquire": 0,
+        "prompt": 5
+      }
+    }
+  ],
+  "counts": {
+    "graphRuns": 1,
+    "nodeExecutions": 8,
+    "logicalRequests": 8,
+    "fallbackRequests": 0,
+    "providerInvocations": "NOT EXPOSED"
+  },
+  "concurrency": {
+    "graph": "branch requests submitted before either completed: 2",
+    "akarisp": {
+      "fanOutSnapshot": {
+        "snapshot": {
+          "state": "ready",
+          "active": 1,
+          "queued": 1,
+          "limit": 1,
+          "queueCapacity": 32
+        },
+        "pollMs": 0
+      }
+    },
+    "nativeProvider": "not observed (out of scope)"
+  },
+  "lifecycle": {
+    "settledBeforeShutdown": true,
+    "snapshotBeforeShutdown": {
+      "state": "ready",
+      "active": 0,
+      "queued": 0
+    },
+    "snapshotAfterShutdown": {
+      "state": "closed",
+      "active": 0,
+      "queued": 0
+    }
+  },
+  "timing": {
+    "acquisitionMs": 521,
+    "graphMs": 27
+  },
+  "result": {
+    "marketReport": {
+      "present": true,
+      "length": 769
+    },
+    "newsReport": {
+      "present": true,
+      "length": 315
+    },
+    "bullArgument": {
+      "present": true,
+      "length": 1374
+    },
+    "bearArgument": {
+      "present": true,
+      "length": 2715
+    },
+    "researchDecision": {
+      "present": true,
+      "length": 4361
+    },
+    "traderPlan": {
+      "present": true,
+      "length": 5407
+    },
+    "riskReview": {
+      "present": true,
+      "length": 11135
+    },
+    "finalDecision": {
+      "present": true,
+      "length": 21161
+    }
+  },
+  "realYahoo": {
+    "level": "L4",
+    "executedAt": "2026-09-29T06:44:30.564Z",
+    "environment": "local",
+    "provider": "yahoo-compatible",
+    "path": "browser → /api/market → Yahoo chart endpoint (server)",
+    "testedRevision": "4b4925f4a589d7e9712c32f4dc1c979991be8310",
+    "clean": true,
+    "node": "v23.9.0",
+    "next": "16.3.6",
+    "chrome": "153.0.8010.12",
+    "browserDirectYahooRequests": 0,
+    "serverToYahooRequests": "not directly instrumented",
+    "classification": "PASS"
+  }
+}

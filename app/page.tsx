@@ -6,10 +6,9 @@ export default function Page() {
     <>
       <h1>BrowserTradingAgents</h1>
       <p>TradingAgents-style graph: Market Analyst ‖ News Analyst → Bull → Bear → Research Manager → Trader → Risk Reviewer → Final Decision, through AkariChatModel → AkariSP → browser model (no model download is started).</p>
-      <p>Data: fixture mode (default) uses a fictional committed fixture and makes no market-data request. Live mode (<code>?data=live</code>) requests end-of-day daily bars for IBM from Massive at run time with the key you type below — &quot;live&quot; means fetched at run time, not real-time; news stays a committed neutral text. No output is investment advice.</p>
+      <p>Data: fixture mode (default) uses a fictional committed fixture and makes no market-data request. Live mode (<code>?data=live</code>) has this app&apos;s own server fetch end-of-day daily bars for IBM from Yahoo at run time, with no key — &quot;live&quot; means fetched at run time, not real-time; news stays a committed neutral text. No output is investment advice.</p>
       <p id="availability">availability: checking…</p>
       <p id="mode">mode: checking…</p>
-      <p id="key-row" hidden><label>Massive API key (used for this run only, not stored) <input id="key" type="password" autoComplete="off" /></label></p>
       <button id="run" disabled>Run Graph</button>
       <button id="cancel">Cancel</button>
       <p id="status" data-state="idle">idle</p>

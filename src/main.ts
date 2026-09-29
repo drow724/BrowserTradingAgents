@@ -2,16 +2,17 @@
 // evidence record (specs/005-…/contracts/evidence.md). One graph run owns one AkariSP runtime.
 // Two independent axes: `?provider=standin` loads the test stand-in (BROWSER_AUTOMATED), otherwise the
 // native Prompt API is used and only `availability()` is consulted — this page never starts a download;
-// `?data=live` feeds the Market Analyst from Massive end-of-day bars (src/market-data.ts), otherwise the
-// committed fixture. Live market data is acquired before any runtime exists.
+// `?data=live` feeds the Market Analyst from end-of-day bars that the app's own server fetches (same-origin
+// /api/market, Feature 007), otherwise the committed fixture. Live market data is acquired before any
+// runtime exists.
 import { createRuntime, TaskError, type Runtime } from 'akarisp';
 import { AkariChatModel, type BridgeEvent } from './integration/akari-chat-model.ts';
 import { FIXTURE, NEUTRAL_NEWS, type TradingFixture } from './graph/trading-fixture.ts';
 import { buildTradingGraph, ROLES, type NodeEvent } from './graph/trading-graph.ts';
 import {
-  acquireDailyBars, ageHours, buildLiveInput, isFailure, LIVE_INSTRUMENT, normalize, replayArtifact, replyProvenance,
+  fail, FAILURE_KINDS, isFailure, LIVE_INSTRUMENT, replayArtifact, validateBundle, type MarketBundle,
   type MarketDataFailure,
-} from './market-data.ts';
+} from './market-bundle.ts';
 
 declare const __BTA_REVISION__: string;
 declare const __AKARISP_VERSION__: string;
@@ -37,7 +38,6 @@ if (provider === 'standin') {
 }
 $('availability').textContent = `availability: ${availability.availability} · provider: ${provider}`;
 $('mode').textContent = `provider: ${provider} · data: ${data}`;
-$('key-row').hidden = data !== 'live';
 
 async function classifyAvailability(): Promise<{ availability: string; raw?: string; error?: string }> {
   const LM = (globalThis as { LanguageModel?: { availability?: () => Promise<string> } }).LanguageModel;
@@ -95,7 +95,7 @@ async function run() {
   const evidenceClass = provider === 'standin' ? 'BROWSER_AUTOMATED' : 'REAL_BROWSER_PROMPT_API';
 
   const base = {
-    feature: '005-browser-market-data-boundary',
+    feature: '007-upstream-server-market-data-boundary', // evidence contract: Feature 005 + server boundary
     provider,
     runner,
     environment: { userAgent: navigator.userAgent, date: new Date().toISOString().slice(0, 10), ...availability },
@@ -136,8 +136,9 @@ async function run() {
         lifecycle: null, timing: { acquisitionMs: live.acquisitionMs } };
     } else {
       // Values stay on this page and in the local replay artifact; the record gets digests only.
-      $('market').textContent = JSON.stringify(live.replay.snapshot, null, 2);
+      $('market').textContent = JSON.stringify(live.replay.bundle, null, 2);
       $('replay').textContent = JSON.stringify(live.replay, null, 2);
+      live.dataSource.usedAt = new Date().toISOString(); // the bundle is handed to the graph now
       [record, finalDecision] = await runGraph({ ...base, input: { id: live.input.id, news: NEUTRAL_NEWS.id },
         dataSource: live.dataSource }, live.input, runController, evidenceClass, live.acquisitionMs);
     }
@@ -149,23 +150,54 @@ async function run() {
   ($('run') as HTMLButtonElement).disabled = false;
 }
 
-// Acquire → normalize → render → identities. Any failure or cancel returns before a runtime exists.
+// /api/market → validate → render → identities. Any failure or cancel returns before a runtime exists.
 async function prepareLive(signal: AbortSignal) {
   const t0 = performance.now();
-  const dataSource: Record<string, unknown> = { mode: 'live', source: 'massive',
-    endpoint: '/v2/aggs/ticker/{symbol}/range/1/day/{from}/{to}', symbol: LIVE_INSTRUMENT.symbol };
+  const dataSource: Record<string, unknown> = { mode: 'live', boundary: 'server', endpoint: '/api/market',
+    symbol: LIVE_INSTRUMENT.symbol };
   const failed = (failure: MarketDataFailure) => ({ failure, dataSource, acquisitionMs: Math.round(performance.now() - t0) });
-  // The key is read at click time and lives only in this call's argument: never stored or recorded.
-  const reply = await acquireDailyBars(LIVE_INSTRUMENT, ($('key') as HTMLInputElement).value, signal);
-  if (isFailure(reply)) return failed(reply);
-  Object.assign(dataSource, reply.meta, replyProvenance(reply.body));
-  const snapshot = normalize(reply.body, LIVE_INSTRUMENT, new Date(reply.meta.receivedAt));
-  if (isFailure(snapshot)) return failed(snapshot);
-  const replay = await replayArtifact(snapshot);
-  if (signal.aborted) return failed({ boundary: 'market-data', kind: 'cancelled' });
-  Object.assign(dataSource, { asOf: snapshot.asOf, ageHours: ageHours(snapshot.asOf, reply.meta.receivedAt),
+  const bundle = await acquireFromServer(signal);
+  if (isFailure(bundle)) return failed(bundle);
+  const receivedAt = new Date().toISOString();
+  const replay = await replayArtifact(bundle);
+  if (signal.aborted) return failed(fail('acquisition', 'cancelled'));
+  Object.assign(dataSource, { provider: bundle.provider, analysisDate: bundle.analysisDate, marketAsOf: bundle.marketAsOf,
+    acquiredAt: bundle.acquiredAt, receivedAt, sessions: bundle.recent.length, historySessions: bundle.historySessions,
     snapshotDigest: replay.snapshotDigest, marketFactsDigest: replay.marketFactsDigest });
-  return { input: buildLiveInput(snapshot), replay, dataSource, acquisitionMs: Math.round(performance.now() - t0) };
+  const input: TradingFixture = { id: 'live-market@2', subject: `${LIVE_INSTRUMENT.name} (${LIVE_INSTRUMENT.symbol})`,
+    marketFacts: replay.marketFacts, newsFacts: NEUTRAL_NEWS.text };
+  return { input, replay, dataSource, acquisitionMs: Math.round(performance.now() - t0) };
+}
+
+// One same-origin request; the browser never learns the provider. The 30 s limit is page protection only
+// (a setTimeout, so tests can drive it); the server's own provider limit is shorter.
+const PAGE_LIMIT_MS = 30_000;
+async function acquireFromServer(signal: AbortSignal): Promise<MarketBundle | MarketDataFailure> {
+  const local = new AbortController();
+  const onAbort = () => local.abort(signal.reason);
+  signal.addEventListener('abort', onAbort);
+  if (signal.aborted) onAbort();
+  let timedOut = false;
+  const timer = setTimeout(() => { timedOut = true; local.abort(new Error('acquisition limit')); }, PAGE_LIMIT_MS);
+  const aborted = () => (signal.aborted ? fail('acquisition', 'cancelled') : timedOut ? fail('acquisition', 'timeout') : undefined);
+  try {
+    let body: unknown, ok: boolean;
+    try {
+      const res = await fetch(`/api/market?symbol=${encodeURIComponent(LIVE_INSTRUMENT.symbol)}`, { signal: local.signal });
+      ok = res.ok;
+      body = await res.json();
+    } catch {
+      return aborted() ?? fail('acquisition', 'network');
+    }
+    if (ok) return validateBundle(body);
+    const f = body as Partial<MarketDataFailure>;
+    const stages: unknown[] = ['request', 'acquisition', 'normalization'];
+    return isFailure(f) && FAILURE_KINDS.includes(f.kind!) && stages.includes(f.stage) ? fail(f.stage!, f.kind!)
+      : fail('acquisition', 'network');
+  } finally {
+    clearTimeout(timer);
+    signal.removeEventListener('abort', onAbort);
+  }
 }
 
 async function runGraph(base: Record<string, unknown>, input: TradingFixture, runController: AbortController,

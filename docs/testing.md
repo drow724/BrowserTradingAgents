@@ -2,10 +2,10 @@
 
 | Command | What runs | Evidence class |
 |---|---|---|
-| `npm test` | unit tests (fake `Runtime`), incl. the Feature 004 eight-role fixture graph (`test/trading-graph.test.ts`) and the Feature 005 market-data boundary without network (`test/market-data.test.ts`, synthetic bodies; its local-replay check is skipped unless `.local/replay/*.json` exists) + Node integration (real `akarisp`, stand-in `LanguageModel`; `test/node-integration.test.ts`, `test/trading-graph-integration.test.ts`) | `DETERMINISTIC_TEST`, `NODE_INTEGRATION` |
-| `npm run test:browser` | on the Next.js **production** server (`next build && next start`): canonical app `/` = eight-role graph (`e2e/app.spec.ts`: fixture mode, and live mode on **controlled** Massive responses via `page.route` — every other non-local request is aborted, dummy key only) and Feature 002 harness `/harness` (`e2e/harness.spec.ts`) in Playwright's Chromium with the stand-in; native paths must report `BLOCKED` | `BROWSER_AUTOMATED` |
+| `npm test` | unit tests (fake `Runtime`), incl. the Feature 004 eight-role fixture graph (`test/trading-graph.test.ts`) and the Feature 007 market bundle without network (`test/market-bundle.test.ts`: golden indicator values, validation, time zones, digests; its local-replay check is skipped unless `.local/replay/*.json` holds a bundle artifact) and the `/api/market` route against an in-process Yahoo stand-in (`test/market-route.test.ts`) + Node integration (real `akarisp`, stand-in `LanguageModel`; `test/node-integration.test.ts`, `test/trading-graph-integration.test.ts`) | `DETERMINISTIC_TEST`, `NODE_INTEGRATION` |
+| `npm run test:browser` | on the Next.js **production** server (`next build && next start`): canonical app `/` = eight-role graph (`e2e/app.spec.ts`: fixture mode, and live mode through `/api/market` to the **local Yahoo stand-in** `e2e/market-stub.mjs` — every non-local browser request is aborted) and Feature 002 harness `/harness` (`e2e/harness.spec.ts`) in Playwright's Chromium with the stand-in; native paths must report `BLOCKED` | `BROWSER_AUTOMATED` |
 | `npm run test:browser:dev` | dev smoke only (`BTA_DEV_SMOKE=1`, `next dev`): the `@dev` test checks one click = one runtime and one graph run under React Strict Mode | `BROWSER_AUTOMATED` |
-| `npm run test:prompt-api` | on the same production server: canonical app `/` (fixture mode) and Feature 002 harness `/harness` in the **installed Google Chrome** with the **native Prompt API** (Gemini Nano), headless; the owner-run live test is skipped unless `BTA_MASSIVE_KEY` is set (see below) | `REAL_BROWSER_PROMPT_API`, `runner: playwright` |
+| `npm run test:prompt-api` | on the same production server: canonical app `/` (fixture mode) and Feature 002 harness `/harness` in the **installed Google Chrome** with the **native Prompt API** (Gemini Nano), headless. The native gate is `-g "eight-role"` = native + **fixture**; the real-Yahoo test is skipped unless `BTA_REAL_YAHOO=1` (see below) | `REAL_BROWSER_PROMPT_API`, `runner: playwright` |
 | `npm run dev` | `next dev`: canonical app at `http://localhost:3000/` (Next's default port) for a manual run in your own Chrome (`?provider=standin` = stand-in, never Prompt API evidence; `?data=live` = live market data, see below) | `REAL_BROWSER_PROMPT_API`, `runner: manual` (or `BLOCKED`) |
 | `npm run dev` → `/harness` | the Feature 002 harness page, `http://localhost:3000/harness` | Feature 002 record |
 
@@ -20,12 +20,13 @@ Other commands: `npm run build` (`next build`), `npm start` (`next start`), `npm
   AkariSP and the Prompt API run only in the browser.
 - The canonical harness route is `/harness` (`app/harness/page.tsx`). `harness/index.html` is
   retained as a protected historical file; it is no longer an executable entry.
-- The Feature 005 live path is still client-side (the browser calls Massive directly). There is no
-  `/api/market` or any other route handler yet; a server data boundary is Feature 007
-  (`007-upstream-server-data-boundary`).
+- Live market data comes through the one route handler, `/api/market` (Feature 007, below). The graph
+  never runs on the server.
 - Playwright uses its own explicit port (`HARNESS_PORT`, default 5174), separate from the dev
-  port. It starts exactly one server per run: the production server for `test:browser` and
+  port. It starts exactly one app server per run: the production server for `test:browser` and
   `test:prompt-api`, `next dev` only for `test:browser:dev`. The dev server is never a browser gate.
+  Next to it, Playwright starts the local Yahoo stand-in (`e2e/market-stub.mjs`, app port + 24)
+  and points `/api/market` at it with `BTA_YAHOO_BASE_URL`.
 - Build output is always the default `.next` (gitignored with `next-env.d.ts`). Run one Playwright
   session per checkout; use a separate `git worktree` for parallel work. No build, dev, typegen or
   test command may modify a tracked file.
@@ -78,7 +79,7 @@ the macOS machine that has that Chrome and model (not in cloud sessions).
   (`availability()` never resolves). Only the installed Google Chrome with `OptimizationHints`
   re-enabled reports `available`.
 
-## Data modes (Feature 005)
+## Data modes (Feature 005, server boundary since Feature 007)
 
 Two independent choices in the canonical page URL:
 
@@ -87,64 +88,66 @@ Two independent choices in the canonical page URL:
 | stand-in (`?provider=standin`) | `/?provider=standin` | `/?provider=standin&data=live` |
 | native (default) | `/` | `/?data=live` |
 
-- **fixture**: the committed fictional fixture (Feature 004). No market-data request is made.
-- **live**: at run time, the page requests end-of-day daily bars for IBM from Massive
-  (`api.massive.com`) with the key you type into the page. "Live" means *fetched at run time*, not
-  real-time data. News stays a committed, company-neutral text. On success the page shows the
-  snapshot (`#market`) and a local replay artifact (`#replay`). The evidence record (`#evidence`)
-  holds provenance and two digests, never prices, role output text or the key.
-- **Native provider only**: the Prompt API availability check runs before any market-data request.
-  The stand-in never depends on it.
-- **Live failure**: a live failure (no key, network, 401/403, 429, provider error, unusable data,
-  timeout, Cancel) ends the run as a market-data failure before any runtime exists. It never falls
-  back to the fixture.
-
-### Key handling
-
-- The key is read from the password field when you click Run. It is sent only as
-  `Authorization: Bearer …` to `api.massive.com`, and is not stored anywhere by the app: not in
-  storage, the URL, the console, the evidence or the replay artifact.
-- Never put a key in source, `.env*` files or a `NEXT_PUBLIC_*` (formerly `VITE_*`) variable. A bundler environment variable
-  is inlined into the JavaScript bundle; it is not secret protection.
-- Chrome may offer to save the key typed into the password field. Decline it: that store is outside
-  the application.
+- **fixture**: the committed fictional fixture (Feature 004). It is deterministic and makes no
+  market-data request of any kind. It stays the canonical regression, and the native gate is
+  native + fixture.
+- **live**: `browser → /api/market (same origin) → this app's server → Yahoo chart endpoint`.
+  - The server:
+    - fetches about 5 years of daily bars for IBM
+    - applies yfinance's `auto_adjust` formula
+    - computes the 12 indicators of the upstream Market Analyst prompt
+    - returns one validated bundle
+  - The browser renders the Market Analyst's `marketFacts` from that bundle.
+  - "Live" means fetched at run time; the data is end-of-day, not real-time.
+  - News stays a committed, company-neutral text.
+  - Evidence holds provenance (`analysisDate`, `marketAsOf`, `acquiredAt`, `receivedAt`, `usedAt`)
+    and two digests, never prices or role text.
+- **No key**: the Yahoo path needs no API key, signup or deployment secret. The Feature 005
+  browser-direct Massive path and its key field are retired; their records stay in
+  `specs/005-browser-market-data-boundary/`.
+- **Yahoo-compatible, not yfinance**: it uses the same chart endpoint and adjustment formula as
+  Python yfinance, but it is a different client, with no cookie, crumb, retry or cache.
+- **Scope and risk**:
+  - Personal research use by the deployer. The endpoint is unofficial and can change or
+    rate-limit without notice.
+  - Yahoo's terms (§2.4) restrict automated access. This restriction is recorded; the server
+    boundary does not resolve it, and nothing here claims suitability for public redistribution.
+  - A local reachability check (Feature 007 T008) does not show that a Vercel deployment can
+    reach Yahoo.
+- **Failures**:
+  - A live failure is typed `{boundary: 'market-data', stage, kind}`: network, unauthorized,
+    rate-limited, provider error, timeout, unavailable, invalid data, cancelled or invalid request.
+  - It ends the run before any runtime exists.
+  - There is no fallback to the fixture or to another provider, and no retry.
+- **Future providers**: Tiingo, Alpha Vantage and Massive are possible later, behind the same
+  `/api/market` contract. None is built.
 
 ### Local replay artifact
 
 Copy the `#replay` JSON of a successful live run into `.local/replay/<name>.json`. `.local/` is
-gitignored; never commit it. It holds the normalized snapshot and `marketFacts` with their digests,
-and no credential. `npm test` then checks that it re-renders to itself and matches a committed
-evidence record by digest.
+gitignored; never commit it. It holds the validated bundle, `marketFacts` and their digests, and no raw
+provider response. `npm test` then checks that it re-renders and re-digests to itself, with no
+network.
 
-### Owner-run live gates (L4/L5; Massive key required)
+### Real-Yahoo runs (approval-gated, Feature 007 G)
 
-These run only after prerequisite **P-1** is recorded (Massive's written confirmation or a licence
-for personal, local, LLM-assisted analysis — `specs/005-browser-market-data-boundary/tasks.md`).
-Only the key's owner runs them. The agent never handles the key.
+`BTA_REAL_YAHOO=1` removes the stand-in and selects only the "real Yahoo" tests. Without it these
+tests are skipped and no test reaches Yahoo. Run them only on a clean committed revision, with the
+maintainer's approval:
 
-- **L4, stand-in**: `npm run dev`, open `/?provider=standin&data=live`, type the key, Run, save
-  `#evidence` unedited.
-- **L5, native, Playwright runner**: the key must never appear in shell history, a process's argv,
-  a file, storage, evidence or test output. Read it silently inside a subshell, export it only to
-  the child process, and it is gone when the subshell exits. This was verified with a dummy value in
-  zsh 5.9 and bash 3.2.
+```bash
+BTA_REAL_YAHOO=1 npx playwright test --project=chromium -g "real Yahoo"
+```
 
-  ```bash
-  # zsh
-  ( read -rs "BTA_MASSIVE_KEY?Massive key: " && export BTA_MASSIVE_KEY && npm run test:prompt-api -- -g "live market data" )
-  ```
+```bash
+BTA_REAL_YAHOO=1 npm run test:prompt-api -- -g "real Yahoo"
+```
 
-  ```bash
-  # bash
-  ( read -rsp "Massive key: " BTA_MASSIVE_KEY && export BTA_MASSIVE_KEY && npm run test:prompt-api -- -g "live market data" )
-  ```
+Each writes `real-yahoo-evidence.json`. It records:
+- revision and clean state
+- Node, Next and Chrome versions
+- `environment: local`
+- the browser's direct Yahoo requests (measured: 0 expected)
+- server → Yahoo requests as "not directly instrumented"
 
-  - Never write the key on the command line, and never run with `DEBUG=pw:api` (it prints `fill`
-    values).
-  - While the subshell runs, its environment is readable by the same OS user.
-  - The test writes the evidence to `test-results/<port>/…/evidence.json`. It asserts that the file
-    does not contain the key.
-- **Checking an artifact for the real key without printing it**: run the same subshell pattern with
-  `grep -rcF -f <(printf '%s\n' "$BTA_MASSIVE_KEY") <paths>`. It prints only counts. The pattern goes
-  through a file descriptor (`printf` is a shell builtin), so the key never becomes a process
-  argument.
+A typed market-data failure is recorded as BLOCKED, never as PASS.
