@@ -315,18 +315,18 @@ canonical and green.
 
 ## Checkpoint F — Clean commit and pre-retirement native gate (US2)
 
-- [ ] T030 **APPROVAL REQUIRED — commit.**
+- [X] T030 **APPROVAL REQUIRED — commit.**
   - With the maintainer's approval, commit the shell to `006-nextjs-application-shell` (no push
     unless asked). Exclude `.claude/`, `.specify/*` tooling, `CLAUDE.md`, `.local/`, `.next/`,
     `next-env.d.ts`, `test-results/`.
   - Record HEAD. Confirm `git status --porcelain --` over the T007 code-path list is empty.
-- [ ] T031 [US5] Clean and doc-only provenance at the T030 HEAD (SC-010):
+- [X] T031 [US5] Clean and doc-only provenance at the T030 HEAD (SC-010):
   - (1) `npx playwright test --project=chromium -g "full eight-role"` → `revision === HEAD`, no
     `+dirty`.
   - (2) Temporarily edit `specs/006-nextjs-application-shell/verification.md`, rerun (1) → still
     no `+dirty`; revert.
   - Together with T025, this shows the Vite semantics are preserved.
-- [ ] T032 [US2] **APPROVAL REQUIRED — pre-retirement native gate** (installed Google Chrome, no
+- [X] T032 [US2] **APPROVAL REQUIRED — pre-retirement native gate** (installed Google Chrome, no
   credential).
   - At the T030 HEAD: `npm run test:prompt-api -- -g "eight-role"`.
   - Validate: `REAL_BROWSER_PROMPT_API`, `native`, `MODEL_AVAILABLE`, revision = T030 HEAD without
@@ -342,24 +342,24 @@ canonical and green.
 
 ## Checkpoint G — Vite retirement (US6)
 
-- [ ] T033 [US6] Retirement pre-check: every row 1–18 of contracts/evidence-equivalence.md has a
+- [X] T033 [US6] Retirement pre-check: every row 1–18 of contracts/evidence-equivalence.md has a
   passing Next proof recorded (T017–T032). Any gap → STOP (INV-4, FR-023).
-- [ ] T034 [US6] Remove the Vite canonical path:
+- [X] T034 [US6] Remove the Vite canonical path:
   - delete `index.html` (its markup lives in `app/page.tsx`) and `vite.config.ts` (its define
     lives in `next.config.ts`)
   - `npm uninstall vite`, which updates `package.json` and `package-lock.json`
   - Keep `harness/index.html` (protected, historical, no longer an entry) and everything under
     INV-1.
-- [ ] T035 [US6] Switch the canonical scripts in `package.json`:
+- [X] T035 [US6] Switch the canonical scripts in `package.json`:
   - `dev` = `next dev`, `build` = `next build`, `start` = `next start`
   - `typecheck` = `next typegen && tsc --noEmit`
   - remove `harness` and the four `next:*` scripts
   - keep `test`, `test:browser`, `test:prompt-api`, `prepare:prompt-api`
   - add `test:browser:dev` = `BTA_DEV_SMOKE=1 playwright test --project=chromium-dev`
-- [ ] T036 [US6] In `next.config.ts`, drop `index.html` and `vite.config.ts` from the code-path
+- [X] T036 [US6] In `next.config.ts`, drop `index.html` and `vite.config.ts` from the code-path
   list. Confirm `tsconfig.json`'s `"*.config.ts"` include still covers `next.config.ts` and
   `playwright.config.ts`.
-- [ ] T037 [P] [US6] Update `docs/testing.md`:
+- [X] T037 [P] [US6] Update `docs/testing.md`:
   - commands (`dev`/`build`/`start`/`typecheck`, `test:browser:dev`)
   - `npm run dev` serves `http://localhost:3000/` (Next's default; Vite's 5173 is gone). Playwright
     uses its own explicit port (`HARNESS_PORT`, default 5174), which is a separate thing.
@@ -371,7 +371,7 @@ canonical and green.
     for parallel work); commands must not modify tracked files
   - revision semantics under `compiler.define` (raw strings)
   - a note on the dev hot-reload caveat for `src/main.ts` edits
-- [ ] T038 [US6] Retirement completeness scan:
+- [X] T038 [US6] Retirement completeness scan:
   - `git ls-files index.html vite.config.ts` → 0
   - `grep -rn "vite" package.json playwright.config.ts next.config.ts tsconfig.json docs/testing.md`
     → 0 functional references
@@ -383,7 +383,7 @@ canonical and green.
 
 ## Checkpoint H — Post-retirement proof, final native gate, audit
 
-- [ ] T039 **Post-retirement automatic gate** (fresh install; pre-retirement results are not reused)
+- [X] T039 **Post-retirement automatic gate** (fresh install; pre-retirement results are not reused)
   (FR-017–FR-019, SC-001, SC-007, SC-015):
   - `rm -rf node_modules .next && npm ci`
   - `npm run typecheck`; `npm run build`; `npm start` smoke (`curl` `/` and `/harness` 200)
@@ -391,7 +391,7 @@ canonical and green.
   - T013 static scan 0; protected hashes 63/63; residue 0
   - `git status --porcelain -- src test harness e2e app components package.json package-lock.json next.config.ts tsconfig.json playwright.config.ts` → empty **after** the commands, beyond the retirement edits
   - State: **IMPLEMENTATION_COMPLETE**.
-- [ ] T040 [P] Update `docs/roadmap.md`: the Feature 006 status (Next.js App Router shell; Vite
+- [X] T040 [P] Update `docs/roadmap.md`: the Feature 006 status (Next.js App Router shell; Vite
   retired; native evidence pending T042).
 - [ ] T041 **APPROVAL REQUIRED — final commit.**
   - With approval, commit the Vite retirement and docs (no push unless asked; same exclusions as

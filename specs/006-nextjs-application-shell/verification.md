@@ -266,3 +266,118 @@ pre = post). Per group:
 
 **Checkpoint E: PROVENANCE_AND_MUTATIONS_PASS. State: MIGRATION_VALIDATED.** Next task: T030
 (APPROVAL REQUIRED, commit), not executed.
+
+## Checkpoint F
+
+- **T030** (maintainer approved): commit `5eb4fc06f2c56e23d75222784f166ec6aa288b02` on
+  `006-nextjs-application-shell` (not pushed). 27 files staged explicitly; `.claude/`,
+  `.specify/*`, `CLAUDE.md`, `.local/`, `.next/`, `next-env.d.ts`, `test-results/` excluded.
+  After the commit: `git status --porcelain -- <coexistence code paths>` empty; `src/main.ts`
+  `7a01cad2…` and `harness/main.ts` `d9ec9319…` = T002; protected 63/63 OK; `index.html`,
+  `vite.config.ts` and `vite` still present.
+- **T031** at `5eb4fc0`: (1) `npx playwright test --project=chromium -g "full eight-role"` 1
+  passed, revision `5eb4fc06f2c56e23d75222784f166ec6aa288b02` (no `+dirty`). (2) With a temporary
+  line appended to this file (doc-only change, `git status` shows only it), the same test 1
+  passed, revision still `5eb4fc0…` without `+dirty`; the file was restored from a copy. With
+  T025, clean / doc-only / code-dirty all behave as under Vite.
+- **T032** pre-retirement native gate (maintainer approved), at `5eb4fc06f2c56e23d75222784f166ec6aa288b02`:
+  - command `npm run test:prompt-api -- -g "eight-role"`, 2026-09-29T04:00:02Z–04:01:58Z;
+    webServer `npx next build && npx next start --port 5174` (no `next dev`); installed Google
+    Chrome `channel: 'chrome'`, headless, as in Feature 005 T044. Chrome `--version`:
+    **154.0.8037.58** (the record's reduced user agent shows `HeadlessChrome/154.0.0.0`; plan
+    mentioned 153, the installed browser has since updated). No credential.
+  - result: 1 passed (1.4 m). Evidence saved unedited (`cmp` identical to the test output):
+    `evidence/real-browser-next-fixture-pre-retirement-2026-09-29-5eb4fc0.json`
+    (sha256 `1eeb4681…c202520`).
+  - validation (all PASS): `REAL_BROWSER_PROMPT_API`; provider `native`; availability
+    `MODEL_AVAILABLE`; revision `5eb4fc06f2c56e23d75222784f166ec6aa288b02` without `+dirty`;
+    `dataSource {mode: fixture, fixture: tradingagents-fixture@1}`; outcome `success`; 8/8 roles
+    `done`, executions 1, modelRequests 1; `logicalRequests` 8, `fallbackRequests` 0;
+    `snapshotBeforeShutdown` `{ready,0,0}`, `settledBeforeShutdown` true, `snapshotAfterShutdown`
+    `{closed,0,0}`; no stand-in text; `Bearer`/`api.massive.com`/dummy key in the record: 0;
+    graphMs 51363 (operational only).
+    External market requests were not directly instrumented in this native run (fixture mode
+    makes none by design); the record contains no Massive URL, but this is not a measured count.
+  - after the run: `git status --porcelain -- <coexistence code paths>` empty; digest pre = post
+    (both empty-diff). Only `verification.md`/`tasks.md` (outside the code paths) are uncommitted.
+  - **State: PRE_RETIREMENT_NATIVE_PASS.** Vite still present; T033 not started.
+
+## Checkpoint G
+
+- **T033** retirement preflight (maintainer approved T033+): every migration-matrix row has a
+  passing Next proof recorded above:
+
+| Row | Guarantee | Next proof |
+|---|---|---|
+| 1–2 | success 8/8, 8/0; fan-out `{ready,1,1}` | T017 app (a), T018 `--mode app` EQUIVALENT, T019 |
+| 3 | native unavailable → BLOCKED | T019 (c) |
+| 4 | runtime-create failure | T019 (d) |
+| 5 | cancel; `{ready,0,0}` before shutdown | T019 (b), T024, M3 (T028) |
+| 6 | consecutive runs | T019 (e) |
+| 7–12 | Feature 005 live success, 11 failures, timeout, cancels, native+live BLOCKED, four URLs, key leakage | T020 |
+| 13 | harness S1–S7, native-unavailable BLOCKED | T017/T018 `--mode harness`, T021 |
+| 14 | `npm test` 62 | T029 |
+| 15 | revision clean / doc-only / `+dirty` | T016, T025, M2 (T027), T031 |
+| 16 | installed-Chrome native + fixture | T032 PASS at `5eb4fc0` (final gate T042 pending) |
+| 17 | no server evaluation of browser APIs | T013, M1 (T026) |
+| 18 | one runtime per click under Strict Mode | T022, T023 |
+
+  Also at preflight: protected hashes 63/63 OK; `src/main.ts`/`harness/main.ts` = T002; mutation
+  residue 0 (T029); coexistence code paths clean at `5eb4fc0`. **PASS**: 18/18.
+- **T034** `git rm index.html vite.config.ts`; `npm uninstall vite` (lock drops `vite` and only its
+  own tree: rolldown + bindings, lightningcss + bindings, postcss, picomatch, fdir, tinyglobby,
+  fsevents, @oxcproject/types; no package added; akarisp/@langchain/*/next/react versions
+  unchanged). `harness/index.html` and every INV-1 file kept.
+- **T035** scripts: `typecheck` = `next typegen && tsc --noEmit`, `build` = `next build`, `start`
+  = `next start`, `dev` = `next dev`, `test:browser:dev` = `BTA_DEV_SMOKE=1 playwright test
+  --project=chromium-dev`; `harness` and the four `next:*` removed; `test`, `test:browser`,
+  `test:prompt-api`, `prepare:prompt-api` unchanged.
+- **T036** `next.config.ts` code paths: `src test harness e2e app components package.json
+  package-lock.json next.config.ts tsconfig.json playwright.config.ts` (post-retirement list, as
+  in tasks INV-6 / contract). `tsconfig.json` `"*.config.ts"` still covers `next.config.ts` and
+  `playwright.config.ts`.
+- **T037** `docs/testing.md`: command table (production server gate, `test:browser:dev`, `dev` on
+  `http://localhost:3000/`, `/harness`), new "Application shell (Feature 006)" section (Vite
+  retired; Boot/effect boundary; `/harness` canonical, `harness/index.html` historical; live path
+  still client-side, no `/api/market`, server data boundary = Feature 007; one server per
+  Playwright run; default `.next`, one session per checkout; raw-string revision; dev hot-reload
+  caveat); key note mentions `NEXT_PUBLIC_*`.
+- **T038** audit: `git ls-files index.html vite.config.ts` 0; no `vite` in `package.json`,
+  `playwright.config.ts`, `next.config.ts`, `tsconfig.json`; `package-lock.json` has no
+  `node_modules/vite`; no `vite`/`VITE_`/`import.meta.env` in `src test harness e2e app
+  components`; `docs/testing.md` mentions Vite only as retired/history (2 lines); specs 001–005
+  unchanged vs HEAD; `harness/index.html` present; one canonical app page (`app/page.tsx`).
+
+**Checkpoint G: VITE_RETIRED** (not Feature complete).
+
+## Checkpoint H (up to T040)
+
+- **T039** post-retirement gate, fresh install (`rm -rf node_modules .next next-env.d.ts && npm
+  ci`; pre-retirement results not reused). L1 digest over the post-retirement code paths, pre =
+  post for every command (`diff=5630646533a99a55 untracked=da39a3ee5e6b4b0d`):
+
+| Check | Result |
+|---|---|
+| `npm ls --depth=0` | akarisp 0.1.0-alpha.2, @langchain/core 1.2.13, @langchain/langgraph 1.4.18, next 16.3.6, react/react-dom 19.3.0, @types/react(-dom) 19.3.0, @playwright/test 1.63.0, @types/node 22.20.4, typescript 5.9.3; no `vite`; no extraneous |
+| `npm run typecheck` (`next typegen && tsc --noEmit`) | rc 0 |
+| `npm run build` | rc 0; `/`, `/harness` static |
+| `npm start -- --port 5180` | `/` 200, `/harness` 200 |
+| `npm test` | 62 (61 pass, 0 fail, 1 skip) |
+| `npm run test:browser` ×3 (production server) | 28, 28, 28 passed (includes app (a)–(e), Feature 005 L3, harness; revision regex, versions, creates 1) |
+| `npm run test:browser:dev` | 1 passed |
+| static boundary scan; route handlers; root/`src` middleware/proxy | 0; 0; 0 |
+| protected hashes | 63/63 OK; `src/main.ts` `7a01cad2…`, `harness/main.ts` `d9ec9319…` = T002 |
+| test-results sentinel | 0 |
+| credential `git grep` | 3 lines, all documentation of the pattern (Feature 005 table row, tasks.md command, this file's T029 row); no credential |
+
+  Note (ephemeral evidence): the T039 production assertions (including app (a)'s revision
+  format, versions and creates 1) PASSED when they ran. The following `test:browser:dev` run
+  cleared `test-results/5174`, so no T039 app or harness `evidence.json` exists now, and none is
+  retained or claimed as evidence here (the working tree was `5eb4fc0+dirty` at the time). The
+  final canonical native evidence is produced fresh by T042.
+  State: **IMPLEMENTATION_COMPLETE** (automated). Not Feature complete: T041–T044 remain.
+- **T040** `docs/roadmap.md`: Feature 006 "implementation complete … final native gate pending
+  (T042)"; Feature 007 `007-upstream-server-data-boundary` is the next candidate (not started);
+  intended-end-state line updated (Vite retired).
+
+Next: T041 (APPROVAL REQUIRED, final commit), not executed.

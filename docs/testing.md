@@ -3,10 +3,40 @@
 | Command | What runs | Evidence class |
 |---|---|---|
 | `npm test` | unit tests (fake `Runtime`), incl. the Feature 004 eight-role fixture graph (`test/trading-graph.test.ts`) and the Feature 005 market-data boundary without network (`test/market-data.test.ts`, synthetic bodies; its local-replay check is skipped unless `.local/replay/*.json` exists) + Node integration (real `akarisp`, stand-in `LanguageModel`; `test/node-integration.test.ts`, `test/trading-graph-integration.test.ts`) | `DETERMINISTIC_TEST`, `NODE_INTEGRATION` |
-| `npm run test:browser` | canonical app `/` = eight-role graph (`e2e/app.spec.ts`: fixture mode, and live mode on **controlled** Massive responses via `page.route` — every other non-local request is aborted, dummy key only) and Feature 002 harness `/harness/` (`e2e/harness.spec.ts`) in Playwright's Chromium with the stand-in; native paths must report `BLOCKED` | `BROWSER_AUTOMATED` |
-| `npm run test:prompt-api` | canonical app `/` (fixture mode) and Feature 002 harness `/harness/` in the **installed Google Chrome** with the **native Prompt API** (Gemini Nano), headless; the owner-run live test is skipped unless `BTA_MASSIVE_KEY` is set (see below) | `REAL_BROWSER_PROMPT_API`, `runner: playwright` |
-| `npm run dev` | canonical app at `http://localhost:5173/` for a manual run in your own Chrome (`?provider=standin` = stand-in, never Prompt API evidence; `?data=live` = live market data, see below) | `REAL_BROWSER_PROMPT_API`, `runner: manual` (or `BLOCKED`) |
-| `npm run harness` | same dev server (unchanged command); the Feature 002 harness page is now at `http://localhost:5173/harness/` | Feature 002 record |
+| `npm run test:browser` | on the Next.js **production** server (`next build && next start`): canonical app `/` = eight-role graph (`e2e/app.spec.ts`: fixture mode, and live mode on **controlled** Massive responses via `page.route` — every other non-local request is aborted, dummy key only) and Feature 002 harness `/harness` (`e2e/harness.spec.ts`) in Playwright's Chromium with the stand-in; native paths must report `BLOCKED` | `BROWSER_AUTOMATED` |
+| `npm run test:browser:dev` | dev smoke only (`BTA_DEV_SMOKE=1`, `next dev`): the `@dev` test checks one click = one runtime and one graph run under React Strict Mode | `BROWSER_AUTOMATED` |
+| `npm run test:prompt-api` | on the same production server: canonical app `/` (fixture mode) and Feature 002 harness `/harness` in the **installed Google Chrome** with the **native Prompt API** (Gemini Nano), headless; the owner-run live test is skipped unless `BTA_MASSIVE_KEY` is set (see below) | `REAL_BROWSER_PROMPT_API`, `runner: playwright` |
+| `npm run dev` | `next dev`: canonical app at `http://localhost:3000/` (Next's default port) for a manual run in your own Chrome (`?provider=standin` = stand-in, never Prompt API evidence; `?data=live` = live market data, see below) | `REAL_BROWSER_PROMPT_API`, `runner: manual` (or `BLOCKED`) |
+| `npm run dev` → `/harness` | the Feature 002 harness page, `http://localhost:3000/harness` | Feature 002 record |
+
+Other commands: `npm run build` (`next build`), `npm start` (`next start`), `npm run typecheck`
+(`next typegen && tsc --noEmit`).
+
+## Application shell (Feature 006)
+
+- The app is a Next.js App Router application. Vite is retired. Server Components render only the
+  static markup; a small client component (`components/Boot.tsx`) imports the unchanged browser
+  entry (`src/main.ts`, or `harness/main.ts` for `/harness`) inside an effect, so the graph,
+  AkariSP and the Prompt API run only in the browser.
+- The canonical harness route is `/harness` (`app/harness/page.tsx`). `harness/index.html` is
+  retained as a protected historical file; it is no longer an executable entry.
+- The Feature 005 live path is still client-side (the browser calls Massive directly). There is no
+  `/api/market` or any other route handler yet; a server data boundary is Feature 007
+  (`007-upstream-server-data-boundary`).
+- Playwright uses its own explicit port (`HARNESS_PORT`, default 5174), separate from the dev
+  port. It starts exactly one server per run: the production server for `test:browser` and
+  `test:prompt-api`, `next dev` only for `test:browser:dev`. The dev server is never a browser gate.
+- Build output is always the default `.next` (gitignored with `next-env.d.ts`). Run one Playwright
+  session per checkout; use a separate `git worktree` for parallel work. No build, dev, typegen or
+  test command may modify a tracked file.
+- **Revision**: `next.config.ts` reads `git rev-parse HEAD` when `next build` or `next dev` starts
+  and appends `+dirty` if any code path (`src test harness e2e app components package.json
+  package-lock.json next.config.ts tsconfig.json playwright.config.ts`) differs from HEAD. The
+  values go to `compiler.define` as raw strings (Next quotes them itself; `JSON.stringify` would
+  embed the quotes).
+- **Dev hot reload**: `src/main.ts` wires the page at module evaluation, once per page load. After
+  editing it under `npm run dev`, reload the page instead of relying on hot reload. The revision
+  is also fixed when `next dev` starts; restart it for a fresh revision.
 
 ## Real Prompt API without downloading the model again
 
@@ -74,7 +104,7 @@ Two independent choices in the canonical page URL:
 - The key is read from the password field when you click Run. It is sent only as
   `Authorization: Bearer …` to `api.massive.com`, and is not stored anywhere by the app: not in
   storage, the URL, the console, the evidence or the replay artifact.
-- Never put a key in source, `.env*` files or a `VITE_*` variable. A bundler environment variable
+- Never put a key in source, `.env*` files or a `NEXT_PUBLIC_*` (formerly `VITE_*`) variable. A bundler environment variable
   is inlined into the JavaScript bundle; it is not secret protection.
 - Chrome may offer to save the key typed into the password field. Decline it: that store is outside
   the application.

@@ -1,7 +1,7 @@
 # BrowserTradingAgents Roadmap Notes
 
 Working notes, not governance. The constitution (`.specify/memory/constitution.md`) prevails.
-Last updated: 2026-09-29 (Feature 005 close-out; ADR 0001 Next.js application shell).
+Last updated: 2026-09-29 (Feature 006 Next.js shell migration; Vite retired).
 
 ## Intended end state (candidate, not yet a Feature)
 
@@ -10,8 +10,7 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 
 - Delivered as a **Next.js (App Router) application** (ADR 0001): browser + a server-capable
   runtime (Node or serverless, e.g. Vercel). The server side holds data acquisition and secrets;
-  it does not run the agents. Features 001–005 still use the Vite static page until Feature 006
-  migrates the shell. The Prompt API needs a secure context (`localhost` or HTTPS).
+  it does not run the agents. Feature 006 migrated the shell; Vite is retired. The Prompt API needs a secure context (`localhost` or HTTPS).
 - LLM inference runs **in the browser** through AkariSP (Chrome Prompt API; WebLLM possible
   later). The Prompt API exists only in the user's Chrome. Browser/local inference is the default
   tier. A remote (cloud) tier would be an explicit, user-visible escalation owned by the
@@ -31,8 +30,8 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 | 003 | LangGraph.js ↔ AkariSP: minimal graph, parallel branches, fan-in, sequential nodes | complete — canonical app `index.html` → `src/main.ts` (Feature 002 harness at `/harness/`); real Prompt API evidence (Chrome 153); carry-over: O-1 LangGraph's browser entry does not pass the graph's AbortSignal to models called inside nodes (forward `config.signal` explicitly), O-2 LangGraph rejects the caller before in-flight node work settles (check AkariSP settlement before `shutdown()`) |
 | 004 | TradingAgents-style fixture graph on the canonical page: Market ‖ News → Bull → Bear → Research Manager → Trader → Risk Reviewer → Final Decision; reference role boundaries selectively preserved, documented browser adaptations, deterministic fixture `tradingagents-fixture@1` | complete — real Prompt API evidence (Chrome 153, `a0584fd`, 8 logical requests, ~26 s); carry-over: A11 deviation (all role outputs plain text, no structured fallback), A4 simplification (no tools; facts come from the fixture) |
 | 005 | **Market Data Boundary Experiment** — browser market-data boundary: `?data=live` feeds only the Market Analyst from Massive end-of-day bars through acquire → normalize → render, independent of the LLM provider axis; fixture mode unchanged | implementation complete (L1–L3 controlled evidence; native + fixture `0543a69`); **authenticated provider validation (P-1, L4, L5) deferred** — Massive was chosen for pure-browser feasibility, not from the upstream data contract; permitted use unresolved; no real credential used |
-| 006 | **Next.js Application Shell Migration** (`006-nextjs-application-shell`): move the Vite shell to Next.js App Router with no semantic change (see "Feature 006 scope") | next candidate |
-| 007 | **Upstream-Compatible Server Data Boundary** (`007-upstream-server-data-boundary`): upstream TradingAgents data/tool contract at a pinned SHA → `/api/market` contract, server normalization, provider choice, permitted-use constraints (see "Feature 007 scope") | candidate after 006 |
+| 006 | **Next.js Application Shell Migration** (`006-nextjs-application-shell`): move the Vite shell to Next.js App Router with no semantic change (see "Feature 006 scope") | implementation complete — Next.js 16 App Router shell (`/`, `/harness`); graph, AkariSP and Prompt API still run only in the browser; Vite retired; all prior browser guarantees re-proven on the production server; pre-retirement native gate PASS (Chrome 154, `5eb4fc0`); **final native gate pending** (T042) |
+| 007 | **Upstream-Compatible Server Data Boundary** (`007-upstream-server-data-boundary`): upstream TradingAgents data/tool contract at a pinned SHA → `/api/market` contract, server normalization, provider choice, permitted-use constraints (see "Feature 007 scope") | next candidate |
 | later | Live news, fundamentals, indicators, … as Feature 007's research decides; Agent Town visualization; WebLLM; optional cloud-inference escalation (must satisfy constitution XIII) | deferred; renumbered later (the previously planned "live News boundary" moved here) |
 
 ## Decision 2026-09-29 (later): Next.js application shell — ADR 0001

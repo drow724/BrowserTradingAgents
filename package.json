@@ -6,18 +6,15 @@
     "node": ">=22.18"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "build": "vite build",
+    "typecheck": "next typegen && tsc --noEmit",
+    "build": "next build",
+    "start": "next start",
     "test": "node --test test/*.test.ts",
     "test:browser": "playwright test --project=chromium",
-    "dev": "vite",
-    "harness": "vite",
+    "test:browser:dev": "BTA_DEV_SMOKE=1 playwright test --project=chromium-dev",
+    "dev": "next dev",
     "test:prompt-api": "playwright test --project=prompt-api",
-    "prepare:prompt-api": "sh scripts/prepare-prompt-api-profile.sh",
-    "next:dev": "next dev",
-    "next:build": "next build",
-    "next:start": "next start",
-    "next:typecheck": "next typegen && tsc --noEmit"
+    "prepare:prompt-api": "sh scripts/prepare-prompt-api-profile.sh"
   },
   "dependencies": {
     "@langchain/core": "1.2.13",
@@ -32,7 +29,6 @@
     "@types/node": "^22.20.4",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
-    "typescript": "^5.9.3",
-    "vite": "^8.3.1"
+    "typescript": "^5.9.3"
   }
 }

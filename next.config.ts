@@ -8,7 +8,7 @@ const version = (pkg: string) =>
 // "+dirty" when the code that gets bundled differs from HEAD, so evidence never overstates its revision.
 const git = (cmd: string) => execSync(`git ${cmd}`).toString().trim();
 const codePaths =
-  'index.html src test harness e2e app components package.json package-lock.json vite.config.ts next.config.ts tsconfig.json playwright.config.ts';
+  'src test harness e2e app components package.json package-lock.json next.config.ts tsconfig.json playwright.config.ts';
 const revision = git('rev-parse HEAD') + (git(`status --porcelain -- ${codePaths}`) ? '+dirty' : '');
 
 // Next inserts define values as string literals: pass raw strings (quoting them would embed the quotes).
