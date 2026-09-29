@@ -522,7 +522,7 @@ requires a new clean commit.
 **T044: PASS.** Native + fixture at a clean revision matches Feature 004 semantics after Feature 005.
 IMPLEMENTATION_COMPLETE = true; FEATURE_COMPLETE = false. Next: T045 (P-1, EXTERNAL PREREQUISITE).
 
-## T045 P-1 — permitted-use prerequisite (EXTERNAL; status: UNRESOLVED)
+## T045 P-1 — permitted-use prerequisite (EXTERNAL; status: UNRESOLVED / DEFERRED WITH PROVIDER VALIDATION)
 
 This is not a code task. No real key, no authenticated request and no L4/L5 until it is resolved.
 The maintainer (the Massive account owner) sends the inquiry; the agent does not contact Massive and
@@ -552,3 +552,50 @@ Record when answered (no credential, no personal data beyond what is needed):
   required) or `UNRESOLVED` / `DENIED`
 - `UNRESOLVED` or `DENIED` → L4 and L5 are `BLOCKED (P-1)`; Checkpoints G–H are skipped; Feature 005
   stays `BLOCKED / INCOMPLETE`
+
+## Close-out — provider validation deferred (2026-09-29, maintainer decision)
+
+**Status**:
+- IMPLEMENTATION_COMPLETE = true (T042; unchanged)
+- FEATURE_COMPLETE = false
+
+**Why FEATURE_COMPLETE = false**: Feature 005 intentionally stops after implementation and
+controlled validation. Authenticated provider validation (L4) and native + live validation (L5 /
+SC-016) are deferred. The chosen source, Massive, was selected for pure-browser feasibility, not
+derived from the upstream TradingAgents data contract. The final data provider and the server
+boundary will be decided after the next research Feature. The Feature is neither failed nor
+BLOCKED. Its implementation stays valid as an experimental browser-side boundary.
+
+**Preserved evidence** (unchanged, still valid):
+- R0: browser preflight/error-response compatibility.
+- L1: deterministic boundary, incl. Mutation C.
+- L2: Feature 004 regression.
+- L3: controlled-browser live path, failure/cancel/security matrix, graph-stage settlement;
+  Mutations A, B, D.
+- T042: IMPLEMENTATION_COMPLETE gate, protected hashes 47/47.
+- T044: native + fixture at clean revision `0543a69`, `evidence/real-browser-fixture-2026-09-28-0543a69.json`.
+- F005-002: CLOSED.
+
+**Deferred** (not executed on the current roadmap; not complete, not failed): T045 P-1, T046–T048
+L4, T049–T051 L5 / SC-016, T052–T056 final completion audit. Deferred pending upstream TradingAgents
+data-contract and server-boundary research.
+
+**F005-P1 = UNRESOLVED / DEFERRED WITH PROVIDER VALIDATION**:
+- P-1 solved = false. The Massive permitted-use question remains unresolved.
+- P-1 currently blocking active work = false. It is no longer an active gate because authenticated
+  Massive validation is deferred.
+
+**Massive, current standing** (not discarded):
+- a technically viable browser candidate, based on R0 and the controlled implementation
+- authenticated success-response CORS: not proven
+- permitted use: unresolved
+- real credential used: none
+- not selected as the final or upstream-compatible production source
+
+**Handed to the next research Feature**: the upstream TradingAgents data contract (what each analyst
+reads: granularity, history window, freshness, provider assumptions); a server-side data boundary
+(Next.js Route Handler/BFF vs a Vite frontend + tiny Node or serverless backend); provider
+candidates (server-side `yahoo-finance2`, Alpha Vantage, Massive as baseline), each recorded as
+TECHNICAL_VIABILITY and PERMITTED_USE separately. Inference stays browser-executed: LangGraph,
+`AkariChatModel` and AkariSP must run in the client, although their source files need not be
+`'use client'` modules. A server would only acquire data.

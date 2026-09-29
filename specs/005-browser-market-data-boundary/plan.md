@@ -4,6 +4,10 @@
 
 **Input**: Feature specification from `specs/005-browser-market-data-boundary/spec.md`
 
+**Status note (2026-09-29)**: implemented and validated through L3 + T044. Massive was selected here for
+pure-browser feasibility, not from the upstream TradingAgents data contract; the final data provider and
+server boundary are deferred to the next research Feature (verification.md "Close-out").
+
 ## Summary
 
 Add one application-local market-data step in front of the unchanged Feature 004 graph.

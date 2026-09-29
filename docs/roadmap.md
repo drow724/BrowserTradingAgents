@@ -1,7 +1,7 @@
 # BrowserTradingAgents Roadmap Notes
 
 Working notes, not governance. The constitution (`.specify/memory/constitution.md`) prevails.
-Last updated: 2026-09-28 (Feature 004).
+Last updated: 2026-09-29 (Feature 005 close-out).
 
 ## Intended end state (candidate, not yet a Feature)
 
@@ -26,7 +26,32 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 | 002 | LangChain.js ↔ AkariSP integration validation (thin bridge) | complete — real Prompt API evidence (Chrome 152/153); carry-over: N-6 JSON code fences trigger the structured fallback, N-7 `system` role accepted but not a contract |
 | 003 | LangGraph.js ↔ AkariSP: minimal graph, parallel branches, fan-in, sequential nodes | complete — canonical app `index.html` → `src/main.ts` (Feature 002 harness at `/harness/`); real Prompt API evidence (Chrome 153); carry-over: O-1 LangGraph's browser entry does not pass the graph's AbortSignal to models called inside nodes (forward `config.signal` explicitly), O-2 LangGraph rejects the caller before in-flight node work settles (check AkariSP settlement before `shutdown()`) |
 | 004 | TradingAgents-style fixture graph on the canonical page: Market ‖ News → Bull → Bear → Research Manager → Trader → Risk Reviewer → Final Decision; reference role boundaries selectively preserved, documented browser adaptations, deterministic fixture `tradingagents-fixture@1` | complete — real Prompt API evidence (Chrome 153, `a0584fd`, 8 logical requests, ~26 s); carry-over: A11 deviation (all role outputs plain text, no structured fallback), A4 simplification (no tools; facts come from the fixture) |
-| 005 | Real market/news data boundary (see below) | next candidate (Constitution IX) |
+| 005 | Browser market-data boundary: `?data=live` feeds only the Market Analyst from Massive end-of-day bars through acquire → normalize → render, independent of the LLM provider axis; fixture mode unchanged | implementation complete (L1–L3 controlled evidence; native + fixture `0543a69`); **authenticated provider validation (P-1, L4, L5) deferred** — Massive was chosen for pure-browser feasibility, not from the upstream data contract; permitted use unresolved; no real credential used |
+| 006 | **Research**: upstream TradingAgents data contract + server-side data boundary (see "Decision 2026-09-29") | next candidate |
+| later | Live news, and further data (fundamentals, indicators, …) as the research decides | deferred; renumbered after the research (the previously planned "006 live News boundary" moved here) |
+
+## Decision 2026-09-29: research the data contract before choosing a provider
+
+- **Previous direction**: Feature 005 Massive browser boundary → Feature 006 live News boundary.
+- **New direction**: Feature 005 implementation preserved, authenticated validation deferred →
+  Feature 006 research (upstream data contract + server-side data boundary) → architecture and
+  provider decision → market/news/fundamentals/… implementation Features afterwards.
+- **Questions for the research** (answers not decided here):
+  - **A. Upstream data contract**: what the Market and News analysts actually read; whether
+    fundamentals or technical indicators are needed; granularity, history window and freshness per
+    data kind; provider-specific assumptions in the upstream Python code.
+  - **B. Server boundary**: Next.js Route Handler/BFF vs a Vite frontend + tiny Node or serverless
+    backend. Criteria: number of endpoints, shared server logic, number of credential-bearing
+    providers, caching/rate-limit needs, deployment topology, separation of the browser-only
+    Prompt API part from the server part, and local development complexity. Next.js migration is
+    not decided before the research.
+  - **C. Providers**: server-side `yahoo-finance2`, Alpha Vantage, and Massive (Feature 005
+    baseline), each with TECHNICAL_VIABILITY and PERMITTED_USE recorded separately. Without an
+    official basis, PERMITTED_USE = UNRESOLVED. No risk-size judgement is recorded.
+  - **D. Invariant**: inference runs in the browser. LangGraph, `AkariChatModel` and AkariSP execute
+    client-side; their sources (`src/graph`, `src/integration`) need not be `'use client'` files.
+    A server may only acquire data (market/news/…).
+- The "static build" end state above may change to browser + server-capable runtime, depending on B.
 
 ## Real external data: what we learned (2026-09-28)
 

@@ -409,7 +409,11 @@ The tests share one file and run sequentially.
 
 ## Checkpoint F — P-1 (EXTERNAL PREREQUISITE, MANUAL)
 
-- [ ] T045 **EXTERNAL PREREQUISITE / MANUAL — P-1 (F005-P1).**
+> **Checkpoints F–I are DEFERRED (2026-09-29, maintainer decision).** Deferred pending upstream TradingAgents data-contract and server-boundary research. Tasks stay
+> unchecked; they are neither complete nor failed and are not executed on the current roadmap. See
+> verification.md "Close-out".
+
+- [ ] T045 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. **EXTERNAL PREREQUISITE / MANUAL — P-1 (F005-P1).**
   - The maintainer obtains a record Massive can stand behind: written support confirmation, or a
     licence/plan confirmation, that personal, local, LLM-assisted analysis of Stocks Basic data is
     permitted.
@@ -423,16 +427,16 @@ The tests share one file and run sequentially.
 
 ## Checkpoint G — L4 real Massive + stand-in (MANUAL, APPROVAL REQUIRED; needs T045 PASS, T043)
 
-- [ ] T046 **APPROVAL REQUIRED**: ask the maintainer in chat to approve an authenticated request.
+- [ ] T046 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. **APPROVAL REQUIRED**: ask the maintainer in chat to approve an authenticated request.
   The agent never sees, types or stores the key.
-- [ ] T047 **MANUAL** (maintainer):
+- [ ] T047 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. **MANUAL** (maintainer):
   - At the clean T043 revision, run `npm run dev`, open `/?provider=standin&data=live`, type the key
     into the page, and click Run.
   - Save `#evidence` unedited as
     `specs/005-browser-market-data-boundary/evidence/live-standin-<date>-<sha>.json`.
   - Optionally save `#replay` to `.local/replay/`.
   - The key never goes into chat, commands or files.
-- [ ] T048 Validate the L4 record against [contracts/evidence.md](contracts/evidence.md):
+- [ ] T048 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. Validate the L4 record against [contracts/evidence.md](contracts/evidence.md):
   - `BROWSER_AUTOMATED`, `standin`, `dataSource.mode: live`, `source: massive`, `httpStatus: 200`,
     `providerStatus: OK`, both digests
   - eight nodes `done`, 8/0, `settledBeforeShutdown` true, clean revision, no fields outside the
@@ -446,8 +450,8 @@ The tests share one file and run sequentially.
 
 ## Checkpoint H — L5 real Massive + native Prompt API (MANUAL, APPROVAL REQUIRED; needs T045 PASS, T048)
 
-- [ ] T049 **APPROVAL REQUIRED**: ask the maintainer to approve the SC-016 run.
-- [ ] T050 **MANUAL** (maintainer):
+- [ ] T049 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. **APPROVAL REQUIRED**: ask the maintainer to approve the SC-016 run.
+- [ ] T050 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. **MANUAL** (maintainer):
   - At the clean T043 revision, in installed Google Chrome with `MODEL_AVAILABLE`, run either:
     - `/?data=live` (runner `manual`): type the key, Run, save `#evidence` unedited, or
     - the quickstart key-entry procedure in the maintainer's own terminal, which runs
@@ -455,7 +459,7 @@ The tests share one file and run sequentially.
       written on a command line.
   - Save as `specs/005-browser-market-data-boundary/evidence/real-browser-live-<date>-<sha>.json`.
   - Model or source unavailable → save the `BLOCKED` or failure record. Never a stand-in substitute.
-- [ ] T051 [US1] Validate the SC-016 gate record per [contracts/evidence.md](contracts/evidence.md):
+- [ ] T051 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. [US1] Validate the SC-016 gate record per [contracts/evidence.md](contracts/evidence.md):
   - `REAL_BROWSER_PROMPT_API`, `native`, `MODEL_AVAILABLE`, revision = T043 commit without `+dirty`,
     versions
   - `dataSource.mode: live`, `source: massive`, `httpStatus: 200`, `providerStatus: OK`, both digests
@@ -470,16 +474,16 @@ The tests share one file and run sequentially.
 
 ## Checkpoint I — Final audit (Phase: Polish)
 
-- [ ] T052 Findings review in `verification.md`: F005-001 (if raised), F005-P1 (final state),
+- [ ] T052 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. Findings review in `verification.md`: F005-001 (if raised), F005-P1 (final state),
   F005-P2 (closed), and any new finding in the project format (FR-028).
-- [ ] T053 Re-hash the T002 files → identical. This covers `specs/001–004`, `harness/`,
+- [ ] T053 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. Re-hash the T002 files → identical. This covers `specs/001–004`, `harness/`,
   `trading-graph.ts` and `akari-chat-model.ts` (FR-027, SC-017, INV-1).
-- [ ] T054 Coverage table in `verification.md`: FR-001…FR-028 (including FR-005a) and
+- [ ] T054 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. Coverage table in `verification.md`: FR-001…FR-028 (including FR-005a) and
   SC-001…SC-017, each → task(s) + evidence (test name, record file or static check). No
   documentation-only row.
-- [ ] T055 [P] Update `docs/roadmap.md`: the Feature 005 status (with P-1 state), "live" =
+- [ ] T055 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. [P] Update `docs/roadmap.md`: the Feature 005 status (with P-1 state), "live" =
   end-of-day at run time, and Feature 006 = `006-browser-news-data-boundary`.
-- [ ] T056 Completion record at the end of `verification.md`:
+- [ ] T056 **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research. Completion record at the end of `verification.md`:
   - `IMPLEMENTATION_COMPLETE` (T042), native + fixture gate (T044), P-1 (T045), L4 (T048),
     L5/SC-016 (T051)
   - `FEATURE_COMPLETE` only if P-1 PASS, L4 PASS, L5 PASS and T052–T054 PASS; otherwise
@@ -502,6 +506,8 @@ A  T001–T005   baseline, hashes, R0 (T004 gate: F005-001 → STOP)
  → H  T049–T051   L5 / SC-016 (needs T048)
  → I  T052–T056   final audit → FEATURE_COMPLETE or BLOCKED
 ```
+
+Status 2026-09-29: A–E done (IMPLEMENTATION_COMPLETE, T044 PASS); F–I **DEFERRED** — Deferred pending upstream TradingAgents data-contract and server-boundary research.
 
 - Only G and H depend on P-1. A–E and I never need a real credential (INV-8).
 - Test before implementation inside B: T008→T009, T010→T011, T014→T015.

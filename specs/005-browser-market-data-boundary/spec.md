@@ -4,7 +4,8 @@
 
 **Created**: 2026-09-28
 
-**Status**: Draft
+**Status**: Implemented (IMPLEMENTATION_COMPLETE); authenticated provider validation deferred — see
+verification.md "Close-out" (2026-09-29). Requirements unchanged.
 
 **Input**: User description: "Replace only the `marketFacts` producer of the completed Feature 004
 eight-role graph with a browser-compatible live market-data boundary. News stays fixture. The
