@@ -35,7 +35,7 @@ function expected(name: string) {
 }
 
 test('T018 US3/SC-002/FR-022: returning visit — office ready ≤ 2 s after load, eight characters seated before any run', async ({ page }) => {
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await expect(office(page)).toHaveAttribute('data-office', 'ready', { timeout: 2000 });
   expect(await tags(page)).toEqual(Array(8).fill('idle'));
   await expect.poll(() => seated(page)).toEqual(Array(8).fill(true));
@@ -55,7 +55,7 @@ test('T018 US3/SC-007: replayed traces — final role states on the tags, narrat
 
 test('T018 US3/FR-026: 375×812 — the office fits and every tag stays inside the viewport', async ({ browser }) => {
   const page = await browser.newPage({ viewport: { width: 375, height: 812 } });
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await expect(office(page)).toHaveAttribute('data-office', 'ready');
   for (const t of await page.locator('[data-office] [data-role]').all()) {
     const b = (await t.boundingBox())!;
@@ -69,7 +69,7 @@ test('T018 US3/FR-026: 375×812 — the office fits and every tag stays inside t
 test('Feature 011 FR-001/SC-002: the office loads only own art from /office/ — no /office-art/ request, load or run', async ({ page }) => {
   const art: string[] = [];
   page.on('request', (r) => { const p = new URL(r.url()).pathname; if (p.startsWith('/office')) art.push(p); });
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await expect(office(page)).toHaveAttribute('data-office', 'ready');
   await page.getByRole('button', { name: 'Run Graph', exact: true }).click();
   await expect(page.locator('#status')).toHaveAttribute('data-state', 'done', { timeout: 60_000 });
@@ -79,7 +79,7 @@ test('Feature 011 FR-001/SC-002: the office loads only own art from /office/ —
 
 test('T018 FR-029: art missing → "office unavailable", the text view stays and a run still succeeds', async ({ page }) => {
   await page.route('**/office/**', (r) => r.fulfill({ status: 404 }));
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await expect(office(page)).toHaveAttribute('data-office', 'unavailable');
   await expect(page.getByText('오피스를 표시할 수 없습니다')).toBeVisible();
   await page.getByRole('button', { name: 'Run Graph', exact: true }).click();
@@ -100,7 +100,7 @@ test('T018 FR-028: nothing is drawn while the page is hidden', async ({ page }) 
       return draw.apply(this, a);
     } as typeof draw;
   });
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await expect(office(page)).toHaveAttribute('data-office', 'ready');
   const draws = () => page.evaluate(() => (window as unknown as { __draws: number }).__draws);
   await expect.poll(draws).toBeGreaterThan(0); // visible: drawing at 4 Hz

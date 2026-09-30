@@ -9,7 +9,17 @@ import styles from './Shell.module.css';
 
 export type AnalysisRecord = { outcome: string; analysis?: { holding: string; question: string; facts: Fact[];
   grounding?: Grounding; answerLanguage?: string; numbers?: { mode: string; raw?: string } & Partial<Rendered> };
-  result?: { finalDecision?: string } };
+  result?: { finalDecision?: string };
+  dataSource?: { mode: string; marketAsOf?: string; unavailable?: string } };
+
+// Feature 014 (FR-012): where the market facts came from, as text.
+const WHY: Record<string, string> = { 'not-quotable': '이 자산은 시세를 조회할 수 없습니다', 'invalid-data': '시세 응답이 올바르지 않습니다',
+  'currency-mismatch': '보유 통화와 시세 통화가 다릅니다', unavailable: '시세 이력이 부족하거나 오래되었습니다' };
+function Source({ d }: { d?: AnalysisRecord['dataSource'] }) {
+  if (d?.mode !== 'portfolio-live') return <p className={styles.muted} data-source="fixture">가상 예시 데이터</p>;
+  if (d.marketAsOf) return <p className={styles.muted} data-source="live">시세 기준: {d.marketAsOf} (Yahoo)</p>;
+  return <p className={styles.warn} data-source="unavailable">시세 없음: {WHY[d.unavailable ?? ''] ?? '시세 소스에 연결하지 못했습니다'}</p>;
+}
 
 const LABEL: Partial<Record<Claim['status'], string>> = { unsupported: '근거 확인 안 됨', unrecognised: '확인 불가 표기' };
 
@@ -42,6 +52,7 @@ function One({ record, onRecord }: { record: AnalysisRecord; onRecord?: (r: Anal
     <section data-answer-for={a.holding}>
       <h3>{a.holding}</h3>
       <p className={styles.muted}>질문: {a.question}</p>
+      <Source d={record.dataSource} />
       {record.outcome !== 'success' || answer === undefined
         ? <p className={styles.warn}>분석이 끝나지 않았습니다 ({record.outcome}).</p>
         : <Marked text={answer} claims={g?.answer ?? []} numbers={a.numbers} />}
@@ -77,7 +88,7 @@ export default function Answer({ records, cancelMs, onRecord }: { records: Analy
       )}
       {cancelMs !== undefined && <p className={styles.muted} data-cancel-ms={cancelMs}>취소됨 (취소 후 {cancelMs} ms 안에 멈춤). 남은 종목은 실행하지 않았습니다.</p>}
       {records.map((r) => <One key={r.analysis!.holding} record={r} onRecord={onRecord} />)}
-      <p className={styles.advice}>분석이며 투자 조언이 아닙니다. 실제 주문은 하지 않습니다.</p>
+      <p className={styles.advice} data-notice="">연구용이며 투자 조언이 아닙니다. 실제 주문은 하지 않습니다. 시세 조회를 위해 보유 종목 코드가 서버와 Yahoo로 전송됩니다.</p>
     </div>
   );
 }

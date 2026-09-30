@@ -203,7 +203,7 @@ test('native Prompt API: hallucination measurement (BTA_MEASURE=1 only)', async 
     const example = JSON.stringify({ version: 1, onboardedAt: '2026-09-29T00:00:00.000Z', holdings: PORTFOLIO_FIXTURE.portfolio });
     await context.addInitScript((v) => localStorage.setItem('bta.portfolio', v), example); // after the empty seed
     const page = await context.newPage();
-    await page.goto(`${baseURL}/?runner=playwright`);
+    await page.goto(`${baseURL}/?runner=playwright&quotes=fixture`);
     await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
     const ua = await page.evaluate(() => navigator.userAgent.match(/Chrome\/[\d.]+/)?.[0] ?? navigator.userAgent);
     const meta = { model: 'Gemini Nano (Chrome Prompt API)', browser: ua };
@@ -220,7 +220,7 @@ test('native Prompt API: hallucination measurement (BTA_MEASURE=1 only)', async 
     const byMode = new Map<string, Awaited<ReturnType<typeof measure>>[]>();
     for (let rep = 0; rep < reps; rep++) {
       for (const mode of [...modes.slice(rep % modes.length), ...modes.slice(0, rep % modes.length)]) {
-        await page.goto(`${baseURL}/?runner=playwright&numbers=${mode}`);
+        await page.goto(`${baseURL}/?runner=playwright&quotes=fixture&numbers=${mode}`);
         await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
         const r = await measure(page, 1, meta, mode, false);
         byMode.set(mode, [...(byMode.get(mode) ?? []), r]);
@@ -256,7 +256,7 @@ test('native Prompt API: harness prompt capture (BTA_CAPTURE=1 only)', async ({ 
     const example = JSON.stringify({ version: 1, onboardedAt: '2026-09-29T00:00:00.000Z', holdings: PORTFOLIO_FIXTURE.portfolio });
     await context.addInitScript((v) => localStorage.setItem('bta.portfolio', v), example);
     const page = await context.newPage();
-    await page.goto(`${baseURL}/?runner=playwright&numbers=refs`);
+    await page.goto(`${baseURL}/?runner=playwright&quotes=fixture&numbers=refs`);
     await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
     const ua = await page.evaluate(() => navigator.userAgent.match(/Chrome\/[\d.]+/)?.[0] ?? navigator.userAgent);
     await measure(page, 1, { model: 'Gemini Nano (Chrome Prompt API)', browser: ua }, 'refs', false);
@@ -291,7 +291,7 @@ test('native Prompt API: runtime reuse comparison (BTA_REUSE_COMPARE=1 only)', a
     for (let rep = 0; rep < reps; rep++) {
       for (const mode of (rep % 2 ? ['off', 'on'] : ['on', 'off']) as ('on' | 'off')[]) {
         const page = await context.newPage(); // a fresh page = a fresh page session (FR-002)
-        await page.goto(`${baseURL}/?runner=playwright&reuse=${mode}`);
+        await page.goto(`${baseURL}/?runner=playwright&quotes=fixture&reuse=${mode}`);
         await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
         ua = await page.evaluate(() => navigator.userAgent.match(/Chrome\/[\d.]+/)?.[0] ?? navigator.userAgent);
         await page.evaluate(() => {

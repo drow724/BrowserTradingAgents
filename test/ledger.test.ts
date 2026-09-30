@@ -14,6 +14,7 @@ test('ledger: validation — buy/sell need quantity > 0, hold allows 0, positive
   assert.equal(tradeError(trade({ quantity: -1 })), '수량은 0 이상이어야 합니다.');
   assert.equal(tradeError(trade({ action: 'buy', quantity: Number.NaN })), '매수·매도 수량은 0보다 커야 합니다.');
   assert.equal(tradeError(trade({ priceBasis: { value: 0, currency: 'KRW', source: 'average' } })), '기준 가격이 올바르지 않습니다.');
+  assert.equal(tradeError(trade({ priceBasis: { value: 65320, currency: 'KRW', source: 'latest-live' } })), null); // Feature 014
 });
 
 test('ledger: storage round trip, unreadable, unavailable; only its own key; delete-only', () => {

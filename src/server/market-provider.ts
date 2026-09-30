@@ -3,8 +3,8 @@
 // implementation of Python yfinance (A-M10): no cookie, crumb, retry or cache. Imported only by
 // app/api/market/route.ts; Yahoo field names never leave this file.
 import {
-  computeIndicators, fail, MIN_HISTORY_SESSIONS, RECENT_SESSIONS, sessionDate, validateBundle,
-  type MarketBundle, type MarketDataFailure, type Session,
+  computeIndicators, fail, isFailure, MIN_HISTORY_SESSIONS, RECENT_SESSIONS, sessionDate, validateBundle,
+  type MarketBundle, type MarketDataFailure, type QuoteInstrument, type Session,
 } from '../market-bundle.ts';
 
 export const YAHOO_ORIGIN = 'https://query2.finance.yahoo.com';
@@ -12,7 +12,7 @@ export const ADAPTER_ID = 'yahoo-chart@1';
 const STALE_DAYS = 10; // upstream MAX_OHLCV_STALE_DAYS; stale when strictly greater
 const QUOTE_KEYS = ['open', 'high', 'low', 'close', 'volume'] as const;
 
-type Instrument = { symbol: string; currency: string; timeZone: string };
+type Instrument = QuoteInstrument;
 type Options = { signal: AbortSignal; limitMs?: number; baseUrl?: string; now?: () => Date };
 
 const dayNumber = (date: string) => Date.parse(`${date}T00:00:00Z`) / 86_400_000;
@@ -54,7 +54,7 @@ function normalize(body: unknown, instrument: Instrument, analysisDate: string, 
   if (chart?.error) return fail('acquisition', 'provider-error');
   // 1. shape and alignment; strictly increasing timestamps; the configured exchange time zone
   const r = (Array.isArray(chart?.result) ? chart.result[0] : undefined) as {
-    timestamp?: unknown; meta?: { exchangeTimezoneName?: unknown };
+    timestamp?: unknown; meta?: { exchangeTimezoneName?: unknown; currency?: unknown };
     indicators?: { quote?: Record<string, unknown>[]; adjclose?: { adjclose?: unknown }[] };
   } | undefined;
   const ts = r?.timestamp, q = r?.indicators?.quote?.[0], adj = r?.indicators?.adjclose?.[0]?.adjclose;
@@ -63,6 +63,7 @@ function normalize(body: unknown, instrument: Instrument, analysisDate: string, 
   if (!cols.every((c) => Array.isArray(c) && c.length === ts.length)) return bad;
   if (!ts.every((t, i) => Number.isInteger(t) && (i === 0 || t > ts[i - 1]))) return bad;
   if (r?.meta?.exchangeTimezoneName !== instrument.timeZone) return bad;
+  if (r.meta.currency !== undefined && r.meta.currency !== instrument.currency) return bad; // Feature 014 (R2)
   // 2. date every bar in the exchange time zone
   const c = q as Record<(typeof QUOTE_KEYS)[number], unknown[]>;
   let rows = ts.map((t, i) => ({ date: sessionDate(t as number, instrument.timeZone),
@@ -73,6 +74,9 @@ function normalize(body: unknown, instrument: Instrument, analysisDate: string, 
   if (rows.at(-1)?.date === analysisDate && hourIn(acquiredAt, instrument.timeZone) < 16) rows = rows.slice(0, -1);
   // 4. a final bar without a close is an unsettled session (upstream uses the last settled bar)
   if (rows.length && rows.at(-1)!.close == null) rows = rows.slice(0, -1);
+  // 4b. Feature 014 (F014-R1): a bar with every field null is no trade record at all (seen in Yahoo's KR history) —
+  // dropped; a partly null bar stays invalid below.
+  rows = rows.filter((row) => [row.open, row.high, row.low, row.close, row.volume, row.adjclose].some((v) => v != null));
   // 5. any remaining null or invalid value is invalid-data; no filling, no dropping
   const price = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v) && v > 0;
   for (const row of rows) {
@@ -93,5 +97,30 @@ function normalize(body: unknown, instrument: Instrument, analysisDate: string, 
     symbol: instrument.symbol, currency: instrument.currency, provider: ADAPTER_ID, adjustment: 'split-dividend',
     analysisDate, marketAsOf: latest.date, acquiredAt: acquiredAt.toISOString(), historySessions: sessions.length,
     latest, indicators: computeIndicators(sessions), recent: sessions.slice(-RECENT_SESSIONS),
+    range52w: range52w(rows as { date: string; high: number; low: number }[], analysisDate),
   } satisfies MarketBundle);
+}
+
+// Feature 014 (F014-R2): the 52-week range as quote pages and brokers show it — unadjusted highs and lows of the
+// sessions within one calendar year before the analysis date (as Yahoo's own 52-week figures; a session count would
+// reach further back in a market with more holidays).
+function range52w(rows: { date: string; high: number; low: number }[], analysisDate: string) {
+  const [y, m, d] = analysisDate.split('-');
+  const year = rows.filter((r) => r.date > `${Number(y) - 1}-${m}-${d}`);
+  return { high: Math.max(...year.map((r) => r.high)), low: Math.min(...year.map((r) => r.low)) };
+}
+
+// Feature 014 (R7, FR-010): successful bundles per symbol and analysis date, per server instance.
+// ponytail: in-memory and per instance; a shared store only if a public deployment makes source calls matter.
+const cache = new Map<string, MarketBundle>();
+export const clearQuoteCache = () => cache.clear();
+export async function quote(instrument: Instrument, analysisDate: string, options: Options) {
+  const key = `${instrument.symbol}|${analysisDate}`, hit = cache.get(key);
+  if (hit) return hit;
+  const result = await acquireYahoo(instrument, analysisDate, options);
+  if (!isFailure(result)) {
+    cache.set(key, result);
+    if (cache.size > 256) cache.delete(cache.keys().next().value!);
+  }
+  return result;
 }

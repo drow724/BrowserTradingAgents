@@ -7,7 +7,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import {
   computeIndicators, INDICATOR_NAMES, isFailure, marketFactsDigest, renderMarketFacts, replayArtifact,
-  sessionDate, snapshotDigest, validateBundle, type MarketBundle, type Session,
+  sessionDate, snapshotDigest, symbolInstrument, validateBundle, yahooSymbol, type MarketBundle, type Session,
 } from '../src/market-bundle.ts';
 
 globalThis.fetch = () => { throw new Error('network access attempted in an L1 test'); };
@@ -54,6 +54,7 @@ const bundle = (): MarketBundle => ({
   analysisDate: '2026-01-09', marketAsOf: recent.at(-1)!.date, acquiredAt: '2026-01-09T15:00:00.000Z',
   historySessions: history.length, latest: { ...recent.at(-1)! }, indicators: computeIndicators(history),
   recent: recent.map((s) => ({ ...s })),
+  range52w: { high: Math.max(...history.slice(-252).map((s) => s.high)), low: Math.min(...history.slice(-252).map((s) => s.low)) },
 });
 test('fixture sanity: the synthetic sessions satisfy the Session rules', () => {
   assert.ok(!isFailure(validateBundle(bundle())));
@@ -63,7 +64,7 @@ test('validate: a valid bundle passes and comes back in canonical key order', ()
   const v = validateBundle({ ...bundle(), extra: 'dropped' });
   assert.ok(!isFailure(v));
   assert.deepEqual(Object.keys(v), ['symbol', 'currency', 'provider', 'adjustment', 'analysisDate', 'marketAsOf',
-    'acquiredAt', 'historySessions', 'latest', 'indicators', 'recent']);
+    'acquiredAt', 'historySessions', 'latest', 'indicators', 'recent', 'range52w']);
 });
 
 const invalid: [string, (b: MarketBundle) => unknown][] = [
@@ -127,7 +128,7 @@ test('time zone: session dates and digests are identical under TZ=UTC and TZ=Asi
     const r = h.slice(-30);
     const b = { symbol: 'IBM', currency: 'USD', provider: 'p', adjustment: 'split-dividend', analysisDate: '2026-01-09',
       marketAsOf: r.at(-1).date, acquiredAt: 'x', historySessions: h.length, latest: r.at(-1),
-      indicators: m.computeIndicators(h), recent: r };
+      indicators: m.computeIndicators(h), recent: r, range52w: { high: 1e9, low: 1e-9 } };
     console.log(JSON.stringify([d, await m.snapshotDigest(b)]));
   });`;
   const run = (tz: string) => execFileSync(process.execPath, ['--no-warnings', '-e', script],
@@ -154,4 +155,35 @@ test('replay: local .local/replay/*.json bundle artifacts re-render and re-diges
     assert.equal(await snapshotDigest(r.bundle), r.snapshotDigest);
     assert.equal(await marketFactsDigest(r.marketFacts), r.marketFactsDigest);
   }
+});
+
+// ---- Feature 014: holding symbols (research R1, R2) and the 52-week range (R4) ----
+const kr = (ticker: string, market: string) => ({ kind: 'listing', assetClass: 'KR', ticker, name: 'x', market, productType: 'stock' }) as const;
+const us = (ticker: string) => ({ kind: 'listing', assetClass: 'US', ticker, name: 'x', market: 'NASDAQ', productType: 'stock' }) as const;
+test('yahooSymbol: KR by market, US class shares; BTC, gold and others not quotable', () => {
+  assert.equal(yahooSymbol(kr('005930', 'KOSPI')), '005930.KS');
+  assert.equal(yahooSymbol(kr('035720', 'KOSDAQ')), '035720.KQ');
+  assert.equal(yahooSymbol(kr('123456', 'KONEX')), null);
+  assert.equal(yahooSymbol(us('ORCL')), 'ORCL');
+  assert.equal(yahooSymbol(us('BRK.B')), 'BRK-B');
+  assert.equal(yahooSymbol(us('ABC$D')), null);
+  assert.equal(yahooSymbol(us('TOOLONG')), null);
+  assert.equal(yahooSymbol({ kind: 'fixed', id: 'BTC' }), null); // F014-R3
+  assert.equal(yahooSymbol({ kind: 'fixed', id: 'KRX-GOLD' }), null);
+});
+test('symbolInstrument: currency and zone per symbol form; anything else null', () => {
+  assert.deepEqual(symbolInstrument('005930.KS'), { symbol: '005930.KS', currency: 'KRW', timeZone: 'Asia/Seoul' });
+  assert.equal(symbolInstrument('035720.KQ')?.timeZone, 'Asia/Seoul');
+  assert.deepEqual(symbolInstrument('IBM'), { symbol: 'IBM', currency: 'USD', timeZone: 'America/New_York' });
+  assert.equal(symbolInstrument('BRK-B')?.currency, 'USD');
+  for (const bad of ['', 'ibm', '5930.KS', '005930.KX', 'BTC-KRW', 'BTC-EUR', 'IBM/../', 'A B', '../x']) assert.equal(symbolInstrument(bad), null, bad);
+});
+test('validateBundle: range52w is required, finite and encloses the latest session', () => {
+  const { range52w: _, ...without } = bundle();
+  assert.ok(isFailure(validateBundle(without)));
+  const b = bundle();
+  assert.ok(isFailure(validateBundle({ ...b, range52w: { high: b.latest.high - 1, low: b.range52w.low } })));
+  assert.ok(isFailure(validateBundle({ ...b, range52w: { high: b.range52w.high, low: b.latest.low + 1 } })));
+  assert.ok(isFailure(validateBundle({ ...b, range52w: { high: Infinity, low: b.range52w.low } })));
+  assert.deepEqual((validateBundle(b) as MarketBundle).range52w, b.range52w);
 });

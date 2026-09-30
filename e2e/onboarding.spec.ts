@@ -21,7 +21,7 @@ test.describe('first visit (empty storage)', () => {
   test.use({ storageState: EMPTY });
 
   test('T029 US1 AS1/AS3: onboarding covers the page; skip → office, finished record stored', async ({ page }) => {
-    await page.goto('/?provider=standin');
+    await page.goto('/?provider=standin&quotes=fixture');
     await expect(page.locator('[data-onboarding="hello"]')).toBeVisible();
     await expect(run(page)).toBeHidden(); // the HUD exists (src/main.ts needs it) but is not reachable
     expect(await stored(page)).toBeNull();
@@ -35,7 +35,7 @@ test.describe('first visit (empty storage)', () => {
   });
 
   test('T029 US1 AS4: reload in the middle of onboarding → onboarding again, nothing stored', async ({ page }) => {
-    await page.goto('/?provider=standin');
+    await page.goto('/?provider=standin&quotes=fixture');
     await page.getByRole('button', { name: '시작하기' }).click();
     await addFixed(page, '비트코인', '0.5', '90000000');
     expect(await stored(page)).toBeNull();
@@ -45,7 +45,7 @@ test.describe('first visit (empty storage)', () => {
   });
 
   test('T032 US2: fixed instruments, validation messages, duplicate → edit; reload and a new context keep them (SC-004)', async ({ page, browser }) => {
-    await page.goto('/?provider=standin');
+    await page.goto('/?provider=standin&quotes=fixture');
     await page.getByRole('button', { name: '시작하기' }).click();
     // invalid values are rejected with a reason
     await page.getByRole('button', { name: '+ 자산 추가' }).click();
@@ -86,7 +86,7 @@ test.describe('first visit (empty storage)', () => {
     const state = await page.context().storageState();
     const again = await browser.newContext({ storageState: state });
     const p2 = await again.newPage();
-    await p2.goto('/?provider=standin');
+    await p2.goto('/?provider=standin&quotes=fixture');
     expect(JSON.parse((await p2.evaluate(() => localStorage.getItem('bta.portfolio')))!).holdings).toMatchObject(expected);
     await again.close();
   });
@@ -95,7 +95,7 @@ test.describe('first visit (empty storage)', () => {
     await page.addInitScript(() => {
       Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('blocked', 'SecurityError'); } });
     });
-    await page.goto('/?provider=standin');
+    await page.goto('/?provider=standin&quotes=fixture');
     await expect(page.getByRole('status').filter({ hasText: '이번 방문 동안만 유지됩니다' })).toBeVisible();
     await page.getByRole('button', { name: '건너뛰기' }).click();
     await expect(run(page)).toBeVisible();
@@ -107,7 +107,7 @@ test.describe('stored portfolio', () => {
   test('T029 edge: unreadable portfolio → notice with reset and read-only', async ({ browser }) => {
     const ctx = await browser.newContext({ storageState: { cookies: [], origins: [{ origin: test.info().project.use.baseURL!, localStorage: [{ name: 'bta.portfolio', value: '{broken' }] }] } });
     const page = await ctx.newPage();
-    await page.goto('/?provider=standin');
+    await page.goto('/?provider=standin&quotes=fixture');
     await expect(alert(page)).toContainText('저장된 포트폴리오를 읽을 수 없습니다.');
     await page.getByRole('button', { name: '읽기 전용으로 유지' }).click();
     await expect(alert(page)).toHaveCount(0);
@@ -122,7 +122,7 @@ test.describe('stored portfolio', () => {
   });
 
   test('T024 US4: HUD run; 결과 window shows decision, evidence and the advice statement; windows open mid-run change nothing', async ({ page }) => {
-    await page.goto('/?provider=standin');
+    await page.goto('/?provider=standin&quotes=fixture');
     await expect(run(page)).toBeEnabled();
     await page.evaluate(() => (window as unknown as { __standin: { hold(): void } }).__standin.hold());
     await run(page).click();
@@ -145,7 +145,7 @@ test.describe('stored portfolio', () => {
   });
 
   test('T024 US4 AS3: ?viz=off — no office, the run works', async ({ page }) => {
-    await page.goto('/?provider=standin&viz=off');
+    await page.goto('/?provider=standin&quotes=fixture&viz=off');
     await expect(run(page)).toBeEnabled();
     await expect(page.locator('[data-office]')).toHaveCount(0);
     await run(page).click();

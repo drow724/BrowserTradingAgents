@@ -39,7 +39,7 @@ test('T010 US2: each asset class runs on its facts — 8/0, settled, 0 requests 
 });
 
 test('T010 US2 FR-006: a holding without fixture facts → "Market data not available", no derived facts', async ({ page }) => {
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await page.evaluate(() => localStorage.setItem('bta.portfolio', JSON.stringify({ version: 1, onboardedAt: '2026-09-29T00:00:00.000Z', holdings: [
     { instrument: { kind: 'listing', assetClass: 'KR', ticker: '005930', name: '삼성전자', market: 'KOSPI', productType: 'stock' },
       quantity: 3, averagePrice: 70000, currency: 'KRW', editedAt: '2026-09-29T00:00:00.000Z' }] })));
@@ -76,7 +76,7 @@ test('T016 US5/SC-003: a fabricated number in the answer is marked; supported on
   await expect(w.locator('mark[data-claim="unsupported"]')).toHaveText('99,000원 [근거 확인 안 됨]');
   await expect(w.locator('[data-answer]')).toContainText('71,000원 대비 -8.00% 손실');
   await expect(w.locator('[data-grounding-counts]')).toContainText('근거 확인 안 됨 1건');
-  await expect(w.getByText('분석이며 투자 조언이 아닙니다. 실제 주문은 하지 않습니다.')).toBeVisible();
+  await expect(w.getByText('연구용이며 투자 조언이 아닙니다. 실제 주문은 하지 않습니다.', { exact: false })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.locator('[data-office-grounding]')).toHaveText('근거 확인 안 됨 1건');
 });
@@ -120,7 +120,7 @@ test('Feature 013 T016: formatted — Korean readings in the final role\'s facts
   expect(r.outcome).toBe('success');
   expect(r.analysis.numbers).toEqual({ mode: 'formatted' });
   expect(r.result.finalDecision).toContain('95,000,000 KRW (9,500만 원)'); // the stand-in echoes the final prompt
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   const { record: c } = await analyse(page, 'BTC');
   expect(c.analysis.numbers).toEqual({ mode: 'current' });
   expect(c.result.finalDecision).not.toContain('(9,500만 원)');
@@ -289,7 +289,7 @@ test('T033 SC-005: holding values, the question, the answer and the ledger never
   const seen: string[] = [];
   page.on('request', (r) => seen.push(`${r.url()} ${JSON.stringify(r.headers())} ${r.postData() ?? ''}`));
   page.on('console', (m) => seen.push(m.text()));
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await page.evaluate(() => localStorage.setItem('bta.portfolio', JSON.stringify({ version: 1, onboardedAt: '2026-09-29T00:00:00.000Z', holdings: [
     { instrument: { kind: 'fixed', id: 'BTC' }, quantity: 0.77777777, averagePrice: 42424242, currency: 'KRW', editedAt: '2026-09-29T00:00:00.000Z' }] })));
   await page.reload();

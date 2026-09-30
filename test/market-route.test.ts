@@ -5,8 +5,8 @@ import assert from 'node:assert/strict';
 import { createServer, type Server } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import { readFileSync } from 'node:fs';
-import { isFailure, sessionDate, type MarketBundle } from '../src/market-bundle.ts';
-import { acquireYahoo } from '../src/server/market-provider.ts';
+import { isFailure, sessionDate, symbolInstrument, type MarketBundle } from '../src/market-bundle.ts';
+import { acquireYahoo, clearQuoteCache } from '../src/server/market-provider.ts';
 import { GET } from '../app/api/market/route.ts';
 import { addDays, chart, HISTORY, LEAK, scenario, sessionDates, type Reply } from './fixtures/market/stub-bodies.ts';
 
@@ -35,10 +35,10 @@ before(async () => {
 });
 after(() => { server.closeAllConnections(); server.close(); });
 
-const IBM = { symbol: 'IBM', currency: 'USD', timeZone: 'America/New_York' };
+const IBM = symbolInstrument('IBM')!;
 const today = () => sessionDate(Date.now() / 1000, 'America/New_York');
-const use = (name: string, endDate = addDays(today(), -1)) => {
-  stub.reply = scenario(name, endDate); stub.requests = []; stub.closed = 0;
+const use = (name: string, endDate = addDays(today(), -1), symbol = 'IBM') => {
+  stub.reply = scenario(name, endDate, symbol); stub.requests = []; stub.closed = 0; clearQuoteCache();
 };
 const call = (query = '?symbol=IBM', init?: RequestInit) => GET(new Request(`http://app/api/market${query}`, init));
 const until = async (ok: () => boolean) => { for (let i = 0; i < 100 && !ok(); i++) await new Promise((r) => setTimeout(r, 10)); };
@@ -152,7 +152,7 @@ test('staleness boundary: exactly 10 days old is accepted (stale only when stric
 });
 
 test('invalid symbol → 400 request/invalid-request with no provider request', async () => {
-  for (const q of ['?symbol=AAPL', '', `?symbol=IBM%2F..%2F&base=${encodeURIComponent('http://evil')}`]) {
+  for (const q of ['?symbol=aapl', '', '?symbol=5930.KS', '?symbol=BTC-KRW', `?symbol=IBM%2F..%2F&base=${encodeURIComponent('http://evil')}`]) {
     use('valid');
     const res = await call(q);
     assert.equal(res.status, 400);
@@ -161,10 +161,61 @@ test('invalid symbol → 400 request/invalid-request with no provider request', 
   }
 });
 
-test('no caching: the same request twice reaches the stub twice', async () => {
+// Feature 014 (R7, FR-010): a successful bundle is served from memory for the same symbol and analysis date.
+test('no caching for the demo instrument (Feature 007): the same request twice reaches the stub twice', async () => {
   use('valid');
   await call(); await call();
   assert.equal(stub.requests.length, 2);
+});
+test('cache: a holding symbol twice reaches the stub once; a failure is never cached', async () => {
+  use('valid', addDays(today(), -1), 'ORCL');
+  const a = await (await call('?symbol=ORCL')).json(), b = await (await call('?symbol=ORCL')).json();
+  assert.equal(stub.requests.length, 1);
+  assert.deepEqual(a, b);
+  use('server-error', addDays(today(), -1), 'MSFT');
+  await call('?symbol=MSFT'); await call('?symbol=MSFT');
+  assert.equal(stub.requests.length, 2);
+});
+
+// ---- Feature 014: holding symbols (R2), crypto sessions (R3), 52-week range (R4), privacy (FR-018) ----
+test('KR symbol: requested as is, KRW, Seoul session dates', async () => {
+  use('valid', addDays(today(), -1), '005930.KS');
+  const res = await call('?symbol=005930.KS');
+  assert.equal(res.status, 200);
+  const b = await res.json() as MarketBundle;
+  assert.equal(stub.requests[0].pathname, '/v8/finance/chart/005930.KS');
+  assert.equal(b.symbol, '005930.KS');
+  assert.equal(b.currency, 'KRW');
+  assert.equal(b.analysisDate, sessionDate(Date.now() / 1000, 'Asia/Seoul'));
+});
+test('a response in another currency than the symbol form → invalid-data', async () => {
+  use('wrong-currency', addDays(today(), -1), '005930.KS');
+  assert.deepEqual(await (await call('?symbol=005930.KS')).json(), { boundary: 'market-data', stage: 'normalization', kind: 'invalid-data' });
+});
+test('range52w: unadjusted max high and min low of the sessions within one calendar year (F014-R2)', async () => {
+  use('valid');
+  const b = await (await call()).json() as MarketBundle;
+  const dates = sessionDates(b.marketAsOf, HISTORY.length);
+  const [y, m, d] = b.analysisDate.split('-'), from = `${Number(y) - 1}-${m}-${d}`;
+  const last = HISTORY.filter((_, i) => dates[i] > from);
+  assert.equal(b.range52w.high, Math.max(...last.map((s) => s.high)));
+  assert.equal(b.range52w.low, Math.min(...last.map((s) => s.low)));
+});
+test('a bar with every field null is dropped; a partly null bar stays invalid (F014-R1)', async () => {
+  use('null-row');
+  const res = await call();
+  assert.equal(res.status, 200);
+  assert.equal((await res.json() as MarketBundle).historySessions, HISTORY.length - 1);
+});
+test('privacy: the route log never contains the requested symbol (FR-018)', async () => {
+  const lines: string[] = [], info = console.info;
+  console.info = (...a: unknown[]) => { lines.push(a.join(' ')); };
+  try {
+    use('valid', addDays(today(), -1), '005930.KS'); await call('?symbol=005930.KS');
+    use('server-error', addDays(today(), -1), '035720.KQ'); await call('?symbol=035720.KQ');
+  } finally { console.info = info; }
+  assert.equal(lines.length, 2);
+  assert.ok(lines.every((l) => !l.includes('005930') && !l.includes('035720')), lines.join('\n'));
 });
 
 test('cancellation: an aborted request is forwarded; the stub sees its socket close', async () => {

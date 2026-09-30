@@ -26,8 +26,8 @@ test('Feature 013 T020: stand-in measurement per number mode (current, formatted
   const meta = { model: 'stand-in (echo)', browser: 'Playwright Chromium' };
   const compare: Record<string, unknown> = {};
   for (const [i, mode] of (['current', 'formatted', 'refs'] as const).entries()) {
-    if (i === 0) await loadExample(page, `/?provider=standin&numbers=${mode}`);
-    else { await page.goto(`/?provider=standin&numbers=${mode}`); await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled(); }
+    if (i === 0) await loadExample(page, `/?provider=standin&quotes=fixture&numbers=${mode}`);
+    else { await page.goto(`/?provider=standin&quotes=fixture&numbers=${mode}`); await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled(); }
     await page.keyboard.press('Escape');
     const a = await measure(page, 1, meta, mode);
     const b = await measure(page, 1, meta, mode);
