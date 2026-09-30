@@ -13,6 +13,7 @@ import { buildTradingGraph, readsFor, ROLES, type NodeEvent } from './graph/trad
 import type { Fact } from './analysis/facts.ts';
 import { ground } from './analysis/grounding.ts';
 import { PORTFOLIO_FIXTURE } from './analysis/portfolio-fixture.ts';
+import { refTable, render } from './analysis/references.ts';
 import {
   fail, FAILURE_KINDS, isFailure, LIVE_INSTRUMENT, replayArtifact, validateBundle, type MarketBundle,
   type MarketDataFailure,
@@ -170,13 +171,22 @@ async function run(analysis?: Analysis) {
     input, runController, evidenceClass);
     // FR-014/FR-017: every number, ticker and date in the role outputs and the answer, checked against the facts.
     const result = record.result as Record<string, string> | undefined;
+    // Feature 013: the number mode; in refs mode the answer shown and checked is the rendered one (research R4).
+    const mode = input.numberMode ?? 'current';
+    Object.assign(facts, { numbers: { mode } });
     if (result && finalDecision !== undefined) {
       const known = [...knownTickers, ...Object.keys(PORTFOLIO_FIXTURE.instruments).map((k) => k.split(':').at(-1)!),
         analysis.holding.split(':').at(-1)!];
       const outputs = ROLES.map((r) => ({ role: r.node, text: result[r.writes] ?? '' }));
       // The question is model input too (FR-004): what it names is given, not invented.
       const given = [...analysis.facts, { id: 'Q1', kind: 'question' as const, text: analysis.question }];
-      Object.assign(facts, { grounding: ground(outputs, finalDecision, given, known), answerLanguage: language(finalDecision) });
+      let answer = finalDecision;
+      if (mode === 'refs') {
+        const r = render(finalDecision, refTable(analysis.facts), analysis.question);
+        answer = r.rendered;
+        Object.assign(facts, { numbers: { mode, raw: finalDecision, ...r } });
+      }
+      Object.assign(facts, { grounding: ground(outputs, answer, given, known), answerLanguage: language(answer) });
     }
   } else if (data === 'fixture') {
     // Step 2 — data: the committed Feature 004 fixture, unchanged.

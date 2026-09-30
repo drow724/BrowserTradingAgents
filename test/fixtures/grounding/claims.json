@@ -277,14 +277,11 @@
    "known": [],
    "expect": [
     {
-     "text": "2026",
-     "status": "unsupported"
-    },
-    {
-     "text": "11",
+     "text": "2026년 11월",
      "status": "unsupported"
     }
-   ]
+   ],
+   "changed": "Feature 013 FR-003: read as one month claim (was 2026 + 11); still unsupported (no November fact for this holding)"
   },
   {
    "holding": "KR:900001",
@@ -293,9 +290,10 @@
    "expect": [
     {
      "text": "20%",
-     "status": "supported"
+     "status": "unsupported"
     }
-   ]
+   ],
+   "changed": "Feature 013 FR-004 (F010-R1): was supported only through the unit-less '20 sessions'; the price fell 11.2%"
   },
   {
    "holding": "KR:900001",
@@ -330,9 +328,10 @@
     },
     {
      "text": "9천원",
-     "status": "unrecognised"
+     "status": "unsupported"
     }
-   ]
+   ],
+   "changed": "Feature 013 FR-002: '9천원' is now read as 9,000 KRW (was unrecognised); no fact holds it"
   },
   {
    "holding": "KR:900001",
@@ -676,6 +675,134 @@
      "status": "supported"
     }
    ]
+  },
+  {
+   "holding": "KR:900006",
+   "text": "보유 주식의 현재 가치는 73만 8천 원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "73만 8천 원",
+     "status": "supported"
+    }
+   ],
+   "feature": "013"
+  },
+  {
+   "holding": "BTC",
+   "text": "현재 가치는 2억 2천 8백만 원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "2억 2천 8백만 원",
+     "status": "unsupported"
+    }
+   ],
+   "feature": "013"
+  },
+  {
+   "holding": "BTC",
+   "text": "평균 매수 가격은 9억 5천만 원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "9억 5천만 원",
+     "status": "unsupported"
+    }
+   ],
+   "feature": "013"
+  },
+  {
+   "holding": "BTC",
+   "text": "평균 매수 가격은 9,500만 원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "9,500만 원",
+     "status": "supported"
+    }
+   ],
+   "feature": "013"
+  },
+  {
+   "holding": "BTC",
+   "text": "현재 가치는 2,281만 2,500원입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "2,281만 2,500원",
+     "status": "supported"
+    }
+   ],
+   "feature": "013"
+  },
+  {
+   "holding": "KR:900006",
+   "text": "임상 결과는 2026년 11월에 나올 예정입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "2026년 11월",
+     "status": "supported"
+    }
+   ],
+   "feature": "013"
+  },
+  {
+   "holding": "KR:900006",
+   "text": "임상 결과는 2026년 12월에 나올 예정입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "2026년 12월",
+     "status": "unsupported"
+    }
+   ],
+   "feature": "013"
+  },
+  {
+   "holding": "KRX-GOLD",
+   "text": "최근 거래량 증가율은 20%입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "20%",
+     "status": "unsupported"
+    }
+   ],
+   "feature": "013"
+  },
+  {
+   "holding": "KRX-GOLD",
+   "text": "최근 20거래일 동안의 평균입니다.",
+   "known": [],
+   "expect": [
+    {
+     "text": "20",
+     "status": "supported"
+    }
+   ],
+   "feature": "013"
+  },
+  {
+   "holding": "BTC",
+   "text": "The 30 30-day high was 98,400,000 KRW.",
+   "known": [],
+   "expect": [
+    {
+     "text": "30",
+     "status": "supported"
+    },
+    {
+     "text": "30",
+     "status": "supported"
+    },
+    {
+     "text": "98,400,000 KRW",
+     "status": "supported"
+    }
+   ],
+   "feature": "013"
   }
  ]
 }

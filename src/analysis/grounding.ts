@@ -24,6 +24,13 @@ const NOT_TICKERS = new Set(['KRW', 'USD', 'BTC', 'ETF', 'ETN', 'EPS', 'CEO', 'C
 
 const DATE = /(\d{4})-(\d{2})-(\d{2})|(\d{4})\.\s?(\d{1,2})\.\s?(\d{1,2})|(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일/g;
 const NUMBER = /([+-])?([₩$])?\s?((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)(?!\d|,\d)\s?(만|억)?\s?(%|퍼센트|원|KRW|USD|달러|kg|g(?![a-z])|그램|BTC|주|shares)?/g;
+// Feature 013 FR-002: digits with Korean units, read as one amount ("73만 8천 원", "2억 2천 8백만 원", "2,281만 2,500원").
+const COMPOUND = /(?:\d[\d,]*(?:\.\d+)?\s?(?:[천백십]\s?)?(?:[만억](?![가-힣]))?\s?)+(?:\d[\d,]*\s?(?=원|달러))?(원|KRW|달러|USD)?/g;
+const PART = /(\d[\d,]*(?:\.\d+)?)\s?([천백십])?\s?([만억])?/g;
+const SMALL: Record<string, number> = { 천: 1e3, 백: 1e2, 십: 10 };
+// Feature 013 FR-003: year-month without a day, in Korean and in English.
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+const MONTH = /(\d{4})년\s*(\d{1,2})월(?!\s*\d)|\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4})\b/g;
 const KOREAN_NUMERAL = /(?:[일이삼사오육칠팔구]?[십백천만억]\s?)+[일이삼사오육칠팔구]?\s?(?:원|달러|퍼센트)|\d+\s?천\s?(?:원|달러)?/g;
 const pad = (n: string) => n.padStart(2, '0');
 
@@ -36,6 +43,27 @@ export function extract(text: string, known: Iterable<string> = []): Raw[] {
   for (const m of text.matchAll(DATE)) {
     const [y, mo, d] = m[1] ? [m[1], m[2], m[3]] : m[4] ? [m[4], m[5], m[6]] : [m[7], m[8], m[9]];
     take({ type: 'date', value: `${y}-${pad(mo)}-${pad(d)}`, text: m[0], start: m.index!, end: m.index! + m[0].length });
+  }
+  for (const m of text.matchAll(MONTH)) {
+    const [y, mo] = m[1] ? [m[1], m[2]] : [m[4], String(MONTHS.indexOf(m[3].toLowerCase()) + 1)];
+    const s = m.index!, e = s + m[0].length;
+    if (free(s, e)) take({ type: 'date', value: `${y}-${pad(mo)}`, text: m[0], start: s, end: e });
+  }
+  for (const m of text.matchAll(COMPOUND)) {
+    const whole = m[0].trimEnd(), s = m.index!, e = s + whole.length;
+    const parts = [...whole.matchAll(PART)].filter((p) => p[0].trim());
+    // Needs a Korean unit; plain digits ("30 30") and a single 만/억 amount are left to the number pass below.
+    if (!parts.some((p) => p[2] || p[3]) || (parts.length < 2 && !parts[0][2])) continue;
+    if (!free(s, e) || /[A-Za-z\d.]/.test(text[s - 1] ?? '')) continue;
+    let total = 0, group = 0, step = Infinity;
+    for (const [, d, small, big] of parts) {
+      const dec = d.split('.')[1]?.length ?? 0, scale = (small ? SMALL[small] : 1) * (big === '억' ? 1e8 : big === '만' ? 1e4 : 1);
+      group += Number(d.replaceAll(',', '')) * (small ? SMALL[small] : 1);
+      step = Math.min(step, 10 ** -dec * scale);
+      if (big) { total += group * (big === '억' ? 1e8 : 1e4); group = 0; }
+    }
+    total += group;
+    take({ type: 'number', abs: total, step, unit: UNIT[m[1] ?? ''] ?? 'none', text: whole, start: s, end: e });
   }
   for (const m of text.matchAll(KOREAN_NUMERAL)) {
     const s = m.index!, e = s + m[0].trimEnd().length;
@@ -73,15 +101,18 @@ function check(raw: Raw, support: ReturnType<typeof supportedBy>): Claim {
   const base = { text: raw.text, start: raw.start, end: raw.end };
   if (raw.type === 'unrecognised') return { ...base, type: 'number', value: raw.text, status: 'unrecognised' };
   if (raw.type !== 'number') {
-    const hit = support.find(({ r }) => r.type === raw.type && r.value === raw.value);
+    // A month (2026-11) is supported by the same month or by a full date in it (Feature 013 FR-003).
+    const hit = support.find(({ r }) => r.type === raw.type && (r.value === raw.value || (raw.type === 'date' && raw.value.length === 7 && r.value.startsWith(raw.value))));
     return { ...base, type: raw.type, value: raw.value, status: hit ? 'supported' : 'unsupported', ...(hit ? { factId: hit.id } : {}) };
   }
   // The fact value rounded to the precision the claim shows (e.g. 65,320 → "6.5만"; -8.00% → "8%").
-  // A unit-less claim against a fact with a unit must be exact (no rounding): "11월" is not "11.2%".
+  // A unit-less claim against a fact with a unit must be exact (no rounding): "11월" is not "11.2%". A claim with a
+  // unit is never supported by a unit-less fact: "20%" is not "20 sessions" (Feature 013 FR-004, F010-R1) — except
+  // 주, which also means "week" ("52주 최저" ↔ "52-week low"), and then only when exact.
   const hit = support.find(({ r }) => r.type === 'number' && (
-    raw.unit === r.unit || r.unit === 'none'
+    raw.unit === r.unit
       ? Math.abs(Math.round(r.abs / raw.step) * raw.step - raw.abs) < raw.step / 1000
-      : raw.unit === 'none' && r.abs === raw.abs));
+      : (raw.unit === 'none' || (raw.unit === 'shares' && r.unit === 'none')) && r.abs === raw.abs));
   const value = `${+raw.abs.toPrecision(12)}${raw.unit === 'none' ? '' : ` ${raw.unit}`}`;
   return { ...base, type: 'number', value, status: hit ? 'supported' : 'unsupported', ...(hit ? { factId: hit.id } : {}) };
 }

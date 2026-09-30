@@ -81,6 +81,51 @@ test('T016 US5/SC-003: a fabricated number in the answer is marked; supported on
   await expect(page.locator('[data-office-grounding]')).toHaveText('근거 확인 안 됨 1건');
 });
 
+// ---- Feature 013 T016: number modes ----
+const finalAnswer = (page: Page, answer: string) => page.evaluate((answer) => {
+  const LM = (window as unknown as { LanguageModel: { create: (...a: unknown[]) => Promise<{ clone: (o: unknown) => Promise<{ prompt: (i: unknown, o: unknown) => Promise<string> }> }> } }).LanguageModel;
+  const create = LM.create.bind(LM);
+  LM.create = async (...a) => {
+    const base = await create(...a);
+    const clone = base.clone.bind(base);
+    base.clone = async (o) => {
+      const s = await clone(o);
+      return { ...s, prompt: (i: unknown, opts: unknown) => JSON.stringify(i).includes('You are the Final Decision.') ? Promise.resolve(answer) : s.prompt(i, opts) };
+    };
+    return base;
+  };
+}, answer);
+
+test('Feature 013 T016 US2/SC-003: refs — references rendered by code with sources; every violation kind flagged', async ({ page }) => {
+  await loadExample(page, '/?provider=standin&numbers=refs');
+  await finalAnswer(page, '평균 매입가 {H3} 대비 {D2} 하락했고 현재 가치는 {D3}입니다. 목표가는 {D9}, 손실률은 D2, 가격은 9억 원입니다.');
+  const { record: r } = await analyse(page, 'BTC');
+  const n = r.analysis.numbers;
+  expect(n.mode).toBe('refs');
+  expect(n.rendered).toBe('평균 매입가 9,500만 원 대비 -3.95% 하락했고 현재 가치는 2,281만 2,500원입니다. 목표가는 {D9}, 손실률은 D2, 가격은 9억 원입니다.');
+  expect(n.refs.map((x: { name: string }) => x.name)).toEqual(['H3', 'D2', 'D3']);
+  expect(n.violations.map((v: { kind: string }) => v.kind)).toEqual(['unknown-reference', 'unbraced-reference', 'bare-number']);
+  // SC-003 (stand-in side): every number shown is a fact value or flagged
+  expect(r.analysis.grounding.counts.unsupported).toBe(1); // 9억 원, also a violation
+  expect(r.result.finalDecision).toContain('{H3}'); // the raw model output is kept
+  const w = page.getByRole('dialog', { name: '답변' });
+  await expect(w.locator('mark[data-ref="H3"]')).toHaveText('9,500만 원 [H3]');
+  await expect(w.locator('mark[data-violation]')).toHaveCount(3);
+  await expect(w.locator('[data-grounding-counts]')).toContainText('형식 위반 3건');
+});
+
+test('Feature 013 T016: formatted — Korean readings in the final role\'s facts; the answer is checked as usual; current records only its mode', async ({ page }) => {
+  await loadExample(page, '/?provider=standin&numbers=formatted');
+  const { record: r } = await analyse(page, 'BTC');
+  expect(r.outcome).toBe('success');
+  expect(r.analysis.numbers).toEqual({ mode: 'formatted' });
+  expect(r.result.finalDecision).toContain('95,000,000 KRW (9,500만 원)'); // the stand-in echoes the final prompt
+  await page.goto('/?provider=standin');
+  const { record: c } = await analyse(page, 'BTC');
+  expect(c.analysis.numbers).toEqual({ mode: 'current' });
+  expect(c.result.finalDecision).not.toContain('(9,500만 원)');
+});
+
 // ---- US1: questions ----
 async function ask(page: Page, text: string) {
   if (await page.getByRole('dialog', { name: '답변' }).isVisible()) await page.keyboard.press('Escape');

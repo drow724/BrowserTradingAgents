@@ -55,6 +55,10 @@ test('report: trap rule — a committed "not available" phrasing and zero unsupp
   assert.equal(trapHandled('배당금은 1,200원입니다.', 1), false);
   assert.equal(trapHandled('자료에 없지만 약 1,200원입니다.', 1), false); // hedged fabrication is not handled
   assert.equal(trapHandled('배당금은 높은 편입니다.', 0), false);
+  // Feature 013 FR-001: Korean refusals from the Feature 010 native answers.
+  for (const t of ['제공된 정보에는 ZZSP의 운용보수에 대한 내용이 없습니다.', '부채비율이 명시되어 있지 않습니다.',
+    '내년 목표가는 제공된 정보에 나와 있지 않습니다.', '따라서 답변할 수 없습니다.', '배당금에 대한 답변을 드릴 수 없습니다.',
+    '배당금 액수를 말씀드릴 수 없습니다.']) assert.equal(trapHandled(t, 0), true, t);
 });
 
 test('report: rates over completed runs; failed runs counted separately', () => {

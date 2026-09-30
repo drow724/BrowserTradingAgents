@@ -3,7 +3,9 @@
 // provenance; answer quality is never evaluated. Bump the id suffix when content changes.
 export type TradingFixture = { id: string; subject: string; marketFacts: string; newsFacts: string;
   // Feature 010 portfolio runs only (src/analysis/facts.ts); demo inputs never set them.
-  holdingFacts?: string; question?: string };
+  holdingFacts?: string; question?: string;
+  // Feature 013: set only for the formatted/refs number modes; read by the final role instead of holdingFacts.
+  answerFacts?: string; numberMode?: 'formatted' | 'refs' };
 
 export const FIXTURE: TradingFixture = {
   id: 'tradingagents-fixture@1',

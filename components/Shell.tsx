@@ -4,7 +4,7 @@
 // wrappers and never re-creates them (R10). First visit → onboarding; otherwise the office.
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { loadDirectory, search as searchEntries, statusLine, type Loaded as DirectoryLoaded } from '../src/directory/client.ts';
-import { factSet, toInput } from '../src/analysis/facts.ts';
+import { factSet, toInput, type NumberMode } from '../src/analysis/facts.ts';
 import { resolve } from '../src/analysis/resolve.ts';
 import { PORTFOLIO_FIXTURE } from '../src/analysis/portfolio-fixture.ts';
 import { identity, instrumentName, load, reset, save, type Holding, type Loaded, type Portfolio } from '../src/portfolio.ts';
@@ -53,10 +53,15 @@ export default function Shell({ hud, stage, results, status }: Props) {
   const pickerDialog = useRef<HTMLDialogElement>(null);
   const [pending, setPending] = useState<string>(); // the question waiting for the picker
 
+  const numberMode = (): NumberMode => {
+    const m = new URLSearchParams(location.search).get('numbers');
+    return m === 'formatted' || m === 'refs' ? m : 'current';
+  };
   const startRun = (h: Holding, question: string) => {
     const s = factSet(h);
     document.getElementById('run')!.dispatchEvent(new CustomEvent('bta-analyze', { detail: {
-      input: toInput(s, h, question), holding: identity(h.instrument), question, factSetId: s.id, facts: s.facts,
+      // Feature 013: ?numbers=current|formatted|refs (default current) selects the final role's number mode.
+      input: toInput(s, h, question, numberMode()), holding: identity(h.instrument), question, factSetId: s.id, facts: s.facts,
       knownTickers: known.current,
     } }));
   };

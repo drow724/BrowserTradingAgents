@@ -1,0 +1,38 @@
+{
+  "current": {
+    "runs": 33,
+    "completed": 33,
+    "failed": 0,
+    "zeroUnsupportedRate": 1,
+    "unsupportedPerAnswer": 0,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 6,
+    "trapHandledRate": 1,
+    "koreanRate": 0,
+    "formatViolationRate": null
+  },
+  "formatted": {
+    "runs": 33,
+    "completed": 33,
+    "failed": 0,
+    "zeroUnsupportedRate": 1,
+    "unsupportedPerAnswer": 0,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 6,
+    "trapHandledRate": 1,
+    "koreanRate": 0,
+    "formatViolationRate": null
+  },
+  "refs": {
+    "runs": 33,
+    "completed": 33,
+    "failed": 0,
+    "zeroUnsupportedRate": 1,
+    "unsupportedPerAnswer": 0,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 6,
+    "trapHandledRate": 1,
+    "koreanRate": 0,
+    "formatViolationRate": 1
+  }
+}
