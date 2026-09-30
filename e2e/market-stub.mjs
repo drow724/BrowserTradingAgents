@@ -6,11 +6,13 @@
 import { readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { addDays, scenario } from '../test/fixtures/market/stub-bodies.ts';
+import { accounts, candles, HOLDINGS, TOKEN } from '../test/fixtures/market/toss-bodies.ts';
 
 const port = Number(process.env.STUB_PORT ?? 5198);
 const yesterdayET = () => addDays(new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date()), -1);
-let current = { name: 'valid', endDate: undefined, directory: 'ok' };
-const freshStats = () => ({ requests: 0, lastPath: null, lastQuery: null, closedSockets: 0, directory: {}, directoryKeyPresent: null, bySymbol: {} });
+let current = { name: 'valid', endDate: undefined, directory: 'ok', toss: 'ok' };
+const freshStats = () => ({ requests: 0, lastPath: null, lastQuery: null, closedSockets: 0, directory: {}, directoryKeyPresent: null, bySymbol: {},
+  toss: { paths: {}, authPresent: [], accountHeaderPresent: [] } });
 let stats = freshStats();
 const DIR = 'test/fixtures/directory';
 const KR = { '/1160100/service/GetKrxListedInfoService/getItemInfo': 'kr-items.json',
@@ -30,8 +32,26 @@ const readJson = (req) => new Promise((ok) => { let s = ''; req.on('data', (c) =
 createServer(async (req, res) => {
   const url = new URL(req.url, `http://127.0.0.1:${port}`);
   if (url.pathname === '/__stats') return res.end(JSON.stringify(stats));
-  if (url.pathname === '/__reset') { stats = freshStats(); current = { name: 'valid', endDate: undefined, directory: 'ok' }; return res.end('{}'); }
-  if (url.pathname === '/__scenario') { current = { name: 'valid', endDate: undefined, directory: 'ok', ...(await readJson(req)) }; return res.end('{}'); }
+  if (url.pathname === '/__reset') { stats = freshStats(); current = { name: 'valid', endDate: undefined, directory: 'ok', toss: 'ok' }; return res.end('{}'); }
+  if (url.pathname === '/__scenario') { current = { name: 'valid', endDate: undefined, directory: 'ok', toss: 'ok', ...(await readJson(req)) }; return res.end('{}'); }
+  // Feature 015: Toss Securities stand-in (fictional account). Stats keep counts and header presence, never values.
+  if (url.pathname.startsWith('/toss/')) {
+    const path = url.pathname.slice('/toss'.length);
+    stats.toss.paths[`${req.method} ${path}`] = (stats.toss.paths[`${req.method} ${path}`] ?? 0) + 1;
+    stats.toss.authPresent.push(!!req.headers.authorization);
+    stats.toss.accountHeaderPresent.push(!!req.headers['x-tossinvest-account']);
+    await new Promise((ok) => { req.resume(); req.on('end', ok); }); // drain (the token body is form-encoded)
+    const fail = { unauthorized: 401, 'forbidden-ip': 403, 'rate-limited': 429, 'server-error': 500 }[current.toss];
+    if (fail) { res.writeHead(fail, { 'content-type': 'application/json' }); return res.end('{}'); }
+    const body = path === '/oauth2/token' ? TOKEN : path === '/api/v1/accounts' ? accounts(current.toss === 'several-accounts' ? 2 : 1)
+      : path === '/api/v1/holdings' ? HOLDINGS
+      : path === '/api/v1/candles' ? candles(url.searchParams.get('symbol'), current.endDate ?? yesterdayET(), url.searchParams.get('before') ?? undefined,
+        current.toss === 'short-history' ? 120 : undefined)
+      : undefined;
+    if (!body) { res.writeHead(404); return res.end(); }
+    res.writeHead(200, { 'content-type': 'application/json' });
+    return res.end(JSON.stringify(body));
+  }
   const kr = KR[url.pathname], us = US[url.pathname];
   if (kr || us) {
     stats.directory[url.pathname] = (stats.directory[url.pathname] ?? 0) + 1;

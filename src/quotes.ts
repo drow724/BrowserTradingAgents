@@ -25,11 +25,13 @@ export const liveFixture = (quotes: Map<string, QuoteResult>) => ({ id: 'yahoo-l
   [...quotes].flatMap(([id, q]) => ('bundle' in q ? [[id, liveInstrumentFacts(q.bundle)]] : []))) });
 
 // One request per distinct quotable symbol, all in parallel; an abort rejects the whole phase (no run starts).
-export async function fetchQuotes(holdings: Holding[], signal: AbortSignal, get: typeof fetch = fetch) {
+// Feature 015: `source` is the KR·US quote source chosen in this browser; there is no fallback between sources.
+export async function fetchQuotes(holdings: Holding[], signal: AbortSignal, get: typeof fetch = fetch, source: 'yahoo' | 'toss' = 'yahoo') {
   const symbols = new Map(holdings.map((h) => [identity(h.instrument), yahooSymbol(h.instrument)]));
   const one = async (symbol: string) => {
     try {
-      const body: unknown = await (await get(`/api/market?symbol=${encodeURIComponent(symbol)}`, { signal, cache: 'no-store' })).json();
+      const body: unknown = await (await get(`/api/market?symbol=${encodeURIComponent(symbol)}${source === 'toss' ? '&source=toss' : ''}`,
+        { signal, cache: 'no-store' })).json();
       return isFailure(body) ? body : validateBundle(body);
     } catch (e) {
       if (signal.aborted) throw signal.reason;

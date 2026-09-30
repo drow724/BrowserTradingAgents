@@ -40,13 +40,13 @@ input (ticker, date) → agents run in the browser → result shown on the page.
 | 013 | **Numbers by Reference** (`013-numbers-by-reference`): grounding-checker fixes (Feature 010 re-scored: NOT_YET → LIMITED, equal to the hand audit); number modes current / formatted / refs for the final answer; three-mode native comparison | complete — default stays `current` (maintainer); native refs: unsupported 0.051 vs 0.283 per answer, format violations 78.8 % (prompt only; F-A); AkariSP regex constraint collapsed 9/33 answers → NO_CHANGE; post-processing spike: the model cites references rather than substituting them |
 | 014 | **Live Quotes for Portfolio Analysis** (`014-live-portfolio-quotes`): real holdings analysed against recent Yahoo quotes in the fixture's fact shape; `quotes=live|fixture` (live default for portfolio analysis; measurement, tests and example stay fixture); Yahoo is the local/self-hosted research default (Terms §2.4 recorded, not resolved); only the holding's symbol leaves the browser | complete — real Yahoo check: 30/30 audited numbers equal; BTC not quotable (Yahoo bars inconsistent) |
 | after 014 | **Citation-style references**: refs mode that accepts copied exact values, rewrites cited numbers into code-formatted values and treats fact-id citations as citations (Feature 013 spike: 26 → 3 of 33 answers flagged, offline) | candidate |
-| after 014 | **Toss Securities (local only)**: holdings import + quotes with the user's own key; needs an MD-1 / IX decision record (account read and quotes allowed, orders never) | candidate |
-| 015 | **BrowserTradingAgents Effectiveness Benchmark** (was 009, 011, 013, 014; moved after the portfolio expansion, MD-2): reuses Feature 010's measurement set and the corrected checker | candidate (not started) |
+| 015 | **Toss Securities as a Local Provider** (`015-toss-local-provider`, ADR 0002): holdings import (preview → replace) and KR·US quotes from Toss with the user's own key, locally; read-only by construction (4 allowlisted paths, no order path); per-domain source selection | complete — real check: import 4/5 (KR needs the data.go.kr directory, F015-R1); Toss quotes 10/10 audited; Toss and Yahoo KR prices can differ (F015-R2) |
+| 016 | **BrowserTradingAgents Effectiveness Benchmark** (was 009, 011, 013, 014, 015; moved after the portfolio expansion, MD-2): reuses Feature 010's measurement set and the corrected checker | candidate (not started) |
 | later | Live news, fundamentals, …; WebLLM; optional cloud-inference escalation (must satisfy constitution XIII) | deferred |
 
 ## Decision 2026-09-29 (latest): portfolio expansion first — Feature 009
 
-- **MD-1** Paper trading only: no broker API, no real or simulated order placement.
+- **MD-1** Paper trading only: no broker API, no real or simulated order placement. *Amended 2026-09-30 by [ADR 0002](adr/0002-toss-local-read-only.md): Toss Securities account read and market data, locally with the user's own key (Feature 015); orders never.*
 - **MD-2** The portfolio expansion (Features 009, 010) comes before the Effectiveness Benchmark.
 - **MD-3** Our own lightweight canvas renderer draws the fullscreen office (a scratch spike measured about
   +0.3 pp for it vs about +16 pp for Pixel Agents fullscreen).

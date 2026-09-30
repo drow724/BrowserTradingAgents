@@ -241,3 +241,17 @@ A typed market-data failure is recorded as BLOCKED, never as PASS.
 - **Real Yahoo L6** (opt-in, maintainer approval): `BTA_REAL_YAHOO=1 npm run test:browser -- -g "real Yahoo L6"`;
   `BTA_L6_HOLDINGS="KR:005930:KOSPI,US:ORCL"` overrides the default public tickers. Writes `real-yahoo-l6.json` to
   `test-results/` for the hand audit (never committed).
+
+## Feature 015 — Toss Securities (local provider)
+
+- The app server in tests always gets fake Toss credentials and the Toss stand-in (`playwright.config.ts`; process env
+  wins over `.env.local`), so no test ever sends the maintainer's key anywhere.
+- The stand-in (`e2e/market-stub.mjs`, `/toss/…`) serves a fictional account (`test/fixtures/market/toss-bodies.ts`);
+  `/__scenario` `{ toss: 'ok' | 'unauthorized' | 'forbidden-ip' | 'rate-limited' | 'server-error' | 'several-accounts' |
+  'short-history' }`; `/__stats` `toss` keeps request counts and header presence only.
+- `test/toss.test.ts`: allowlist and no order path, token/accounts/holdings, typed failures, candles paging, log
+  privacy, import mapping, `/api/market?source=toss`. `e2e/toss.spec.ts`: import preview/confirm/failures, Toss
+  quotes, no fallback, no secret in traffic/records/page, unconfigured.
+- **Real Toss L7** (opt-in, maintainer approval, their key and registered IP):
+  `BTA_REAL_TOSS=1 BTA_REAL_YAHOO=1 npx playwright test --project=chromium -g "real Toss"` → `real-toss-l7.json`
+  (import counts and skip reasons only; Toss quotes of public tickers).
