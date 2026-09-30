@@ -1,0 +1,4625 @@
+{
+ "seed": 1801801,
+ "entries": {
+  "e001": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 12,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e002": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 8,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e003": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 23,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e004": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 2,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e005": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 12,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e006": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 22,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e007": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 25,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e008": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 25,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e009": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 12,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e010": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 17,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e011": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 15,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e012": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 3,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e013": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 21,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e014": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 22,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e015": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 21,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e016": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 6,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e017": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 14,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e018": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 15,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e019": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 29,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e020": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 28,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e021": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 7,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e022": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 6,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e023": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 4,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e024": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 21,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e025": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 16,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e026": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 21,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e027": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 24,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e028": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 31,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e029": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 25,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e030": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 21,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e031": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 27,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e032": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 7,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e033": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 18,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e034": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 16,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e035": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 29,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e036": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 17,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e037": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 0,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e038": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 23,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e039": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 9,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e040": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 20,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e041": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 17,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e042": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 29,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e043": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 10,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e044": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 30,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e045": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 13,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e046": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 0,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e047": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 0,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e048": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 25,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e049": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 13,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e050": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 22,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e051": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 26,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e052": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 16,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e053": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 19,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e054": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 26,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e055": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 21,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e056": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 23,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e057": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 14,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e058": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 27,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e059": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 13,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e060": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 8,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e061": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 19,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e062": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 15,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e063": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 10,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e064": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 4,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e065": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 5,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e066": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 31,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e067": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 20,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e068": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 18,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e069": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 18,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e070": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 3,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e071": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 7,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e072": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 4,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e073": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 13,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e074": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 17,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e075": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 32,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e076": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 15,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e077": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 5,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e078": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 9,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e079": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 28,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e080": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 19,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e081": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 14,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e082": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 12,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e083": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 13,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e084": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 9,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e085": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 25,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e086": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 5,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e087": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 17,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e088": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 7,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e089": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 7,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e090": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 20,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e091": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 2,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e092": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 12,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e093": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 17,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e094": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 4,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e095": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 7,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e096": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 0,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e097": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 23,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e098": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 12,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e099": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 15,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e100": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 10,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e101": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 27,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e102": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 11,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e103": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 6,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e104": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 1,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e105": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 11,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e106": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 0,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e107": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 11,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e108": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 9,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e109": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 16,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e110": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 28,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e111": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 18,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e112": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 18,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e113": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 27,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e114": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 7,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e115": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 14,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e116": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 32,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e117": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 28,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e118": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 4,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e119": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 1,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e120": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 27,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e121": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 11,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e122": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 14,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e123": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 17,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e124": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 9,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e125": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 11,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e126": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 8,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e127": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 8,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e128": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 32,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e129": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 28,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e130": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 2,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e131": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 21,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e132": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 2,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e133": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 0,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e134": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 8,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e135": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 15,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e136": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 28,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e137": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 22,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e138": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 31,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e139": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 11,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e140": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 17,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e141": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 12,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e142": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 32,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e143": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 23,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e144": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 17,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e145": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 9,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e146": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 32,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e147": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 21,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e148": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 14,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e149": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 27,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e150": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 29,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e151": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 31,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e152": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 24,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e153": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 31,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e154": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 26,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e155": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 25,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e156": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 0,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e157": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 15,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e158": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 4,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e159": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 17,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e160": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 11,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e161": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 18,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e162": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 32,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e163": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 4,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e164": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 10,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e165": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 31,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e166": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 16,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e167": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 25,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e168": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 15,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e169": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 20,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e170": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 6,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e171": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 30,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e172": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 10,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e173": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 26,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e174": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 29,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e175": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 30,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e176": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 27,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e177": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 28,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e178": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 7,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e179": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 7,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e180": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 9,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e181": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 25,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e182": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 19,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e183": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 15,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e184": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 16,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e185": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 3,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e186": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 27,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e187": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 10,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e188": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 32,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e189": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 19,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e190": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 10,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e191": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 23,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e192": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 20,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e193": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 12,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e194": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 11,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e195": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 22,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e196": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 29,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e197": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 0,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e198": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 18,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e199": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 12,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e200": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 21,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e201": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 22,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e202": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 3,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e203": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 32,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e204": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 32,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e205": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 9,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e206": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 10,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e207": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 3,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e208": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 21,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e209": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 29,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e210": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 24,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e211": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 10,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e212": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 5,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e213": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 24,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e214": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 17,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e215": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 19,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e216": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 21,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e217": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 25,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e218": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 28,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e219": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 13,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e220": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 7,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e221": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 29,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e222": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 22,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e223": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 31,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e224": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 1,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e225": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 19,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e226": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 3,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e227": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 24,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e228": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 20,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e229": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 14,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e230": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 22,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e231": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 27,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e232": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 19,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e233": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 24,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e234": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 31,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e235": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 9,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e236": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 21,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e237": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 6,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e238": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 10,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e239": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 11,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e240": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 30,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e241": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 1,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e242": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 29,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e243": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 22,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e244": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 2,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e245": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 8,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e246": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 14,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e247": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 4,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e248": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 29,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e249": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 23,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e250": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 18,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e251": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 13,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e252": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 6,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e253": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 23,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e254": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 13,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e255": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 0,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e256": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 11,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e257": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 23,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e258": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 24,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e259": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 22,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e260": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 26,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e261": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 5,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e262": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 6,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e263": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 22,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e264": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 14,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e265": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 3,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e266": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 6,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e267": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 6,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e268": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 17,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e269": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 23,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e270": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 1,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e271": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 6,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e272": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 10,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e273": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 15,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e274": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 23,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e275": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 17,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e276": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 25,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e277": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 15,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e278": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 30,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e279": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 25,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e280": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 22,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e281": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 15,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e282": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 31,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e283": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 22,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e284": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 13,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e285": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 24,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e286": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 24,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e287": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 12,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e288": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 32,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e289": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 29,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e290": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 16,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e291": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 2,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e292": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 31,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e293": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 7,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e294": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 16,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e295": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 4,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e296": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 28,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e297": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 18,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e298": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 28,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e299": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 3,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e300": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 7,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e301": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 13,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e302": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 28,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e303": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 12,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e304": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 9,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e305": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 17,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e306": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 16,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e307": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 2,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e308": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 4,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e309": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 20,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e310": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 4,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e311": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 30,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e312": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 20,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e313": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 24,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e314": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 25,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e315": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 26,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e316": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 6,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e317": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 29,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e318": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 24,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e319": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 12,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e320": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 29,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e321": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 1,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e322": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 15,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e323": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 3,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e324": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 28,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e325": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 5,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e326": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 10,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e327": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 24,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e328": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 16,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e329": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 11,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e330": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 12,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e331": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 2,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e332": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 32,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e333": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 1,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e334": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 15,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e335": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 22,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e336": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 8,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e337": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 11,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e338": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 24,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e339": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 26,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e340": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 16,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e341": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 5,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e342": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 10,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e343": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 9,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e344": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 0,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e345": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 22,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e346": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 30,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e347": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 15,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e348": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 21,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e349": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 29,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e350": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 28,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e351": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 2,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e352": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 17,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e353": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 4,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e354": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 7,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e355": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 30,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e356": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 20,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e357": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 3,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e358": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 2,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e359": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 14,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e360": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 31,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e361": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 27,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e362": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 19,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e363": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 3,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e364": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 10,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e365": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 2,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e366": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 13,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e367": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 1,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e368": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 3,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e369": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 26,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e370": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 24,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e371": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 21,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e372": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 28,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e373": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 31,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e374": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 3,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e375": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 7,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e376": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 6,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e377": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 12,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e378": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 13,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e379": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 32,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e380": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 26,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e381": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 0,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e382": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 24,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e383": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 31,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e384": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 4,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e385": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 6,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e386": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 15,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e387": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 27,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e388": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 26,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e389": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 26,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e390": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 17,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e391": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 23,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e392": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 8,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e393": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 25,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e394": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 20,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e395": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 7,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e396": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 1,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e397": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 13,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e398": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 2,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e399": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 14,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e400": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 27,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e401": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 6,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e402": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 2,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e403": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 10,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e404": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 20,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e405": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 19,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e406": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 13,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e407": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 16,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e408": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 26,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e409": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 0,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e410": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 1,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e411": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 17,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e412": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 19,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e413": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 28,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e414": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 29,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e415": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 18,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e416": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 4,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e417": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 6,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e418": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 20,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e419": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 15,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e420": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 19,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e421": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 15,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e422": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 27,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e423": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 23,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e424": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 20,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e425": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 8,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e426": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 5,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e427": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 30,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e428": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 14,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e429": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 9,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e430": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 13,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e431": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 18,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e432": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 6,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e433": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 8,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e434": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 11,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e435": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 31,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e436": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 18,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e437": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 2,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e438": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 3,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e439": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 13,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e440": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 26,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e441": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 27,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e442": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 13,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e443": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 12,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e444": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 16,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e445": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 18,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e446": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 1,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e447": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 31,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e448": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 8,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e449": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 27,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e450": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 12,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e451": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 21,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e452": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 0,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e453": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 20,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e454": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 20,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e455": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 29,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e456": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 26,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e457": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 1,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e458": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 30,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e459": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 1,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e460": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 27,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e461": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 4,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e462": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 23,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e463": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 10,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e464": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 32,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e465": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 6,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e466": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 11,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e467": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 5,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e468": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 13,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e469": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 17,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e470": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 10,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e471": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 16,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e472": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 22,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e473": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 20,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e474": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 22,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e475": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 6,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e476": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 24,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e477": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 23,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e478": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 18,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e479": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 22,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e480": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 9,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e481": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 11,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e482": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 5,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e483": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 23,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e484": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 25,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e485": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 23,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e486": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 3,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e487": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 23,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e488": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 18,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e489": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 11,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e490": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 2,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e491": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 5,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e492": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 27,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e493": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 26,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e494": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 5,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e495": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 24,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e496": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 1,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e497": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 14,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e498": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 8,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e499": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 8,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e500": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 14,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e501": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 29,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e502": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 31,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e503": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 3,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e504": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 1,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e505": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 26,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e506": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 28,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e507": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 5,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e508": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 18,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e509": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 8,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e510": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 29,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e511": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 25,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e512": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 30,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e513": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 12,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e514": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 16,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e515": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 21,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e516": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 12,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e517": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 3,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e518": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 0,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e519": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 26,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e520": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 28,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e521": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 3,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e522": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 0,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e523": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 2,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e524": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 1,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e525": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 30,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e526": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 32,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e527": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 6,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e528": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 11,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e529": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 13,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e530": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 4,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e531": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 2,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e532": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 15,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e533": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 31,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e534": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 13,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e535": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 28,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e536": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 19,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e537": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 24,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e538": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 19,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e539": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 0,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e540": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 25,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e541": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 25,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e542": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 17,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e543": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 25,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e544": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 30,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e545": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 18,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e546": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 20,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e547": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 5,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e548": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 18,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e549": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 27,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e550": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 21,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e551": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 30,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e552": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 22,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e553": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 25,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e554": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 25,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e555": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 9,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e556": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 5,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e557": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 21,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e558": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 9,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e559": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 5,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e560": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 9,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e561": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 30,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e562": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 4,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e563": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 14,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e564": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 31,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e565": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 30,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e566": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 0,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e567": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 21,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e568": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 32,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e569": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 19,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e570": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 20,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e571": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 8,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e572": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 4,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e573": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 23,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e574": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 3,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e575": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 1,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e576": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 5,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e577": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 18,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e578": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 2,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e579": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 17,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e580": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 30,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e581": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 14,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e582": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 0,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e583": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 7,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e584": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 27,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e585": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 11,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e586": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 8,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e587": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 16,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e588": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 1,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e589": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 14,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e590": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 21,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e591": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 7,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e592": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 32,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e593": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 16,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e594": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 10,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e595": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 23,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e596": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 16,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e597": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 0,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e598": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 8,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e599": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 16,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e600": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 28,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e601": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 5,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e602": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 31,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e603": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 18,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e604": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 9,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e605": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 1,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e606": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 3,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e607": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 7,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e608": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 16,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e609": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 7,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e610": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep4.json",
+   "run": 27,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e611": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 14,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e612": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 12,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e613": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep5.json",
+   "run": 15,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e614": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 9,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e615": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 8,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e616": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 26,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e617": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 1,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e618": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 14,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e619": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 2,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e620": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 28,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e621": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 12,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e622": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 32,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e623": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep4.json",
+   "run": 19,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e624": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 2,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e625": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 20,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e626": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep5.json",
+   "run": 19,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e627": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 30,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e628": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 29,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e629": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 9,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e630": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 10,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e631": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 5,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e632": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep5.json",
+   "run": 19,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 5
+  },
+  "e633": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep1.json",
+   "run": 32,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e634": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 8,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e635": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep2.json",
+   "run": 22,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e636": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 10,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e637": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep1.json",
+   "run": 8,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 1
+  },
+  "e638": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 24,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e639": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-current-rep3.json",
+   "run": 29,
+   "structure": "single-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e640": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 30,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e641": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 14,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e642": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep5.json",
+   "run": 20,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 5
+  },
+  "e643": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 24,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  },
+  "e644": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep1.json",
+   "run": 32,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e645": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 26,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e646": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 19,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e647": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 0,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e648": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep2.json",
+   "run": 4,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e649": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep2.json",
+   "run": 6,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 2
+  },
+  "e650": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 32,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e651": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-refs-rep3.json",
+   "run": 5,
+   "structure": "eight-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e652": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 30,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e653": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep3.json",
+   "run": 7,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 3
+  },
+  "e654": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep1.json",
+   "run": 31,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 1
+  },
+  "e655": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 9,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e656": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep2.json",
+   "run": 11,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 2
+  },
+  "e657": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 19,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e658": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep4.json",
+   "run": 26,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 4
+  },
+  "e659": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-eight-current-rep3.json",
+   "run": 11,
+   "structure": "eight-role",
+   "mode": "current",
+   "repetition": 3
+  },
+  "e660": {
+   "report": "specs/018-effectiveness-benchmark/evidence/capture/measurement-native-single-refs-rep4.json",
+   "run": 4,
+   "structure": "single-role",
+   "mode": "refs",
+   "repetition": 4
+  }
+ }
+}

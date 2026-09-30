@@ -337,3 +337,33 @@ test('Feature 016 T015: a cost-basis value used as a 20-session change is marked
   await expect(w.locator('[data-answer]')).toContainText('판단하기에는 근거가 부족합니다'); // no mark on the insufficient-evidence sentence
   await expect(w.locator('mark')).toHaveCount(2);
 });
+
+test('Feature 018 T007: ?roles=single — one role, one model call, all facts; the other seven stay waiting; default is eight roles', async ({ page }) => {
+  // One stand-in call can finish before `running` is observable, so wait for `done` on the fresh page instead.
+  const run = async (url: string, first = true) => {
+    if (first) await loadExample(page, url);
+    else { // the example portfolio is already stored; reload with the other parameters
+      await page.goto(url);
+      await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled();
+      await page.getByRole('button', { name: '포트폴리오' }).click();
+    }
+    await page.locator('[data-holding="KR:900001"]').getByRole('button', { name: '이 종목 분석' }).click();
+    await done(page);
+    return evidence(page);
+  };
+  const r = await run('/?provider=standin&quotes=fixture&roles=single');
+  expect(r.outcome).toBe('success');
+  expect(r.structure).toBe('single-role');
+  expect(r.graph.version).toBe('single-role-baseline@1');
+  expect(r.counts).toMatchObject({ graphRuns: 1, nodeExecutions: 1, logicalRequests: 1, fallbackRequests: 0 });
+  expect(r.nodes.finalDecisionMaker).toMatchObject({ executions: 1, modelRequests: 1,
+    reads: ['subject', 'holdingFacts', 'marketFacts', 'newsFacts', 'question'] });
+  for (const [node, n] of Object.entries(r.nodes as Record<string, { status: string; executions: number }>)) {
+    if (node !== 'finalDecisionMaker') expect(n, node).toMatchObject({ status: 'waiting', executions: 0 });
+  }
+  expect(r.result.finalDecision).toContain('Give the final decision from these facts.'); // the stand-in echoes its prompt
+  expect(r.analysis.grounding.counts).toBeDefined();
+  const d = await run('/?provider=standin&quotes=fixture', false);
+  expect(d.structure).toBe('eight-role');
+  expect(d.counts).toMatchObject({ nodeExecutions: 8, logicalRequests: 8 });
+});

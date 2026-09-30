@@ -9,7 +9,7 @@
 import { createRuntime, TaskError, type Runtime } from 'akarisp';
 import { AkariChatModel, type BridgeEvent } from './integration/akari-chat-model.ts';
 import { FIXTURE, NEUTRAL_NEWS, type TradingFixture } from './graph/trading-fixture.ts';
-import { buildTradingGraph, readsFor, ROLES, type NodeEvent } from './graph/trading-graph.ts';
+import { buildSingleRoleGraph, buildTradingGraph, readsFor, ROLES, singleReads, type NodeEvent } from './graph/trading-graph.ts';
 import type { Fact } from './analysis/facts.ts';
 import { ground } from './analysis/grounding.ts';
 import { PORTFOLIO_FIXTURE } from './analysis/portfolio-fixture.ts';
@@ -36,6 +36,8 @@ const data = params.get('data') === 'live' ? 'live' : 'fixture'; // independent 
 // Feature 012 (research R1): keep one runtime for the page session; off (one runtime per run) until the native
 // comparison decides the default.
 const reuse = params.get('reuse') === 'on';
+// Feature 018 (A-018-1): ?roles=single answers portfolio questions with the single-role baseline — measurement only.
+const singleRole = params.get('roles') === 'single';
 
 // The browser's own Prompt API availability, classified before any stand-in replaces it.
 const availability = await classifyAvailability();
@@ -317,7 +319,8 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
       }
     },
   });
-  const { graph, modelRequests } = buildTradingGraph(model, (e) => {
+  const single = singleRole && input.question !== undefined; // demo and live inputs have no question: eight roles
+  const { graph, modelRequests } = (single ? buildSingleRoleGraph : buildTradingGraph)(model, (e) => {
     nodeEvents.push(e);
     $(`node-${e.node}`).textContent = e.event === 'start' ? 'running' : e.event;
   });
@@ -376,6 +379,8 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
 
   return [{
     ...base,
+    structure: single ? 'single-role' : 'eight-role',
+    ...(single ? { graph: { version: 'single-role-baseline@1', topology: 'START→finalDecisionMaker→END', entry: '@langchain/langgraph/web' } } : {}),
     evidenceClass,
     outcome,
     error,
@@ -384,7 +389,8 @@ async function runGraph(base: Record<string, unknown>, input: TradingFixture, ru
       const own = nodeEvents.filter((e) => e.node === r.node);
       const last = own.at(-1)?.event;
       return [r.node, { status: last === 'start' ? 'running' : (last ?? 'waiting'),
-        executions: own.filter((e) => e.event === 'start').length, modelRequests: modelRequests[r.node], reads: readsFor(r, input) }];
+        executions: own.filter((e) => e.event === 'start').length, modelRequests: modelRequests[r.node],
+        reads: single && r.node === 'finalDecisionMaker' ? singleReads(input) : readsFor(r, input) }];
     })),
     nodeEvents,
     modelRequests: bridge.map((e) => ({ logicalRequestId: e.logicalRequestId, event: e.event,

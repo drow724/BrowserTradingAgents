@@ -18,6 +18,7 @@ export type Question = { id: string; text: string; kind: 'single' | 'multi' | 't
 export const QUESTIONS: Question[] = JSON.parse(readFileSync('test/fixtures/grounding/questions.json', 'utf8')).questions;
 
 type Rec = { outcome: string; error?: string | null; evidenceClass: string; timing?: { graphMs?: number }; result?: { finalDecision?: string };
+  structure?: string; counts?: { logicalRequests?: number }; // Feature 018
   analysis: { holding: string; grounding?: { counts: { unsupported: number; unrecognised: number; semanticMismatch?: number; interpretationUnsupported?: number } }; answerLanguage?: string;
     numbers?: { mode: 'current' | 'formatted' | 'refs'; raw?: string; rendered?: string; violations?: unknown[] } } };
 
@@ -53,13 +54,14 @@ export async function measure(page: Page, repetitions: number, meta: { model: st
           language: r.analysis.answerLanguage ?? 'none', ms: r.timing?.graphMs ?? 0, answer,
           ...(r.outcome !== 'success' ? { error: r.error ?? null } : {}),
           ...(mode ? { mode, violations: r.analysis.numbers?.violations?.length ?? 0 } : {}),
-          ...(r.analysis.numbers?.raw !== undefined ? { raw: r.analysis.numbers.raw } : {}) }); // Feature 017: citations re-scorable
+          ...(r.analysis.numbers?.raw !== undefined ? { raw: r.analysis.numbers.raw } : {}), // Feature 017: citations re-scorable
+          structure: r.structure === 'single-role' ? 'single-role' : 'eight-role', calls: r.counts?.logicalRequests ?? 0 }); // Feature 018
       }
     }
   }
   const evidenceClass = (await page.evaluate(() => (window as unknown as { __records: { evidenceClass: string }[] }).__records[0]?.evidenceClass)) ?? 'unknown';
   const agg = aggregate(runs);
-  return { evidenceClass, ...meta, ...(mode ? { mode } : {}), repetitions, questions: QUESTIONS.length, fixture: 'portfolio-fixture@1',
+  return { evidenceClass, ...meta, ...(mode ? { mode } : {}), structure: runs.find((r) => r.structure)?.structure ?? 'eight-role', repetitions, questions: QUESTIONS.length, fixture: 'portfolio-fixture@1',
     generatedAt: new Date().toISOString(), aggregate: agg, verdict: verdict(agg, evidenceClass), runs };
 }
 

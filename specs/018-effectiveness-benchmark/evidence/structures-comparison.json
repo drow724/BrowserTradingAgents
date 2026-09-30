@@ -1,0 +1,305 @@
+{
+ "sheet": "specs/018-effectiveness-benchmark/evidence/structures-sheet.judged.json",
+ "key": "specs/018-effectiveness-benchmark/evidence/structures-key.json",
+ "agreement": "specs/018-effectiveness-benchmark/evidence/reliability-agreement.json",
+ "reliable": false,
+ "h1": "not established",
+ "modes": {
+  "current": {
+   "counts": {
+    "eight": {
+     "answers": 165,
+     "realErrors": 64
+    },
+    "single": {
+     "answers": 165,
+     "realErrors": 82
+    }
+   },
+   "primary": {
+    "realErrorsPerAnswer": {
+     "reps": {
+      "eight": [
+       0.485,
+       0.485,
+       0.273,
+       0.303,
+       0.394
+      ],
+      "single": [
+       0.545,
+       0.394,
+       0.424,
+       0.606,
+       0.515
+      ]
+     },
+     "pooled": {
+      "eight": 0.388,
+      "single": 0.497
+     },
+     "pairsBetter": {
+      "eight": 4,
+      "single": 1
+     },
+     "maxWithinSpread": 0.21199999999999997,
+     "verdict": "not established"
+    }
+   },
+   "secondary": {
+    "zeroUnsupportedRate": {
+     "reps": {
+      "eight": [
+       0.879,
+       0.848,
+       0.879,
+       0.939,
+       0.879
+      ],
+      "single": [
+       0.788,
+       0.879,
+       0.848,
+       0.758,
+       0.788
+      ]
+     },
+     "pooled": {
+      "eight": 0.885,
+      "single": 0.812
+     },
+     "pairsBetter": {
+      "eight": 4,
+      "single": 1
+     },
+     "maxWithinSpread": 0.121,
+     "verdict": "no difference"
+    },
+    "unsupportedPerAnswer": {
+     "reps": {
+      "eight": [
+       0.212,
+       0.303,
+       0.212,
+       0.152,
+       0.242
+      ],
+      "single": [
+       0.424,
+       0.242,
+       0.333,
+       0.545,
+       0.545
+      ]
+     },
+     "pooled": {
+      "eight": 0.224,
+      "single": 0.418
+     },
+     "pairsBetter": {
+      "eight": 4,
+      "single": 1
+     },
+     "maxWithinSpread": 0.30300000000000005,
+     "verdict": "no difference"
+    },
+    "trapHandledRate": {
+     "reps": {
+      "eight": [
+       1,
+       0.833,
+       1,
+       0.833,
+       0.833
+      ],
+      "single": [
+       0.833,
+       0.833,
+       0.667,
+       0.667,
+       0.667
+      ]
+     },
+     "pooled": {
+      "eight": 0.9,
+      "single": 0.733
+     },
+     "pairsBetter": {
+      "eight": 4,
+      "single": 0
+     },
+     "maxWithinSpread": 0.16700000000000004,
+     "verdict": "no difference"
+    }
+   },
+   "context": {
+    "eight-role": {
+     "failed": 0,
+     "medianMs": 52257,
+     "callsPerAnswer": 8,
+     "koreanRate": 0.97,
+     "formatViolationRate": null,
+     "semanticMismatchPerAnswer": 0.012,
+     "interpretationUnsupportedPerAnswer": 0.03
+    },
+    "single-role": {
+     "failed": 0,
+     "medianMs": 7391,
+     "callsPerAnswer": 1,
+     "koreanRate": 0.958,
+     "formatViolationRate": null,
+     "semanticMismatchPerAnswer": 0.024,
+     "interpretationUnsupportedPerAnswer": 0.121
+    }
+   }
+  },
+  "refs": {
+   "counts": {
+    "eight": {
+     "answers": 165,
+     "realErrors": 38
+    },
+    "single": {
+     "answers": 165,
+     "realErrors": 24
+    }
+   },
+   "primary": {
+    "realErrorsPerAnswer": {
+     "reps": {
+      "eight": [
+       0.303,
+       0.364,
+       0.182,
+       0.121,
+       0.182
+      ],
+      "single": [
+       0.212,
+       0.121,
+       0.061,
+       0.091,
+       0.242
+      ]
+     },
+     "pooled": {
+      "eight": 0.23,
+      "single": 0.145
+     },
+     "pairsBetter": {
+      "eight": 1,
+      "single": 4
+     },
+     "maxWithinSpread": 0.243,
+     "verdict": "not established"
+    }
+   },
+   "secondary": {
+    "zeroUnsupportedRate": {
+     "reps": {
+      "eight": [
+       0.939,
+       0.909,
+       0.939,
+       1,
+       0.939
+      ],
+      "single": [
+       0.909,
+       0.97,
+       0.97,
+       0.939,
+       0.818
+      ]
+     },
+     "pooled": {
+      "eight": 0.945,
+      "single": 0.921
+     },
+     "pairsBetter": {
+      "eight": 3,
+      "single": 2
+     },
+     "maxWithinSpread": 0.15200000000000002,
+     "verdict": "no difference"
+    },
+    "unsupportedPerAnswer": {
+     "reps": {
+      "eight": [
+       0.061,
+       0.091,
+       0.061,
+       0,
+       0.061
+      ],
+      "single": [
+       0.091,
+       0.03,
+       0.03,
+       0.061,
+       0.182
+      ]
+     },
+     "pooled": {
+      "eight": 0.055,
+      "single": 0.079
+     },
+     "pairsBetter": {
+      "eight": 3,
+      "single": 2
+     },
+     "maxWithinSpread": 0.152,
+     "verdict": "no difference"
+    },
+    "trapHandledRate": {
+     "reps": {
+      "eight": [
+       1,
+       1,
+       1,
+       1,
+       0.833
+      ],
+      "single": [
+       0.833,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     "pooled": {
+      "eight": 0.967,
+      "single": 0.967
+     },
+     "pairsBetter": {
+      "eight": 1,
+      "single": 1
+     },
+     "maxWithinSpread": 0.16700000000000004,
+     "verdict": "no difference"
+    }
+   },
+   "context": {
+    "eight-role": {
+     "failed": 0,
+     "medianMs": 52713,
+     "callsPerAnswer": 8,
+     "koreanRate": 0.939,
+     "formatViolationRate": 0.818,
+     "semanticMismatchPerAnswer": 0.03,
+     "interpretationUnsupportedPerAnswer": 0.073
+    },
+    "single-role": {
+     "failed": 0,
+     "medianMs": 7207,
+     "callsPerAnswer": 1,
+     "koreanRate": 0.976,
+     "formatViolationRate": 0.879,
+     "semanticMismatchPerAnswer": 0.085,
+     "interpretationUnsupportedPerAnswer": 0.061
+    }
+   }
+  }
+ }
+}
