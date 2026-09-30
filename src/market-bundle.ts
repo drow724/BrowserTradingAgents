@@ -11,6 +11,23 @@ export const LIVE_INSTRUMENT = {
   timeZone: 'America/New_York',
 } as const;
 
+// Feature 014 (research R1, R2): the symbols the boundary accepts and what each form implies.
+export type QuoteInstrument = { symbol: string; currency: 'KRW' | 'USD'; timeZone: string };
+export function symbolInstrument(symbol: string): QuoteInstrument | null {
+  if (/^\d{6}\.(KS|KQ)$/.test(symbol)) return { symbol, currency: 'KRW', timeZone: 'Asia/Seoul' };
+  if (/^[A-Z]{1,5}(-[A-Z]{1,2})?$/.test(symbol)) return { symbol, currency: 'USD', timeZone: 'America/New_York' };
+  return null;
+}
+// The source symbol of a listing, or null when it cannot be quoted: KRX gold spot, BTC (Yahoo's crypto bars are
+// inconsistent, F014-R3), KONEX, unusual US tickers.
+type Instrument = { kind: 'fixed'; id: string } | { kind: 'listing'; assetClass: 'KR' | 'US'; ticker: string; market: string };
+export function yahooSymbol(i: Instrument): string | null {
+  const s = i.kind === 'fixed' ? ''
+    : i.assetClass === 'KR' ? (i.market === 'KOSPI' ? `${i.ticker}.KS` : i.market === 'KOSDAQ' ? `${i.ticker}.KQ` : '')
+    : i.ticker.replace('.', '-');
+  return symbolInstrument(s) ? s : null;
+}
+
 export type Session = { date: string; open: number; high: number; low: number; close: number; volume: number };
 
 // The 12 indicators the reference Market Analyst prompt offers (upstream market_analyst.py L23–43).
@@ -28,6 +45,7 @@ export type MarketBundle = {
   analysisDate: string; marketAsOf: string; acquiredAt: string;
   historySessions: number;
   latest: Session; indicators: Indicators; recent: Session[];
+  range52w: { high: number; low: number }; // Feature 014: adjusted high/low over the last year of sessions
 };
 
 export type MarketDataFailure = {
@@ -124,6 +142,9 @@ export function validateBundle(x: unknown): MarketBundle | MarketDataFailure {
   const latest = b.latest;
   if (!validSession(latest) || latest.date !== b.marketAsOf || JSON.stringify(latest) !== JSON.stringify(recent.at(-1))) return bad;
   if (latest.date > (b.analysisDate as string)) return bad;
+  const r = b.range52w as { high?: unknown; low?: unknown } | undefined;
+  const fin = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
+  if (!r || !fin(r.high) || !fin(r.low) || r.low <= 0 || !le(r.low, latest.low) || !le(latest.high, r.high)) return bad;
   const ind = b.indicators as Record<string, unknown>;
   if (typeof ind !== 'object' || ind === null || Object.keys(ind).length !== INDICATOR_NAMES.length
     || !INDICATOR_NAMES.every((k) => typeof ind[k] === 'number' && Number.isFinite(ind[k]))) return bad;
@@ -159,6 +180,7 @@ function canonicalBundle(b: MarketBundle): MarketBundle {
     historySessions: b.historySessions, latest: canonSession(b.latest),
     indicators: Object.fromEntries(INDICATOR_NAMES.map((k) => [k, b.indicators[k]])) as Indicators,
     recent: b.recent.map(canonSession),
+    range52w: { high: b.range52w.high, low: b.range52w.low },
   };
 }
 

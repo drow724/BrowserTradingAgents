@@ -21,7 +21,7 @@ test.describe('keyboard only', () => {
   test.use({ storageState: EMPTY });
 
   test('T047/T048 SC-010: onboarding with BTC and a searched Korean stock, Run, Cancel, 결과 open/close — keyboard only', async ({ page }) => {
-    await page.goto('/?provider=standin');
+    await page.goto('/?provider=standin&quotes=fixture');
     await expect(page.getByRole('button', { name: '시작하기' })).toBeFocused(); // autofocus on the greeting
     await page.keyboard.press('Enter');
     await tabTo(page, '+ 자산 추가'); await page.keyboard.press('Enter');
@@ -71,7 +71,7 @@ test('T047 US7 AS2/AS3: reduced motion — no redraw between identical states, n
       return fill.call(this, x, y, ww, h);
     };
   });
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await expect(page.locator('[data-office]')).toHaveAttribute('data-office', 'ready');
   const paints = () => page.evaluate(() => (window as unknown as { __paints: number }).__paints);
   const p0 = await paints();
@@ -87,7 +87,7 @@ test('T047 US7 AS2/AS3: reduced motion — no redraw between identical states, n
 });
 
 test('T034 Feature 010: question, answer window and ledger — keyboard only; flags carry text', async ({ page }) => {
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await page.evaluate(() => localStorage.setItem('bta.portfolio', JSON.stringify({ version: 1, onboardedAt: '2026-09-29T00:00:00.000Z', holdings: [
     { instrument: { kind: 'fixed', id: 'BTC' }, quantity: 0.25, averagePrice: 95000000, currency: 'KRW', editedAt: '2026-09-29T00:00:00.000Z' }] })));
   await page.reload();

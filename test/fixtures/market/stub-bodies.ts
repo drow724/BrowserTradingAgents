@@ -2,7 +2,7 @@
 // history (fake values, never captured market data), in the Yahoo chart shape that
 // src/server/market-provider.ts reads. Shared by the L2 route tests and the L3 browser stub.
 import { readFileSync } from 'node:fs';
-import type { Session } from '../../../src/market-bundle.ts';
+import { symbolInstrument, type Session } from '../../../src/market-bundle.ts';
 
 export const HISTORY: Session[] = JSON.parse(
   readFileSync(new URL('./history.json', import.meta.url), 'utf8'));
@@ -25,13 +25,15 @@ export function sessionDates(endDate: string, count: number) {
 const stamp = (date: string) => dayMs(date) / 1000 + 14.5 * 3600;
 
 // Raw (unadjusted) bars and Yahoo's adjclose. `factor` < 1 before the last 10 bars mimics a dividend.
-export function chart(endDate: string, { count = HISTORY.length, factor = (i: number) => (i < count - 10 ? 0.97 : 1) } = {}) {
+// Feature 014: meta (symbol, currency, exchange zone) follows the requested symbol's form (research R2).
+export function chart(endDate: string, { count = HISTORY.length, factor = (i: number) => (i < count - 10 ? 0.97 : 1), symbol = 'IBM' } = {}) {
+  const inst = symbolInstrument(symbol) ?? symbolInstrument('IBM')!;
   const src = HISTORY.slice(-count);
   const dates = sessionDates(endDate, count);
   return {
     chart: {
       result: [{
-        meta: { currency: 'USD', symbol: 'IBM', exchangeTimezoneName: 'America/New_York' },
+        meta: { currency: inst.currency as string, symbol, exchangeTimezoneName: inst.timeZone },
         timestamp: dates.map(stamp),
         indicators: {
           quote: [{
@@ -52,23 +54,30 @@ export type Reply = { status: number; type?: string; body?: string; hang?: boole
 const json = (status: number, body: unknown): Reply => ({ status, type: 'application/json', body: JSON.stringify(body) });
 
 // Every controlled scenario. `endDate` is the last session date the stub reports.
-export function scenario(name: string, endDate: string): Reply {
+export function scenario(name: string, endDate: string, symbol = 'IBM'): Reply {
+  const chart_ = (end: string, o: Parameters<typeof chart>[1] = {}) => chart(end, { ...o, symbol });
   switch (name) {
-    case 'valid': return json(200, chart(endDate));
-    case 'valid-unadjusted': return json(200, chart(endDate, { factor: () => 1 }));
-    case 'unsettled-final': return json(200, edit(chart(endDate), (r) => {
+    case 'valid': return json(200, chart_(endDate));
+    case 'wrong-currency': return json(200, edit(chart_(endDate), (r) => { r.meta.currency = r.meta.currency === 'USD' ? 'EUR' : 'USD'; }));
+    case 'valid-unadjusted': return json(200, chart_(endDate, { factor: () => 1 }));
+    case 'unsettled-final': return json(200, edit(chart_(endDate), (r) => {
       const q = r.indicators.quote[0], last = r.timestamp.length - 1;
       (q.close as (number | null)[])[last] = null; (q.high as (number | null)[])[last] = null;
       (r.indicators.adjclose[0].adjclose as (number | null)[])[last] = null;
     }));
-    case 'historical-null': return json(200, edit(chart(endDate), (r) => { (r.indicators.quote[0].open as (number | null)[])[100] = null; }));
-    case 'length-mismatch': return json(200, edit(chart(endDate), (r) => { r.indicators.quote[0].volume.pop(); }));
-    case 'duplicate-timestamp': return json(200, edit(chart(endDate), (r) => { r.timestamp[50] = r.timestamp[49]; }));
-    case 'non-monotonic': return json(200, edit(chart(endDate), (r) => { [r.timestamp[50], r.timestamp[51]] = [r.timestamp[51], r.timestamp[50]]; }));
-    case 'wrong-time-zone': return json(200, edit(chart(endDate), (r) => { r.meta.exchangeTimezoneName = 'Europe/London'; }));
-    case 'missing-adjclose': return json(200, edit(chart(endDate), (r) => { delete (r.indicators as Partial<typeof r.indicators>).adjclose; }));
-    case 'future-bar': return json(200, chart(addDays(endDate, 7)));
-    case 'short': return json(200, chart(endDate, { count: 259 }));
+    case 'null-row': return json(200, edit(chart_(endDate), (r) => { // Feature 014 F014-R1: a bar with every field null
+      const q = r.indicators.quote[0] as Record<string, (number | null)[]>;
+      for (const k of ['open', 'high', 'low', 'close', 'volume']) q[k][100] = null;
+      (r.indicators.adjclose[0].adjclose as (number | null)[])[100] = null;
+    }));
+    case 'historical-null': return json(200, edit(chart_(endDate), (r) => { (r.indicators.quote[0].open as (number | null)[])[100] = null; }));
+    case 'length-mismatch': return json(200, edit(chart_(endDate), (r) => { r.indicators.quote[0].volume.pop(); }));
+    case 'duplicate-timestamp': return json(200, edit(chart_(endDate), (r) => { r.timestamp[50] = r.timestamp[49]; }));
+    case 'non-monotonic': return json(200, edit(chart_(endDate), (r) => { [r.timestamp[50], r.timestamp[51]] = [r.timestamp[51], r.timestamp[50]]; }));
+    case 'wrong-time-zone': return json(200, edit(chart_(endDate), (r) => { r.meta.exchangeTimezoneName = 'Europe/London'; }));
+    case 'missing-adjclose': return json(200, edit(chart_(endDate), (r) => { delete (r.indicators as Partial<typeof r.indicators>).adjclose; }));
+    case 'future-bar': return json(200, chart_(addDays(endDate, 7)));
+    case 'short': return json(200, chart_(endDate, { count: 259 }));
     case 'chart-error': return json(404, { chart: { result: null, error: { code: 'Not Found', description: LEAK } } });
     case 'chart-error-200': return json(200, { chart: { result: null, error: { code: 'Bad Request', description: LEAK } } });
     case 'unauthorized': return json(401, { finance: { error: { description: LEAK } } });

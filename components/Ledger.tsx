@@ -9,7 +9,7 @@ export type Draft = Omit<PaperTrade, 'id' | 'at' | 'action' | 'quantity'>;
 const ACTION: Record<PaperTrade['action'], string> = { buy: '모의 매수', sell: '모의 매도', hold: '보유 유지' };
 const LABEL = '모의 거래 (실제 주문 아님)';
 const basis = (b: PaperTrade['priceBasis']) =>
-  `${b.value.toLocaleString('ko-KR')} ${b.currency} (${b.source === 'latest-fixture' ? '예시 데이터 최신가' : '평균 매수가'})`;
+  `${b.value.toLocaleString('ko-KR')} ${b.currency} (${b.source === 'latest-fixture' ? '예시 데이터 최신가' : b.source === 'latest-live' ? '최신 시세' : '평균 매수가'})`;
 
 export default function Ledger({ entries, draft, notice, onSave, onDelete, onDiscard }: {
   entries: PaperTrade[]; draft?: Draft; notice?: string;

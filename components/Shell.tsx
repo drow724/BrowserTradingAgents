@@ -8,6 +8,7 @@ import { factSet, toInput, type NumberMode } from '../src/analysis/facts.ts';
 import { resolve } from '../src/analysis/resolve.ts';
 import { PORTFOLIO_FIXTURE } from '../src/analysis/portfolio-fixture.ts';
 import { identity, instrumentName, load, reset, save, type Holding, type Loaded, type Portfolio } from '../src/portfolio.ts';
+import { fetchQuotes, liveDataSource, liveFixture } from '../src/quotes.ts';
 import Answer, { type AnalysisRecord } from './Answer.tsx';
 import Ledger, { type Draft } from './Ledger.tsx';
 import { addTrade, loadLedger, removeTrade, saveLedger, type Ledger as LedgerDoc } from '../src/ledger.ts';
@@ -41,7 +42,9 @@ export default function Shell({ hud, stage, results, status }: Props) {
   // Feature 010: portfolio runs (contracts/analysis-events.md), one holding per run, in portfolio order. The facts
   // come from the committed fictional fixture (MD-8); a holding without an entry is analysed on its own position
   // facts only. A sequence continues past a failed run and stops at Cancel (FR-012, FR-013).
-  type Sequence = { holdings: Holding[]; question: string; index: number; results: AnalysisRecord[]; cancelledAt?: number };
+  // Feature 014: `live` carries the quoted facts and each holding's data source; absent → the fixture (MD-8).
+  type Live = { fixture: ReturnType<typeof liveFixture>; sources: Map<string, unknown> };
+  type Sequence = { holdings: Holding[]; question: string; index: number; results: AnalysisRecord[]; cancelledAt?: number; live?: Live };
   const seq = useRef<Sequence>(undefined);
   const known = useRef<string[]>([]);
   known.current = dir?.directory?.entries.map((e) => e[3]) ?? [];
@@ -57,26 +60,52 @@ export default function Shell({ hud, stage, results, status }: Props) {
     const m = new URLSearchParams(location.search).get('numbers');
     return m === 'formatted' || m === 'refs' ? m : 'current';
   };
-  const startRun = (h: Holding, question: string) => {
-    const s = factSet(h);
+  // Feature 014: ?quotes=live|fixture (default live) — the example portfolio sets fixture, saving holdings clears it.
+  const quotesMode = () => (new URLSearchParams(location.search).get('quotes') === 'fixture' ? 'fixture' : 'live');
+  const setQuotes = (mode?: 'fixture') => {
+    const u = new URL(location.href);
+    if (mode) u.searchParams.set('quotes', mode); else u.searchParams.delete('quotes');
+    history.replaceState(history.state, '', u);
+  };
+  const startRun = (h: Holding, question: string, live?: Live) => {
+    const s = factSet(h, live?.fixture);
     document.getElementById('run')!.dispatchEvent(new CustomEvent('bta-analyze', { detail: {
       // Feature 013: ?numbers=current|formatted|refs (default current) selects the final role's number mode.
       input: toInput(s, h, question, numberMode()), holding: identity(h.instrument), question, factSetId: s.id, facts: s.facts,
       knownTickers: known.current,
+      dataSource: live?.sources.get(identity(h.instrument)) ?? { mode: 'portfolio-fixture', fixture: 'portfolio-fixture@1' },
     } }));
   };
   const next = () => {
     const s = seq.current!;
     setProgress({ name: instrumentName(s.holdings[s.index].instrument), k: s.index + 1, n: s.holdings.length });
-    startRun(s.holdings[s.index], s.question);
+    startRun(s.holdings[s.index], s.question, s.live);
   };
-  const analyse = (holdings: Holding[], question: string) => {
-    if (seq.current || !holdings.length) return;
+  const quoting = useRef<AbortController>(undefined);
+  const shownLive = useRef<Live>(undefined); // the live quotes behind the answers on screen (paper-trade basis)
+  const analyse = async (holdings: Holding[], question: string) => {
+    if (seq.current || quoting.current || !holdings.length) return;
     portfolioDialog.current?.close();
     pickerDialog.current?.close();
     setNotice(undefined);
     setCancelMs(undefined);
-    seq.current = { holdings, question, index: 0, results: [] };
+    let live: Live | undefined;
+    if (quotesMode() === 'live') {
+      // Quotes first, all in parallel; Cancel aborts them and no run starts (FR-009).
+      const ac = (quoting.current = new AbortController());
+      setProgress({ name: '시세 조회', k: 0, n: holdings.length });
+      try {
+        const quotes = await fetchQuotes(holdings, ac.signal);
+        live = { fixture: liveFixture(quotes), sources: new Map(await Promise.all([...quotes].map(async ([id, q]) => [id, await liveDataSource(q)] as const))) };
+      } catch {
+        setProgress(undefined);
+        setNotice('시세 조회를 취소했습니다. 분석을 시작하지 않았습니다.');
+        return;
+      } finally {
+        quoting.current = undefined;
+      }
+    }
+    seq.current = { holdings, question, index: 0, results: [], live };
     next();
   };
   useEffect(() => {
@@ -90,10 +119,14 @@ export default function Shell({ hud, stage, results, status }: Props) {
       if (s.cancelledAt !== undefined) setCancelMs(Math.round(performance.now() - s.cancelledAt)); // dogfooding (T027)
       seq.current = undefined;
       setProgress(undefined);
+      shownLive.current = s.live;
       setAnswers(s.results);
       answerDialog.current?.showModal();
     };
-    const onCancel = () => { if (seq.current && seq.current.cancelledAt === undefined) seq.current.cancelledAt = performance.now(); };
+    const onCancel = () => {
+      quoting.current?.abort(new Error('cancelled by user'));
+      if (seq.current && seq.current.cancelledAt === undefined) seq.current.cancelledAt = performance.now();
+    };
     run.addEventListener('bta-done', done);
     cancel.addEventListener('click', onCancel);
     return () => { run.removeEventListener('bta-done', done); cancel.removeEventListener('click', onCancel); };
@@ -116,10 +149,14 @@ export default function Shell({ hud, stage, results, status }: Props) {
   const recordTrade = (r: AnalysisRecord) => {
     const h = portfolio?.holdings.find((x) => identity(x.instrument) === r.analysis!.holding);
     if (!h) return;
-    const f = (PORTFOLIO_FIXTURE.instruments as Record<string, { latestPrice: number; currency: string } | undefined>)[r.analysis!.holding];
+    // Feature 014 (FR-017): a live run's own latest price; the fixture price only for fixture runs; else the average.
+    const live = r.dataSource?.mode === 'portfolio-live';
+    const f = ((live ? shownLive.current?.fixture.instruments : PORTFOLIO_FIXTURE.instruments) as
+      Record<string, { latestPrice: number; currency: string } | undefined> | undefined)?.[r.analysis!.holding];
     const latest = f && f.currency === h.currency;
     setDraft({ holding: r.analysis!.holding, name: instrumentName(h.instrument), question: r.analysis!.question,
-      priceBasis: { value: latest ? f.latestPrice : h.averagePrice, currency: h.currency, source: latest ? 'latest-fixture' : 'average' },
+      priceBasis: { value: latest ? f.latestPrice : h.averagePrice, currency: h.currency,
+        source: latest ? (live ? 'latest-live' : 'latest-fixture') : 'average' },
       runRef: `${new Date().toISOString()} ${r.analysis!.holding}` });
     answerDialog.current?.close();
     ledgerDialog.current?.showModal();
@@ -135,6 +172,7 @@ export default function Shell({ hud, stage, results, status }: Props) {
   const loadExample = () => {
     if (portfolio?.holdings.length && !confirm('지금 포트폴리오를 예시 포트폴리오(가상 종목)로 바꿀까요?')) return;
     persist({ ...(portfolio ?? { version: 1, onboardedAt: new Date().toISOString() }), holdings: PORTFOLIO_FIXTURE.portfolio as Holding[] });
+    setQuotes('fixture'); // fictional instruments: fictional facts (Feature 014 R8)
   };
   const listed = useMemo(() => new Set(dir?.directory?.entries.map((e) => `${e[0]}:${e[3]}`)), [dir]);
   const missing = (h: Holding) => h.instrument.kind === 'listing' && !!dir?.directory && !listed.has(`${h.instrument.assetClass}:${h.instrument.ticker}`);
@@ -158,6 +196,7 @@ export default function Shell({ hud, stage, results, status }: Props) {
   };
   const finish = (holdings: Holding[]) => {
     const p: Portfolio = { version: 1, onboardedAt: new Date().toISOString(), holdings };
+    setQuotes();
     const stored = loaded?.state !== 'unavailable' && save(p);
     setMode(stored ? 'stored' : 'session');
     setPortfolio(p);
@@ -232,7 +271,7 @@ export default function Shell({ hud, stage, results, status }: Props) {
         {portfolio ? (
           <HoldingsEditor holdings={portfolio.holdings} search={search} readOnly={mode === 'readonly'} missing={missing}
             onAnalyze={(h) => analyse([h], `${instrumentName(h.instrument)} 보유 현황을 분석해 주세요.`)}
-            onChange={(holdings) => persist({ ...portfolio, holdings })} />
+            onChange={(holdings) => { persist({ ...portfolio, holdings }); setQuotes(); }} />
         ) : <p className={styles.muted}>{loaded?.state === 'unreadable' ? '읽기 전용: 저장된 내용을 표시할 수 없습니다.' : '포트폴리오가 없습니다.'}</p>}
         <div className={styles.actions}>
           <button type="button" onClick={loadExample}>예시 포트폴리오</button>

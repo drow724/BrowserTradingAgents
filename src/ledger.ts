@@ -2,7 +2,7 @@
 // touches the portfolio and makes no request. Guarded like src/portfolio.ts (blocked storage throws).
 export const LEDGER_KEY = 'bta.ledger';
 export type PaperTrade = { id: string; at: string; holding: string; name: string; action: 'buy' | 'sell' | 'hold';
-  quantity: number; priceBasis: { value: number; currency: 'KRW' | 'USD'; source: 'latest-fixture' | 'average' };
+  quantity: number; priceBasis: { value: number; currency: 'KRW' | 'USD'; source: 'latest-fixture' | 'latest-live' | 'average' }; // latest-live: Feature 014
   question: string; runRef: string };
 export type Ledger = { version: 1; entries: PaperTrade[] };
 type Store = Pick<Storage, 'getItem' | 'setItem'>;

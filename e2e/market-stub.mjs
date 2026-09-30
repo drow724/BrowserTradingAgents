@@ -10,7 +10,7 @@ import { addDays, scenario } from '../test/fixtures/market/stub-bodies.ts';
 const port = Number(process.env.STUB_PORT ?? 5198);
 const yesterdayET = () => addDays(new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date()), -1);
 let current = { name: 'valid', endDate: undefined, directory: 'ok' };
-const freshStats = () => ({ requests: 0, lastPath: null, lastQuery: null, closedSockets: 0, directory: {}, directoryKeyPresent: null });
+const freshStats = () => ({ requests: 0, lastPath: null, lastQuery: null, closedSockets: 0, directory: {}, directoryKeyPresent: null, bySymbol: {} });
 let stats = freshStats();
 const DIR = 'test/fixtures/directory';
 const KR = { '/1160100/service/GetKrxListedInfoService/getItemInfo': 'kr-items.json',
@@ -43,11 +43,16 @@ createServer(async (req, res) => {
     return res.end(kr ? krPage(kr, url.searchParams) : readFileSync(`${DIR}/${us}`, 'utf8'));
   }
   if (!url.pathname.startsWith('/v8/finance/chart/')) { res.writeHead(404); return res.end(); }
+  // Feature 014: replies follow the requested symbol's form; `symbol` in /__scenario limits the scenario to that
+  // symbol (every other symbol gets 'valid'); requests are counted per symbol.
+  const symbol = decodeURIComponent(url.pathname.slice('/v8/finance/chart/'.length));
+  stats.bySymbol[symbol] = (stats.bySymbol[symbol] ?? 0) + 1;
   stats.requests++;
   stats.lastPath = url.pathname;
   stats.lastQuery = Object.fromEntries(url.searchParams);
   res.on('close', () => { if (!res.writableEnded) stats.closedSockets++; });
-  const reply = scenario(current.name, current.endDate ?? yesterdayET());
+  const name = current.symbol && current.symbol !== symbol ? 'valid' : current.name;
+  const reply = scenario(name, current.endDate ?? yesterdayET(), symbol);
   if (reply.destroy) return req.socket.destroy();
   if (reply.hang) return;
   res.writeHead(reply.status, { 'content-type': reply.type ?? 'application/json' });

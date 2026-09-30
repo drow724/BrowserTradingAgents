@@ -24,7 +24,7 @@ const standin = (page: Page, action: 'hold' | 'resume') =>
 
 test('stand-in: full eight-role graph succeeds through LangGraph → AkariChatModel → AkariSP', async ({ page }, testInfo) => {
   const net = await guardNetwork(page);
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await expect(runButton(page)).toBeEnabled();
   await countCreates(page);
   await runButton(page).click();
@@ -74,7 +74,7 @@ test('stand-in: full eight-role graph succeeds through LangGraph → AkariChatMo
 
 // Regression B in the browser: settlement must be observed on a `ready` runtime before shutdown().
 test('stand-in: Cancel during the analysts → cancelled, AkariSP settles by itself before shutdown', async ({ page }) => {
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await expect(runButton(page)).toBeEnabled(); // stand-in installed
   await standin(page, 'hold');
   await runButton(page).click();
@@ -112,7 +112,7 @@ test('native provider in Playwright Chromium: no model → BLOCKED, graph not ru
 // createRuntime() creates the warm base session eagerly, so a LanguageModel.create failure surfaces
 // there: the page must still finish with a failed record and a usable Run button.
 test('stand-in: createRuntime failure → failed record, Run re-enabled', async ({ page }) => {
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await expect(runButton(page)).toBeEnabled();
   await page.evaluate(() => {
     (window as unknown as { LanguageModel: { create(): Promise<never> } }).LanguageModel.create =
@@ -130,7 +130,7 @@ test('stand-in: createRuntime failure → failed record, Run re-enabled', async 
 // Each click owns a new runtime + model: run 1's runtime is closed, so run 2 can only succeed on a new
 // one, and a shared model would report 16 logical requests.
 test('stand-in: two consecutive runs are independent (new runtime and model per run)', async ({ page }) => {
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await runButton(page).click();
   await done(page);
   const first = await evidence(page);
@@ -152,7 +152,7 @@ test('stand-in: two consecutive runs are independent (new runtime and model per 
 // Only in the `chromium-dev` project (BTA_DEV_SMOKE=1, `next dev`): React Strict Mode runs effects
 // twice in development; the entry module must still be evaluated once.
 test('@dev stand-in + fixture under next dev (Strict Mode): one click = one runtime, one graph run', async ({ page }) => {
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await expect(runButton(page)).toBeEnabled();
   await countCreates(page);
   await runButton(page).click();
@@ -429,7 +429,7 @@ test('stand-in + live: two consecutive runs → two /api/market calls, two provi
 // Mode axes are independently selectable. In Chromium the two native modes are BLOCKED by design:
 // their real proofs are the installed-Chrome gates.
 for (const [url, provider, data, cls] of [
-  ['/?provider=standin', 'standin', 'fixture', 'BROWSER_AUTOMATED'],
+  ['/?provider=standin&quotes=fixture', 'standin', 'fixture', 'BROWSER_AUTOMATED'],
   ['/', 'native', 'fixture', 'BLOCKED'],
   ['/?provider=standin&data=live', 'standin', 'live', 'BROWSER_AUTOMATED'],
   ['/?data=live', 'native', 'live', 'BLOCKED'],
@@ -473,4 +473,41 @@ test('real Yahoo L4: stand-in + live through /api/market (BTA_REAL_YAHOO=1 only)
     expect(r.failure?.boundary, JSON.stringify(r.failure)).toBe('market-data');
     expect(await creates(page)).toBe(0);
   }
+});
+
+// Feature 014 T024 (opt-in; BTA_REAL_YAHOO=1 only, maintainer approval): live portfolio quotes from real Yahoo with
+// the stand-in model. Symbols come from BTA_L6_HOLDINGS ("KR:005930:KOSPI,US:ORCL", never committed) or default to
+// well-known public tickers; quantity 1 and average price 1 (only market facts are audited). The records are
+// written to test-results for the hand audit (SC-006), never committed.
+test('real Yahoo L6: live portfolio quotes (BTA_REAL_YAHOO=1 only)', async ({ page, browser }, testInfo) => {
+  test.skip(!REAL_YAHOO, 'approval-gated real-Yahoo run only (BTA_REAL_YAHOO=1)');
+  test.setTimeout(10 * 60_000);
+  const spec = (process.env.BTA_L6_HOLDINGS ?? 'KR:005930:KOSPI,KR:035720:KOSDAQ,US:ORCL,US:AAPL,US:MSFT').split(',');
+  const holdings = spec.map((s) => {
+    const [assetClass, ticker, market = 'NASDAQ'] = s.split(':');
+    return { instrument: { kind: 'listing', assetClass, ticker, name: ticker, market, productType: 'stock' },
+      quantity: 1, averagePrice: 1, currency: assetClass === 'KR' ? 'KRW' : 'USD', editedAt: '2026-09-30T00:00:00.000Z' };
+  });
+  const net = await guardNetwork(page);
+  await page.goto('/?provider=standin');
+  await page.evaluate((h) => localStorage.setItem('bta.portfolio', JSON.stringify({ version: 1, onboardedAt: '2026-09-30T00:00:00.000Z', holdings: h })), holdings);
+  await page.reload();
+  await page.evaluate(() => {
+    const w = window as unknown as { __records: unknown[] };
+    w.__records = [];
+    document.getElementById('run')!.addEventListener('bta-done', (e) => w.__records.push((e as CustomEvent).detail));
+  });
+  await page.getByRole('button', { name: '전체 점검' }).click();
+  await expect(page.getByRole('dialog', { name: '답변' })).toBeVisible({ timeout: 8 * 60_000 });
+  const rs = await page.evaluate(() => (window as unknown as { __records: { outcome: string; dataSource: unknown;
+    analysis: { holding: string; facts: { id: string; kind: string; text: string }[]; grounding?: { counts: unknown } } }[] }).__records);
+  const out = { level: 'L6', executedAt: new Date().toISOString(), chrome: browser.version(),
+    browserDirectYahooRequests: net.external.filter((u) => /yahoo\./.test(new URL(u).hostname)).length,
+    runs: rs.map((r) => ({ holding: r.analysis.holding, outcome: r.outcome, dataSource: r.dataSource,
+      facts: r.analysis.facts.filter((f) => f.id === 'D1' || f.kind === 'market').map((f) => `${f.id} ${f.text}`),
+      grounding: r.analysis.grounding?.counts })) };
+  writeFileSync(testInfo.outputPath('real-yahoo-l6.json'), JSON.stringify(out, null, 2) + '\n');
+  console.log('Feature 014 L6', JSON.stringify(out.runs.map((r) => [r.holding, r.dataSource])));
+  expect(net.external).toEqual([]);
+  expect(rs).toHaveLength(holdings.length);
 });

@@ -115,7 +115,8 @@ const waitingNodes = () =>
 
 // Feature 010 (contracts/analysis-events.md): the shell starts a portfolio run with `bta-analyze` on #run; every
 // finished record is announced with `bta-done`. A click keeps the demo behaviour.
-type Analysis = { input: TradingFixture; holding: string; question: string; factSetId: string; facts: Fact[]; knownTickers: string[] };
+type Analysis = { input: TradingFixture; holding: string; question: string; factSetId: string; facts: Fact[]; knownTickers: string[];
+  dataSource: Record<string, unknown> }; // Feature 014: portfolio-fixture or portfolio-live (set by the shell)
 
 let controller: AbortController | undefined;
 $('cancel').addEventListener('click', () => controller?.abort(new Error('cancelled by user')));
@@ -164,10 +165,10 @@ async function run(analysis?: Analysis) {
         unverified: [`full eight-role graph (${data} data) on the native Prompt API`],
       } };
   } else if (analysis) {
-    // Feature 010: a portfolio run on committed fictional facts (MD-8) — no market-data request.
-    const { input, knownTickers, ...facts } = analysis; // directory tickers: grounding input, not evidence
-    [record, finalDecision] = await runGraph({ ...base, input: { id: input.id },
-      dataSource: { mode: 'portfolio-fixture', fixture: 'portfolio-fixture@1' }, analysis: facts },
+    // Feature 010: a portfolio run on the facts the shell built — fixture (MD-8) or live quotes (Feature 014); the
+    // quotes were fetched before the run, so the run itself makes no market-data request.
+    const { input, knownTickers, dataSource, ...facts } = analysis; // directory tickers: grounding input, not evidence
+    [record, finalDecision] = await runGraph({ ...base, input: { id: input.id }, dataSource, analysis: facts },
     input, runController, evidenceClass);
     // FR-014/FR-017: every number, ticker and date in the role outputs and the answer, checked against the facts.
     const result = record.result as Record<string, string> | undefined;

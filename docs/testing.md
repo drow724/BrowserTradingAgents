@@ -222,3 +222,22 @@ A typed market-data failure is recorded as BLOCKED, never as PASS.
   canned final answer, formatted, current); `e2e/measurement.spec.ts` (three modes, stable).
 - **Native comparison** (opt-in, ≈ 4.5 h): `BTA_MEASURE=1 BTA_MEASURE_MODES=current,formatted,refs npm run
   test:prompt-api -- -g measurement` — one report per mode and `measurement-native-compare.json`.
+- **Hand-off prompt set** (opt-in, ≈ 30 min): `BTA_CAPTURE=1 npm run test:prompt-api -- -g "harness prompt capture"`
+  keeps one refs pass's upstream outputs; `node scripts/harness-prompts.ts <out.json> <harness-outputs-refs.json>`
+  rebuilds the exact final-role prompts (without the second argument the upstream outputs stay `{{key}}` slots).
+
+## Feature 014 — Live quotes for portfolio analysis
+
+- `?quotes=live|fixture` (default `live`) selects where portfolio runs get market facts: `live` fetches one quote per
+  distinct holding symbol from `/api/market` before the first run (KR `.KS/.KQ`, US tickers; BTC, KRX
+  gold and KONEX are not quotable) and builds facts in the fixture's shape (`src/quotes.ts`); `fixture` uses
+  `portfolio-fixture@1`. The example-portfolio button sets `quotes=fixture`; saving holdings clears it.
+- Tests that seed holdings directly open `quotes=fixture`; the measurement uses the example button.
+- The market stand-in (`e2e/market-stub.mjs`) answers per requested symbol (zone and currency from its form),
+  counts requests per symbol (`/__stats` `bySymbol`) and can fail one symbol (`/__scenario` `{ name, symbol }`).
+  The app server caches successful holding quotes per trading day, so each live test uses its own symbols.
+- `e2e/live-quotes.spec.ts`: live facts equal values from the served sessions, unavailable quotes, cancel during the
+  quote phase, cache, example on fixture and back to live after editing.
+- **Real Yahoo L6** (opt-in, maintainer approval): `BTA_REAL_YAHOO=1 npm run test:browser -- -g "real Yahoo L6"`;
+  `BTA_L6_HOLDINGS="KR:005930:KOSPI,US:ORCL"` overrides the default public tickers. Writes `real-yahoo-l6.json` to
+  `test-results/` for the hand audit (never committed).

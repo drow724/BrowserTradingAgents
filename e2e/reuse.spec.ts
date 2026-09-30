@@ -30,9 +30,9 @@ async function runOnce(page: Page) {
 }
 // The example portfolio is loaded once; later pages in the same test find it in this origin's storage.
 async function overview(page: Page, reuse: 'on' | 'off', load = true) {
-  if (load) await loadExample(page, `/?provider=standin&reuse=${reuse}`);
+  if (load) await loadExample(page, `/?provider=standin&quotes=fixture&reuse=${reuse}`);
   else {
-    await page.goto(`/?provider=standin&reuse=${reuse}`);
+    await page.goto(`/?provider=standin&quotes=fixture&reuse=${reuse}`);
     await expect(runButton(page)).toBeEnabled();
   }
   await collect(page);
@@ -80,7 +80,7 @@ test('T004/T008/T009/T013 SC-001–SC-003: overview of 6 — reuse prepares once
 });
 
 test('T011 SC-004 FR-006/FR-005: after Cancel the runtime is reused; after pagehide it is replaced (closed)', async ({ page }) => {
-  await page.goto('/?provider=standin&reuse=on');
+  await page.goto('/?provider=standin&quotes=fixture&reuse=on');
   await expect(runButton(page)).toBeEnabled();
   await collect(page);
   const first = await runOnce(page);
@@ -107,7 +107,7 @@ test('T011 SC-004 FR-006/FR-005: after Cancel the runtime is reused; after pageh
 });
 
 test('T012 SC-004: a model failure in one run does not stop the next; the settled runtime is reused', async ({ page }) => {
-  await page.goto('/?provider=standin&reuse=on');
+  await page.goto('/?provider=standin&quotes=fixture&reuse=on');
   await expect(runButton(page)).toBeEnabled();
   // Before any runtime exists: task sessions reject the Trader's prompt while `__failTrader` is set.
   await page.evaluate(() => {

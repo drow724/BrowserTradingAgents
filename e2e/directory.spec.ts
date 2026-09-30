@@ -31,7 +31,7 @@ test.describe('directory in the browser', () => {
   test('T044 US5: one download per day per browser; typing sends nothing; as-of and attribution shown', async ({ page }) => {
     await reset();
     const n = count(page);
-    await page.goto('/?provider=standin');
+    await page.goto('/?provider=standin&quotes=fixture');
     await page.getByRole('button', { name: '시작하기' }).click();
     await searchFor(page, '국내 주식', '삼성');
     await expect(page.getByRole('list', { name: '검색 결과' }).getByRole('button')).toHaveCount(2);
@@ -52,7 +52,7 @@ test.describe('directory in the browser', () => {
   });
 
   test('T044 US5 AS2/AS4: failed refresh keeps the old copy; no copy at all → "목록 없음", fixed instruments still addable', async ({ page }) => {
-    await page.goto('/?provider=standin');
+    await page.goto('/?provider=standin&quotes=fixture');
     await expect.poll(() => page.evaluate(async () => !!(await (await caches.open('bta-directory')).match('/api/directory')))).toBe(true);
     // Age the stored copy by a day, then make the refresh fail: the old copy stays in use.
     await page.evaluate(async () => {
@@ -71,7 +71,7 @@ test.describe('directory in the browser', () => {
     const ctx = await page.context().browser()!.newContext({ storageState: EMPTY });
     const p2 = await ctx.newPage();
     await p2.route('**/api/directory', (r) => r.abort());
-    await p2.goto('/?provider=standin');
+    await p2.goto('/?provider=standin&quotes=fixture');
     await p2.getByRole('button', { name: '시작하기' }).click();
     await searchFor(p2, '국내 주식', '가상');
     await expect(p2.locator('[data-directory-status]')).toHaveText(/목록 없음/);
@@ -84,7 +84,7 @@ test.describe('directory in the browser', () => {
   });
 
   test('T032 US2: a Korean stock by Korean name and a US ETF by ticker; product type and market shown; reload keeps them', async ({ page }) => {
-    await page.goto('/?provider=standin');
+    await page.goto('/?provider=standin&quotes=fixture');
     await page.getByRole('button', { name: '시작하기' }).click();
     await searchFor(page, '국내 주식', '삼성테스트전자');
     const r = page.getByRole('list', { name: '검색 결과' }).getByRole('button');
@@ -118,7 +118,7 @@ test('T033 US6/SC-005: holding sentinels never leave the browser (requests, head
   page.on('request', (r) => seen.push(`${r.url()} ${JSON.stringify(r.headers())} ${r.postData() ?? ''}`));
   page.on('console', (m) => seen.push(m.text()));
   const SENTINELS = ['777777.77', '777777', '424242.42', '424242'];
-  await page.goto('/?provider=standin');
+  await page.goto('/?provider=standin&quotes=fixture');
   await page.getByRole('button', { name: '시작하기' }).click();
   await page.getByRole('button', { name: '+ 자산 추가' }).click();
   await page.getByRole('radio', { name: '비트코인' }).check();
@@ -131,7 +131,7 @@ test('T033 US6/SC-005: holding sentinels never leave the browser (requests, head
   await page.getByRole('button', { name: '수정' }).click();
   await page.getByRole('button', { name: '저장' }).click();
   await page.keyboard.press('Escape');
-  for (const url of ['/?provider=standin', '/?provider=standin&data=live']) {
+  for (const url of ['/?provider=standin&quotes=fixture', '/?provider=standin&data=live']) {
     await fetch(`${STUB}/__reset`, { method: 'POST' });
     await page.goto(url);
     await page.getByRole('button', { name: 'Run Graph', exact: true }).click();
