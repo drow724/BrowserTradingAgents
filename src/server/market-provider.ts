@@ -6,6 +6,7 @@ import {
   computeIndicators, fail, isFailure, MIN_HISTORY_SESSIONS, RECENT_SESSIONS, sessionDate, validateBundle,
   type MarketBundle, type MarketDataFailure, type QuoteInstrument, type Session,
 } from '../market-bundle.ts';
+import { isTossFailure, tossRows, type TossKind } from './toss.ts';
 
 export const YAHOO_ORIGIN = 'https://query2.finance.yahoo.com';
 export const ADAPTER_ID = 'yahoo-chart@1';
@@ -66,9 +67,16 @@ function normalize(body: unknown, instrument: Instrument, analysisDate: string, 
   if (r.meta.currency !== undefined && r.meta.currency !== instrument.currency) return bad; // Feature 014 (R2)
   // 2. date every bar in the exchange time zone
   const c = q as Record<(typeof QUOTE_KEYS)[number], unknown[]>;
-  let rows = ts.map((t, i) => ({ date: sessionDate(t as number, instrument.timeZone),
-    open: c.open[i], high: c.high[i], low: c.low[i], close: c.close[i], volume: c.volume[i], adjclose: adj[i] })) as
-    { date: string; open: unknown; high: unknown; low: unknown; close: unknown; volume: unknown; adjclose: unknown }[];
+  const rows = ts.map((t, i) => ({ date: sessionDate(t as number, instrument.timeZone),
+    open: c.open[i], high: c.high[i], low: c.low[i], close: c.close[i], volume: c.volume[i], adjclose: adj[i] }));
+  return bundleFrom(rows, instrument, analysisDate, acquiredAt, ADAPTER_ID);
+}
+
+// Steps 3–7 and the bundle, shared by every source (Feature 015: Toss rows use adjclose = close).
+type Row = { date: string; open: unknown; high: unknown; low: unknown; close: unknown; volume: unknown; adjclose: unknown };
+export function bundleFrom(input: Row[], instrument: Instrument, analysisDate: string, acquiredAt: Date, provider: string) {
+  const bad = fail('normalization', 'invalid-data');
+  let rows = input;
   // 3. the analysis-date session before 16:00 exchange time is unfinished
   // ponytail: fixed 16:00 cutoff ignores early-close days; use meta.currentTradingPeriod if that matters.
   if (rows.at(-1)?.date === analysisDate && hourIn(acquiredAt, instrument.timeZone) < 16) rows = rows.slice(0, -1);
@@ -94,7 +102,7 @@ function normalize(body: unknown, instrument: Instrument, analysisDate: string, 
   if (!latest || dayNumber(analysisDate) - dayNumber(latest.date) > STALE_DAYS
     || sessions.length < MIN_HISTORY_SESSIONS) return fail('normalization', 'unavailable');
   return validateBundle({
-    symbol: instrument.symbol, currency: instrument.currency, provider: ADAPTER_ID, adjustment: 'split-dividend',
+    symbol: instrument.symbol, currency: instrument.currency, provider, adjustment: 'split-dividend',
     analysisDate, marketAsOf: latest.date, acquiredAt: acquiredAt.toISOString(), historySessions: sessions.length,
     latest, indicators: computeIndicators(sessions), recent: sessions.slice(-RECENT_SESSIONS),
     range52w: range52w(rows as { date: string; high: number; low: number }[], analysisDate),
@@ -114,13 +122,27 @@ function range52w(rows: { date: string; high: number; low: number }[], analysisD
 // ponytail: in-memory and per instance; a shared store only if a public deployment makes source calls matter.
 const cache = new Map<string, MarketBundle>();
 export const clearQuoteCache = () => cache.clear();
-export async function quote(instrument: Instrument, analysisDate: string, options: Options) {
-  const key = `${instrument.symbol}|${analysisDate}`, hit = cache.get(key);
+export type QuoteSource = 'yahoo' | 'toss';
+export async function quote(instrument: Instrument, analysisDate: string, options: Options, source: QuoteSource = 'yahoo') {
+  const key = `${source}|${instrument.symbol}|${analysisDate}`, hit = cache.get(key);
   if (hit) return hit;
-  const result = await acquireYahoo(instrument, analysisDate, options);
+  const result = await (source === 'toss' ? acquireToss : acquireYahoo)(instrument, analysisDate, options);
   if (!isFailure(result)) {
     cache.set(key, result);
     if (cache.size > 256) cache.delete(cache.keys().next().value!);
   }
   return result;
+}
+
+// Feature 015 (research R7, S1): the same bundle from Toss daily candles — three pages (300 sessions), prices as Toss
+// reports them (no separate adjusted series, A-015-1). The Toss code is the symbol without the Yahoo form.
+export const TOSS_PROVIDER_ID = 'toss-candles@1';
+const TOSS_KIND: Record<TossKind, MarketDataFailure['kind']> = { 'not-configured': 'credential-missing', unauthorized: 'unauthorized',
+  'forbidden-ip': 'unauthorized', 'rate-limited': 'rate-limited', 'provider-error': 'provider-error', 'invalid-data': 'invalid-data',
+  timeout: 'timeout', network: 'network', cancelled: 'cancelled', 'ambiguous-account': 'provider-error' };
+async function acquireToss(instrument: Instrument, analysisDate: string, { signal, now = () => new Date() }: Options) {
+  const code = instrument.symbol.replace(/\.K[SQ]$/, '').replace('-', '.');
+  const rows = await tossRows(code, instrument.timeZone, signal);
+  if (isTossFailure(rows)) return fail(rows.kind === 'invalid-data' ? 'normalization' : 'acquisition', TOSS_KIND[rows.kind]);
+  return bundleFrom(rows, instrument, analysisDate, now(), TOSS_PROVIDER_ID);
 }

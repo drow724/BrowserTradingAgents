@@ -9,6 +9,8 @@ import { resolve } from '../src/analysis/resolve.ts';
 import { PORTFOLIO_FIXTURE } from '../src/analysis/portfolio-fixture.ts';
 import { identity, instrumentName, load, reset, save, type Holding, type Loaded, type Portfolio } from '../src/portfolio.ts';
 import { fetchQuotes, liveDataSource, liveFixture } from '../src/quotes.ts';
+import { loadSources } from '../src/sources.ts';
+import Sources from './Sources.tsx';
 import Answer, { type AnalysisRecord } from './Answer.tsx';
 import Ledger, { type Draft } from './Ledger.tsx';
 import { addTrade, loadLedger, removeTrade, saveLedger, type Ledger as LedgerDoc } from '../src/ledger.ts';
@@ -95,7 +97,7 @@ export default function Shell({ hud, stage, results, status }: Props) {
       const ac = (quoting.current = new AbortController());
       setProgress({ name: '시세 조회', k: 0, n: holdings.length });
       try {
-        const quotes = await fetchQuotes(holdings, ac.signal);
+        const quotes = await fetchQuotes(holdings, ac.signal, undefined, loadSources().quotes);
         live = { fixture: liveFixture(quotes), sources: new Map(await Promise.all([...quotes].map(async ([id, q]) => [id, await liveDataSource(q)] as const))) };
       } catch {
         setProgress(undefined);
@@ -277,6 +279,8 @@ export default function Shell({ hud, stage, results, status }: Props) {
           <button type="button" onClick={loadExample}>예시 포트폴리오</button>
           <button type="button" onClick={resetAll}>초기화</button>
         </div>
+        <Sources entries={dir?.directory?.entries}
+          onImport={(holdings) => { persist({ ...(portfolio ?? { version: 1, onboardedAt: new Date().toISOString() }), holdings }); setQuotes(); }} />
       </Window>
 
       {phase === 'onboarding' && (

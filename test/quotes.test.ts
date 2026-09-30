@@ -104,3 +104,11 @@ test('SC-002: fixture facts of the measurement set are byte-identical to Feature
   assert.equal(`sha256:${createHash('sha256').update(lines.join('\n')).digest('hex')}`,
     'sha256:12e42276354494221a26f0fc1cb59c26698f8262bc2ecdb73ee3fa9e2586f66b');
 });
+
+test('Feature 015: fetchQuotes passes the chosen source; Toss failures stay failures (no other source asked)', async () => {
+  const urls: string[] = [];
+  const get = (async (url: string) => { urls.push(url); return Response.json({ boundary: 'market-data', stage: 'acquisition', kind: 'unauthorized' }, { status: 502 }); }) as unknown as typeof fetch;
+  const q = await fetchQuotes([samsung, oracle], new AbortController().signal, get, 'toss');
+  assert.deepEqual(urls.sort(), ['/api/market?symbol=005930.KS&source=toss', '/api/market?symbol=ORCL&source=toss']);
+  assert.deepEqual(q.get('US:ORCL'), { symbol: 'ORCL', unavailable: 'unauthorized' });
+});

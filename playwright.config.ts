@@ -11,7 +11,12 @@ const stubPort = Number(process.env.STUB_PORT ?? port + 24);
 // BTA_REAL_YAHOO=1 (the approval-gated G run): no stand-in, /api/market reaches Yahoo, and only the
 // "real Yahoo" tests are selected, so no controlled test can accidentally hit Yahoo.
 const realYahoo = process.env.BTA_REAL_YAHOO === '1';
-const onlyReal = realYahoo ? { grep: /real Yahoo/ } : {};
+const onlyReal = process.env.BTA_REAL_TOSS === '1' ? { grep: /real Toss/ } : realYahoo ? { grep: /real Yahoo/ } : {};
+// Feature 015: the app server never sees the maintainer's Toss key from .env.local (process env wins over it) — it gets
+// fake credentials and the Toss stand-in; only BTA_REAL_TOSS=1 (the approval-gated real check) keeps the real ones.
+const realToss = process.env.BTA_REAL_TOSS === '1';
+const tossEnv: Record<string, string> = realToss ? {} : { BTA_TOSS_BASE_URL: `http://127.0.0.1:${stubPort}/toss`, BTA_TOSS_CLIENT_ID: 'test-toss-id-not-real',
+  BTA_TOSS_CLIENT_SECRET: 'test-toss-secret-not-real', BTA_TOSS_ACCOUNT_SEQ: '' };
 
 export default defineConfig({
   testDir: 'e2e',
@@ -40,9 +45,9 @@ export default defineConfig({
       timeout: 180_000,
       // Feature 007: /api/market talks to the local Yahoo stand-in below, never to Yahoo. Feature 009:
       // /api/directory talks to the same stand-in (never to data.go.kr or Nasdaq Trader), with a fake key.
-      ...(realYahoo ? {} : { env: { BTA_YAHOO_BASE_URL: `http://127.0.0.1:${stubPort}`,
+      env: { ...tossEnv, ...(realYahoo ? {} as Record<string, string> : { BTA_YAHOO_BASE_URL: `http://127.0.0.1:${stubPort}`,
         BTA_DATA_GO_KR_BASE_URL: `http://127.0.0.1:${stubPort}/1160100/service`,
-        BTA_NASDAQ_TRADER_BASE_URL: `http://127.0.0.1:${stubPort}/dynamic/SymDir`, BTA_DATA_GO_KR_KEY: 'test-key-not-real' } }),
+        BTA_NASDAQ_TRADER_BASE_URL: `http://127.0.0.1:${stubPort}/dynamic/SymDir`, BTA_DATA_GO_KR_KEY: 'test-key-not-real' }) },
     },
     ...(realYahoo ? [] : [{ command: 'node e2e/market-stub.mjs', url: `http://127.0.0.1:${stubPort}/__stats`,
       reuseExistingServer: false, env: { STUB_PORT: String(stubPort) } }]),
