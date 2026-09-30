@@ -1,20 +1,34 @@
 <!--
-Sync Impact Report — amendment 2026-09-29
-- Version: 1.0.0 → 1.1.0 (MINOR: new principle XIII; no principle removed or redefined)
-- Added: XIII. Inference Tiers
-- Reason: ADR 0001 (docs/adr/0001-nextjs-application-shell.md) adopts Next.js as the application
-  shell. Its server side makes remote inference technically reachable (e.g. a future cloud tier
-  such as Vercel AI Gateway, recorded only as a roadmap candidate). Without a rule, remote
-  inference could enter as an implicit default or a silent fallback and erode the project's
-  browser/local inference purpose (Principles IV, VI).
-- Evidence: the maintainer's architecture decision recorded in ADR 0001 (2026-09-29) and the
-  roadmap entry for an optional cloud-inference escalation. This is a decided direction; no
-  failure was observed. Features 002–005 run all inference locally (Prompt API through AkariSP).
-- Affected Features: 001–005 are unaffected (local inference only; no evidence changes). Future
-  Features that add any remote inference must satisfy XIII. Features 006–007 add none.
-- Workflow impact: every plan's Constitution Check adds XIII. Templates need no change (the plan
+Sync Impact Report — amendment 2026-09-30
+- Version: 1.1.0 → 1.2.0 (MINOR: two new principles, XIV and XV; VIII materially expanded. No
+  principle removed. VIII keeps its prohibition on trading-quality claims and adds a bounded
+  permission to record paper-trading outcomes as pre-registered experiment metrics.)
+- Modified: VIII. No Trading-Quality Claims (title unchanged; guidance expanded)
+- Added: XIV. Deterministic Grounding Verification; XV. Pre-Registered Evaluation
+- Removed: none
+- Reason: the project now studies how structural changes (roles, orchestration, answer modes,
+  models) change answer behaviour under browser-LLM limits. It needs two things fixed as rules:
+  (1) who judges grounding, and (2) how a result counts as evidence. The research goal also uses
+  paper-trading outcomes as one metric, which VIII did not allow in any form.
+- Evidence:
+  - F016-R1: the checker scored 26/26 on frozen fixtures but 9–17 % mismatch precision on real
+    native answers. A score on data the rules were tuned on did not show generalisation (XV).
+  - Feature 017: a pre-registered threshold on a held-out native capture (132 answers, blind audit
+    hashed before scoring) was not met and was reported as not met. Refs mode missed 8 of 9 meaning
+    errors (F017-R5). The procedure worked; this is the reason to make it a rule (XV).
+  - Features 010, 013, 016 and 017: errors of the same kind with every answer mode, including a
+    10x value error that only the deterministic checker caught (F017-R10). The checker must stay
+    whatever the model or tier (XIV).
+  - External context (docs/research/2026-09-30-*): FinanceBench (large cloud models still wrong on
+    financial figures); MAST FM-3 (verification failures in multi-agent systems).
+- Affected Features: 010, 013, 016 and 017 already follow XIV and XV (checker on every answer;
+  017 pre-registration, held-out set, blind audit), so no evidence changes. Earlier Features have
+  no grounding claims. 018 (Benchmark, single-role baseline) and any future cloud tier (XIII) must
+  satisfy XIV, XV and the revised VIII.
+- Workflow impact: every plan's Constitution Check adds XIV and XV. A Feature that reports a
+  trading metric must pre-register it under VIII and XV. Templates need no change (the plan
   template derives its gates from this file).
-- Vendor neutrality: no vendor or product is named in the principle.
+- Deferred: none.
 -->
 # BrowserTradingAgents Constitution
 
@@ -127,12 +141,22 @@ Analysis of an upstream project MUST pin a commit SHA, not only a branch.
 
 Infrastructure success MUST NOT be conflated with trading quality.
 
-- NOT project success criteria in the initial phase: prediction accuracy, PnL, Sharpe ratio,
-  backtest performance, buy/sell quality, investment profitability.
+- Prediction accuracy, PnL, Sharpe ratio, backtest performance, buy/sell quality and investment
+  profitability are NOT project success criteria. They MUST NOT be presented as product quality,
+  as evidence that a configuration is good for investing, or as investment advice.
+- Paper-trading outcomes MAY be recorded as experiment metrics only when a Feature pre-registers
+  them under Principle XV. The pre-registration states the baselines (such as no action,
+  buy-and-hold, random decisions or a single-role graph), the number of decisions and the smallest
+  difference that number can detect, and a fact window with no look-ahead.
+- Grounding results (Principle XIV) MUST be reported alongside any trading metric. A trading-metric
+  gain that comes with worse grounding MUST NOT be reported as an improvement.
 - An integration/lifecycle experiment can succeed even if the LLM's investment decision is wrong.
 - Evaluation targets: workflow correctness, graph semantics, integration ergonomics, lifecycle
   correctness, concurrency, queueing, backpressure, cancellation, failure propagation, cleanup,
-  runtime reuse, provider swap.
+  runtime reuse, provider swap, and grounding and answer behaviour under structural variation.
+
+Rationale: paper-trading outcomes are informative as one signal among many, but they are noisy and
+easy to over-read. A small sample or a lucky variant can look like skill.
 
 ### IX. External Data Deferred
 
@@ -212,6 +236,47 @@ Browser/local inference is the default tier.
 Rationale: keeping local inference the default protects the project's purpose, dogfooding browser
 inference through AkariSP, while allowing a deliberate cloud tier when a Feature justifies one.
 
+### XIV. Deterministic Grounding Verification
+
+Model-generated claims shown to the user are checked by deterministic application code, not by a
+model.
+
+- Every numeric, date and interpretation claim in a final answer MUST be classified by a
+  deterministic checker against the facts the run was given. The result MUST be visible with the
+  answer and recorded in evidence.
+- The same checker MUST apply to every model, provider and inference tier (Principle XIII). It
+  MUST NOT be removed, relaxed or bypassed because a model is larger or remote.
+- A model's judgement of its own or another model's grounding MUST NOT count as grounding
+  evidence. Model-written citations are inputs to the checker, not verdicts.
+- A checker signal enters a verdict only after its precision is shown on held-out data (Principle
+  XV). Until then it is reported separately from the verdict.
+
+Rationale: grounding errors (a value with the wrong meaning, a forecast without evidence, a figure
+off by a factor of ten) appeared with every answer mode and model configuration measured. Model
+size does not remove them. A checker whose rules can be read and whose results can be reproduced
+is the project's line of defence.
+
+### XV. Pre-Registered Evaluation
+
+A result counts as evidence only if its test was fixed before the result was seen.
+
+- Hypotheses, metrics, thresholds and baselines MUST be recorded in the spec before the results
+  they judge.
+- Sets used to tune rules or prompts (development sets) MUST be separate from held-out sets. The
+  rules MUST be frozen, with their hashes recorded, before a held-out set is scored.
+- A human audit of held-out results MUST be recorded, and its hash stored, before the checker's
+  classification of the same items is viewed.
+- Fixtures, thresholds and audit judgements MUST NOT be edited after results are seen. A missed
+  threshold is reported as a result and followed by findings (Principle XII), not re-scoped.
+- A score on a set that was used for tuning MUST NOT be reported as evidence of generalisation.
+- A comparison of structures, models or modes MUST change one factor against a baseline, with the
+  same set and checker. The sample size MUST be stated before the results. A difference within
+  run-to-run variation MUST be reported as no difference.
+
+Rationale: rules that reached 26/26 on the fixtures they were tuned on reached 9–17 % precision on
+real answers (F016-R1). Only a held-out, pre-registered test showed what the rules actually did
+(Feature 017).
+
 ## Project Scope & Non-Goals
 
 BrowserTradingAgents does NOT aim to:
@@ -268,4 +333,4 @@ Versioning policy (semantic versioning):
 
 The initial constitution version is `1.0.0`.
 
-**Version**: 1.1.0 | **Ratified**: 2026-09-28 | **Last Amended**: 2026-09-29
+**Version**: 1.2.0 | **Ratified**: 2026-09-28 | **Last Amended**: 2026-09-30
