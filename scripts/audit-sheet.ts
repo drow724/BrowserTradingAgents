@@ -48,9 +48,43 @@ export function sheet(report: { runs: MeasureRun[] }) {
   return { runs, failed };
 }
 
+// Feature 018 (research R5): a seeded shuffle (mulberry32), so a recorded seed reproduces the order.
+export function shuffle<T>(xs: readonly T[], seed: number): T[] {
+  let a = seed >>> 0;
+  const rand = () => { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 2 ** 32; };
+  const out = [...xs];
+  for (let i = out.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [out[i], out[j]] = [out[j], out[i]]; }
+  return out;
+}
+
+// Feature 018 (research R5): one blind sheet over several capture reports — answers mixed in a seeded order under
+// opaque ids, with no mode, structure, repetition, question id, holding or checker output; the key maps them back.
+export type BlindEntry = { id: string; facts: string[]; answer: string; items: Item[] };
+export type KeyEntry = { report: string; run: number; structure: string; mode: string; repetition: number };
+export function blindSheet(reports: { file: string; report: { runs: MeasureRun[]; structure?: string; mode?: string; repetition?: number } }[], seed: number) {
+  const all = reports.flatMap(({ file, report }) => sheet(report).runs.map((r) => ({ r, key: { report: file, run: r.index,
+    structure: report.structure ?? 'eight-role', mode: report.mode ?? 'current', repetition: report.repetition ?? 1 } })));
+  const entries: BlindEntry[] = [], key: Record<string, KeyEntry> = {};
+  shuffle(all, seed).forEach(({ r, key: k }, n) => {
+    const id = `e${String(n + 1).padStart(3, '0')}`;
+    entries.push({ id, facts: r.facts, answer: r.answer, items: r.items.map((i, m) => ({ ...i, id: `${id}:${m}` })) });
+    key[id] = k;
+  });
+  return { sheet: { seed, entries }, key: { seed, entries: key } };
+}
+
 if (process.argv[1]?.endsWith('audit-sheet.ts')) {
-  const [file, out] = process.argv.slice(2);
-  const s = sheet(JSON.parse(readFileSync(file, 'utf8')));
-  writeFileSync(out, JSON.stringify({ report: file, ...s }, null, 1) + '\n');
-  console.log(`${s.runs.length} runs, ${s.runs.reduce((n, r) => n + r.items.length, 0)} items, ${s.failed.length} failed`);
+  const args = process.argv.slice(2);
+  if (args[0] === '--seed') { // Feature 018: --seed <n> <sheet> <key> <report>...
+    const [, seed, sheetOut, keyOut, ...files] = args;
+    const b = blindSheet(files.map((file) => ({ file, report: JSON.parse(readFileSync(file, 'utf8')) })), Number(seed));
+    writeFileSync(sheetOut, JSON.stringify(b.sheet, null, 1) + '\n');
+    writeFileSync(keyOut, JSON.stringify(b.key, null, 1) + '\n');
+    console.log(`${b.sheet.entries.length} answers, ${b.sheet.entries.reduce((n, e) => n + e.items.length, 0)} items, seed ${seed}`);
+  } else {
+    const [file, out] = args;
+    const s = sheet(JSON.parse(readFileSync(file, 'utf8')));
+    writeFileSync(out, JSON.stringify({ report: file, ...s }, null, 1) + '\n');
+    console.log(`${s.runs.length} runs, ${s.runs.reduce((n, r) => n + r.items.length, 0)} items, ${s.failed.length} failed`);
+  }
 }

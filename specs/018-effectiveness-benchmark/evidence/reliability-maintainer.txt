@@ -1,0 +1,40 @@
+# batch 1 (e408 e639 e263 e216 e330 e118 e489 e535 e162 e133): all numbers correct
+e408:3 unsupported
+e263:16 supported
+e535:4 supported
+e162:4 supported
+# batch 2 (e047 e369 e459 e115 e046 e181 e588 e130 e098 e232): other numbers correct
+e588:5 real-error
+e369:2 supported
+e181:10 supported
+e232:5 supported
+# batch 3 (e568 e385 e466 e314 e106 e049 e358 e032 e156 e362): all numbers correct; bold hints removed from this batch on
+e314:1 unsupported
+e314:2 supported
+e049:4 supported
+e156:5 supported
+e362:6 supported
+# batch 4 (e537 e619 e144 e515 e427 e578 e491 e354 e394 e224): other numbers correct
+e491:1 real-error
+e619:10 supported
+e144:6 supported
+e515:7 supported
+e354:5 supported
+# batch 5 (e368 e318 e440 e302 e555 e637 e350 e400 e259 e319): all numbers correct
+e440:0 unsupported
+e440:1 unsupported
+e350:0 supported
+e319:0 supported
+# batch 6 (e366 e451 e658 e033 e392 e359 e419 e478 e391 e401 e258 e483): other numbers correct
+e033:1 real-error
+e033:2 real-error
+e033:6 real-error
+e359:1 real-error
+e359:2 real-error
+e483:5 real-error
+e658:0 supported
+e658:1 supported
+e658:2 supported
+e419:8 supported
+e483:7 supported
+e478:5 supported

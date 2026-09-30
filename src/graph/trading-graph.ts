@@ -86,24 +86,33 @@ const KOREAN_ANSWER = "Answer the user's question in Korean, in at most three se
 const REFS_ANSWER = 'Never write a number yourself. When you mention a value from the facts, write only its reference ' +
   'in braces, e.g. {D2}. If a value you need is not in the facts, say that it is not given.';
 
-const promptFor = (role: Role, state: TradingGraphState) =>
+type RoleLike = { node: NodeName; label: string; ask: string; writes: OutputKey };
+const promptFor = (role: RoleLike, state: TradingGraphState, reads: readonly ReadKey[]) =>
   `You are the ${role.label}. ${role.ask} Reply in plain text in at most three sentences.\n\n` +
-  readsFor(role, state.input).map((key) => `${LABELS[key]}: ${valueOf(state, key)}`).join('\n') +
+  reads.map((key) => `${LABELS[key]}: ${valueOf(state, key)}`).join('\n') +
   (role.node === 'finalDecisionMaker' && state.input.question !== undefined ? `\n\n${KOREAN_ANSWER}` : '') +
   (role.node === 'finalDecisionMaker' && state.input.numberMode === 'refs' ? ` ${REFS_ANSWER}` : '');
 
-export function buildTradingGraph(model: AkariChatModel, onNode?: (e: NodeEvent) => void) {
+// Feature 018 adaptation A-018-1: a measurement baseline, not TradingAgents semantics — one role, the final role's
+// label and answer policy, answers from all of the run's facts in one call (refs mode: every fact with its reference;
+// current mode: the holding, market and news lines). Selected only by the page parameter ?roles=single.
+export const SINGLE_ROLE = { node: 'finalDecisionMaker', label: 'Final Decision', writes: 'finalDecision',
+  ask: 'Give the final decision from these facts.' } as const;
+export const singleReads = (input: TradingFixture): readonly ReadKey[] => (input.answerFacts !== undefined
+  ? ['subject', 'answerFacts', 'question'] : ['subject', 'holdingFacts', 'marketFacts', 'newsFacts', 'question']);
+
+// One node per role: counts its model requests, reports start/done/error, forwards the graph's signal.
+function nodes(model: AkariChatModel, onNode?: (e: NodeEvent) => void) {
   const modelRequests = Object.fromEntries(ROLES.map((r) => [r.node, 0])) as Record<NodeName, number>;
   let seq = 0;
-
-  const node = (name: NodeName) => {
-    const role = ROLES.find((r) => r.node === name)!;
+  const node = (name: NodeName, role: RoleLike = ROLES.find((r) => r.node === name)!,
+    reads = (input: TradingFixture) => readsFor(role as Role, input)) => {
     return async (state: TradingGraphState, config: LangGraphRunnableConfig) => {
       onNode?.({ node: name, event: 'start', seq: ++seq });
       try {
         modelRequests[name]++;
         // Explicit forward: the graph's signal reaches AkariChatModel → runtime.run only this way.
-        const result = await model.invoke([new HumanMessage(promptFor(role, state))], { signal: config.signal });
+        const result = await model.invoke([new HumanMessage(promptFor(role, state, reads(state.input)))], { signal: config.signal });
         onNode?.({ node: name, event: 'done', seq: ++seq });
         return { [role.writes]: String(result.content) };
       } catch (e) {
@@ -112,7 +121,11 @@ export function buildTradingGraph(model: AkariChatModel, onNode?: (e: NodeEvent)
       }
     };
   };
+  return { node, modelRequests };
+}
 
+export function buildTradingGraph(model: AkariChatModel, onNode?: (e: NodeEvent) => void) {
+  const { node, modelRequests } = nodes(model, onNode);
   const graph = new StateGraph(State)
     .addNode('marketAnalyst', node('marketAnalyst'))
     .addNode('newsAnalyst', node('newsAnalyst'))
@@ -133,5 +146,15 @@ export function buildTradingGraph(model: AkariChatModel, onNode?: (e: NodeEvent)
     .addEdge('finalDecisionMaker', END)
     .compile();
 
+  return { graph, modelRequests };
+}
+
+export function buildSingleRoleGraph(model: AkariChatModel, onNode?: (e: NodeEvent) => void) {
+  const { node, modelRequests } = nodes(model, onNode);
+  const graph = new StateGraph(State)
+    .addNode('finalDecisionMaker', node('finalDecisionMaker', SINGLE_ROLE, singleReads))
+    .addEdge(START, 'finalDecisionMaker')
+    .addEdge('finalDecisionMaker', END)
+    .compile();
   return { graph, modelRequests };
 }

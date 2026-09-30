@@ -1,0 +1,30 @@
+{
+ "items": 365,
+ "agreeRealOrNot": 0.953,
+ "positives": 29,
+ "agreeOnPositives": 0.414,
+ "bar": {
+  "realOrNot": 0.95,
+  "positives": 0.7
+ },
+ "met": false,
+ "disagreements": [
+  "e216:3: full real-error, maintainer correct — 최근 주가 상승률은 23%이며, 포트폴리오 전체 점검을 위해서는 다른 종목 정보가 추가적으로 필요합니다.",
+  "e047:4: full real-error, maintainer correct — 최근 20거래일 동안 주가가 11.2% 하락했으며, 50일 이동평균 및 52주 저가에도 미치지 못합니다.",
+  "e588:6: full real-error, maintainer correct — 이는 지난 20일 동안 주가가 11.2% 11.2% 하락했으며, 현재 주가는 65만 3,200원 653,200 KRW입니다.",
+  "e098:7: full real-error, maintainer correct — 최근 20일 동안 주가가 11.2% 하락했으며, 50일 이동평균 및 52주 저가보다 낮은 수준입니다.",
+  "e156:5: full unsupported, maintainer supported — Q3 전망이 좋지 않다는 점은 우려되지만 삼성 생태계 내 위치와 저평가 가능성을 고려하여 현재 보유 전략을 유지하는 것이 적절하다고 판단됩니다.",
+  "e619:10: full unsupported, maintainer supported — 임상 2상 시험 결과 발표가 2026년 11월에 예상되는 점도 긍정적인 요인으로 작용할 수 있습니다.",
+  "e144:5: full real-error, maintainer correct — 주가 하락과 최근 20일 동안의 하락률, 그리고 1억 5천억 달러 규모의 주식 매입 계획이 발표된 점을 고려할 때, 투자 결정은 추가 정보 없이 판단하기 어렵습니다.",
+  "e144:6: full unsupported, maintainer supported — 주가 하락과 최근 20일 동안의 하락률, 그리고 1억 5천억 달러 규모의 주식 매입 계획이 발표된 점을 고려할 때, 투자 결정은 추가 정보 없이 판단하기 어렵습니다.",
+  "e491:2: full real-error, maintainer correct — 현재 가격은 9억 1천 2백만 원으로, 평균 매수 가격 대비 3.95%의 손실이 발생했습니다.",
+  "e491:6: full real-error, maintainer correct — 7일 동안 비트코인 가격은 4.1% 하락했으며, 최근 30일 최고가는 9억 8천 4백만 원입니다.",
+  "e224:4: full real-error, maintainer correct — 현재 주가가 61,500 KRW의 52주 저가보다 낮은 것은 사실입니다 6만 1,500원.",
+  "e224:6: full real-error, maintainer correct — 현재 주가가 61,500 KRW의 52주 저가보다 낮은 것은 사실입니다 6만 1,500원.",
+  "e318:7: full real-error, maintainer correct — 이는 20일 동안 11.2% 하락했으며, 50일 이동 평균치(69,800 KRW) 및 52주 저가(61,500 KRW) 모두 아래에 있습니다.",
+  "e658:0: full unsupported, maintainer supported — 제공된 정보에 자사주 매입 규모가 명시되어 있지 않습니다.",
+  "e658:1: full unsupported, maintainer supported — 다만 ZZAP은 자사주 매입 프로그램을 시행하고 있다는 정보가 있습니다.",
+  "e658:2: full unsupported, maintainer supported — 자사주 매입 프로그램의 구체적인 규모를 파악하기 위해서는 추가적인 정보가 필요합니다.",
+  "e258:1: full real-error, maintainer correct — 삼성테스트전자 주가는 현재 65,320 KRW (65만 3,200원)이며, 52주 최저가 61,500 KRW (6만 1,500원)과 가까울 수 있습니다."
+ ]
+}
