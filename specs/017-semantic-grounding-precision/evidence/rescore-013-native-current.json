@@ -1,0 +1,84 @@
+{
+  "report": "specs/013-numbers-by-reference/evidence/measurement-native-current.json",
+  "checker": {
+    "after": "065711d+working-tree"
+  },
+  "old": {
+    "runs": 99,
+    "completed": 99,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.859,
+    "unsupportedPerAnswer": 0.283,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 18,
+    "trapHandledRate": 0.889,
+    "koreanRate": 0.98,
+    "formatViolationRate": null,
+    "verdict": "LIMITED"
+  },
+  "new": {
+    "runs": 99,
+    "completed": 99,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.859,
+    "unsupportedPerAnswer": 0.283,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 18,
+    "trapHandledRate": 0.889,
+    "koreanRate": 0.98,
+    "formatViolationRate": null,
+    "semanticMismatchPerAnswer": 0.02,
+    "interpretationUnsupportedPerAnswer": 0.091,
+    "verdict": "LIMITED"
+  },
+  "interpretations": {
+    "supported": 15,
+    "unsupported": 9
+  },
+  "hand": {
+    "zeroUnsupportedRate": 0.889,
+    "trapHandledRate": 0.889,
+    "verdict": "LIMITED"
+  },
+  "changedRuns": [
+    {
+      "index": 24,
+      "question": "q17",
+      "holding": "KR:900001",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "65,320원 — claim says basis weeks:52, metric range_low; D1 is price (latest)"
+      ]
+    },
+    {
+      "index": 71,
+      "question": "q06",
+      "holding": "BTC",
+      "old": {
+        "unsupported": 2,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 2,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [
+        "9억 5천만 원",
+        "9억 1천 2백만 원"
+      ],
+      "mismatchClaims": [
+        "22,812,500 원 — claim says basis since_average_purchase, metric unrealised_return, direction down; D3 is position_value (latest)"
+      ]
+    }
+  ]
+}

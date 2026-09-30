@@ -1,0 +1,503 @@
+{
+ "note": "Feature 017 fixture D (FR-011b): held out from tuning. Written 2026-09-30 by the rule author BEFORE any rule change, on the fictional portfolio-fixture@1 holdings. Scored once, after the rules are frozen (T018); a failing case is a finding, never a reason to edit the case or (in this Feature) the rules. `raw` = refs answer before rendering (the claim text is the rendered answer); `target` \"interp\" = the sentence's interpretation claim (\"none\" = no interpretation claim); `count` = numeric claims expected in the sentence; `spans` = other spans' expected status.",
+ "cases": [
+  {
+   "id": "D01",
+   "holding": "KR:900001",
+   "text": "현재 주가는 평단보다 낮은 65,320원입니다.",
+   "target": "65,320원",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "D1"
+    ]
+   },
+   "hypothesis": "comparison: 평단 is the reference side; 65,320 is the latest price"
+  },
+  {
+   "id": "D02",
+   "holding": "KR:900001",
+   "text": "평단 71,000원 대비 현재가는 65,320원입니다.",
+   "target": "71,000원",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "H3"
+    ]
+   },
+   "hypothesis": "both values keep their own cue",
+   "spans": [
+    {
+     "text": "65,320원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D03",
+   "holding": "KR:900001",
+   "text": "평균 매수가보다 낮은 현재가 71,000원입니다.",
+   "target": "71,000원",
+   "expect": {
+    "status": "semantic-mismatch",
+    "evidence": [
+     "H3"
+    ]
+   },
+   "hypothesis": "value side labelled current price, but 71,000 is the average price"
+  },
+  {
+   "id": "D04",
+   "holding": "KR:900001",
+   "text": "현재가 65,320원은 52주 최저가 61,500원보다 높습니다.",
+   "target": "65,320원",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "D1"
+    ]
+   },
+   "hypothesis": "two values, two cues, comparison marker after the second",
+   "spans": [
+    {
+     "text": "61,500원",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D05",
+   "holding": "US:ZZAP",
+   "text": "현재 주가는 24.3배의 주가수익비율로 거래됩니다.",
+   "target": "24.3",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "M2"
+    ]
+   },
+   "hypothesis": "label after the value names its metric"
+  },
+  {
+   "id": "D06",
+   "holding": "US:ZZAP",
+   "text": "Watch the 6.27% unrealized loss and the 6.5% recent decline.",
+   "target": "6.5%",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "M1"
+    ]
+   },
+   "hypothesis": "\"unrealized\" belongs to 6.27%, not 6.5%",
+   "spans": [
+    {
+     "text": "6.27%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D07",
+   "holding": "KR:900001",
+   "text": "52주 최저가는 65,320원입니다.",
+   "target": "65,320원",
+   "expect": {
+    "status": "semantic-mismatch",
+    "evidence": [
+     "D1"
+    ]
+   },
+   "hypothesis": "subject cue stays: real error"
+  },
+  {
+   "id": "D08",
+   "holding": "BTC",
+   "text": "평가 손실은 22,812,500원입니다.",
+   "target": "22,812,500원",
+   "expect": {
+    "status": "semantic-mismatch",
+    "evidence": [
+     "D3"
+    ]
+   },
+   "hypothesis": "position value stated as the unrealised loss: real error"
+  },
+  {
+   "id": "D09",
+   "holding": "KR:900001",
+   "text": "지난 20거래일 동안 8.00% 하락했습니다.",
+   "target": "8.00%",
+   "expect": {
+    "status": "semantic-mismatch",
+    "evidence": [
+     "D2"
+    ]
+   },
+   "hypothesis": "unrealised return stated as a 20-session return: real error",
+   "spans": [
+    {
+     "text": "20",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D10",
+   "holding": "KR:900001",
+   "text": "",
+   "target": "65,320원",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "D1"
+    ],
+    "citation": {
+     "factId": "D1",
+     "fit": "right"
+    }
+   },
+   "hypothesis": "right citation of the written number",
+   "raw": "현재 주가는 65,320원입니다 {D1b}."
+  },
+  {
+   "id": "D11",
+   "holding": "KR:900001",
+   "text": "",
+   "target": "65,320원",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "D1"
+    ],
+    "citation": {
+     "factId": "H3",
+     "fit": "wrong"
+    }
+   },
+   "hypothesis": "citation next to a number of another value is recorded as wrong; the value itself is the latest price",
+   "raw": "현재 주가는 65,320원입니다 {H3}."
+  },
+  {
+   "id": "D12",
+   "holding": "KR:900001",
+   "text": "",
+   "target": "653,200원",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "D3"
+    ]
+   },
+   "hypothesis": "combined reference is never evidence",
+   "raw": "현재가는 65,320원, 평가액은 653,200원입니다 {D1b, D3}."
+  },
+  {
+   "id": "D13",
+   "holding": "KR:900001",
+   "text": "20거래일 동안 11.2% 하락했습니다 (M1).",
+   "target": "11.2%",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "M1"
+    ],
+    "citation": {
+     "factId": "M1",
+     "fit": "id-only"
+    }
+   },
+   "hypothesis": "written fact id of a fact with two numbers"
+  },
+  {
+   "id": "D14",
+   "holding": "KR:900001",
+   "text": "",
+   "target": "65,320원",
+   "expect": {
+    "status": "semantic-mismatch",
+    "evidence": [
+     "D1"
+    ],
+    "citation": {
+     "factId": "D1",
+     "fit": "right"
+    }
+   },
+   "hypothesis": "a right citation does not excuse a wrong label (US2-3)",
+   "raw": "52주 최저가는 65,320원입니다 {D1b}."
+  },
+  {
+   "id": "D15",
+   "holding": "KR:900001",
+   "text": "",
+   "target": "71,000원",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "H3"
+    ],
+    "citation": {
+     "factId": "H3",
+     "fit": "right"
+    }
+   },
+   "hypothesis": "written number + rendered reference of equal value count as one claim",
+   "raw": "평균 매수가는 71,000원입니다 {H3}.",
+   "count": 1
+  },
+  {
+   "id": "D16",
+   "holding": "KR:900001",
+   "text": "평가액은 653,200원입니다 [D3].",
+   "target": "653,200원",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "D3"
+    ],
+    "citation": {
+     "factId": "D3",
+     "fit": "right"
+    }
+   },
+   "hypothesis": "bracketed written fact id"
+  },
+  {
+   "id": "D17",
+   "holding": "KR:900001",
+   "text": "",
+   "target": "653,200원",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "D3"
+    ],
+    "citation": {
+     "factId": "D3",
+     "fit": "right"
+    }
+   },
+   "hypothesis": "citation placed after the sentence end still belongs to the sentence before",
+   "raw": "평가액은 653,200원입니다. {D3}"
+  },
+  {
+   "id": "D18",
+   "holding": "US:ZZAP",
+   "text": "주가수익비율 24.3배로 저평가되어 있습니다.",
+   "target": "interp",
+   "expect": {
+    "status": "unsupported"
+   },
+   "hypothesis": "a multiple alone has no benchmark",
+   "spans": [
+    {
+     "text": "24.3",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D19",
+   "holding": "KR:900001",
+   "text": "현재가가 평단보다 낮아 저평가 구간입니다.",
+   "target": "interp",
+   "expect": {
+    "status": "unsupported"
+   },
+   "hypothesis": "cost basis is not valuation evidence"
+  },
+  {
+   "id": "D20",
+   "holding": "BTC",
+   "text": "출금 중단 소식에도 장기적인 성장 잠재력은 여전합니다.",
+   "target": "interp",
+   "expect": {
+    "status": "unsupported"
+   },
+   "hypothesis": "news is not long-term fundamental evidence"
+  },
+  {
+   "id": "D21",
+   "holding": "KR:900001",
+   "text": "단기 반등이 나올 수 있습니다.",
+   "target": "interp",
+   "expect": {
+    "status": "none"
+   },
+   "hypothesis": "short-term price talk is outside the outlook lexicon (documented limit)"
+  },
+  {
+   "id": "D22",
+   "holding": "US:ZZAP",
+   "text": "150억 달러 규모의 자사주 매입이 발표되었습니다.",
+   "target": "interp",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "N1"
+    ]
+   },
+   "hypothesis": "restates the buyback news (content key and amount)"
+  },
+  {
+   "id": "D23",
+   "holding": "KR:900001",
+   "text": "뉴스에 따르면 회사 전망이 긍정적입니다.",
+   "target": "interp",
+   "expect": {
+    "status": "unsupported"
+   },
+   "hypothesis": "the guidance news is negative (18% below); a positive reading is not supported"
+  },
+  {
+   "id": "D24",
+   "holding": "BTC",
+   "text": "최근 뉴스를 고려해야 합니다.",
+   "target": "interp",
+   "expect": {
+    "status": "unsupported"
+   },
+   "hypothesis": "generic news mention without content"
+  },
+  {
+   "id": "D25",
+   "holding": "KR:900001",
+   "text": "실적이나 밸류에이션 정보가 없어 장기 전망을 판단하기에는 근거가 부족합니다.",
+   "target": "interp",
+   "expect": {
+    "status": "supported"
+   },
+   "hypothesis": "insufficient-evidence statement passes"
+  },
+  {
+   "id": "D26",
+   "holding": "US:ZZAP",
+   "text": "PER 24.3배는 높은 편입니다.",
+   "target": "interp",
+   "expect": {
+    "status": "unsupported"
+   },
+   "hypothesis": "\"high\" P/E is a valuation judgement without a benchmark",
+   "spans": [
+    {
+     "text": "24.3",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D27",
+   "holding": "US:ZZSP",
+   "text": "The ETF is 2.1% below its all-time high of 523.30 USD, and long-term upside remains.",
+   "target": "interp",
+   "expect": {
+    "status": "unsupported"
+   },
+   "hypothesis": "long-term upside without evidence",
+   "spans": [
+    {
+     "text": "2.1%",
+     "status": "supported"
+    },
+    {
+     "text": "523.30 USD",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D28",
+   "holding": "US:ZZSP",
+   "text": "최근 20거래일 동안 1.8% 상승했고, 평단 480.00 USD 대비 6.73% 올랐습니다.",
+   "target": "6.73%",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "D2"
+    ]
+   },
+   "hypothesis": "two clauses, each with its own basis",
+   "spans": [
+    {
+     "text": "1.8%",
+     "status": "supported"
+    },
+    {
+     "text": "480.00 USD",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D29",
+   "holding": "US:ZZSP",
+   "text": "The price of 512.30 USD is above the 480.00 USD average purchase price.",
+   "target": "480.00 USD",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "H3"
+    ]
+   },
+   "hypothesis": "label after the value (average purchase price)",
+   "spans": [
+    {
+     "text": "512.30 USD",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D30",
+   "holding": "BTC",
+   "text": "비트코인은 평균 매수가 대비 3.95% 낮고, 최근 7일간 4.1% 하락했습니다.",
+   "target": "4.1%",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "M1"
+    ]
+   },
+   "hypothesis": "separate clauses",
+   "spans": [
+    {
+     "text": "3.95%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D31",
+   "holding": "BTC",
+   "text": "평균 매수가보다 3.95% 낮은 91,250,000원입니다.",
+   "target": "91,250,000원",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "D1"
+    ]
+   },
+   "hypothesis": "reference-side cue does not bind the value after the comparison",
+   "spans": [
+    {
+     "text": "3.95%",
+     "status": "supported"
+    }
+   ]
+  },
+  {
+   "id": "D32",
+   "holding": "KR:900001",
+   "text": "평단보다 8.00% 높은 가격입니다.",
+   "target": "8.00%",
+   "expect": {
+    "status": "semantic-mismatch",
+    "evidence": [
+     "D2"
+    ]
+   },
+   "hypothesis": "direction after the comparison is the value's own: up vs a fall = real error"
+  }
+ ]
+}

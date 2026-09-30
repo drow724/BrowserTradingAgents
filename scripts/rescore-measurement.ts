@@ -7,6 +7,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { factSet } from '../src/analysis/facts.ts';
 import { claims } from '../src/analysis/grounding.ts';
 import { PORTFOLIO_FIXTURE } from '../src/analysis/portfolio-fixture.ts';
+import { refTable, render } from '../src/analysis/references.ts';
 import { aggregate, trapHandled, verdict, type MeasureRun } from '../src/analysis/report.ts';
 import { identity, type Holding } from '../src/portfolio.ts';
 
@@ -18,15 +19,20 @@ const holdings = PORTFOLIO_FIXTURE.portfolio as Holding[];
 const fixtureTickers = Object.keys(PORTFOLIO_FIXTURE.instruments).map((k) => k.split(':').at(-1)!);
 
 const changedRuns: unknown[] = [];
+const interpretations = { supported: 0, unsupported: 0 }; // Feature 017
 const runs = report.runs.map((r, i) => {
   if (r.outcome !== 'success' || r.answer === undefined) return r;
   const h = holdings.find((x) => identity(x.instrument) === r.holding)!;
   const facts = [...factSet(h).facts, { id: 'Q1', kind: 'question' as const, text: questions.get(r.question)! }];
-  const c = claims(r.answer, facts, [...fixtureTickers, r.holding.split(':').at(-1)!]);
-  const unsupported = c.filter((x) => x.status === 'unsupported').length;
+  // Feature 017: a recorded refs answer (`raw`) is re-rendered as the page does, so its citations reach the checker.
+  const rendered = r.raw !== undefined ? render(r.raw, refTable(factSet(h).facts), questions.get(r.question)!) : undefined;
+  const c = claims(rendered?.rendered ?? r.answer, facts, [...fixtureTickers, r.holding.split(':').at(-1)!], { citations: rendered?.refs ?? [] });
+  for (const x of c) if (x.type === 'interpretation') interpretations[x.status === 'supported' ? 'supported' : 'unsupported']++;
+  const unsupported = c.filter((x) => x.status === 'unsupported' && x.type !== 'interpretation').length; // F017-R1
+  const interpretation = c.filter((x) => x.status === 'unsupported' && x.type === 'interpretation').length;
   const unrecognised = c.filter((x) => x.status === 'unrecognised').length;
   const mismatch = c.filter((x) => x.status === 'semantic-mismatch').length; // Feature 016
-  const next = { ...r, unsupported, unrecognised, mismatch, ...(r.kind === 'trap' ? { trapHandled: trapHandled(r.answer, unsupported) } : {}) };
+  const next = { ...r, unsupported, unrecognised, mismatch, interpretation, ...(r.kind === 'trap' ? { trapHandled: trapHandled(r.answer, unsupported) } : {}) };
   if (next.unsupported !== r.unsupported || next.unrecognised !== r.unrecognised || next.trapHandled !== r.trapHandled || mismatch) {
     changedRuns.push({ index: i, question: r.question, holding: r.holding,
       old: { unsupported: r.unsupported, unrecognised: r.unrecognised, trapHandled: r.trapHandled },
@@ -42,7 +48,7 @@ const rev = (() => { try { return execFileSync('git', ['rev-parse', '--short', '
 const result = {
   report: file, checker: { after: `${rev}+working-tree` },
   old: { ...old, verdict: verdict(old, report.evidenceClass) },
-  new: { ...now, verdict: verdict(now, report.evidenceClass) },
+  new: { ...now, verdict: verdict(now, report.evidenceClass) }, interpretations,
   hand: { zeroUnsupportedRate: Number(handZ), trapHandledRate: Number(handT),
     verdict: verdict({ ...now, zeroUnsupportedRate: Number(handZ), trapHandledRate: Number(handT) }, report.evidenceClass) },
   changedRuns,

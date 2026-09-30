@@ -1,0 +1,44 @@
+{
+  "report": "specs/013-numbers-by-reference/evidence/measurement-native-formatted.json",
+  "checker": {
+    "after": "065711d+working-tree"
+  },
+  "old": {
+    "runs": 99,
+    "completed": 99,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.909,
+    "unsupportedPerAnswer": 0.111,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 18,
+    "trapHandledRate": 1,
+    "koreanRate": 0.919,
+    "formatViolationRate": null,
+    "verdict": "USABLE"
+  },
+  "new": {
+    "runs": 99,
+    "completed": 99,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.909,
+    "unsupportedPerAnswer": 0.111,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 18,
+    "trapHandledRate": 1,
+    "koreanRate": 0.919,
+    "formatViolationRate": null,
+    "semanticMismatchPerAnswer": 0,
+    "interpretationUnsupportedPerAnswer": 0.111,
+    "verdict": "USABLE"
+  },
+  "interpretations": {
+    "supported": 40,
+    "unsupported": 11
+  },
+  "hand": {
+    "zeroUnsupportedRate": 0.889,
+    "trapHandledRate": 0.889,
+    "verdict": "LIMITED"
+  },
+  "changedRuns": []
+}

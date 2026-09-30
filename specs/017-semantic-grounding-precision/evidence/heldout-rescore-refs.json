@@ -1,0 +1,100 @@
+{
+  "report": "specs/017-semantic-grounding-precision/evidence/heldout-refs.json",
+  "checker": {
+    "after": "065711d+working-tree"
+  },
+  "old": {
+    "runs": 66,
+    "completed": 66,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.939,
+    "unsupportedPerAnswer": 0.061,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 12,
+    "trapHandledRate": 1,
+    "koreanRate": 0.939,
+    "formatViolationRate": 0.833,
+    "semanticMismatchPerAnswer": 0.015,
+    "verdict": "USABLE"
+  },
+  "new": {
+    "runs": 66,
+    "completed": 66,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.97,
+    "unsupportedPerAnswer": 0.03,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 12,
+    "trapHandledRate": 1,
+    "koreanRate": 0.939,
+    "formatViolationRate": 0.833,
+    "semanticMismatchPerAnswer": 0.015,
+    "interpretationUnsupportedPerAnswer": 0.03,
+    "verdict": "USABLE"
+  },
+  "interpretations": {
+    "supported": 22,
+    "unsupported": 2
+  },
+  "hand": {
+    "zeroUnsupportedRate": 0.889,
+    "trapHandledRate": 0.889,
+    "verdict": "LIMITED"
+  },
+  "changedRuns": [
+    {
+      "index": 12,
+      "question": "q13",
+      "holding": "KR:900001",
+      "old": {
+        "unsupported": 1,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 0
+      },
+      "unsupportedClaims": [
+        "long-term"
+      ],
+      "mismatchClaims": []
+    },
+    {
+      "index": 38,
+      "question": "q06",
+      "holding": "BTC",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "98,400,000 KRW — claim says basis latest, metric price, direction down; M2 is range_high (days:30)"
+      ]
+    },
+    {
+      "index": 44,
+      "question": "q12",
+      "holding": "US:ZZAP",
+      "old": {
+        "unsupported": 1,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 0
+      },
+      "unsupportedClaims": [
+        "저평가"
+      ],
+      "mismatchClaims": []
+    }
+  ]
+}
