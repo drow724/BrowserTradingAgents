@@ -108,3 +108,17 @@ test('resolve: longest match, ticker only, not held, none, empty portfolio', () 
   assert.deepEqual(resolve('요즘 시장 어때요?', P, dir), { kind: 'choose' });
   assert.deepEqual(resolve('전체 점검', []), { kind: 'choose' });
 });
+
+test('Feature 016 FR-020: semantic mismatches are reported per answer but do not change the clean-answer rate', async () => {
+  const { aggregate } = await import('../src/analysis/report.ts');
+  const run = (mismatch: number) => ({ question: 'q', kind: 'single' as const, holding: 'h', outcome: 'success', unsupported: 0, unrecognised: 0, language: 'ko', ms: 1, mismatch });
+  const a = aggregate([run(0), run(1), run(0), run(2)]);
+  assert.equal(a.zeroUnsupportedRate, 1);
+  assert.equal(a.semanticMismatchPerAnswer, 0.75);
+  assert.equal(aggregate([{ ...run(0), mismatch: undefined }]).semanticMismatchPerAnswer, undefined);
+});
+
+test('Feature 016 A-016-1: the final role is told where the evidence stops (valuation, long-term outlook)', async () => {
+  const src = (await import('node:fs')).readFileSync('src/graph/trading-graph.ts', 'utf8');
+  assert.match(src, /do not call the stock under- or ' \+\s*'overvalued or state a long-term outlook unless the facts contain such evidence; if they do not, say that the evidence ' \+\s*'is insufficient\./);
+});
