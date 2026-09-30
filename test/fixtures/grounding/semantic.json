@@ -1,0 +1,100 @@
+{
+ "note": "Feature 016 frozen semantic grounding fixtures. Written 2026-09-30 BEFORE any checker change; expectations are never edited to fit results — a failing case is a finding. Fixture A keeps ORCL's public market facts with FICTIONAL holding values (spec FR-019). `target` is the span the claim is about; `spans` gives the expected status of every other span extracted from the sentence. Interpretation and news claims are sentence-level; their span is the first lexicon word of the sentence. Statuses: supported | unsupported | semantic-mismatch.",
+ "fixtures": [
+  {
+   "id": "A",
+   "subject": "ORCL",
+   "known": ["ORCL", "QQQM"],
+   "facts": [
+    { "id": "H1", "kind": "holding", "text": "Holding: Oracle Corporation Common Stock (ORCL), US listing." },
+    { "id": "H2", "kind": "holding", "text": "Quantity held: 12 shares." },
+    { "id": "H3", "kind": "holding", "text": "Average purchase price: 172.40 USD." },
+    { "id": "D1", "kind": "derived", "text": "Latest price (2026-09-29): 137.79 USD." },
+    { "id": "D2", "kind": "derived", "text": "Unrealised change vs. average purchase price: -20.08%." },
+    { "id": "D3", "kind": "derived", "text": "Position value at the latest price: 1,653.48 USD." },
+    { "id": "M1", "kind": "market", "text": "The price fell 7.6% over the last 20 sessions." },
+    { "id": "M2", "kind": "market", "text": "The price is below its 50-day moving average of 142.70 USD." },
+    { "id": "M3", "kind": "market", "text": "The 52-week high is 322.54 USD and the 52-week low is 114.50 USD." },
+    { "id": "N1", "kind": "news", "text": "No news is supplied for this holding." }
+   ],
+   "claims": [
+    { "text": "현재가는 137.79 USD입니다.", "target": "137.79 USD", "expect": { "status": "supported", "evidence": ["D1"] },
+      "hypothesis": "latest-price cue agrees with D1" },
+    { "text": "보유 수량은 12주입니다.", "target": "12주", "expect": { "status": "supported", "evidence": ["H2"] },
+      "hypothesis": "quantity cue agrees with H2" },
+    { "text": "평가액은 1,653.48 USD입니다.", "target": "1,653.48 USD", "expect": { "status": "supported", "evidence": ["D3"] },
+      "hypothesis": "position-value cue agrees with D3" },
+    { "text": "평균 매수가 대비 20.08% 하락해 있습니다.", "target": "20.08%", "expect": { "status": "supported", "evidence": ["D2"] },
+      "hypothesis": "cost-basis cue + down agree with D2 (SC-002)" },
+    { "text": "최근 20거래일 동안 7.6% 하락했습니다.", "target": "7.6%", "expect": { "status": "supported", "evidence": ["M1"] },
+      "spans": [{ "text": "20", "status": "supported" }], "hypothesis": "20-session cue + down agree with M1 (SC-003)" },
+    { "text": "현재가는 50일 이동평균인 142.70 USD보다 낮습니다.", "target": "142.70 USD", "expect": { "status": "supported", "evidence": ["M2"] },
+      "spans": [{ "text": "50", "status": "supported" }], "hypothesis": "the 50-day moving-average cue is the one attached to the value; the latest-price cue names the other side of the comparison" },
+    { "text": "20일 동안 20.08% 하락했다.", "target": "20.08%", "expect": { "status": "semantic-mismatch", "evidence": ["D2"] },
+      "spans": [{ "text": "20", "status": "supported" }], "hypothesis": "value of D2 (since_average_purchase) with a 20-session cue (SC-001)" },
+    { "text": "ORCL fell 20.08% over the last 20 sessions.", "target": "20.08%", "expect": { "status": "semantic-mismatch", "evidence": ["D2"] },
+      "spans": [{ "text": "ORCL", "status": "supported" }, { "text": "20", "status": "supported" }], "hypothesis": "same mismatch in English" },
+    { "text": "평균 매수가 대비 7.6% 하락했습니다.", "target": "7.6%", "expect": { "status": "semantic-mismatch", "evidence": ["M1"] },
+      "hypothesis": "value of M1 (sessions:20) with the cost-basis cue" },
+    { "text": "QQQM은 20거래일 동안 7.6% 하락했습니다.", "target": "7.6%", "expect": { "status": "semantic-mismatch", "evidence": ["M1"] },
+      "spans": [{ "text": "QQQM", "status": "unsupported" }, { "text": "20", "status": "supported" }], "hypothesis": "right metric and basis, wrong subject" },
+    { "text": "평균 매수가 대비 약 20% 하락했습니다.", "target": "20%", "expect": { "status": "supported", "evidence": ["D2"] },
+      "hypothesis": "rounding stays within the matched metric (-20.08 → 20)" },
+    { "text": "최근 20거래일에는 7.6% 하락했고 현재가는 50일 이동평균 아래에 있습니다.", "target": "7.6%", "expect": { "status": "supported", "evidence": ["M1"] },
+      "spans": [{ "text": "20", "status": "supported" }, { "text": "50", "status": "supported" }], "hypothesis": "clause split after 했고 keeps the 20-session cue with 7.6%" },
+    { "text": "뉴스 정보가 없습니다.", "target": "뉴스", "expect": { "status": "supported", "evidence": ["N1"] },
+      "hypothesis": "absence statement supported by the absence fact N1" },
+    { "text": "평균 매수 가격보다 저평가되어 있습니다.", "target": "저평가", "expect": { "status": "unsupported", "evidence": [] },
+      "hypothesis": "cost-basis facts are not valuation evidence (SC-004)" },
+    { "text": "ORCL is undervalued.", "target": "undervalued", "expect": { "status": "unsupported", "evidence": [] },
+      "spans": [{ "text": "ORCL", "status": "supported" }], "hypothesis": "no valuation evidence" },
+    { "text": "장기적인 상승 잠재력을 고려할 때 유지하는 것을 고려할 수 있습니다.", "target": "장기", "expect": { "status": "unsupported", "evidence": [] },
+      "hypothesis": "no fundamental or news evidence (SC-005)" },
+    { "text": "ORCL has long-term upside potential.", "target": "long-term", "expect": { "status": "unsupported", "evidence": [] },
+      "spans": [{ "text": "ORCL", "status": "supported" }], "hypothesis": "no fundamental or news evidence" },
+    { "text": "Long-term recovery is likely.", "target": "Long-term", "expect": { "status": "unsupported", "evidence": [] },
+      "hypothesis": "no fundamental or news evidence" },
+    { "text": "현재 제공된 정보에는 실적, 밸류에이션, 최근 뉴스가 없어 장기 보유 여부를 판단하기에는 근거가 부족합니다.", "target": "밸류에이션",
+      "expect": { "status": "supported", "evidence": ["N1"] },
+      "hypothesis": "insufficient-evidence statement (sentence level) passes; it names news, whose absence N1 states" }
+   ]
+  },
+  {
+   "id": "B",
+   "subject": "QQQM",
+   "known": ["QQQM"],
+   "facts": [
+    { "id": "H1", "kind": "holding", "text": "Holding: Invesco NASDAQ 100 ETF (QQQM), US listing." },
+    { "id": "M1", "kind": "market", "text": "The price rose 3.0% over the last 20 sessions." }
+   ],
+   "claims": [
+    { "text": "QQQM은 20일 동안 20% 상승했다.", "target": "20%", "expect": { "status": "unsupported", "evidence": [] },
+      "spans": [{ "text": "QQQM", "status": "supported" }, { "text": "20", "status": "supported" }], "hypothesis": "no fact holds 20% (SC-006)" },
+    { "text": "QQQM은 최근 20거래일 동안 3.0% 상승했습니다.", "target": "3.0%", "expect": { "status": "supported", "evidence": ["M1"] },
+      "spans": [{ "text": "QQQM", "status": "supported" }, { "text": "20", "status": "supported" }], "hypothesis": "the correct claim stays supported" }
+   ]
+  },
+  {
+   "id": "C",
+   "subject": "ZZTH",
+   "known": ["ZZTH"],
+   "facts": [
+    { "id": "H1", "kind": "holding", "text": "Holding: Zeta Test Holdings Inc. (ZZTH), US listing." },
+    { "id": "D2", "kind": "derived", "text": "Unrealised change vs. average purchase price: +10.00%." },
+    { "id": "M1", "kind": "market", "text": "The price rose 10.0% over the last 20 sessions." }
+   ],
+   "claims": [
+    { "text": "평균 매수가 대비 10% 상승했습니다.", "target": "10%", "expect": { "status": "supported", "evidence": ["D2"] },
+      "hypothesis": "resolves to D2, not M1, despite the shared value (SC-007)" },
+    { "text": "최근 20거래일 동안 10% 상승했습니다.", "target": "10%", "expect": { "status": "supported", "evidence": ["M1"] },
+      "spans": [{ "text": "20", "status": "supported" }], "hypothesis": "resolves to M1, not D2 (SC-007)" },
+    { "text": "30일 동안 10% 상승했습니다.", "target": "10%", "expect": { "status": "semantic-mismatch", "evidence": ["D2", "M1"] },
+      "spans": [{ "text": "30", "status": "unsupported" }], "hypothesis": "a third, unstated horizon is not supported by either fact" },
+    { "text": "10% 상승했습니다.", "target": "10%", "expect": { "status": "supported", "evidence": ["D2", "M1"], "ambiguous": true },
+      "hypothesis": "no cue: supported by value, marked ambiguous (two metrics)" },
+    { "text": "최근 20거래일 동안 10% 하락했습니다.", "target": "10%", "expect": { "status": "semantic-mismatch", "evidence": ["M1"] },
+      "spans": [{ "text": "20", "status": "supported" }], "hypothesis": "right basis, wrong direction" }
+   ]
+  }
+ ]
+}

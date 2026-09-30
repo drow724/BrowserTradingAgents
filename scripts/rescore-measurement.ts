@@ -25,12 +25,14 @@ const runs = report.runs.map((r, i) => {
   const c = claims(r.answer, facts, [...fixtureTickers, r.holding.split(':').at(-1)!]);
   const unsupported = c.filter((x) => x.status === 'unsupported').length;
   const unrecognised = c.filter((x) => x.status === 'unrecognised').length;
-  const next = { ...r, unsupported, unrecognised, ...(r.kind === 'trap' ? { trapHandled: trapHandled(r.answer, unsupported) } : {}) };
-  if (next.unsupported !== r.unsupported || next.unrecognised !== r.unrecognised || next.trapHandled !== r.trapHandled) {
+  const mismatch = c.filter((x) => x.status === 'semantic-mismatch').length; // Feature 016
+  const next = { ...r, unsupported, unrecognised, mismatch, ...(r.kind === 'trap' ? { trapHandled: trapHandled(r.answer, unsupported) } : {}) };
+  if (next.unsupported !== r.unsupported || next.unrecognised !== r.unrecognised || next.trapHandled !== r.trapHandled || mismatch) {
     changedRuns.push({ index: i, question: r.question, holding: r.holding,
       old: { unsupported: r.unsupported, unrecognised: r.unrecognised, trapHandled: r.trapHandled },
-      new: { unsupported, unrecognised, trapHandled: next.trapHandled },
-      unsupportedClaims: c.filter((x) => x.status === 'unsupported').map((x) => x.text) });
+      new: { unsupported, unrecognised, mismatch, trapHandled: next.trapHandled },
+      unsupportedClaims: c.filter((x) => x.status === 'unsupported').map((x) => x.text),
+      mismatchClaims: c.filter((x) => x.status === 'semantic-mismatch').map((x) => `${x.text} — ${x.reason}`) });
   }
   return next;
 });

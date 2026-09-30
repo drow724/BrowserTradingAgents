@@ -7,10 +7,12 @@ export const TRAP_PHRASES = ['자료에 없', '정보가 없', '알 수 없', '�
 
 export type MeasureRun = { question: string; kind: 'single' | 'multi' | 'trap'; holding: string; outcome: string;
   unsupported: number; unrecognised: number; trapHandled?: boolean; language: string; ms: number; answer?: string;
-  mode?: 'current' | 'formatted' | 'refs'; violations?: number; error?: string | null }; // Feature 013
+  mode?: 'current' | 'formatted' | 'refs'; violations?: number; error?: string | null; // Feature 013
+  mismatch?: number }; // Feature 016: semantic mismatches in the answer
 export type Aggregate = { runs: number; completed: number; failed: number; zeroUnsupportedRate: number;
   unsupportedPerAnswer: number; unrecognisedPerAnswer: number; trapRuns: number; trapHandledRate: number; koreanRate: number;
-  formatViolationRate?: number | null }; // Feature 013: refs mode only, null otherwise
+  formatViolationRate?: number | null; // Feature 013: refs mode only, null otherwise
+  semanticMismatchPerAnswer?: number }; // Feature 016: when the runs record mismatches
 export type Verdict = 'USABLE' | 'LIMITED' | 'NOT_YET' | 'NOT_APPLICABLE';
 
 // Handled = says the data is not there (committed phrases) and claims nothing unsupported.
@@ -24,6 +26,7 @@ export function aggregate(runs: readonly MeasureRun[]): Aggregate {
   const traps = done.filter((r) => r.kind === 'trap');
   return {
     runs: runs.length, completed: done.length, failed: runs.length - done.length,
+    // Feature 016 (FR-020, F016-R3): semantic mismatches are reported separately, not in this verdict input.
     zeroUnsupportedRate: rate(done.filter((r) => r.unsupported === 0).length, done.length),
     unsupportedPerAnswer: rate(done.reduce((s, r) => s + r.unsupported, 0), done.length),
     unrecognisedPerAnswer: rate(done.reduce((s, r) => s + r.unrecognised, 0), done.length),
@@ -31,6 +34,7 @@ export function aggregate(runs: readonly MeasureRun[]): Aggregate {
     koreanRate: rate(done.filter((r) => r.language === 'ko').length, done.length),
     ...(runs.some((r) => r.mode) ? { formatViolationRate: runs.some((r) => r.mode === 'refs')
       ? rate(done.filter((r) => (r.violations ?? 0) > 0).length, done.length) : null } : {}),
+    ...(runs.some((r) => r.mismatch !== undefined) ? { semanticMismatchPerAnswer: rate(done.reduce((s, r) => s + (r.mismatch ?? 0), 0), done.length) } : {}),
   };
 }
 

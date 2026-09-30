@@ -68,7 +68,7 @@ test('T016 US5/SC-003: a fabricated number in the answer is marked; supported on
     };
   });
   const { record: r } = await analyse(page, 'KR:900001');
-  expect(r.analysis.grounding.counts).toEqual({ supported: 2, unsupported: 1, unrecognised: 0 });
+  expect(r.analysis.grounding.counts).toEqual({ supported: 2, unsupported: 1, semanticMismatch: 0, unrecognised: 0 });
   expect(r.analysis.answerLanguage).toBe('ko');
   const w = page.getByRole('dialog', { name: '답변' });
   await expect(w).toBeVisible();
@@ -305,4 +305,35 @@ test('T033 SC-005: holding values, the question, the answer and the ledger never
   const sentinels = ['0.77777777', '77777777', '42424242', '42,424,242', '센티넬질문XYZ', answer.slice(0, 40)];
   expect(seen.length).toBeGreaterThan(3);
   for (const s of sentinels) expect(seen.filter((x) => x.includes(s)), s).toEqual([]);
+});
+
+test('Feature 016 T015: a cost-basis value used as a 20-session change is marked 의미 불일치; valuation without evidence 근거 없음', async ({ page }) => {
+  await loadExample(page);
+  // Test-side stand-in wrapper (as T016): the final role answers with one mismatch, one unsupported valuation and one
+  // insufficient-evidence sentence. KR:900001 facts: D2 -8.00% (vs average price), M1 -11.2% over 20 sessions, no
+  // valuation fact.
+  await page.evaluate(() => {
+    const LM = (window as unknown as { LanguageModel: { create: (...a: unknown[]) => Promise<{ clone: (o: unknown) => Promise<{ prompt: (i: unknown, o: unknown) => Promise<string> }> }> } }).LanguageModel;
+    const create = LM.create.bind(LM);
+    LM.create = async (...a) => {
+      const base = await create(...a);
+      const clone = base.clone.bind(base);
+      base.clone = async (o) => {
+        const s = await clone(o);
+        return { ...s, prompt: (i: unknown, opts: unknown) => JSON.stringify(i).includes('You are the Final Decision.')
+          ? Promise.resolve('삼성테스트전자는 최근 20거래일 동안 8.00% 하락했습니다. 평균 매수가보다 낮아 저평가되어 있습니다. '
+            + '현재 제공된 정보에는 밸류에이션이 없어 장기 보유 여부를 판단하기에는 근거가 부족합니다.') : s.prompt(i, opts) };
+      };
+      return base;
+    };
+  });
+  const { record: r } = await analyse(page, 'KR:900001');
+  expect(r.analysis.grounding.counts.semanticMismatch).toBe(1);
+  const w = page.getByRole('dialog', { name: '답변' });
+  await expect(w.locator('mark[data-claim="semantic-mismatch"]')).toHaveText('8.00% [의미 불일치]');
+  await expect(w.locator('mark[data-claim="semantic-mismatch"]')).toHaveAttribute('title', /D2 is unrealised_return \(since_average_purchase\)/);
+  await expect(w.locator('mark[data-claim="unsupported"]')).toHaveText('저평가 [근거 없음]');
+  await expect(w.locator('[data-grounding-counts]')).toContainText('의미 불일치 1건');
+  await expect(w.locator('[data-answer]')).toContainText('판단하기에는 근거가 부족합니다'); // no mark on the insufficient-evidence sentence
+  await expect(w.locator('mark')).toHaveCount(2);
 });

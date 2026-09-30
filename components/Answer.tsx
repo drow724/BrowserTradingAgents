@@ -22,14 +22,18 @@ function Source({ d }: { d?: AnalysisRecord['dataSource'] }) {
   return <p className={styles.warn} data-source="unavailable">시세 없음: {WHY[d.unavailable ?? ''] ?? '시세 소스에 연결하지 못했습니다'}</p>;
 }
 
-const LABEL: Partial<Record<Claim['status'], string>> = { unsupported: '근거 확인 안 됨', unrecognised: '확인 불가 표기' };
+const LABEL: Partial<Record<Claim['status'], string>> = { unsupported: '근거 확인 안 됨', unrecognised: '확인 불가 표기',
+  'semantic-mismatch': '의미 불일치' };
+// Feature 016: an interpretation without evidence (valuation, long-term outlook) is "근거 없음".
+const label = (c: Claim) => (c.type === 'interpretation' && c.status === 'unsupported' ? '근거 없음' : LABEL[c.status]);
 
 // Marks in text order; the first mark wins where two overlap (format violations before claims, Feature 013).
-type Mark = { start: number; end: number; label: string; attr: Record<string, string>; flag: boolean };
+type Mark = { start: number; end: number; label: string; attr: Record<string, string>; flag: boolean; title?: string };
 function Marked({ text, claims, numbers }: { text: string; claims: Claim[]; numbers?: Partial<Rendered> }) {
   const marks: Mark[] = [
     ...(numbers?.violations ?? []).map((v) => ({ start: v.start, end: v.end, label: '형식 위반', attr: { 'data-violation': v.kind }, flag: true })),
-    ...claims.filter((c) => LABEL[c.status]).map((c) => ({ start: c.start, end: c.end, label: LABEL[c.status]!, attr: { 'data-claim': c.status }, flag: true })),
+    ...claims.filter((c) => label(c)).map((c) => ({ start: c.start, end: c.end, label: label(c)!, attr: { 'data-claim': c.status }, flag: true,
+      title: c.reason })),
     ...(numbers?.refs ?? []).map((r) => ({ start: r.start, end: r.end, label: r.factId, attr: { 'data-ref': r.name }, flag: false })),
   ];
   const parts: React.ReactNode[] = [];
@@ -37,7 +41,7 @@ function Marked({ text, claims, numbers }: { text: string; claims: Claim[]; numb
   for (const m of marks.sort((a, b) => a.start - b.start)) {
     if (m.start < at) continue;
     parts.push(text.slice(at, m.start));
-    parts.push(<mark key={m.start} className={m.flag ? styles.flag : undefined} {...m.attr} title={m.label}>
+    parts.push(<mark key={m.start} className={m.flag ? styles.flag : undefined} {...m.attr} title={m.title ?? m.label}>
       {text.slice(m.start, m.end)}<span className={styles.flagLabel}> [{m.label}]</span></mark>);
     at = m.end;
   }
@@ -59,7 +63,7 @@ function One({ record, onRecord }: { record: AnalysisRecord; onRecord?: (r: Anal
         : <Marked text={answer} claims={g?.answer ?? []} numbers={a.numbers} />}
       {g && (
         <p data-grounding-counts="">
-          근거 확인: 일치 {g.counts.supported}건 · <strong>근거 확인 안 됨 {g.counts.unsupported}건</strong> · 확인 불가 표기 {g.counts.unrecognised}건
+          근거 확인: 일치 {g.counts.supported}건 · <strong>의미 불일치 {g.counts.semanticMismatch ?? 0}건</strong> · <strong>근거 확인 안 됨 {g.counts.unsupported}건</strong> · 확인 불가 표기 {g.counts.unrecognised}건
           {a.numbers?.violations && <> · <strong>형식 위반 {a.numbers.violations.length}건</strong></>}
         </p>
       )}

@@ -255,3 +255,13 @@ A typed market-data failure is recorded as BLOCKED, never as PASS.
 - **Real Toss L7** (opt-in, maintainer approval, their key and registered IP):
   `BTA_REAL_TOSS=1 BTA_REAL_YAHOO=1 npx playwright test --project=chromium -g "real Toss"` → `real-toss-l7.json`
   (import counts and skip reasons only; Toss quotes of public tickers).
+
+## Feature 016 — Semantic grounding
+
+- Frozen fixtures `test/fixtures/grounding/semantic.json` (A: ORCL with fictional holding values, B: QQQM, C: the same
+  value under two metrics) — written before the checker change; never edited to fit results (sha256 in
+  `specs/016-semantic-grounding-contract/verification.md`). `node --test test/semantic.test.ts` prints the mapping
+  (claim → evidence → class → reason) and the counts (claims, SUPPORTED, UNSUPPORTED, SEMANTIC_MISMATCH, agreement).
+- Fact semantics come from the templates in `src/analysis/semantics.ts`; the coverage test fails when the code writes
+  a fact sentence no template (or the listed value-only forms) covers.
+- Re-score recorded reports with `node scripts/rescore-measurement.ts <report> [out]` — now also counts mismatches.

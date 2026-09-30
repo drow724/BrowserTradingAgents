@@ -1,0 +1,243 @@
+{
+  "report": "specs/013-numbers-by-reference/evidence/measurement-native-refs.json",
+  "checker": {
+    "after": "d51126f+working-tree"
+  },
+  "old": {
+    "runs": 99,
+    "completed": 99,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.97,
+    "unsupportedPerAnswer": 0.051,
+    "unrecognisedPerAnswer": 0.02,
+    "trapRuns": 18,
+    "trapHandledRate": 0.944,
+    "koreanRate": 0.929,
+    "formatViolationRate": 0.788,
+    "verdict": "USABLE"
+  },
+  "new": {
+    "runs": 99,
+    "completed": 99,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.97,
+    "unsupportedPerAnswer": 0.051,
+    "unrecognisedPerAnswer": 0.02,
+    "trapRuns": 18,
+    "trapHandledRate": 0.944,
+    "koreanRate": 0.929,
+    "formatViolationRate": 0.788,
+    "semanticMismatchPerAnswer": 0.162,
+    "verdict": "USABLE"
+  },
+  "hand": {
+    "zeroUnsupportedRate": 0.889,
+    "trapHandledRate": 0.889,
+    "verdict": "LIMITED"
+  },
+  "changedRuns": [
+    {
+      "index": 10,
+      "question": "q11",
+      "holding": "US:ZZAP",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "24.3 — claim says basis latest, metric price; M2 is valuation_multiple"
+      ]
+    },
+    {
+      "index": 11,
+      "question": "q12",
+      "holding": "US:ZZAP",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 2
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "24.3 — claim says basis latest, metric price, direction up; M2 is valuation_multiple",
+        "24.3 — claim says basis latest, metric price, direction up; M2 is valuation_multiple"
+      ]
+    },
+    {
+      "index": 41,
+      "question": "q09",
+      "holding": "US:ZZSP",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "1,280.75달러 — claim says basis since_average_purchase, direction up; D3 is position_value (latest)"
+      ]
+    },
+    {
+      "index": 44,
+      "question": "q12",
+      "holding": "US:ZZAP",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 2
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "24.3 — claim says basis latest, metric price, direction up; M2 is valuation_multiple",
+        "24.3 — claim says basis latest, metric price, direction up; M2 is valuation_multiple"
+      ]
+    },
+    {
+      "index": 55,
+      "question": "q16",
+      "holding": "US:ZZSP",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "512.30 USD — claim says metric position_value; D1 is price (latest)"
+      ]
+    },
+    {
+      "index": 57,
+      "question": "q17",
+      "holding": "KR:900001",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "6만 5,320원 — claim says basis weeks:52, metric range_low; D1 is price (latest)"
+      ]
+    },
+    {
+      "index": 67,
+      "question": "q02",
+      "holding": "KR:900001",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "65만 3,200원 — claim says basis since_average_purchase, direction down; D3 is position_value (latest)"
+      ]
+    },
+    {
+      "index": 71,
+      "question": "q06",
+      "holding": "BTC",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 2
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "3.95% — claim says basis latest, metric price, direction down; D2 is unrealised_return (since_average_purchase) down",
+        "2,281만 2,500원 — claim says basis latest, metric price; D3 is position_value (latest)"
+      ]
+    },
+    {
+      "index": 77,
+      "question": "q12",
+      "holding": "US:ZZAP",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 2
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "24.3 — claim says basis latest, metric price; M2 is valuation_multiple",
+        "24.3 — claim says basis latest, metric price; M2 is valuation_multiple"
+      ]
+    },
+    {
+      "index": 83,
+      "question": "q15",
+      "holding": "US:ZZAP",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 2
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "24.3 — claim says basis latest, metric price; M2 is valuation_multiple",
+        "24.3 — claim says basis latest, metric price; M2 is valuation_multiple"
+      ]
+    },
+    {
+      "index": 84,
+      "question": "q16",
+      "holding": "BTC",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "2,281만 2,500원 — claim says basis latest, metric price; D3 is position_value (latest)"
+      ]
+    }
+  ]
+}

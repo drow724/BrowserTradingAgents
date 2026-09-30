@@ -23,9 +23,10 @@
    "expect": [
     {
      "text": "7.1만원",
-     "status": "supported"
+     "status": "semantic-mismatch"
     }
-   ]
+   ],
+   "changed": "Feature 016: 7.1만원 is the average purchase price (H3, 71,000); the sentence states it as the current price (현재가, D1 = 65,320) — a semantic mismatch, not support"
   },
   {
    "holding": "KR:900001",

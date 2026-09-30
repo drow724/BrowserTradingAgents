@@ -1,0 +1,148 @@
+{
+  "report": "specs/013-numbers-by-reference/evidence/measurement-native-formatted.json",
+  "checker": {
+    "after": "d51126f+working-tree"
+  },
+  "old": {
+    "runs": 99,
+    "completed": 99,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.909,
+    "unsupportedPerAnswer": 0.111,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 18,
+    "trapHandledRate": 1,
+    "koreanRate": 0.919,
+    "formatViolationRate": null,
+    "verdict": "USABLE"
+  },
+  "new": {
+    "runs": 99,
+    "completed": 99,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.909,
+    "unsupportedPerAnswer": 0.111,
+    "unrecognisedPerAnswer": 0,
+    "trapRuns": 18,
+    "trapHandledRate": 1,
+    "koreanRate": 0.919,
+    "formatViolationRate": null,
+    "semanticMismatchPerAnswer": 0.061,
+    "verdict": "USABLE"
+  },
+  "hand": {
+    "zeroUnsupportedRate": 0.889,
+    "trapHandledRate": 0.889,
+    "verdict": "LIMITED"
+  },
+  "changedRuns": [
+    {
+      "index": 0,
+      "question": "q01",
+      "holding": "KR:900001",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "6만 5,320원 — claim says basis weeks:52, metric range_low, direction down; D1 is price (latest)"
+      ]
+    },
+    {
+      "index": 10,
+      "question": "q11",
+      "holding": "US:ZZAP",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "201.00 USD — claim says basis latest, metric price, direction down; H3 is cost_basis (since_average_purchase)"
+      ]
+    },
+    {
+      "index": 21,
+      "question": "q16",
+      "holding": "KR:900006",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "1만 5천 원 — claim says basis latest, metric price; H3 is cost_basis (since_average_purchase)"
+      ]
+    },
+    {
+      "index": 57,
+      "question": "q17",
+      "holding": "KR:900001",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "65,320 KRW — claim says basis weeks:52, metric range_low; D1 is price (latest)"
+      ]
+    },
+    {
+      "index": 89,
+      "question": "q16",
+      "holding": "US:ZZAP",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "6.27% — claim says basis latest, metric price, direction down; D2 is unrealised_return (since_average_purchase) down"
+      ]
+    },
+    {
+      "index": 90,
+      "question": "q17",
+      "holding": "KR:900001",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "65,320 KRW — claim says basis weeks:52, metric range_low; D1 is price (latest)"
+      ]
+    }
+  ]
+}

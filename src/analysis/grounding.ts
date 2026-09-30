@@ -2,13 +2,18 @@
 // reads the facts (building what is supported) and each output (what is claimed). A claim is supported only when a
 // fact holds the same value at the precision the output shows; forms the rules cannot read are "unrecognised",
 // never supported. No model is involved.
+// Feature 016 (contracts/semantic-grounding.md): a value match is supported only when the claim's cues (basis, metric,
+// direction, subject) agree with the matching fact's meaning; otherwise it is a semantic mismatch. Valuation and
+// long-term outlook statements need a fact of their evidence class. Every claim carries its evidence ids and a reason.
 import type { Fact } from './facts.ts';
+import { clauses, cuesIn, factSemantics, insufficient, NEWS, OUTLOOK, sameMetric, sentences, VALUATION, type Cue, type Semantic } from './semantics.ts';
 
-export type ClaimType = 'number' | 'ticker' | 'date';
-export type ClaimStatus = 'supported' | 'unsupported' | 'unrecognised';
-export type Claim = { text: string; type: ClaimType; value: string; status: ClaimStatus; factId?: string; start: number; end: number };
+export type ClaimType = 'number' | 'ticker' | 'date' | 'interpretation';
+export type ClaimStatus = 'supported' | 'unsupported' | 'semantic-mismatch' | 'unrecognised';
+export type Claim = { text: string; type: ClaimType; value: string; status: ClaimStatus; factId?: string; start: number; end: number;
+  evidence: string[]; reason?: string; ambiguous?: true; kind?: 'valuation' | 'outlook' | 'news' | 'insufficient-evidence' };
 export type Grounding = { byRole: Record<string, Claim[]>; answer: Claim[];
-  counts: { supported: number; unsupported: number; unrecognised: number } };
+  counts: { supported: number; unsupported: number; semanticMismatch: number; unrecognised: number } };
 
 type Unit = 'pct' | 'KRW' | 'USD' | 'g' | 'kg' | 'BTC' | 'shares' | 'none';
 type Raw = { text: string; start: number; end: number } & (
@@ -92,34 +97,104 @@ export function extract(text: string, known: Iterable<string> = []): Raw[] {
   return out.sort((a, b) => a.start - b.start);
 }
 
-// What the facts support: every value the same extractor finds in them, with its fact id.
+// What the facts support: every value the same extractor finds in them, with its fact id and (Feature 016) meaning.
 function supportedBy(facts: readonly Fact[], known: Iterable<string>) {
-  return facts.flatMap((f) => extract(f.text, known).map((r) => ({ r, id: f.id })));
+  return facts.flatMap((f) => {
+    const sems = factSemantics(f);
+    return extract(f.text, known).map((r) => ({ r, id: f.id, sem: sems.find((s) => r.start >= s.start && r.end <= s.end) as Semantic | undefined }));
+  });
 }
+type Support = ReturnType<typeof supportedBy>;
+const ids = (xs: { id: string }[]) => [...new Set(xs.map((x) => x.id))];
 
-function check(raw: Raw, support: ReturnType<typeof supportedBy>): Claim {
+function check(raw: Raw, support: Support): Claim {
   const base = { text: raw.text, start: raw.start, end: raw.end };
-  if (raw.type === 'unrecognised') return { ...base, type: 'number', value: raw.text, status: 'unrecognised' };
+  if (raw.type === 'unrecognised') return { ...base, type: 'number', value: raw.text, status: 'unrecognised', evidence: [] };
   if (raw.type !== 'number') {
     // A month (2026-11) is supported by the same month or by a full date in it (Feature 013 FR-003).
     const hit = support.find(({ r }) => r.type === raw.type && (r.value === raw.value || (raw.type === 'date' && raw.value.length === 7 && r.value.startsWith(raw.value))));
-    return { ...base, type: raw.type, value: raw.value, status: hit ? 'supported' : 'unsupported', ...(hit ? { factId: hit.id } : {}) };
+    return { ...base, type: raw.type, value: raw.value, status: hit ? 'supported' : 'unsupported', evidence: hit ? [hit.id] : [], ...(hit ? { factId: hit.id } : {}) };
   }
   // The fact value rounded to the precision the claim shows (e.g. 65,320 → "6.5만"; -8.00% → "8%").
   // A unit-less claim against a fact with a unit must be exact (no rounding): "11월" is not "11.2%". A claim with a
   // unit is never supported by a unit-less fact: "20%" is not "20 sessions" (Feature 013 FR-004, F010-R1) — except
   // 주, which also means "week" ("52주 최저" ↔ "52-week low"), and then only when exact.
-  const hit = support.find(({ r }) => r.type === 'number' && (
+  const hits = support.filter(({ r }) => r.type === 'number' && (
     raw.unit === r.unit
       ? Math.abs(Math.round(r.abs / raw.step) * raw.step - raw.abs) < raw.step / 1000
       : (raw.unit === 'none' || (raw.unit === 'shares' && r.unit === 'none')) && r.abs === raw.abs));
   const value = `${+raw.abs.toPrecision(12)}${raw.unit === 'none' ? '' : ` ${raw.unit}`}`;
-  return { ...base, type: 'number', value, status: hit ? 'supported' : 'unsupported', ...(hit ? { factId: hit.id } : {}) };
+  return { ...base, type: 'number', value, status: hits.length ? 'supported' : 'unsupported', evidence: ids(hits),
+    ...(hits.length ? { factId: hits[0].id } : {}), hits } as Claim & { hits: Support };
+}
+
+// Feature 016 (research R5): the value's meaning against the nearest cues of its clause.
+type Context = { cues: (Cue & { clause: number })[]; clauseOf: (i: number) => number; foreign: (clause: number) => string | undefined };
+const distance = (c: Cue, r: { start: number; end: number }) => (c.end <= r.start ? r.start - c.end : c.start >= r.end ? c.start - r.end : 0);
+function semantic(claim: Claim & { hits?: Support }, raw: Raw, ctx: Context): Claim {
+  const { hits, ...c } = claim;
+  if (raw.type !== 'number' || !hits?.length) return c;
+  const clause = ctx.clauseOf(raw.start);
+  const mine = ctx.cues.filter((q) => q.clause === clause);
+  if (mine.some((q) => q.basis && q.start <= raw.start && raw.end <= q.end)) return c; // a horizon mention ("20" of "20일")
+  const near = (f: (q: Cue) => unknown) => mine.filter(f).sort((a, b) => distance(a, raw) - distance(b, raw))[0];
+  // The anchor is the nearest cue that names a basis or a metric; its basis and metric apply together ("평단 71,000원 대비
+  // 현재가는 65,320원": 71,000 anchors on 평단, 65,320 on 현재가). Direction is read separately.
+  const anchor = near((q) => q.basis || q.metric), direction = near((q) => q.direction), foreign = ctx.foreign(clause);
+  const basis = anchor?.basis ? anchor : undefined, metric = anchor?.metric ? anchor : undefined;
+  const basisOk = (s?: Semantic) => !basis || !s || (!!s.basis && basis.basis!.includes(s.basis));
+  const ok = (s?: Semantic) => !foreign && basisOk(s) && (!metric || !s || sameMetric(metric.metric!, s.metric))
+    && (!direction || !s?.direction || s.direction === direction.direction);
+  const agree = hits.filter((h) => ok(h.sem));
+  const metrics = new Set(agree.map((h) => h.sem?.metric).filter(Boolean));
+  if (agree.length) return { ...c, evidence: ids(agree), factId: agree[0].id, ...(metrics.size > 1 ? { ambiguous: true } : {}) };
+  const partial = hits.filter((h) => basisOk(h.sem));
+  const blame = partial.length ? partial : hits;
+  const said = [basis && `basis ${basis.basis!.join('|')}`, metric && `metric ${metric.metric}`, direction && `direction ${direction.direction}`,
+    foreign && `subject ${foreign}`].filter(Boolean).join(', ');
+  const means = blame.map((h) => `${h.id} is ${h.sem?.metric ?? 'value'}${h.sem?.basis ? ` (${h.sem.basis})` : ''}${h.sem?.direction ? ` ${h.sem.direction}` : ''}`).join('; ');
+  return { ...c, status: 'semantic-mismatch', evidence: ids(blame), factId: blame[0].id, reason: `claim says ${said}; ${means}` };
+}
+
+// Feature 016 (research R6): valuation / long-term outlook / news statements, one per sentence, need a fact of their
+// evidence class; a sentence that says the evidence is insufficient passes.
+function interpretations(text: string, facts: readonly Fact[]): Claim[] {
+  const sems = facts.map((f) => ({ id: f.id, s: factSemantics(f) }));
+  const of = (p: (s: Semantic) => boolean) => sems.filter((x) => x.s.some(p)).map((x) => x.id);
+  const out: Claim[] = [];
+  for (const s of sentences(text)) {
+    const hits = [VALUATION, OUTLOOK, NEWS].map((re) => re.exec(s.text)).filter((m): m is RegExpExecArray => !!m);
+    if (!hits.length) continue;
+    const first = hits.sort((a, b) => a.index - b.index)[0];
+    const base = { text: first[0], type: 'interpretation' as const, value: s.text.trim(), start: s.start + first.index, end: s.start + first.index + first[0].length };
+    if (insufficient(s.text)) {
+      const evidence = NEWS.test(s.text) ? of((x) => x.metric === 'news' && !!x.absent) : [];
+      out.push({ ...base, status: 'supported', kind: 'insufficient-evidence', evidence });
+      continue;
+    }
+    const kind = VALUATION.test(s.text) ? 'valuation' : OUTLOOK.test(s.text) ? 'outlook' : 'news';
+    const evidence = kind === 'valuation' ? of((x) => x.metric === 'valuation_multiple') : of((x) => x.metric === 'news' && !x.absent);
+    out.push(evidence.length ? { ...base, status: 'supported', kind, evidence }
+      : { ...base, status: 'unsupported', kind, evidence, reason: kind === 'valuation' ? 'no valuation evidence among the facts (cost basis and price are not valuation)'
+        : 'no fundamental or news evidence among the facts' });
+  }
+  return out;
 }
 
 export function claims(text: string, facts: readonly Fact[], known: Iterable<string> = []): Claim[] {
   const support = supportedBy(facts, known);
-  return extract(text, known).map((r) => check(r, support));
+  const knownSet = known instanceof Set ? known : new Set(known);
+  const subject = facts.map((f) => /^Holding: .*\(([^)]+)\)/.exec(f.text)?.[1]).find(Boolean);
+  const cl = clauses(text);
+  const clauseOf = (i: number) => cl.reduce((k, c, j) => (c.start <= i ? j : k), -1);
+  // Another holding named in the clause (a known ticker or KR code other than the subject): tokens looked up in the set,
+  // once per clause.
+  const foreign = cl.map((c) => (subject ? [...c.text.matchAll(/(?<![A-Za-z0-9])(?:[A-Z][A-Z.]{1,5}|\d{6})(?![A-Za-z0-9])/g)]
+    .map((m) => m[0]).find((t) => t !== subject && knownSet.has(t)) : undefined));
+  const ctx: Context = { cues: cl.flatMap((c, k) => cuesIn(c.text, c.start).map((q) => ({ ...q, clause: k }))), clauseOf,
+    foreign: (k) => foreign[k] };
+  const numeric = extract(text, knownSet).map((r) => semantic(check(r, support), r, ctx));
+  return [...numeric, ...interpretations(text, facts)].sort((a, b) => a.start - b.start);
 }
 
 export function ground(outputs: readonly { role: string; text: string }[], answer: string, facts: readonly Fact[],
@@ -128,5 +203,6 @@ export function ground(outputs: readonly { role: string; text: string }[], answe
   const byRole = Object.fromEntries(outputs.map((o) => [o.role, claims(o.text, facts, known)]));
   const a = claims(answer, facts, known);
   const n = (s: ClaimStatus) => a.filter((c) => c.status === s).length;
-  return { byRole, answer: a, counts: { supported: n('supported'), unsupported: n('unsupported'), unrecognised: n('unrecognised') } };
+  return { byRole, answer: a, counts: { supported: n('supported'), unsupported: n('unsupported'), semanticMismatch: n('semantic-mismatch'),
+    unrecognised: n('unrecognised') } };
 }

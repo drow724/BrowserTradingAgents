@@ -77,8 +77,12 @@ const PORTFOLIO_READS: Partial<Record<NodeName, readonly ReadKey[]>> = {
 export const readsFor = (role: Role, input: TradingFixture): readonly ReadKey[] =>
   [...role.reads, ...(PORTFOLIO_READS[role.node] ?? []).filter((k) => input[k as 'holdingFacts' | 'question'] !== undefined)]
     .map((k) => (k === 'holdingFacts' && role.node === 'finalDecisionMaker' && input.answerFacts !== undefined ? 'answerFacts' : k));
+// Feature 016 adaptation A-016-1: the final-answer policy — report what the facts state, interpret them, but never turn
+// an unsupported interpretation (valuation, long-term outlook) into a fact; say where the evidence stops.
 const KOREAN_ANSWER = "Answer the user's question in Korean, in at most three sentences, using only the facts given. " +
-  'If the facts do not contain the answer, say so.';
+  'If the facts do not contain the answer, say so. You may interpret the facts, but do not call the stock under- or ' +
+  'overvalued or state a long-term outlook unless the facts contain such evidence; if they do not, say that the evidence ' +
+  'is insufficient.';
 const REFS_ANSWER = 'Never write a number yourself. When you mention a value from the facts, write only its reference ' +
   'in braces, e.g. {D2}. If a value you need is not in the facts, say that it is not given.';
 
