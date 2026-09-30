@@ -208,3 +208,17 @@ A typed market-data failure is recorded as BLOCKED, never as PASS.
   recovery, live-acquisition failure prepares nothing; writes `measurement-reuse-standin.json` to the test output.
 - **Native comparison** (opt-in, installed Chrome, ~5 min per overview):
   `BTA_REUSE_COMPARE=1 npm run test:prompt-api -- -g reuse` (`BTA_REUSE_REPS`, default 2 per mode, alternating order).
+
+## Numbers by reference and checker fixes (Feature 013)
+
+- `?numbers=current|formatted|refs` (default `current`) selects the final role's number mode for portfolio runs:
+  `formatted` adds the app's Korean reading after each KRW amount in the final role's facts; `refs` gives every number
+  a name (`{H3}`, `{D1b}`) and asks for references only — the app renders them (`src/analysis/format.ts`,
+  `src/analysis/references.ts`) and flags `bare-number`, `unknown-reference`, `unbraced-reference`. The seven other
+  roles are identical in every mode.
+- Checker (Feature 013): Korean refusals, compound Korean amounts, Korean↔English months, no unit↔unit-less rounding.
+  Re-score a recorded report offline: `node scripts/rescore-measurement.ts <report.json> [out.json]`.
+- Tests: `test/format.test.ts`, `test/references.test.ts`, new labelled claims; `e2e/analysis.spec.ts` (refs with a
+  canned final answer, formatted, current); `e2e/measurement.spec.ts` (three modes, stable).
+- **Native comparison** (opt-in, ≈ 4.5 h): `BTA_MEASURE=1 BTA_MEASURE_MODES=current,formatted,refs npm run
+  test:prompt-api -- -g measurement` — one report per mode and `measurement-native-compare.json`.

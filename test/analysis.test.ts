@@ -69,6 +69,23 @@ test('prompts: a portfolio input adds holding facts to five roles, the question 
   assert.deepEqual(prompts.map((p) => has(p, 'Answer the user\'s question in Korean')), [false, false, false, false, false, false, false, true]);
 });
 
+// Feature 013 T016: number modes change only the final role; current is Feature 010 byte for byte.
+test('prompts: number modes — current = Feature 010; formatted/refs change the final role only', async () => {
+  const h = byId('BTC'), s = factSet(h);
+  const base = await capturePrompts(toInput(s, h, '비트코인 괜찮을까요?'));
+  assert.deepEqual(await capturePrompts(toInput(s, h, '비트코인 괜찮을까요?', 'current')), base);
+  for (const mode of ['formatted', 'refs'] as const) {
+    const p = await capturePrompts(toInput(s, h, '비트코인 괜찮을까요?', mode));
+    assert.deepEqual(p.slice(0, 7), base.slice(0, 7), mode);
+    assert.ok(p[7].includes('Facts: ') && !p[7].includes('Holding facts: '), mode);
+    assert.ok(p[7].includes('98,400,000 KRW'), mode); // market facts reach the final role
+  }
+  const f = await capturePrompts(toInput(s, h, 'q', 'formatted'));
+  assert.ok(f[7].includes('95,000,000 KRW (9,500만 원)') && !f[7].includes('{H3}') && !f[7].includes('Never write a number'));
+  const r = await capturePrompts(toInput(s, h, 'q', 'refs'));
+  assert.ok(r[7].includes('95,000,000 KRW {H3}') && r[7].includes('Never write a number yourself'));
+});
+
 // T018: question → holdings.
 import { resolve } from '../src/analysis/resolve.ts';
 import type { Entry } from '../src/directory/parse.ts';

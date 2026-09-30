@@ -1,0 +1,156 @@
+{
+ "mode": "formatted",
+ "auditor": "implementer (Claude Code), 2026-09-30",
+ "rule": "realUnsupported = wrong or invented numbers/tickers/dates; trapHandled = declines and no real error",
+ "rows": [
+  {
+   "question": "t01",
+   "repetition": 1,
+   "holding": "KR:900001",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "t02",
+   "repetition": 1,
+   "holding": "KR:900006",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "t03",
+   "repetition": 1,
+   "holding": "BTC",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "t04",
+   "repetition": 1,
+   "holding": "US:ZZSP",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "t05",
+   "repetition": 1,
+   "holding": "US:ZZAP",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "t06",
+   "repetition": 1,
+   "holding": "KRX-GOLD",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q01",
+   "repetition": 1,
+   "holding": "KR:900001",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q02",
+   "repetition": 1,
+   "holding": "KR:900001",
+   "realUnsupported": 0,
+   "ruleUnsupported": 1,
+   "note": "'약 5,680원' per share = 71,000 − 65,320, correct arithmetic but not in the facts (rule: unsupported)"
+  },
+  {
+   "question": "q03",
+   "repetition": 1,
+   "holding": "KR:900006",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q04",
+   "repetition": 1,
+   "holding": "KR:900006",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q05",
+   "repetition": 1,
+   "holding": "BTC",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q06",
+   "repetition": 1,
+   "holding": "BTC",
+   "realUnsupported": 2,
+   "ruleUnsupported": 2,
+   "note": "real: new mixed form '95,000만 원' / '91,250만 원' (10x)"
+  },
+  {
+   "question": "q07",
+   "repetition": 1,
+   "holding": "KRX-GOLD",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q08",
+   "repetition": 1,
+   "holding": "KRX-GOLD",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q09",
+   "repetition": 1,
+   "holding": "US:ZZSP",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q10",
+   "repetition": 1,
+   "holding": "US:ZZSP",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q11",
+   "repetition": 1,
+   "holding": "US:ZZAP",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q12",
+   "repetition": 1,
+   "holding": "US:ZZAP",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q13",
+   "repetition": 1,
+   "holding": "KR:900001",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0
+  },
+  {
+   "question": "q13",
+   "repetition": 1,
+   "holding": "KR:900006",
+   "realUnsupported": 0,
+   "ruleUnsupported": 1,
+   "note": "'11월' (no year) matches fact 'November 2026'; checker reads month claims only with a year (rule: unsupported)"
+  }
+ ]
+}

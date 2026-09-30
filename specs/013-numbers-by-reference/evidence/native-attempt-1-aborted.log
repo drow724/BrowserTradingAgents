@@ -1,0 +1,54 @@
+
+> test:prompt-api
+> playwright test --project=prompt-api -g measurement
+
+[WebServer] (node:8199) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+Feature 013 native current repetition 1 {"runs":33,"completed":33,"failed":0,"zeroUnsupportedRate":0.879,"unsupportedPerAnswer":0.242,"unrecognisedPerAnswer":0,"trapRuns":6,"trapHandledRate":1,"koreanRate":1,"formatViolationRate":null}
+Feature 013 native formatted repetition 1 {"runs":33,"completed":33,"failed":0,"zeroUnsupportedRate":0.848,"unsupportedPerAnswer":0.182,"unrecognisedPerAnswer":0,"trapRuns":6,"trapHandledRate":1,"koreanRate":0.909,"formatViolationRate":null}
+Feature 013 native refs repetition 1 {"runs":33,"completed":33,"failed":0,"zeroUnsupportedRate":0.97,"unsupportedPerAnswer":0.03,"unrecognisedPerAnswer":0,"trapRuns":6,"trapHandledRate":0.833,"koreanRate":0.848,"formatViolationRate":0.758}
+Feature 013 native formatted repetition 2 {"runs":33,"completed":33,"failed":0,"zeroUnsupportedRate":0.939,"unsupportedPerAnswer":0.091,"unrecognisedPerAnswer":0,"trapRuns":6,"trapHandledRate":1,"koreanRate":0.97,"formatViolationRate":null}
+Feature 013 native refs repetition 2 {"runs":33,"completed":33,"failed":0,"zeroUnsupportedRate":1,"unsupportedPerAnswer":0,"unrecognisedPerAnswer":0.061,"trapRuns":6,"trapHandledRate":0.833,"koreanRate":1,"formatViolationRate":0.636}
+Feature 013 native current repetition 2 {"runs":33,"completed":33,"failed":0,"zeroUnsupportedRate":0.879,"unsupportedPerAnswer":0.212,"unrecognisedPerAnswer":0,"trapRuns":6,"trapHandledRate":0.833,"koreanRate":1,"formatViolationRate":null}
+  ✘  1 [prompt-api] › e2e/prompt-api.spec.ts:197:1 › native Prompt API: hallucination measurement (BTA_MEASURE=1 only) (3.2h)
+
+
+  1) [prompt-api] › e2e/prompt-api.spec.ts:197:1 › native Prompt API: hallucination measurement (BTA_MEASURE=1 only) 
+
+    Error: q16
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 0
+
+      Array [
+        "BTC",
+        "KRX-GOLD",
+        "KR:900001",
+    -   "KR:900006",
+    -   "US:ZZSP",
+    -   "US:ZZAP",
+      ]
+
+       at measure.ts:41
+
+      39 |       await expect(page.getByRole('dialog', { name: '답변' })).toBeVisible({ timeout: 15 * 60_000 });
+      40 |       const recs = (await page.evaluate((n) => (window as unknown as { __records: unknown[] }).__records.slice(n), before)) as Rec[];
+    > 41 |       expect(recs.map((r) => r.analysis.holding), q.id).toEqual(q.expect);
+         |                                                         ^
+      42 |       for (const r of recs) {
+      43 |         const g = r.analysis.grounding?.counts, answer = r.analysis.numbers?.rendered ?? r.result?.finalDecision ?? '';
+      44 |         runs.push({ question: q.id, kind: q.kind, holding: r.analysis.holding, outcome: r.outcome,
+        at measure (/Users/songjaegeun/git/BrowserTradingAgents/e2e/measure.ts:41:57)
+        at /Users/songjaegeun/git/BrowserTradingAgents/e2e/prompt-api.spec.ts:225:19
+
+    Error Context: test-results/5174/prompt-api-native-Prompt-A-14290-urement-BTA-MEASURE-1-only--prompt-api/error-context.md
+
+  Slow test file: [prompt-api] › e2e/prompt-api.spec.ts (3.2h)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  1 failed
+    [prompt-api] › e2e/prompt-api.spec.ts:197:1 › native Prompt API: hallucination measurement (BTA_MEASURE=1 only) 

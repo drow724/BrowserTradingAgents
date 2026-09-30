@@ -23,12 +23,12 @@ const State = Annotation.Root({
 export type TradingGraphState = typeof State.State;
 
 type OutputKey = Exclude<keyof TradingGraphState, 'input'>;
-type FixtureKey = 'subject' | 'marketFacts' | 'newsFacts' | 'holdingFacts' | 'question';
+type FixtureKey = 'subject' | 'marketFacts' | 'newsFacts' | 'holdingFacts' | 'question' | 'answerFacts';
 type ReadKey = FixtureKey | OutputKey;
 
 const LABELS: Record<ReadKey, string> = {
   subject: 'Company', marketFacts: 'Market facts', newsFacts: 'News facts',
-  holdingFacts: 'Holding facts', question: 'User question',
+  holdingFacts: 'Holding facts', question: 'User question', answerFacts: 'Facts',
   marketReport: 'Market report', newsReport: 'News report', bullArgument: 'Bull argument',
   bearArgument: 'Bear argument', researchDecision: 'Research decision', traderPlan: 'Trader plan',
   riskReview: 'Risk review', finalDecision: 'Final decision',
@@ -62,7 +62,7 @@ type Role = (typeof ROLES)[number];
 export type NodeName = Role['node'];
 export type NodeEvent = { node: NodeName; event: 'start' | 'done' | 'error'; seq: number };
 
-const INPUT_KEYS: readonly ReadKey[] = ['subject', 'marketFacts', 'newsFacts', 'holdingFacts', 'question'];
+const INPUT_KEYS: readonly ReadKey[] = ['subject', 'marketFacts', 'newsFacts', 'holdingFacts', 'question', 'answerFacts'];
 const valueOf = (state: TradingGraphState, key: ReadKey) =>
   INPUT_KEYS.includes(key) ? state.input[key as FixtureKey] : state[key as OutputKey];
 
@@ -72,15 +72,21 @@ const PORTFOLIO_READS: Partial<Record<NodeName, readonly ReadKey[]>> = {
   marketAnalyst: ['holdingFacts'], researchManager: ['holdingFacts'], trader: ['holdingFacts'],
   riskReviewer: ['holdingFacts'], finalDecisionMaker: ['holdingFacts', 'question'],
 };
+// Feature 013 adaptation A-013-1: in the formatted/refs number modes the final role reads every fact of the run
+// (answerFacts) instead of the holding facts; the seven other roles are unchanged in every mode.
 export const readsFor = (role: Role, input: TradingFixture): readonly ReadKey[] =>
-  [...role.reads, ...(PORTFOLIO_READS[role.node] ?? []).filter((k) => input[k as 'holdingFacts' | 'question'] !== undefined)];
+  [...role.reads, ...(PORTFOLIO_READS[role.node] ?? []).filter((k) => input[k as 'holdingFacts' | 'question'] !== undefined)]
+    .map((k) => (k === 'holdingFacts' && role.node === 'finalDecisionMaker' && input.answerFacts !== undefined ? 'answerFacts' : k));
 const KOREAN_ANSWER = "Answer the user's question in Korean, in at most three sentences, using only the facts given. " +
   'If the facts do not contain the answer, say so.';
+const REFS_ANSWER = 'Never write a number yourself. When you mention a value from the facts, write only its reference ' +
+  'in braces, e.g. {D2}. If a value you need is not in the facts, say that it is not given.';
 
 const promptFor = (role: Role, state: TradingGraphState) =>
   `You are the ${role.label}. ${role.ask} Reply in plain text in at most three sentences.\n\n` +
   readsFor(role, state.input).map((key) => `${LABELS[key]}: ${valueOf(state, key)}`).join('\n') +
-  (role.node === 'finalDecisionMaker' && state.input.question !== undefined ? `\n\n${KOREAN_ANSWER}` : '');
+  (role.node === 'finalDecisionMaker' && state.input.question !== undefined ? `\n\n${KOREAN_ANSWER}` : '') +
+  (role.node === 'finalDecisionMaker' && state.input.numberMode === 'refs' ? ` ${REFS_ANSWER}` : '');
 
 export function buildTradingGraph(model: AkariChatModel, onNode?: (e: NodeEvent) => void) {
   const modelRequests = Object.fromEntries(ROLES.map((r) => [r.node, 0])) as Record<NodeName, number>;

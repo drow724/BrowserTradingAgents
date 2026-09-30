@@ -1,0 +1,177 @@
+{
+ "mode": "refs",
+ "auditor": "implementer (Claude Code), 2026-09-30",
+ "rule": "realUnsupported = wrong or invented numbers/tickers/dates; trapHandled = declines and no real error",
+ "rows": [
+  {
+   "question": "t01",
+   "repetition": 1,
+   "holding": "KR:900001",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0,
+   "violations": 4,
+   "note": "value and reference both written → duplicated values ('6만 5,320원 65,320 KRW'); counted as bare-number violations; numbers correct"
+  },
+  {
+   "question": "t02",
+   "repetition": 1,
+   "holding": "KR:900006",
+   "realUnsupported": 1,
+   "trapHandled": false,
+   "ruleUnsupported": 1,
+   "violations": 1,
+   "note": "real: wrong reference — '{M1b}' (the 20 sessions) used for the 27.4% rise → '20 %'"
+  },
+  {
+   "question": "t03",
+   "repetition": 1,
+   "holding": "BTC",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0,
+   "violations": 0
+  },
+  {
+   "question": "t04",
+   "repetition": 1,
+   "holding": "US:ZZSP",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0,
+   "violations": 0
+  },
+  {
+   "question": "t05",
+   "repetition": 1,
+   "holding": "US:ZZAP",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0,
+   "violations": 0
+  },
+  {
+   "question": "t06",
+   "repetition": 1,
+   "holding": "KRX-GOLD",
+   "realUnsupported": 0,
+   "trapHandled": true,
+   "ruleUnsupported": 0,
+   "violations": 4
+  },
+  {
+   "question": "q01",
+   "repetition": 1,
+   "holding": "KR:900001",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 5
+  },
+  {
+   "question": "q02",
+   "repetition": 1,
+   "holding": "KR:900001",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 4
+  },
+  {
+   "question": "q03",
+   "repetition": 1,
+   "holding": "KR:900006",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 3
+  },
+  {
+   "question": "q04",
+   "repetition": 1,
+   "holding": "KR:900006",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 2
+  },
+  {
+   "question": "q05",
+   "repetition": 1,
+   "holding": "BTC",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 5
+  },
+  {
+   "question": "q06",
+   "repetition": 1,
+   "holding": "BTC",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 0
+  },
+  {
+   "question": "q07",
+   "repetition": 1,
+   "holding": "KRX-GOLD",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 3
+  },
+  {
+   "question": "q08",
+   "repetition": 1,
+   "holding": "KRX-GOLD",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 2
+  },
+  {
+   "question": "q09",
+   "repetition": 1,
+   "holding": "US:ZZSP",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 3,
+   "note": "combined reference '{M1a, D2}' not supported by the reference syntax → unknown/violation"
+  },
+  {
+   "question": "q10",
+   "repetition": 1,
+   "holding": "US:ZZSP",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 3
+  },
+  {
+   "question": "q11",
+   "repetition": 1,
+   "holding": "US:ZZAP",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 6,
+   "note": "duplicates + a stray '{N1}' used as a word + Devanagari fragment 'कंपनी'"
+  },
+  {
+   "question": "q12",
+   "repetition": 1,
+   "holding": "US:ZZAP",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 1
+  },
+  {
+   "question": "q13",
+   "repetition": 1,
+   "holding": "KR:900001",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 1
+  },
+  {
+   "question": "q13",
+   "repetition": 1,
+   "holding": "KR:900006",
+   "realUnsupported": 0,
+   "ruleUnsupported": 0,
+   "violations": 3
+  }
+ ]
+}

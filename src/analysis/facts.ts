@@ -3,7 +3,9 @@
 // "market data not available" fact and no derived facts (FR-006). Pure.
 import type { TradingFixture } from '../graph/trading-fixture.ts';
 import { identity, instrumentName, unitFor, type Holding } from '../portfolio.ts';
+import { krw } from './format.ts';
 import { PORTFOLIO_FIXTURE, type InstrumentFacts } from './portfolio-fixture.ts';
+import { annotate, numbersIn, refTable } from './references.ts';
 
 export type Fact = { id: string; kind: 'holding' | 'derived' | 'market' | 'news' | 'question'; text: string };
 export type FactSet = { id: string; holding: string; facts: Fact[] };
@@ -43,9 +45,25 @@ export function factSet(h: Holding, fixture: { id: string; instruments: Record<s
 const lines = (s: FactSet, ...kinds: Fact['kind'][]) =>
   s.facts.filter((f) => kinds.includes(f.kind)).map((f) => `${f.text} (fact ${f.id})`).join(' ');
 
-// Fact set → the graph input (Feature 004 shape + the two portfolio fields).
-export function toInput(s: FactSet, h: Holding, question: string): TradingFixture {
+// Feature 013 number modes (research R5/R6). formatted: each KRW amount followed by the app's Korean reading;
+// refs: each number followed by its reference name. current: today's text.
+export type NumberMode = 'current' | 'formatted' | 'refs';
+function modeText(f: Fact, mode: NumberMode, table: ReturnType<typeof refTable>) {
+  if (mode === 'refs') return annotate(f, table);
+  let out = '', from = 0;
+  for (const x of numbersIn(f.text).filter((x) => x.unit === 'KRW')) {
+    out += `${f.text.slice(from, x.end)} (${krw(Number(x.value))})`;
+    from = x.end;
+  }
+  return out + f.text.slice(from);
+}
+
+// Fact set → the graph input (Feature 004 shape + the two portfolio fields; Feature 013: answerFacts per mode).
+export function toInput(s: FactSet, h: Holding, question: string, mode: NumberMode = 'current'): TradingFixture {
   const i = h.instrument;
+  const table = refTable(s.facts);
+  const extra = mode === 'current' ? {} : { numberMode: mode,
+    answerFacts: s.facts.map((f) => `${modeText(f, mode, table)} (fact ${f.id})`).join(' ') };
   return {
     id: s.id,
     subject: `${instrumentName(i)} (${i.kind === 'fixed' ? i.id : i.ticker})`,
@@ -53,5 +71,6 @@ export function toInput(s: FactSet, h: Holding, question: string): TradingFixtur
     newsFacts: lines(s, 'news'),
     holdingFacts: lines(s, 'holding', 'derived'),
     question,
+    ...extra,
   };
 }

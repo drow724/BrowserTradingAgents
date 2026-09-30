@@ -4,21 +4,31 @@
 // was given. Reads the finished evidence record only.
 import type { Fact } from '../src/analysis/facts.ts';
 import type { Claim, Grounding } from '../src/analysis/grounding.ts';
+import type { Rendered } from '../src/analysis/references.ts';
 import styles from './Shell.module.css';
 
 export type AnalysisRecord = { outcome: string; analysis?: { holding: string; question: string; facts: Fact[];
-  grounding?: Grounding; answerLanguage?: string }; result?: { finalDecision?: string } };
+  grounding?: Grounding; answerLanguage?: string; numbers?: { mode: string; raw?: string } & Partial<Rendered> };
+  result?: { finalDecision?: string } };
 
 const LABEL: Partial<Record<Claim['status'], string>> = { unsupported: '근거 확인 안 됨', unrecognised: '확인 불가 표기' };
 
-function Marked({ text, claims }: { text: string; claims: Claim[] }) {
+// Marks in text order; the first mark wins where two overlap (format violations before claims, Feature 013).
+type Mark = { start: number; end: number; label: string; attr: Record<string, string>; flag: boolean };
+function Marked({ text, claims, numbers }: { text: string; claims: Claim[]; numbers?: Partial<Rendered> }) {
+  const marks: Mark[] = [
+    ...(numbers?.violations ?? []).map((v) => ({ start: v.start, end: v.end, label: '형식 위반', attr: { 'data-violation': v.kind }, flag: true })),
+    ...claims.filter((c) => LABEL[c.status]).map((c) => ({ start: c.start, end: c.end, label: LABEL[c.status]!, attr: { 'data-claim': c.status }, flag: true })),
+    ...(numbers?.refs ?? []).map((r) => ({ start: r.start, end: r.end, label: r.factId, attr: { 'data-ref': r.name }, flag: false })),
+  ];
   const parts: React.ReactNode[] = [];
   let at = 0;
-  for (const c of claims.filter((c) => LABEL[c.status])) {
-    parts.push(text.slice(at, c.start));
-    parts.push(<mark key={c.start} className={styles.flag} data-claim={c.status} title={LABEL[c.status]}>
-      {text.slice(c.start, c.end)}<span className={styles.flagLabel}> [{LABEL[c.status]}]</span></mark>);
-    at = c.end;
+  for (const m of marks.sort((a, b) => a.start - b.start)) {
+    if (m.start < at) continue;
+    parts.push(text.slice(at, m.start));
+    parts.push(<mark key={m.start} className={m.flag ? styles.flag : undefined} {...m.attr} title={m.label}>
+      {text.slice(m.start, m.end)}<span className={styles.flagLabel}> [{m.label}]</span></mark>);
+    at = m.end;
   }
   parts.push(text.slice(at));
   return <p data-answer="">{parts}</p>;
@@ -26,7 +36,7 @@ function Marked({ text, claims }: { text: string; claims: Claim[] }) {
 
 function One({ record, onRecord }: { record: AnalysisRecord; onRecord?: (r: AnalysisRecord) => void }) {
   const a = record.analysis!;
-  const answer = record.result?.finalDecision;
+  const answer = a.numbers?.rendered ?? record.result?.finalDecision;
   const g = a.grounding;
   return (
     <section data-answer-for={a.holding}>
@@ -34,10 +44,11 @@ function One({ record, onRecord }: { record: AnalysisRecord; onRecord?: (r: Anal
       <p className={styles.muted}>질문: {a.question}</p>
       {record.outcome !== 'success' || answer === undefined
         ? <p className={styles.warn}>분석이 끝나지 않았습니다 ({record.outcome}).</p>
-        : <Marked text={answer} claims={g?.answer ?? []} />}
+        : <Marked text={answer} claims={g?.answer ?? []} numbers={a.numbers} />}
       {g && (
         <p data-grounding-counts="">
           근거 확인: 일치 {g.counts.supported}건 · <strong>근거 확인 안 됨 {g.counts.unsupported}건</strong> · 확인 불가 표기 {g.counts.unrecognised}건
+          {a.numbers?.violations && <> · <strong>형식 위반 {a.numbers.violations.length}건</strong></>}
         </p>
       )}
       <details>

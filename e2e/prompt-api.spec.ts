@@ -7,7 +7,8 @@ import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { chromium, expect, test, type TestInfo } from '@playwright/test';
 import { REAL_YAHOO, realYahooEvidence } from './real-yahoo.ts';
-import { measure } from './measure.ts';
+import { measure, QUESTIONS } from './measure.ts';
+import { aggregate, verdict } from '../src/analysis/report.ts';
 import { PORTFOLIO_FIXTURE } from '../src/analysis/portfolio-fixture.ts';
 
 // No trace, video or screenshot for any test here (these are also the config defaults). The tests use
@@ -195,7 +196,7 @@ test('real Yahoo L5: native Prompt API + live through /api/market (BTA_REAL_YAHO
 // The title contains neither "eight-role" nor "canonical", so the native fixture gate never selects it.
 test('native Prompt API: hallucination measurement (BTA_MEASURE=1 only)', async ({ baseURL }, testInfo) => {
   test.skip(!process.env.BTA_MEASURE, 'opt-in native measurement only (BTA_MEASURE=1)');
-  test.setTimeout(4 * 60 * 60_000);
+  test.setTimeout(8 * 60 * 60_000); // Feature 013: three modes ≈ 4.5 h
   const reps = Number(process.env.BTA_MEASURE_REPS ?? 3);
   const { context, close } = await launchNativeChrome(testInfo);
   try {
@@ -205,10 +206,67 @@ test('native Prompt API: hallucination measurement (BTA_MEASURE=1 only)', async 
     await page.goto(`${baseURL}/?runner=playwright`);
     await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
     const ua = await page.evaluate(() => navigator.userAgent.match(/Chrome\/[\d.]+/)?.[0] ?? navigator.userAgent);
-    const report = await measure(page, reps, { model: 'Gemini Nano (Chrome Prompt API)', browser: ua });
-    writeFileSync(testInfo.outputPath('measurement-native.json'), JSON.stringify(report, null, 2) + '\n');
-    console.log('T025 native aggregate', JSON.stringify(report.aggregate), 'verdict', report.verdict);
-    expect(report.evidenceClass).toBe('REAL_BROWSER_PROMPT_API');
+    const meta = { model: 'Gemini Nano (Chrome Prompt API)', browser: ua };
+    // Feature 013 (T021): BTA_MEASURE_MODES=current,formatted,refs — each repetition runs every mode, the order
+    // rotated per repetition; one report per mode plus a comparison. Without it: the Feature 010 run, unchanged.
+    const modes = process.env.BTA_MEASURE_MODES?.split(',').map((m) => m.trim()) as ('current' | 'formatted' | 'refs')[] | undefined;
+    if (!modes) {
+      const report = await measure(page, reps, meta);
+      writeFileSync(testInfo.outputPath('measurement-native.json'), JSON.stringify(report, null, 2) + '\n');
+      console.log('T025 native aggregate', JSON.stringify(report.aggregate), 'verdict', report.verdict);
+      expect(report.evidenceClass).toBe('REAL_BROWSER_PROMPT_API');
+      return;
+    }
+    const byMode = new Map<string, Awaited<ReturnType<typeof measure>>[]>();
+    for (let rep = 0; rep < reps; rep++) {
+      for (const mode of [...modes.slice(rep % modes.length), ...modes.slice(0, rep % modes.length)]) {
+        await page.goto(`${baseURL}/?runner=playwright&numbers=${mode}`);
+        await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
+        const r = await measure(page, 1, meta, mode, false);
+        byMode.set(mode, [...(byMode.get(mode) ?? []), r]);
+        // Written at once, so a later failure cannot lose finished repetitions.
+        writeFileSync(testInfo.outputPath(`measurement-native-${mode}-rep${rep + 1}.json`), JSON.stringify(r, null, 2) + '\n');
+        console.log('Feature 013 native', mode, 'repetition', rep + 1, JSON.stringify(r.aggregate));
+      }
+    }
+    const compare: Record<string, unknown> = {};
+    for (const [mode, parts] of byMode) {
+      const runs = parts.flatMap((p) => p.runs);
+      const agg = aggregate(runs);
+      const report = { ...parts[0], repetitions: reps, generatedAt: new Date().toISOString(), aggregate: agg,
+        verdict: verdict(agg, parts[0].evidenceClass), runs };
+      writeFileSync(testInfo.outputPath(`measurement-native-${mode}.json`), JSON.stringify(report, null, 2) + '\n');
+      compare[mode] = { ...agg, verdict: report.verdict, medianMs: runs.map((x) => x.ms).sort((a, b) => a - b)[Math.floor(runs.length / 2)] };
+      expect(report.evidenceClass).toBe('REAL_BROWSER_PROMPT_API');
+    }
+    writeFileSync(testInfo.outputPath('measurement-native-compare.json'), JSON.stringify({ modes, reps, browser: ua, compare }, null, 2) + '\n');
+    console.log('Feature 013 native compare', JSON.stringify(compare));
+  } finally {
+    await close();
+  }
+});
+
+// Feature 013 hand-off to AkariSP (research R9): one `refs` pass; keeps the upstream outputs the final role read,
+// so `node scripts/harness-prompts.ts <out> <this file>` rebuilds the exact final-role prompts. Opt-in, ≈ 80 min.
+test('native Prompt API: harness prompt capture (BTA_CAPTURE=1 only)', async ({ baseURL }, testInfo) => {
+  test.skip(!process.env.BTA_CAPTURE, 'opt-in native capture only (BTA_CAPTURE=1)');
+  test.setTimeout(3 * 60 * 60_000);
+  const { context, close } = await launchNativeChrome(testInfo);
+  try {
+    const example = JSON.stringify({ version: 1, onboardedAt: '2026-09-29T00:00:00.000Z', holdings: PORTFOLIO_FIXTURE.portfolio });
+    await context.addInitScript((v) => localStorage.setItem('bta.portfolio', v), example);
+    const page = await context.newPage();
+    await page.goto(`${baseURL}/?runner=playwright&numbers=refs`);
+    await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
+    const ua = await page.evaluate(() => navigator.userAgent.match(/Chrome\/[\d.]+/)?.[0] ?? navigator.userAgent);
+    await measure(page, 1, { model: 'Gemini Nano (Chrome Prompt API)', browser: ua }, 'refs', false);
+    type Rec = { outcome: string; analysis: { holding: string; question: string }; result?: Record<string, string> };
+    const recs = (await page.evaluate(() => (window as unknown as { __records: unknown[] }).__records)) as Rec[];
+    const ids = new Map(QUESTIONS.map((q) => [q.text, q.id]));
+    const outputs = Object.fromEntries(recs.filter((r) => r.outcome === 'success').map((r) => [`${ids.get(r.analysis.question)}|${r.analysis.holding}`,
+      { riskReview: r.result!.riskReview, researchDecision: r.result!.researchDecision, traderPlan: r.result!.traderPlan, finalDecision: r.result!.finalDecision }]));
+    writeFileSync(testInfo.outputPath('harness-outputs-refs.json'), JSON.stringify({ browser: ua, capturedAt: new Date().toISOString(), outputs }, null, 1) + '\n');
+    console.log('Feature 013 harness capture', Object.keys(outputs).length, 'of', recs.length);
   } finally {
     await close();
   }
