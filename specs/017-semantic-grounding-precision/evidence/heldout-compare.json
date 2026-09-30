@@ -1,0 +1,40 @@
+{
+  "modes": [
+    "refs",
+    "current"
+  ],
+  "reps": 2,
+  "browser": "Chrome/154.0.0.0",
+  "compare": {
+    "refs": {
+      "runs": 66,
+      "completed": 66,
+      "failed": 0,
+      "zeroUnsupportedRate": 0.939,
+      "unsupportedPerAnswer": 0.061,
+      "unrecognisedPerAnswer": 0,
+      "trapRuns": 12,
+      "trapHandledRate": 1,
+      "koreanRate": 0.939,
+      "formatViolationRate": 0.833,
+      "semanticMismatchPerAnswer": 0.015,
+      "verdict": "USABLE",
+      "medianMs": 52781
+    },
+    "current": {
+      "runs": 66,
+      "completed": 66,
+      "failed": 0,
+      "zeroUnsupportedRate": 0.864,
+      "unsupportedPerAnswer": 0.273,
+      "unrecognisedPerAnswer": 0,
+      "trapRuns": 12,
+      "trapHandledRate": 0.917,
+      "koreanRate": 0.955,
+      "formatViolationRate": null,
+      "semanticMismatchPerAnswer": 0.061,
+      "verdict": "LIMITED",
+      "medianMs": 53752
+    }
+  }
+}

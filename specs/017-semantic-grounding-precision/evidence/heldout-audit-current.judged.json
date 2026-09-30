@@ -1,0 +1,3424 @@
+{
+ "report": "specs/017-semantic-grounding-precision/evidence/heldout-current.json",
+ "runs": [
+  {
+   "index": 0,
+   "mode": "current",
+   "question": "q01",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 삼성테스트전자가 계속 하락 중인데 괜찮은 건가요?"
+   ],
+   "answer": "삼성테스트전자 주가가 계속 하락하고 있습니다. 최근 8%의 불리한 수익 변동이 발생했고, 50일 이동평균 및 52주 저가 근처에서 거래되고 있습니다. 제시된 정보만으로는 지속적인 하락이 괜찮은지 판단하기 어렵습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "0:0",
+     "type": "number",
+     "text": "8%",
+     "start": 29,
+     "end": 31,
+     "sentence": "최근 8%의 불리한 수익 변동이 발생했고, 50일 이동평균 및 52주 저가 근처에서 거래되고 있습니다.",
+     "judgement": "debatable",
+     "note": "\"최근 8%의 불리한 수익 변동\": 8% is the loss vs the average purchase price, not a recent move"
+    },
+    {
+     "id": "0:1",
+     "type": "number",
+     "text": "50",
+     "start": 50,
+     "end": 52,
+     "sentence": "최근 8%의 불리한 수익 변동이 발생했고, 50일 이동평균 및 52주 저가 근처에서 거래되고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "0:2",
+     "type": "number",
+     "text": "52주",
+     "start": 61,
+     "end": 64,
+     "sentence": "최근 8%의 불리한 수익 변동이 발생했고, 50일 이동평균 및 52주 저가 근처에서 거래되고 있습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 1,
+   "mode": "current",
+   "question": "q02",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 삼성테스트전자 평단 대비 지금 손실이 얼마나 되나요?"
+   ],
+   "answer": "현재 주가 65,320원이고 평단 가격은 71,000원입니다. 따라서 현재 손실은 65,320원 - 71,000원 = -5,680원입니다. 즉, 평단 대비 5,680원 정도의 손실이 발생하고 있습니다.",
+   "items": [
+    {
+     "id": "1:0",
+     "type": "number",
+     "text": "65,320원",
+     "start": 6,
+     "end": 13,
+     "sentence": "현재 주가 65,320원이고 평단 가격은 71,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "1:1",
+     "type": "number",
+     "text": "71,000원",
+     "start": 23,
+     "end": 30,
+     "sentence": "현재 주가 65,320원이고 평단 가격은 71,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "1:2",
+     "type": "number",
+     "text": "65,320원",
+     "start": 46,
+     "end": 53,
+     "sentence": "따라서 현재 손실은 65,320원 - 71,000원 = -5,680원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "1:3",
+     "type": "number",
+     "text": "71,000원",
+     "start": 56,
+     "end": 63,
+     "sentence": "따라서 현재 손실은 65,320원 - 71,000원 = -5,680원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "1:4",
+     "type": "number",
+     "text": "5,680원",
+     "start": 67,
+     "end": 73,
+     "sentence": "따라서 현재 손실은 65,320원 - 71,000원 = -5,680원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "1:5",
+     "type": "number",
+     "text": "5,680원",
+     "start": 87,
+     "end": 93,
+     "sentence": "즉, 평단 대비 5,680원 정도의 손실이 발생하고 있습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 2,
+   "mode": "current",
+   "question": "q03",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 테스트바이오는 최근에 얼마나 올랐나요?"
+   ],
+   "answer": "테스트바이오 주가는 최근 27.4% 상승했습니다. 현재 주가는 18,450 KRW이며, 평균 매수 가격인 15,000 KRW 대비 23%의 이익을 보고 있습니다. 이러한 상승은 시장의 긍정적인 반응과 관련이 있습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "2:0",
+     "type": "number",
+     "text": "27.4%",
+     "start": 14,
+     "end": 19,
+     "sentence": "테스트바이오 주가는 최근 27.4% 상승했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "2:1",
+     "type": "number",
+     "text": "18,450 KRW",
+     "start": 35,
+     "end": 45,
+     "sentence": "현재 주가는 18,450 KRW이며, 평균 매수 가격인 15,000 KRW 대비 23%의 이익을 보고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "2:2",
+     "type": "number",
+     "text": "15,000 KRW",
+     "start": 59,
+     "end": 69,
+     "sentence": "현재 주가는 18,450 KRW이며, 평균 매수 가격인 15,000 KRW 대비 23%의 이익을 보고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "2:3",
+     "type": "number",
+     "text": "23%",
+     "start": 73,
+     "end": 76,
+     "sentence": "현재 주가는 18,450 KRW이며, 평균 매수 가격인 15,000 KRW 대비 23%의 이익을 보고 있습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 3,
+   "mode": "current",
+   "question": "q04",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 테스트바이오 비중을 줄여야 할까요?"
+   ],
+   "answer": "현재 테스트바이오 주식을 40주 보유하고 있으며, 평균 매수 가격은 15,000원입니다. 최근 주가는 18,450원이며, 평균 매수 가격 대비 23.00%의 유념 수익이 발생했습니다. 현재 제공된 정보만으로는 비중 축소 여부를 판단하기 어렵습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "3:0",
+     "type": "number",
+     "text": "40주",
+     "start": 14,
+     "end": 17,
+     "sentence": "현재 테스트바이오 주식을 40주 보유하고 있으며, 평균 매수 가격은 15,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "3:1",
+     "type": "number",
+     "text": "15,000원",
+     "start": 38,
+     "end": 45,
+     "sentence": "현재 테스트바이오 주식을 40주 보유하고 있으며, 평균 매수 가격은 15,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "3:2",
+     "type": "number",
+     "text": "18,450원",
+     "start": 57,
+     "end": 64,
+     "sentence": "최근 주가는 18,450원이며, 평균 매수 가격 대비 23.00%의 유념 수익이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "3:3",
+     "type": "number",
+     "text": "23.00%",
+     "start": 80,
+     "end": 86,
+     "sentence": "최근 주가는 18,450원이며, 평균 매수 가격 대비 23.00%의 유념 수익이 발생했습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 4,
+   "mode": "current",
+   "question": "q05",
+   "holding": "BTC",
+   "facts": [
+    "H1 Holding: 비트코인 (BTC), Bitcoin.",
+    "H2 Quantity held: 0.25 BTC.",
+    "H3 Average purchase price: 95,000,000 KRW.",
+    "D1 Latest price (2026-09-25): 91,250,000 KRW.",
+    "D2 Unrealised change vs. average purchase price: -3.95%.",
+    "D3 Position value at the latest price: 22,812,500 KRW.",
+    "M1 Bitcoin fell 4.1% over the last 7 days.",
+    "M2 The 30-day high was 98,400,000 KRW on 2026-09-02.",
+    "N1 A large exchange reported a temporary withdrawal halt on 2026-09-23 (fictional).",
+    "Q1 비트코인 지금 들고 있어도 될까요?"
+   ],
+   "answer": "현재 비트코인을 보유하고 계시며, 0.25 BTC를 보유하고 계십니다. 현재 가격은 91,250,000 KRW이며, 구매 가격인 95,000,000 KRW 대비 3.95%의 unrealised 손실이 발생했습니다. 보유량은 변동하지 않고 있으며, 현재 포지션 가치는 22,812,500 KRW입니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "4:0",
+     "type": "number",
+     "text": "0.25 BTC",
+     "start": 19,
+     "end": 27,
+     "sentence": "현재 비트코인을 보유하고 계시며, 0.25 BTC를 보유하고 계십니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "4:1",
+     "type": "number",
+     "text": "91,250,000 KRW",
+     "start": 47,
+     "end": 61,
+     "sentence": "현재 가격은 91,250,000 KRW이며, 구매 가격인 95,000,000 KRW 대비 3.95%의 unrealised 손실이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "4:2",
+     "type": "number",
+     "text": "95,000,000 KRW",
+     "start": 72,
+     "end": 86,
+     "sentence": "현재 가격은 91,250,000 KRW이며, 구매 가격인 95,000,000 KRW 대비 3.95%의 unrealised 손실이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "4:3",
+     "type": "number",
+     "text": "3.95%",
+     "start": 90,
+     "end": 95,
+     "sentence": "현재 가격은 91,250,000 KRW이며, 구매 가격인 95,000,000 KRW 대비 3.95%의 unrealised 손실이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "4:4",
+     "type": "number",
+     "text": "22,812,500 KRW",
+     "start": 149,
+     "end": 163,
+     "sentence": "보유량은 변동하지 않고 있으며, 현재 포지션 가치는 22,812,500 KRW입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 5,
+   "mode": "current",
+   "question": "q06",
+   "holding": "BTC",
+   "facts": [
+    "H1 Holding: 비트코인 (BTC), Bitcoin.",
+    "H2 Quantity held: 0.25 BTC.",
+    "H3 Average purchase price: 95,000,000 KRW.",
+    "D1 Latest price (2026-09-25): 91,250,000 KRW.",
+    "D2 Unrealised change vs. average purchase price: -3.95%.",
+    "D3 Position value at the latest price: 22,812,500 KRW.",
+    "M1 Bitcoin fell 4.1% over the last 7 days.",
+    "M2 The 30-day high was 98,400,000 KRW on 2026-09-02.",
+    "N1 A large exchange reported a temporary withdrawal halt on 2026-09-23 (fictional).",
+    "Q1 비트코인 평가 손익이 어떻게 되나요?"
+   ],
+   "answer": "현재 비트코인 평가 손익은 22억 8천 1백 2십 5만 원입니다. 평균 매수 가격은 9억 5천만 원이었고, 현재 가격은 9억 1천 2백 5십만 원입니다. 따라서 현재 무절매 손실은 약 -3.95%입니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "5:0",
+     "type": "number",
+     "text": "22억 8천 1백 2십 5만 원",
+     "start": 15,
+     "end": 32,
+     "sentence": "현재 비트코인 평가 손익은 22억 8천 1백 2십 5만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"평가 손익은 22억 8천 1백 2십 5만 원\": the position value is 22,812,500 KRW (100x) and it is not the profit/loss"
+    },
+    {
+     "id": "5:1",
+     "type": "number",
+     "text": "9억 5천만 원",
+     "start": 47,
+     "end": 55,
+     "sentence": "평균 매수 가격은 9억 5천만 원이었고, 현재 가격은 9억 1천 2백 5십만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"평균 매수 가격은 9억 5천만 원\": it is 95,000,000 KRW (10x)"
+    },
+    {
+     "id": "5:2",
+     "type": "number",
+     "text": "9억 1천 2백 5십만 원",
+     "start": 67,
+     "end": 81,
+     "sentence": "평균 매수 가격은 9억 5천만 원이었고, 현재 가격은 9억 1천 2백 5십만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"현재 가격은 9억 1천 2백 5십만 원\": it is 91,250,000 KRW (10x)"
+    },
+    {
+     "id": "5:3",
+     "type": "number",
+     "text": "3.95%",
+     "start": 104,
+     "end": 109,
+     "sentence": "따라서 현재 무절매 손실은 약 -3.95%입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 6,
+   "mode": "current",
+   "question": "q07",
+   "holding": "KRX-GOLD",
+   "facts": [
+    "H1 Holding: KRX 금현물 (KRX-GOLD), KRX gold spot.",
+    "H2 Quantity held: 50 g.",
+    "H3 Average purchase price: 132,000 KRW per g.",
+    "D1 Latest price (2026-09-25): 148,500 KRW.",
+    "D2 Unrealised change vs. average purchase price: +12.50%.",
+    "D3 Position value at the latest price: 7,425,000 KRW.",
+    "M1 KRX gold spot rose 2.3% over the last 30 days.",
+    "M2 Daily trading volume averaged 310 kg over the last 20 sessions.",
+    "N1 Central bank gold purchases were reported to continue in the third quarter (fictional).",
+    "Q1 금현물 수익률은 어떤가요?"
+   ],
+   "answer": "현재 금현물 수익률은 매수 가격 대비 12.50%의 unrealized 수익입니다. 50g을 보유하고 있으며, 마지막 거래 가격은 148,500 KRW이고 average 구매 가격은 132,000 KRW였습니다. 이 정보만으로는 장기적인 수익률을 판단하기에는 부족합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "6:0",
+     "type": "number",
+     "text": "12.50%",
+     "start": 21,
+     "end": 27,
+     "sentence": "현재 금현물 수익률은 매수 가격 대비 12.50%의 unrealized 수익입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "6:1",
+     "type": "number",
+     "text": "50g",
+     "start": 47,
+     "end": 50,
+     "sentence": "50g을 보유하고 있으며, 마지막 거래 가격은 148,500 KRW이고 average 구매 가격은 132,000 KRW였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "6:2",
+     "type": "number",
+     "text": "148,500 KRW",
+     "start": 73,
+     "end": 84,
+     "sentence": "50g을 보유하고 있으며, 마지막 거래 가격은 148,500 KRW이고 average 구매 가격은 132,000 KRW였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "6:3",
+     "type": "number",
+     "text": "132,000 KRW",
+     "start": 102,
+     "end": 113,
+     "sentence": "50g을 보유하고 있으며, 마지막 거래 가격은 148,500 KRW이고 average 구매 가격은 132,000 KRW였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "6:4",
+     "type": "interpretation",
+     "text": "이 정보만으로는 장기적인 수익률을 판단하기에는 부족합니다.",
+     "start": 118,
+     "end": 151,
+     "sentence": "이 정보만으로는 장기적인 수익률을 판단하기에는 부족합니다.",
+     "judgement": "none",
+     "note": "insufficient-evidence statement"
+    }
+   ]
+  },
+  {
+   "index": 7,
+   "mode": "current",
+   "question": "q08",
+   "holding": "KRX-GOLD",
+   "facts": [
+    "H1 Holding: KRX 금현물 (KRX-GOLD), KRX gold spot.",
+    "H2 Quantity held: 50 g.",
+    "H3 Average purchase price: 132,000 KRW per g.",
+    "D1 Latest price (2026-09-25): 148,500 KRW.",
+    "D2 Unrealised change vs. average purchase price: +12.50%.",
+    "D3 Position value at the latest price: 7,425,000 KRW.",
+    "M1 KRX gold spot rose 2.3% over the last 30 days.",
+    "M2 Daily trading volume averaged 310 kg over the last 20 sessions.",
+    "N1 Central bank gold purchases were reported to continue in the third quarter (fictional).",
+    "Q1 KRX 금 더 사도 될까요?"
+   ],
+   "answer": "현재 KRX 금현물 보유량은 50g이며, 평균 매입 가격은 132,000원입니다. 최근 가격은 148,500원으로, 12.50%의 무실현 수익을 기록하고 있습니다. 보유량 증식을 결정하기 위해서는 명확한 이Exit 전략 및 위험 관리 기준이 필요합니다.",
+   "items": [
+    {
+     "id": "7:0",
+     "type": "number",
+     "text": "50g",
+     "start": 16,
+     "end": 19,
+     "sentence": "현재 KRX 금현물 보유량은 50g이며, 평균 매입 가격은 132,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "7:1",
+     "type": "number",
+     "text": "132,000원",
+     "start": 33,
+     "end": 41,
+     "sentence": "현재 KRX 금현물 보유량은 50g이며, 평균 매입 가격은 132,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "7:2",
+     "type": "number",
+     "text": "148,500원",
+     "start": 53,
+     "end": 61,
+     "sentence": "최근 가격은 148,500원으로, 12.50%의 무실현 수익을 기록하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "7:3",
+     "type": "number",
+     "text": "12.50%",
+     "start": 65,
+     "end": 71,
+     "sentence": "최근 가격은 148,500원으로, 12.50%의 무실현 수익을 기록하고 있습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 8,
+   "mode": "current",
+   "question": "q09",
+   "holding": "US:ZZSP",
+   "facts": [
+    "H1 Holding: Zeta S&P 500 Test ETF Trust (ZZSP), US listing.",
+    "H2 Quantity held: 2.5 shares.",
+    "H3 Average purchase price: 480.00 USD.",
+    "D1 Latest price (2026-09-25): 512.30 USD.",
+    "D2 Unrealised change vs. average purchase price: +6.73%.",
+    "D3 Position value at the latest price: 1,280.75 USD.",
+    "M1 The ETF rose 1.8% over the last 20 sessions.",
+    "M2 The ETF is 2.1% below its all-time high of 523.30 USD.",
+    "N1 Index constituents reported mixed third-quarter guidance (fictional).",
+    "Q1 ZZSP는 계속 보유해도 되나요?"
+   ],
+   "answer": "네, 현재 보유하고 계신 ZZSP를 계속 보유하는 것이 적절해 보입니다.  지난 20일 동안 1.8%의 긍정적인 추세가 있었으며, 현재 매수 가격보다 6.73%의 미실현 수익이 발생하고 있습니다.  최근 가격은 512.30 USD이고, 현재 보유량 2.5주당 가치는 1,280.75 USD입니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "8:0",
+     "type": "number",
+     "text": "20",
+     "start": 45,
+     "end": 47,
+     "sentence": "지난 20일 동안 1.8%의 긍정적인 추세가 있었으며, 현재 매수 가격보다 6.73%의 미실현 수익이 발생하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "8:1",
+     "type": "number",
+     "text": "1.8%",
+     "start": 52,
+     "end": 56,
+     "sentence": "지난 20일 동안 1.8%의 긍정적인 추세가 있었으며, 현재 매수 가격보다 6.73%의 미실현 수익이 발생하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "8:2",
+     "type": "number",
+     "text": "6.73%",
+     "start": 84,
+     "end": 89,
+     "sentence": "지난 20일 동안 1.8%의 긍정적인 추세가 있었으며, 현재 매수 가격보다 6.73%의 미실현 수익이 발생하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "8:3",
+     "type": "number",
+     "text": "512.30 USD",
+     "start": 118,
+     "end": 128,
+     "sentence": "최근 가격은 512.30 USD이고, 현재 보유량 2.5주당 가치는 1,280.75 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "8:4",
+     "type": "number",
+     "text": "2.5주",
+     "start": 139,
+     "end": 143,
+     "sentence": "최근 가격은 512.30 USD이고, 현재 보유량 2.5주당 가치는 1,280.75 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "8:5",
+     "type": "number",
+     "text": "1,280.75 USD",
+     "start": 149,
+     "end": 161,
+     "sentence": "최근 가격은 512.30 USD이고, 현재 보유량 2.5주당 가치는 1,280.75 USD입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 9,
+   "mode": "current",
+   "question": "q10",
+   "holding": "US:ZZSP",
+   "facts": [
+    "H1 Holding: Zeta S&P 500 Test ETF Trust (ZZSP), US listing.",
+    "H2 Quantity held: 2.5 shares.",
+    "H3 Average purchase price: 480.00 USD.",
+    "D1 Latest price (2026-09-25): 512.30 USD.",
+    "D2 Unrealised change vs. average purchase price: +6.73%.",
+    "D3 Position value at the latest price: 1,280.75 USD.",
+    "M1 The ETF rose 1.8% over the last 20 sessions.",
+    "M2 The ETF is 2.1% below its all-time high of 523.30 USD.",
+    "N1 Index constituents reported mixed third-quarter guidance (fictional).",
+    "Q1 Zeta S&P 500 Test ETF Trust 평가액이 얼마인가요?"
+   ],
+   "answer": "현재 Zeta S&P 500 Test ETF Trust(ZZSP)의 순자산 가치(평가액)는 1,280.75 USD입니다. 이는 2.5주를 보유하고 있고, 최근 주가가 512.30 USD인 점을 기준으로 계산됩니다. 제공된 정보만으로는 ZZSP의 순자산 가치가 적절하다고 판단하기 어렵습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "9:0",
+     "type": "number",
+     "text": "500",
+     "start": 12,
+     "end": 15,
+     "sentence": "현재 Zeta S&P 500 Test ETF Trust(ZZSP)의 순자산 가치(평가액)는 1,280.75 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "9:1",
+     "type": "number",
+     "text": "1,280.75 USD",
+     "start": 51,
+     "end": 63,
+     "sentence": "현재 Zeta S&P 500 Test ETF Trust(ZZSP)의 순자산 가치(평가액)는 1,280.75 USD입니다.",
+     "judgement": "debatable",
+     "note": "\"순자산 가치(평가액) 1,280.75 USD\": the position value called net asset value"
+    },
+    {
+     "id": "9:2",
+     "type": "number",
+     "text": "2.5주",
+     "start": 71,
+     "end": 75,
+     "sentence": "이는 2.5주를 보유하고 있고, 최근 주가가 512.30 USD인 점을 기준으로 계산됩니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "9:3",
+     "type": "number",
+     "text": "512.30 USD",
+     "start": 93,
+     "end": 103,
+     "sentence": "이는 2.5주를 보유하고 있고, 최근 주가가 512.30 USD인 점을 기준으로 계산됩니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 10,
+   "mode": "current",
+   "question": "q11",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 ZZAP 주가가 떨어졌는데 팔아야 하나요?"
+   ],
+   "answer": "현재 ZZAP 주가는 188.40 USD이고, 평균 매입 가격은 201.00 USD였습니다. 현재 12주를 보유하고 있으며, 현재 가치는 2,260.80 USD입니다. 연구 결정과 트레이더 계획 모두 현재 보유를 추천하며, 근본적인 전환 신호를 지속적으로 모니터링해야 합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "10:0",
+     "type": "number",
+     "text": "188.40 USD",
+     "start": 12,
+     "end": 22,
+     "sentence": "현재 ZZAP 주가는 188.40 USD이고, 평균 매입 가격은 201.00 USD였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "10:1",
+     "type": "number",
+     "text": "201.00 USD",
+     "start": 36,
+     "end": 46,
+     "sentence": "현재 ZZAP 주가는 188.40 USD이고, 평균 매입 가격은 201.00 USD였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "10:2",
+     "type": "number",
+     "text": "12주",
+     "start": 55,
+     "end": 58,
+     "sentence": "현재 12주를 보유하고 있으며, 현재 가치는 2,260.80 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "10:3",
+     "type": "number",
+     "text": "2,260.80 USD",
+     "start": 77,
+     "end": 89,
+     "sentence": "현재 12주를 보유하고 있으며, 현재 가치는 2,260.80 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "10:4",
+     "type": "interpretation",
+     "text": "연구 결정과 트레이더 계획 모두 현재 보유를 추천하며, 근본적인 전환 신호를 지속적으로 모니터링해야 합니다.",
+     "start": 93,
+     "end": 154,
+     "sentence": "연구 결정과 트레이더 계획 모두 현재 보유를 추천하며, 근본적인 전환 신호를 지속적으로 모니터링해야 합니다.",
+     "judgement": "none",
+     "note": "\"근본적인 전환 신호를 모니터링\": no claim"
+    }
+   ]
+  },
+  {
+   "index": 11,
+   "mode": "current",
+   "question": "q12",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 ZZAP의 PER이 높은 편인가요?"
+   ],
+   "answer": "네, ZZAP의 주가수익률(PER)은 높은 편입니다. 최신 주가인 188.40 USD와 평균 매수 가격인 201.00 USD를 비교하면 주가수익률(PER)이 계산됩니다. 정확한 PER 값을 알 수는 없지만, 높은 주가수익률(PER)은 ZZAP의 주가가 높다는 것을 의미합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "11:0",
+     "type": "number",
+     "text": "188.40 USD",
+     "start": 37,
+     "end": 47,
+     "sentence": "최신 주가인 188.40 USD와 평균 매수 가격인 201.00 USD를 비교하면 주가수익률(PER)이 계산됩니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "11:1",
+     "type": "number",
+     "text": "201.00 USD",
+     "start": 59,
+     "end": 69,
+     "sentence": "최신 주가인 188.40 USD와 평균 매수 가격인 201.00 USD를 비교하면 주가수익률(PER)이 계산됩니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 12,
+   "mode": "current",
+   "question": "q13",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한가요?"
+   ],
+   "answer": "제공된 정보만으로는 삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한지 판단할 수 없습니다. 현재 삼성테스트전자 주식의 unrealized loss가 8%이며 하락 추세에 있다는 정보만 있고, 테스트바이오에 대한 정보는 없습니다. 따라서 현재 주어진 사실로는 어느 종목이 더 위험하다고 말씀드릴 수 없습니다.",
+   "items": [
+    {
+     "id": "12:0",
+     "type": "number",
+     "text": "8%",
+     "start": 86,
+     "end": 88,
+     "sentence": "현재 삼성테스트전자 주식의 unrealized loss가 8%이며 하락 추세에 있다는 정보만 있고, 테스트바이오에 대한 정보는 없습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 13,
+   "mode": "current",
+   "question": "q13",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한가요?"
+   ],
+   "answer": "제시된 정보만으로는 삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한지 판단하기 어렵습니다. 테스트바이오의 위험은 2026년 임상 시험과 관련된 장기적인 위험입니다. 삼성테스트전자 관련 정보는 제공되지 않았으므로 비교 분석이 불가능합니다.",
+   "items": [
+    {
+     "id": "13:0",
+     "type": "number",
+     "text": "2026",
+     "start": 66,
+     "end": 70,
+     "sentence": "테스트바이오의 위험은 2026년 임상 시험과 관련된 장기적인 위험입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "13:1",
+     "type": "interpretation",
+     "text": "테스트바이오의 위험은 2026년 임상 시험과 관련된 장기적인 위험입니다.",
+     "start": 53,
+     "end": 94,
+     "sentence": "테스트바이오의 위험은 2026년 임상 시험과 관련된 장기적인 위험입니다.",
+     "judgement": "unsupported",
+     "note": "\"2026년 임상 시험과 관련된 장기적인 위험\": the result is due in November 2026; a long-term risk claim without evidence"
+    }
+   ]
+  },
+  {
+   "index": 14,
+   "mode": "current",
+   "question": "q14",
+   "holding": "BTC",
+   "facts": [
+    "H1 Holding: 비트코인 (BTC), Bitcoin.",
+    "H2 Quantity held: 0.25 BTC.",
+    "H3 Average purchase price: 95,000,000 KRW.",
+    "D1 Latest price (2026-09-25): 91,250,000 KRW.",
+    "D2 Unrealised change vs. average purchase price: -3.95%.",
+    "D3 Position value at the latest price: 22,812,500 KRW.",
+    "M1 Bitcoin fell 4.1% over the last 7 days.",
+    "M2 The 30-day high was 98,400,000 KRW on 2026-09-02.",
+    "N1 A large exchange reported a temporary withdrawal halt on 2026-09-23 (fictional).",
+    "Q1 비트코인이랑 금현물 비교해 주세요."
+   ],
+   "answer": "현재 비트코인 보유량은 0.25 BTC이고, 평균 매수 가격은 9억 5천만 원입니다. 최신 가격은 9억 1천 2백만 원으로, 현재 환율을 기준으로 보면 손실이 발생했습니다. 금현물과의 비교는 현재 보유량 및 가격 정보만으로는 판단하기 어렵습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "14:0",
+     "type": "number",
+     "text": "0.25 BTC",
+     "start": 13,
+     "end": 21,
+     "sentence": "현재 비트코인 보유량은 0.25 BTC이고, 평균 매수 가격은 9억 5천만 원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "14:1",
+     "type": "number",
+     "text": "9억 5천만 원",
+     "start": 35,
+     "end": 43,
+     "sentence": "현재 비트코인 보유량은 0.25 BTC이고, 평균 매수 가격은 9억 5천만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"평균 매수 가격은 9억 5천만 원\": it is 95,000,000 KRW (10x)"
+    },
+    {
+     "id": "14:2",
+     "type": "number",
+     "text": "9억 1천 2백만 원",
+     "start": 55,
+     "end": 66,
+     "sentence": "최신 가격은 9억 1천 2백만 원으로, 현재 환율을 기준으로 보면 손실이 발생했습니다.",
+     "judgement": "real-error",
+     "note": "\"최신 가격은 9억 1천 2백만 원\": it is 91,250,000 KRW"
+    }
+   ]
+  },
+  {
+   "index": 15,
+   "mode": "current",
+   "question": "q14",
+   "holding": "KRX-GOLD",
+   "facts": [
+    "H1 Holding: KRX 금현물 (KRX-GOLD), KRX gold spot.",
+    "H2 Quantity held: 50 g.",
+    "H3 Average purchase price: 132,000 KRW per g.",
+    "D1 Latest price (2026-09-25): 148,500 KRW.",
+    "D2 Unrealised change vs. average purchase price: +12.50%.",
+    "D3 Position value at the latest price: 7,425,000 KRW.",
+    "M1 KRX gold spot rose 2.3% over the last 30 days.",
+    "M2 Daily trading volume averaged 310 kg over the last 20 sessions.",
+    "N1 Central bank gold purchases were reported to continue in the third quarter (fictional).",
+    "Q1 비트코인이랑 금현물 비교해 주세요."
+   ],
+   "answer": "제공된 정보만으로는 비트코인과 금현물 비교 분석이 어렵습니다. 현재 금현물 보유량은 50g이며, 평균 매입 단가는 132,000원이고 현재 가격은 148,500원입니다. 금현물의 시장 가치는 7,425,000원이며, 이는 구매 가격 대비 12.50%의 무실현 수익을 나타냅니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "15:0",
+     "type": "number",
+     "text": "50g",
+     "start": 47,
+     "end": 50,
+     "sentence": "현재 금현물 보유량은 50g이며, 평균 매입 단가는 132,000원이고 현재 가격은 148,500원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "15:1",
+     "type": "number",
+     "text": "132,000원",
+     "start": 64,
+     "end": 72,
+     "sentence": "현재 금현물 보유량은 50g이며, 평균 매입 단가는 132,000원이고 현재 가격은 148,500원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "15:2",
+     "type": "number",
+     "text": "148,500원",
+     "start": 82,
+     "end": 90,
+     "sentence": "현재 금현물 보유량은 50g이며, 평균 매입 단가는 132,000원이고 현재 가격은 148,500원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "15:3",
+     "type": "number",
+     "text": "7,425,000원",
+     "start": 107,
+     "end": 117,
+     "sentence": "금현물의 시장 가치는 7,425,000원이며, 이는 구매 가격 대비 12.50%의 무실현 수익을 나타냅니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "15:4",
+     "type": "number",
+     "text": "12.50%",
+     "start": 133,
+     "end": 139,
+     "sentence": "금현물의 시장 가치는 7,425,000원이며, 이는 구매 가격 대비 12.50%의 무실현 수익을 나타냅니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 16,
+   "mode": "current",
+   "question": "q15",
+   "holding": "US:ZZSP",
+   "facts": [
+    "H1 Holding: Zeta S&P 500 Test ETF Trust (ZZSP), US listing.",
+    "H2 Quantity held: 2.5 shares.",
+    "H3 Average purchase price: 480.00 USD.",
+    "D1 Latest price (2026-09-25): 512.30 USD.",
+    "D2 Unrealised change vs. average purchase price: +6.73%.",
+    "D3 Position value at the latest price: 1,280.75 USD.",
+    "M1 The ETF rose 1.8% over the last 20 sessions.",
+    "M2 The ETF is 2.1% below its all-time high of 523.30 USD.",
+    "N1 Index constituents reported mixed third-quarter guidance (fictional).",
+    "Q1 ZZSP와 ZZAP 둘 다 괜찮나요?"
+   ],
+   "answer": "제타 S&P 500 테스트 ETF Trust (ZZSP)를 보유하고 계신데 ZZAP도 괜찮은지 질문하셨습니다. 현재 정보만으로는 ZZAP에 대한 정보를 가지고 있지 않아 답변 드리기 어렵습니다. ZZSP의 현재 보유량 및 가치에 대한 정보만 제공되고 있습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "16:0",
+     "type": "number",
+     "text": "500",
+     "start": 7,
+     "end": 10,
+     "sentence": "제타 S&P 500 테스트 ETF Trust (ZZSP)를 보유하고 계신데 ZZAP도 괜찮은지 질문하셨습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 17,
+   "mode": "current",
+   "question": "q15",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 ZZSP와 ZZAP 둘 다 괜찮나요?"
+   ],
+   "answer": "제타 애플 테스트(ZZAP)의 주식에 대한 정보만 가지고 있습니다. ZZSP라는 주식은 관련 정보가 없어 답변드리기가 어렵습니다. 현재 보유 주식(12주)은 매수 가격 201.00 USD 대비 6.27%의 unrealized 손실이 발생했습니다. \n\n\n\n",
+   "items": [
+    {
+     "id": "17:0",
+     "type": "number",
+     "text": "12주",
+     "start": 82,
+     "end": 85,
+     "sentence": "현재 보유 주식(12주)은 매수 가격 201.00 USD 대비 6.27%의 unrealized 손실이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "17:1",
+     "type": "number",
+     "text": "201.00 USD",
+     "start": 94,
+     "end": 104,
+     "sentence": "현재 보유 주식(12주)은 매수 가격 201.00 USD 대비 6.27%의 unrealized 손실이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "17:2",
+     "type": "number",
+     "text": "6.27%",
+     "start": 108,
+     "end": 113,
+     "sentence": "현재 보유 주식(12주)은 매수 가격 201.00 USD 대비 6.27%의 unrealized 손실이 발생했습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 18,
+   "mode": "current",
+   "question": "q16",
+   "holding": "BTC",
+   "facts": [
+    "H1 Holding: 비트코인 (BTC), Bitcoin.",
+    "H2 Quantity held: 0.25 BTC.",
+    "H3 Average purchase price: 95,000,000 KRW.",
+    "D1 Latest price (2026-09-25): 91,250,000 KRW.",
+    "D2 Unrealised change vs. average purchase price: -3.95%.",
+    "D3 Position value at the latest price: 22,812,500 KRW.",
+    "M1 Bitcoin fell 4.1% over the last 7 days.",
+    "M2 The 30-day high was 98,400,000 KRW on 2026-09-02.",
+    "N1 A large exchange reported a temporary withdrawal halt on 2026-09-23 (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "현재 포트폴리오는 비트코인 0.25개 보유 중이며, 평균 매입 가격은 9억 5천만 원입니다. 최신 가격은 9억 1천 2백만 원으로, 현재 포트폴리오 가치는 2억 2천 8백만 원입니다. 보유 자산의 변화를 추적하고 있으며, 추가적인 분석은 더 많은 정보가 필요합니다.",
+   "items": [
+    {
+     "id": "18:0",
+     "type": "number",
+     "text": "0.25",
+     "start": 15,
+     "end": 19,
+     "sentence": "현재 포트폴리오는 비트코인 0.25개 보유 중이며, 평균 매입 가격은 9억 5천만 원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "18:1",
+     "type": "number",
+     "text": "9억 5천만 원",
+     "start": 39,
+     "end": 47,
+     "sentence": "현재 포트폴리오는 비트코인 0.25개 보유 중이며, 평균 매입 가격은 9억 5천만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"평균 매입 가격은 9억 5천만 원\": it is 95,000,000 KRW (10x)"
+    },
+    {
+     "id": "18:2",
+     "type": "number",
+     "text": "9억 1천 2백만 원",
+     "start": 59,
+     "end": 70,
+     "sentence": "최신 가격은 9억 1천 2백만 원으로, 현재 포트폴리오 가치는 2억 2천 8백만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"최신 가격은 9억 1천 2백만 원\": it is 91,250,000 KRW"
+    },
+    {
+     "id": "18:3",
+     "type": "number",
+     "text": "2억 2천 8백만 원",
+     "start": 87,
+     "end": 98,
+     "sentence": "최신 가격은 9억 1천 2백만 원으로, 현재 포트폴리오 가치는 2억 2천 8백만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"포트폴리오 가치는 2억 2천 8백만 원\": it is 22,812,500 KRW (10x)"
+    }
+   ]
+  },
+  {
+   "index": 19,
+   "mode": "current",
+   "question": "q16",
+   "holding": "KRX-GOLD",
+   "facts": [
+    "H1 Holding: KRX 금현물 (KRX-GOLD), KRX gold spot.",
+    "H2 Quantity held: 50 g.",
+    "H3 Average purchase price: 132,000 KRW per g.",
+    "D1 Latest price (2026-09-25): 148,500 KRW.",
+    "D2 Unrealised change vs. average purchase price: +12.50%.",
+    "D3 Position value at the latest price: 7,425,000 KRW.",
+    "M1 KRX gold spot rose 2.3% over the last 30 days.",
+    "M2 Daily trading volume averaged 310 kg over the last 20 sessions.",
+    "N1 Central bank gold purchases were reported to continue in the third quarter (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "현재 전체 포트폴리오 점검은 불가능합니다. 제공된 정보는 KRX 금현물 50g 보유 현황과 관련된 내용이며, 포트폴리오 전체에 대한 정보를 담고 있지 않습니다. KRX 금현물 보유량은 50g이고, 평균 매입 가격은 132,000원이며, 현재 가격은 148,500원으로 12.50%의 수익을 기록하고 있습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "19:0",
+     "type": "number",
+     "text": "50g",
+     "start": 40,
+     "end": 43,
+     "sentence": "제공된 정보는 KRX 금현물 50g 보유 현황과 관련된 내용이며, 포트폴리오 전체에 대한 정보를 담고 있지 않습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "19:1",
+     "type": "number",
+     "text": "50g",
+     "start": 103,
+     "end": 106,
+     "sentence": "KRX 금현물 보유량은 50g이고, 평균 매입 가격은 132,000원이며, 현재 가격은 148,500원으로 12.50%의 수익을 기록하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "19:2",
+     "type": "number",
+     "text": "132,000원",
+     "start": 120,
+     "end": 128,
+     "sentence": "KRX 금현물 보유량은 50g이고, 평균 매입 가격은 132,000원이며, 현재 가격은 148,500원으로 12.50%의 수익을 기록하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "19:3",
+     "type": "number",
+     "text": "148,500원",
+     "start": 139,
+     "end": 147,
+     "sentence": "KRX 금현물 보유량은 50g이고, 평균 매입 가격은 132,000원이며, 현재 가격은 148,500원으로 12.50%의 수익을 기록하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "19:4",
+     "type": "number",
+     "text": "12.50%",
+     "start": 150,
+     "end": 156,
+     "sentence": "KRX 금현물 보유량은 50g이고, 평균 매입 가격은 132,000원이며, 현재 가격은 148,500원으로 12.50%의 수익을 기록하고 있습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 20,
+   "mode": "current",
+   "question": "q16",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "현재 삼성테스트전자 주식 10주를 보유하고 있으며, 평균 매입 가격은 71,000원입니다. 현재 주가는 65,320원으로, 평균 매입 가격 대비 8.00%의 언리얼 손실을 기록 중입니다. 포트폴리오 전체 점검에는 삼성테스트전자 주식 외의 다른 자산에 대한 정보가 추가적으로 필요합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "20:0",
+     "type": "number",
+     "text": "10주",
+     "start": 14,
+     "end": 17,
+     "sentence": "현재 삼성테스트전자 주식 10주를 보유하고 있으며, 평균 매입 가격은 71,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "20:1",
+     "type": "number",
+     "text": "71,000원",
+     "start": 39,
+     "end": 46,
+     "sentence": "현재 삼성테스트전자 주식 10주를 보유하고 있으며, 평균 매입 가격은 71,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "20:2",
+     "type": "number",
+     "text": "65,320원",
+     "start": 58,
+     "end": 65,
+     "sentence": "현재 주가는 65,320원으로, 평균 매입 가격 대비 8.00%의 언리얼 손실을 기록 중입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "20:3",
+     "type": "number",
+     "text": "8.00%",
+     "start": 81,
+     "end": 86,
+     "sentence": "현재 주가는 65,320원으로, 평균 매입 가격 대비 8.00%의 언리얼 손실을 기록 중입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 21,
+   "mode": "current",
+   "question": "q16",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "포트폴리오 내 테스트바이오(900006)는 40주를 보유하고 있으며, 평균 매수 가격은 15,000원이고 현재 주가는 18,450원입니다. 이를 기준으로 현재 포트폴리오 가치는 738,000원이며, 매수 가격 대비 23.00%의 unrealized 차이를 보입니다. 추가적인 포트폴리오 정보가 없어 더 자세한 점검은 어렵습니다.",
+   "items": [
+    {
+     "id": "21:0",
+     "type": "number",
+     "text": "40주",
+     "start": 24,
+     "end": 27,
+     "sentence": "포트폴리오 내 테스트바이오(900006)는 40주를 보유하고 있으며, 평균 매수 가격은 15,000원이고 현재 주가는 18,450원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "21:1",
+     "type": "number",
+     "text": "15,000원",
+     "start": 49,
+     "end": 56,
+     "sentence": "포트폴리오 내 테스트바이오(900006)는 40주를 보유하고 있으며, 평균 매수 가격은 15,000원이고 현재 주가는 18,450원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "21:2",
+     "type": "number",
+     "text": "18,450원",
+     "start": 66,
+     "end": 73,
+     "sentence": "포트폴리오 내 테스트바이오(900006)는 40주를 보유하고 있으며, 평균 매수 가격은 15,000원이고 현재 주가는 18,450원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "21:3",
+     "type": "number",
+     "text": "738,000원",
+     "start": 99,
+     "end": 107,
+     "sentence": "이를 기준으로 현재 포트폴리오 가치는 738,000원이며, 매수 가격 대비 23.00%의 unrealized 차이를 보입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "21:4",
+     "type": "number",
+     "text": "23.00%",
+     "start": 120,
+     "end": 126,
+     "sentence": "이를 기준으로 현재 포트폴리오 가치는 738,000원이며, 매수 가격 대비 23.00%의 unrealized 차이를 보입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 22,
+   "mode": "current",
+   "question": "q16",
+   "holding": "US:ZZSP",
+   "facts": [
+    "H1 Holding: Zeta S&P 500 Test ETF Trust (ZZSP), US listing.",
+    "H2 Quantity held: 2.5 shares.",
+    "H3 Average purchase price: 480.00 USD.",
+    "D1 Latest price (2026-09-25): 512.30 USD.",
+    "D2 Unrealised change vs. average purchase price: +6.73%.",
+    "D3 Position value at the latest price: 1,280.75 USD.",
+    "M1 The ETF rose 1.8% over the last 20 sessions.",
+    "M2 The ETF is 2.1% below its all-time high of 523.30 USD.",
+    "N1 Index constituents reported mixed third-quarter guidance (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "포트폴리오에 Zeta S&P 500 Test ETF Trust (ZZSP) 주식 2.5주를 보유하고 계신 것으로 확인됩니다. 현재 주식의 평균 매입 가격은 480.00 USD이고, 최신 가격은 512.30 USD입니다. 따라서 현재 보유 주식의 가치는 1,280.75 USD입니다. \n\n",
+   "items": [
+    {
+     "id": "22:0",
+     "type": "number",
+     "text": "500",
+     "start": 16,
+     "end": 19,
+     "sentence": "포트폴리오에 Zeta S&P 500 Test ETF Trust (ZZSP) 주식 2.5주를 보유하고 계신 것으로 확인됩니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "22:1",
+     "type": "number",
+     "text": "2.5주",
+     "start": 45,
+     "end": 49,
+     "sentence": "포트폴리오에 Zeta S&P 500 Test ETF Trust (ZZSP) 주식 2.5주를 보유하고 계신 것으로 확인됩니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "22:2",
+     "type": "number",
+     "text": "480.00 USD",
+     "start": 87,
+     "end": 97,
+     "sentence": "현재 주식의 평균 매입 가격은 480.00 USD이고, 최신 가격은 512.30 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "22:3",
+     "type": "number",
+     "text": "512.30 USD",
+     "start": 108,
+     "end": 118,
+     "sentence": "현재 주식의 평균 매입 가격은 480.00 USD이고, 최신 가격은 512.30 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "22:4",
+     "type": "number",
+     "text": "1,280.75 USD",
+     "start": 141,
+     "end": 153,
+     "sentence": "따라서 현재 보유 주식의 가치는 1,280.75 USD입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 23,
+   "mode": "current",
+   "question": "q16",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "현재 포트폴리오에 Zeta Apple Test Inc. (ZZAP) 주식 12주를 보유하고 있으며, 평균 매수 가격은 201.00 USD였습니다. 현재 주가는 188.40 USD이며, 이는 평균 매수 가격 대비 6.27% 하락한 것입니다. 현재 포트폴리오 점검을 위한 추가 정보는 제공되지 않았습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "23:0",
+     "type": "number",
+     "text": "12주",
+     "start": 41,
+     "end": 44,
+     "sentence": "(ZZAP) 주식 12주를 보유하고 있으며, 평균 매수 가격은 201.00 USD였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "23:1",
+     "type": "number",
+     "text": "201.00 USD",
+     "start": 66,
+     "end": 76,
+     "sentence": "(ZZAP) 주식 12주를 보유하고 있으며, 평균 매수 가격은 201.00 USD였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "23:2",
+     "type": "number",
+     "text": "188.40 USD",
+     "start": 89,
+     "end": 99,
+     "sentence": "현재 주가는 188.40 USD이며, 이는 평균 매수 가격 대비 6.27% 하락한 것입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "23:3",
+     "type": "number",
+     "text": "6.27%",
+     "start": 118,
+     "end": 123,
+     "sentence": "현재 주가는 188.40 USD이며, 이는 평균 매수 가격 대비 6.27% 하락한 것입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 24,
+   "mode": "current",
+   "question": "q17",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 삼성테스트전자 52주 최저가 근처인가요?"
+   ],
+   "answer": "네, 최신 주가는 65,320 KRW로 52주 최저가 근처에 있습니다. 귀하의 평균 매수 가격은 71,000 KRW입니다. 따라서 현재 주가는 평균 매수 가격보다 8.00% 하락했습니다.",
+   "items": [
+    {
+     "id": "24:0",
+     "type": "number",
+     "text": "65,320 KRW",
+     "start": 10,
+     "end": 20,
+     "sentence": "네, 최신 주가는 65,320 KRW로 52주 최저가 근처에 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "24:1",
+     "type": "number",
+     "text": "52주",
+     "start": 22,
+     "end": 25,
+     "sentence": "네, 최신 주가는 65,320 KRW로 52주 최저가 근처에 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "24:2",
+     "type": "number",
+     "text": "71,000 KRW",
+     "start": 54,
+     "end": 64,
+     "sentence": "귀하의 평균 매수 가격은 71,000 KRW입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "24:3",
+     "type": "number",
+     "text": "8.00%",
+     "start": 91,
+     "end": 96,
+     "sentence": "따라서 현재 주가는 평균 매수 가격보다 8.00% 하락했습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 25,
+   "mode": "current",
+   "question": "q18",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 테스트바이오 임상 결과는 언제 나오나요?"
+   ],
+   "answer": "테스트바이오의 임상 결과 발표 시기는 현재 제공된 정보에 명시되어 있지 않습니다. 현재 제공된 정보로는 임상 결과 발표 날짜를 알 수 없습니다. \n\n**Final Decision: HOLD.**\n",
+   "items": [
+    {
+     "id": "25:0",
+     "type": "interpretation",
+     "text": "테스트바이오의 임상 결과 발표 시기는 현재 제공된 정보에 명시되어 있지 않습니다.",
+     "start": 0,
+     "end": 45,
+     "sentence": "테스트바이오의 임상 결과 발표 시기는 현재 제공된 정보에 명시되어 있지 않습니다.",
+     "judgement": "unsupported",
+     "note": "says the trial timing is not in the facts; N1 gives November 2026"
+    },
+    {
+     "id": "25:1",
+     "type": "interpretation",
+     "text": "현재 제공된 정보로는 임상 결과 발표 날짜를 알 수 없습니다.",
+     "start": 45,
+     "end": 80,
+     "sentence": "현재 제공된 정보로는 임상 결과 발표 날짜를 알 수 없습니다.",
+     "judgement": "unsupported",
+     "note": "same as 25:0"
+    }
+   ]
+  },
+  {
+   "index": 26,
+   "mode": "current",
+   "question": "q19",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 ZZAP 자사주 매입 규모가 얼마인가요?"
+   ],
+   "answer": "제타 애플 테스트 Inc. (ZZAP)의 자사주 매입 규모에 대한 정보는 제공된 사실에 나와 있지 않습니다. 다만, 최근 자사주 매입이 긍정적인 신호로 간주되고 있다는 분석은 있습니다. 현재 보유하고 있는 주식 수는 12주입니다.\n\n\n\nFinal Decision:\n\nMaintain the existing position. The trader's plan aligns with the bearish research, holding despite the loss, but lacks a defined exit. Adding a target price or stop-loss is recommended to mitigate future risk, although the current plan allows for continued monitoring.\n\n\n\n",
+   "items": [
+    {
+     "id": "26:0",
+     "type": "number",
+     "text": "12주",
+     "start": 121,
+     "end": 124,
+     "sentence": "현재 보유하고 있는 주식 수는 12주입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "26:1",
+     "type": "interpretation",
+     "text": "(ZZAP)의 자사주 매입 규모에 대한 정보는 제공된 사실에 나와 있지 않습니다.",
+     "start": 14,
+     "end": 60,
+     "sentence": "(ZZAP)의 자사주 매입 규모에 대한 정보는 제공된 사실에 나와 있지 않습니다.",
+     "judgement": "unsupported",
+     "note": "says the buyback size is not in the facts; N1 gives 15,000,000,000 USD"
+    },
+    {
+     "id": "26:2",
+     "type": "interpretation",
+     "text": "다만, 최근 자사주 매입이 긍정적인 신호로 간주되고 있다는 분석은 있습니다.",
+     "start": 60,
+     "end": 103,
+     "sentence": "다만, 최근 자사주 매입이 긍정적인 신호로 간주되고 있다는 분석은 있습니다.",
+     "judgement": "unsupported",
+     "note": "\"자사주 매입이 긍정적인 신호로 간주된다는 분석\": no such analysis in the facts"
+    }
+   ]
+  },
+  {
+   "index": 27,
+   "mode": "current",
+   "question": "t01",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 삼성테스트전자의 배당금은 얼마인가요?"
+   ],
+   "answer": "주어진 사실만으로는 삼성테스트전자의 배당금 정보를 알 수 없습니다. 현재 주식 보유량, 매수 가격, 최근 주가 변동 등의 정보만 제공되고 있습니다. 배당금 관련 정보는 별도로 확인해야 합니다.",
+   "items": []
+  },
+  {
+   "index": 28,
+   "mode": "current",
+   "question": "t02",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 테스트바이오의 부채비율은 몇 퍼센트인가요?"
+   ],
+   "answer": "제공된 사실에는 테스트바이오의 부채비율에 대한 정보가 포함되어 있지 않습니다. 따라서 사실만으로는 부채비율을 알 수 없습니다. 유효한 답변을 드리기에는 정보가 부족합니다.",
+   "items": []
+  },
+  {
+   "index": 29,
+   "mode": "current",
+   "question": "t03",
+   "holding": "BTC",
+   "facts": [
+    "H1 Holding: 비트코인 (BTC), Bitcoin.",
+    "H2 Quantity held: 0.25 BTC.",
+    "H3 Average purchase price: 95,000,000 KRW.",
+    "D1 Latest price (2026-09-25): 91,250,000 KRW.",
+    "D2 Unrealised change vs. average purchase price: -3.95%.",
+    "D3 Position value at the latest price: 22,812,500 KRW.",
+    "M1 Bitcoin fell 4.1% over the last 7 days.",
+    "M2 The 30-day high was 98,400,000 KRW on 2026-09-02.",
+    "N1 A large exchange reported a temporary withdrawal halt on 2026-09-23 (fictional).",
+    "Q1 비트코인의 다음 반감기는 언제인가요?"
+   ],
+   "answer": "제공된 정보에는 다음 반감기에 대한 내용이 포함되어 있지 않습니다. 현재 비트코인의 보유량은 0.25BTC이고, 평균 매수 가격은 9억 5천만 원이며, 최신 가격은 9억 1천 2백 5만 원입니다. 따라서 다음 반감기에 대한 답변은 부족합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "29:0",
+     "type": "number",
+     "text": "0.25BTC",
+     "start": 52,
+     "end": 59,
+     "sentence": "현재 비트코인의 보유량은 0.25BTC이고, 평균 매수 가격은 9억 5천만 원이며, 최신 가격은 9억 1천 2백 5만 원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "29:1",
+     "type": "number",
+     "text": "9억 5천만 원",
+     "start": 73,
+     "end": 81,
+     "sentence": "현재 비트코인의 보유량은 0.25BTC이고, 평균 매수 가격은 9억 5천만 원이며, 최신 가격은 9억 1천 2백 5만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"평균 매수 가격은 9억 5천만 원\": it is 95,000,000 KRW (10x)"
+    },
+    {
+     "id": "29:2",
+     "type": "number",
+     "text": "9억 1천 2백 5만 원",
+     "start": 92,
+     "end": 105,
+     "sentence": "현재 비트코인의 보유량은 0.25BTC이고, 평균 매수 가격은 9억 5천만 원이며, 최신 가격은 9억 1천 2백 5만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"최신 가격은 9억 1천 2백 5만 원\": it is 91,250,000 KRW"
+    }
+   ]
+  },
+  {
+   "index": 30,
+   "mode": "current",
+   "question": "t04",
+   "holding": "US:ZZSP",
+   "facts": [
+    "H1 Holding: Zeta S&P 500 Test ETF Trust (ZZSP), US listing.",
+    "H2 Quantity held: 2.5 shares.",
+    "H3 Average purchase price: 480.00 USD.",
+    "D1 Latest price (2026-09-25): 512.30 USD.",
+    "D2 Unrealised change vs. average purchase price: +6.73%.",
+    "D3 Position value at the latest price: 1,280.75 USD.",
+    "M1 The ETF rose 1.8% over the last 20 sessions.",
+    "M2 The ETF is 2.1% below its all-time high of 523.30 USD.",
+    "N1 Index constituents reported mixed third-quarter guidance (fictional).",
+    "Q1 ZZSP의 운용보수는 얼마인가요?"
+   ],
+   "answer": "제공된 사실에는 ZZSP의 운용 보수에 대한 정보가 없습니다. 현재 수량, 평균 매입 가격, 최신 가격 등의 정보만 보유하고 있습니다. 따라서 운용 보수에 대한 답변은 불충분한 정보로 판단됩니다.",
+   "items": []
+  },
+  {
+   "index": 31,
+   "mode": "current",
+   "question": "t05",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 ZZAP의 다음 실적 발표일은 언제인가요?"
+   ],
+   "answer": "제타 애플 테스트의 다음 실적 발표일 관련 정보는 제공된 사실에는 없습니다. 제공된 사실은 주식 보유량, 평균 매입 가격, 최신 가격과 같은 투자 관련 정보만 포함하고 있습니다. 실적 발표일은 해당 사실에서 확인할 수 없습니다.",
+   "items": []
+  },
+  {
+   "index": 32,
+   "mode": "current",
+   "question": "t06",
+   "holding": "KRX-GOLD",
+   "facts": [
+    "H1 Holding: KRX 금현물 (KRX-GOLD), KRX gold spot.",
+    "H2 Quantity held: 50 g.",
+    "H3 Average purchase price: 132,000 KRW per g.",
+    "D1 Latest price (2026-09-25): 148,500 KRW.",
+    "D2 Unrealised change vs. average purchase price: +12.50%.",
+    "D3 Position value at the latest price: 7,425,000 KRW.",
+    "M1 KRX gold spot rose 2.3% over the last 30 days.",
+    "M2 Daily trading volume averaged 310 kg over the last 20 sessions.",
+    "N1 Central bank gold purchases were reported to continue in the third quarter (fictional).",
+    "Q1 금현물의 내년 목표가는 얼마인가요?"
+   ],
+   "answer": "내년 목표가는 현재 제공된 정보만으로는 알 수 없습니다. 현재 시점의 가격은 148,500원이며, 평균 매수 가격은 132,000원입니다. 따라서 내년 목표가를 추정하기에는 증거가 부족합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "32:0",
+     "type": "number",
+     "text": "148,500원",
+     "start": 43,
+     "end": 51,
+     "sentence": "현재 시점의 가격은 148,500원이며, 평균 매수 가격은 132,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "32:1",
+     "type": "number",
+     "text": "132,000원",
+     "start": 65,
+     "end": 73,
+     "sentence": "현재 시점의 가격은 148,500원이며, 평균 매수 가격은 132,000원입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 33,
+   "mode": "current",
+   "question": "q01",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 삼성테스트전자가 계속 하락 중인데 괜찮은 건가요?"
+   ],
+   "answer": "현재 주가가 평균 매수 가격보다 8.00% 하락했습니다. 삼성테스트전자 (900001) 주식 10주를 보유하고 있으며, 현재 포지션 가치는 65만 3천 2백 원입니다. 주가가 계속 하락 중이지만, Q3 실적과 삼성 생태계 발전을 지켜보면서 추가적인 판단을 내릴 예정입니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "33:0",
+     "type": "number",
+     "text": "8.00%",
+     "start": 18,
+     "end": 23,
+     "sentence": "현재 주가가 평균 매수 가격보다 8.00% 하락했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "33:1",
+     "type": "number",
+     "text": "10주",
+     "start": 52,
+     "end": 55,
+     "sentence": "삼성테스트전자 (900001) 주식 10주를 보유하고 있으며, 현재 포지션 가치는 65만 3천 2백 원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "33:2",
+     "type": "number",
+     "text": "65만 3천 2백 원",
+     "start": 78,
+     "end": 89,
+     "sentence": "삼성테스트전자 (900001) 주식 10주를 보유하고 있으며, 현재 포지션 가치는 65만 3천 2백 원입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 34,
+   "mode": "current",
+   "question": "q02",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 삼성테스트전자 평단 대비 지금 손실이 얼마나 되나요?"
+   ],
+   "answer": "삼성테스트전자 주식의 평단 대비 현재 손실은 8.00% 입니다. 평단 가격이 71,000원이고 현재 가격이 65,320원이기 때문입니다. 현재 보유 주식 10개에 대한 현재 가치는 65만 3천 2백 원입니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "34:0",
+     "type": "number",
+     "text": "8.00%",
+     "start": 25,
+     "end": 30,
+     "sentence": "삼성테스트전자 주식의 평단 대비 현재 손실은 8.00% 입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "34:1",
+     "type": "number",
+     "text": "71,000원",
+     "start": 43,
+     "end": 50,
+     "sentence": "평단 가격이 71,000원이고 현재 가격이 65,320원이기 때문입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "34:2",
+     "type": "number",
+     "text": "65,320원",
+     "start": 60,
+     "end": 67,
+     "sentence": "평단 가격이 71,000원이고 현재 가격이 65,320원이기 때문입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "34:3",
+     "type": "number",
+     "text": "65만 3천 2백 원",
+     "start": 101,
+     "end": 112,
+     "sentence": "현재 보유 주식 10개에 대한 현재 가치는 65만 3천 2백 원입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 35,
+   "mode": "current",
+   "question": "q03",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 테스트바이오는 최근에 얼마나 올랐나요?"
+   ],
+   "answer": "최근 테스트바이오는 27.4% 상승했습니다. 현재 주가는 18,450 KRW이고, 구매 당시 평균 가격은 15,000 KRW였습니다. 따라서 구매 당시보다 23%의 무실현 수익을 보이고 있습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "35:0",
+     "type": "number",
+     "text": "27.4%",
+     "start": 11,
+     "end": 16,
+     "sentence": "최근 테스트바이오는 27.4% 상승했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "35:1",
+     "type": "number",
+     "text": "18,450 KRW",
+     "start": 32,
+     "end": 42,
+     "sentence": "현재 주가는 18,450 KRW이고, 구매 당시 평균 가격은 15,000 KRW였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "35:2",
+     "type": "number",
+     "text": "15,000 KRW",
+     "start": 59,
+     "end": 69,
+     "sentence": "현재 주가는 18,450 KRW이고, 구매 당시 평균 가격은 15,000 KRW였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "35:3",
+     "type": "number",
+     "text": "23%",
+     "start": 87,
+     "end": 90,
+     "sentence": "따라서 구매 당시보다 23%의 무실현 수익을 보이고 있습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 36,
+   "mode": "current",
+   "question": "q04",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 테스트바이오 비중을 줄여야 할까요?"
+   ],
+   "answer": "놓으실 필요는 없습니다. 현재 40주를 보유하고 있으며, 평균 매수 가격이 15,000원이고 현재 주가는 18,450원으로 23%의 미실현 수익을 보입니다. 추가적인 정보가 없으므로 비중 감소 여부를 판단하기에는 근거가 부족합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "36:0",
+     "type": "number",
+     "text": "40주",
+     "start": 17,
+     "end": 20,
+     "sentence": "현재 40주를 보유하고 있으며, 평균 매수 가격이 15,000원이고 현재 주가는 18,450원으로 23%의 미실현 수익을 보입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "36:1",
+     "type": "number",
+     "text": "15,000원",
+     "start": 42,
+     "end": 49,
+     "sentence": "현재 40주를 보유하고 있으며, 평균 매수 가격이 15,000원이고 현재 주가는 18,450원으로 23%의 미실현 수익을 보입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "36:2",
+     "type": "number",
+     "text": "18,450원",
+     "start": 59,
+     "end": 66,
+     "sentence": "현재 40주를 보유하고 있으며, 평균 매수 가격이 15,000원이고 현재 주가는 18,450원으로 23%의 미실현 수익을 보입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "36:3",
+     "type": "number",
+     "text": "23%",
+     "start": 69,
+     "end": 72,
+     "sentence": "현재 40주를 보유하고 있으며, 평균 매수 가격이 15,000원이고 현재 주가는 18,450원으로 23%의 미실현 수익을 보입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 37,
+   "mode": "current",
+   "question": "q05",
+   "holding": "BTC",
+   "facts": [
+    "H1 Holding: 비트코인 (BTC), Bitcoin.",
+    "H2 Quantity held: 0.25 BTC.",
+    "H3 Average purchase price: 95,000,000 KRW.",
+    "D1 Latest price (2026-09-25): 91,250,000 KRW.",
+    "D2 Unrealised change vs. average purchase price: -3.95%.",
+    "D3 Position value at the latest price: 22,812,500 KRW.",
+    "M1 Bitcoin fell 4.1% over the last 7 days.",
+    "M2 The 30-day high was 98,400,000 KRW on 2026-09-02.",
+    "N1 A large exchange reported a temporary withdrawal halt on 2026-09-23 (fictional).",
+    "Q1 비트코인 지금 들고 있어도 될까요?"
+   ],
+   "answer": "현재 비트코인을 0.25 BTC 보유하고 있으며, 최근 주간 4.1% 하락과 현재 가격 대비 3.95%의 손실이 발생했습니다. 현재 보유하는 것이 적절한지 여부를 판단하기 위해서는 추가적인 시장 변화를 지켜봐야 합니다. 현재 정보만으로는 보유 여부의 적절성을 단정하기 어렵습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "37:0",
+     "type": "number",
+     "text": "0.25 BTC",
+     "start": 9,
+     "end": 17,
+     "sentence": "현재 비트코인을 0.25 BTC 보유하고 있으며, 최근 주간 4.1% 하락과 현재 가격 대비 3.95%의 손실이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "37:1",
+     "type": "number",
+     "text": "4.1%",
+     "start": 34,
+     "end": 38,
+     "sentence": "현재 비트코인을 0.25 BTC 보유하고 있으며, 최근 주간 4.1% 하락과 현재 가격 대비 3.95%의 손실이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "37:2",
+     "type": "number",
+     "text": "3.95%",
+     "start": 52,
+     "end": 57,
+     "sentence": "현재 비트코인을 0.25 BTC 보유하고 있으며, 최근 주간 4.1% 하락과 현재 가격 대비 3.95%의 손실이 발생했습니다.",
+     "judgement": "debatable",
+     "note": "\"현재 가격 대비 3.95%의 손실\": the loss is vs the average purchase price"
+    }
+   ]
+  },
+  {
+   "index": 38,
+   "mode": "current",
+   "question": "q06",
+   "holding": "BTC",
+   "facts": [
+    "H1 Holding: 비트코인 (BTC), Bitcoin.",
+    "H2 Quantity held: 0.25 BTC.",
+    "H3 Average purchase price: 95,000,000 KRW.",
+    "D1 Latest price (2026-09-25): 91,250,000 KRW.",
+    "D2 Unrealised change vs. average purchase price: -3.95%.",
+    "D3 Position value at the latest price: 22,812,500 KRW.",
+    "M1 Bitcoin fell 4.1% over the last 7 days.",
+    "M2 The 30-day high was 98,400,000 KRW on 2026-09-02.",
+    "N1 A large exchange reported a temporary withdrawal halt on 2026-09-23 (fictional).",
+    "Q1 비트코인 평가 손익이 어떻게 되나요?"
+   ],
+   "answer": "최근 비트코인 평가 손익은 3.95%의 unrealised loss입니다. 현재 보유량은 0.25 BTC이며, 평균 매수 가격은 9,500만 원입니다. 최신 가격은 9,125만 원이며, 보유 포트폴리오 가치는 2억 2,812만 5천 원입니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "38:0",
+     "type": "number",
+     "text": "3.95%",
+     "start": 15,
+     "end": 20,
+     "sentence": "최근 비트코인 평가 손익은 3.95%의 unrealised loss입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "38:1",
+     "type": "number",
+     "text": "0.25 BTC",
+     "start": 50,
+     "end": 58,
+     "sentence": "현재 보유량은 0.25 BTC이며, 평균 매수 가격은 9,500만 원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "38:2",
+     "type": "number",
+     "text": "9,500만 원",
+     "start": 72,
+     "end": 80,
+     "sentence": "현재 보유량은 0.25 BTC이며, 평균 매수 가격은 9,500만 원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "38:3",
+     "type": "number",
+     "text": "9,125만 원",
+     "start": 92,
+     "end": 100,
+     "sentence": "최신 가격은 9,125만 원이며, 보유 포트폴리오 가치는 2억 2,812만 5천 원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "38:4",
+     "type": "number",
+     "text": "2억 2,812만 5천 원",
+     "start": 117,
+     "end": 131,
+     "sentence": "최신 가격은 9,125만 원이며, 보유 포트폴리오 가치는 2억 2,812만 5천 원입니다.",
+     "judgement": "real-error",
+     "note": "\"보유 포트폴리오 가치는 2억 2,812만 5천 원\": it is 22,812,500 KRW (10x)"
+    }
+   ]
+  },
+  {
+   "index": 39,
+   "mode": "current",
+   "question": "q07",
+   "holding": "KRX-GOLD",
+   "facts": [
+    "H1 Holding: KRX 금현물 (KRX-GOLD), KRX gold spot.",
+    "H2 Quantity held: 50 g.",
+    "H3 Average purchase price: 132,000 KRW per g.",
+    "D1 Latest price (2026-09-25): 148,500 KRW.",
+    "D2 Unrealised change vs. average purchase price: +12.50%.",
+    "D3 Position value at the latest price: 7,425,000 KRW.",
+    "M1 KRX gold spot rose 2.3% over the last 30 days.",
+    "M2 Daily trading volume averaged 310 kg over the last 20 sessions.",
+    "N1 Central bank gold purchases were reported to continue in the third quarter (fictional).",
+    "Q1 금현물 수익률은 어떤가요?"
+   ],
+   "answer": "현재 금현물 보유량은 50g이며, 평균 매입 가격은 132,000 KRW/g입니다. 현재 금 현물 가격은 148,500 KRW이며, 이를 기준으로 보유 금액은 7,425,000 KRW입니다. 현재까지의 수익률은 12.5%입니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "39:0",
+     "type": "number",
+     "text": "50g",
+     "start": 12,
+     "end": 15,
+     "sentence": "현재 금현물 보유량은 50g이며, 평균 매입 가격은 132,000 KRW/g입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "39:1",
+     "type": "number",
+     "text": "132,000 KRW",
+     "start": 29,
+     "end": 40,
+     "sentence": "현재 금현물 보유량은 50g이며, 평균 매입 가격은 132,000 KRW/g입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "39:2",
+     "type": "number",
+     "text": "148,500 KRW",
+     "start": 59,
+     "end": 70,
+     "sentence": "현재 금 현물 가격은 148,500 KRW이며, 이를 기준으로 보유 금액은 7,425,000 KRW입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "39:3",
+     "type": "number",
+     "text": "7,425,000 KRW",
+     "start": 89,
+     "end": 102,
+     "sentence": "현재 금 현물 가격은 148,500 KRW이며, 이를 기준으로 보유 금액은 7,425,000 KRW입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "39:4",
+     "type": "number",
+     "text": "12.5%",
+     "start": 118,
+     "end": 123,
+     "sentence": "현재까지의 수익률은 12.5%입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 40,
+   "mode": "current",
+   "question": "q08",
+   "holding": "KRX-GOLD",
+   "facts": [
+    "H1 Holding: KRX 금현물 (KRX-GOLD), KRX gold spot.",
+    "H2 Quantity held: 50 g.",
+    "H3 Average purchase price: 132,000 KRW per g.",
+    "D1 Latest price (2026-09-25): 148,500 KRW.",
+    "D2 Unrealised change vs. average purchase price: +12.50%.",
+    "D3 Position value at the latest price: 7,425,000 KRW.",
+    "M1 KRX gold spot rose 2.3% over the last 30 days.",
+    "M2 Daily trading volume averaged 310 kg over the last 20 sessions.",
+    "N1 Central bank gold purchases were reported to continue in the third quarter (fictional).",
+    "Q1 KRX 금 더 사도 될까요?"
+   ],
+   "answer": "현재 KRX 금 보유량은 50g이며, 평균 매입 가격은 132,000원입니다. 최신 가격은 148,500원이며, 현재 가치는 7,425,000원입니다. 보유 현황과 최근 가격 변동을 고려할 때 추가 매수 여부는 현재 제공된 정보만으로는 판단하기 어렵습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "40:0",
+     "type": "number",
+     "text": "50g",
+     "start": 14,
+     "end": 17,
+     "sentence": "현재 KRX 금 보유량은 50g이며, 평균 매입 가격은 132,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "40:1",
+     "type": "number",
+     "text": "132,000원",
+     "start": 31,
+     "end": 39,
+     "sentence": "현재 KRX 금 보유량은 50g이며, 평균 매입 가격은 132,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "40:2",
+     "type": "number",
+     "text": "148,500원",
+     "start": 51,
+     "end": 59,
+     "sentence": "최신 가격은 148,500원이며, 현재 가치는 7,425,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "40:3",
+     "type": "number",
+     "text": "7,425,000원",
+     "start": 70,
+     "end": 80,
+     "sentence": "최신 가격은 148,500원이며, 현재 가치는 7,425,000원입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 41,
+   "mode": "current",
+   "question": "q09",
+   "holding": "US:ZZSP",
+   "facts": [
+    "H1 Holding: Zeta S&P 500 Test ETF Trust (ZZSP), US listing.",
+    "H2 Quantity held: 2.5 shares.",
+    "H3 Average purchase price: 480.00 USD.",
+    "D1 Latest price (2026-09-25): 512.30 USD.",
+    "D2 Unrealised change vs. average purchase price: +6.73%.",
+    "D3 Position value at the latest price: 1,280.75 USD.",
+    "M1 The ETF rose 1.8% over the last 20 sessions.",
+    "M2 The ETF is 2.1% below its all-time high of 523.30 USD.",
+    "N1 Index constituents reported mixed third-quarter guidance (fictional).",
+    "Q1 ZZSP는 계속 보유해도 되나요?"
+   ],
+   "answer": "계속 보유하는 것이 좋습니다. ZZSP는 최근 20기간 동안 1.8% 상승했으며, 평균 매수 가격인 480.00 USD에서 6.73%의 실현되지 않은 이익을 가지고 있습니다. 현재 주식 가치는 1,280.75 USD이며, 이는 보유량 2.5주에 해당합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "41:0",
+     "type": "number",
+     "text": "20",
+     "start": 26,
+     "end": 28,
+     "sentence": "ZZSP는 최근 20기간 동안 1.8% 상승했으며, 평균 매수 가격인 480.00 USD에서 6.73%의 실현되지 않은 이익을 가지고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "41:1",
+     "type": "number",
+     "text": "1.8%",
+     "start": 34,
+     "end": 38,
+     "sentence": "ZZSP는 최근 20기간 동안 1.8% 상승했으며, 평균 매수 가격인 480.00 USD에서 6.73%의 실현되지 않은 이익을 가지고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "41:2",
+     "type": "number",
+     "text": "480.00 USD",
+     "start": 56,
+     "end": 66,
+     "sentence": "ZZSP는 최근 20기간 동안 1.8% 상승했으며, 평균 매수 가격인 480.00 USD에서 6.73%의 실현되지 않은 이익을 가지고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "41:3",
+     "type": "number",
+     "text": "6.73%",
+     "start": 69,
+     "end": 74,
+     "sentence": "ZZSP는 최근 20기간 동안 1.8% 상승했으며, 평균 매수 가격인 480.00 USD에서 6.73%의 실현되지 않은 이익을 가지고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "41:4",
+     "type": "number",
+     "text": "1,280.75 USD",
+     "start": 108,
+     "end": 120,
+     "sentence": "현재 주식 가치는 1,280.75 USD이며, 이는 보유량 2.5주에 해당합니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "41:5",
+     "type": "number",
+     "text": "2.5주",
+     "start": 131,
+     "end": 135,
+     "sentence": "현재 주식 가치는 1,280.75 USD이며, 이는 보유량 2.5주에 해당합니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 42,
+   "mode": "current",
+   "question": "q10",
+   "holding": "US:ZZSP",
+   "facts": [
+    "H1 Holding: Zeta S&P 500 Test ETF Trust (ZZSP), US listing.",
+    "H2 Quantity held: 2.5 shares.",
+    "H3 Average purchase price: 480.00 USD.",
+    "D1 Latest price (2026-09-25): 512.30 USD.",
+    "D2 Unrealised change vs. average purchase price: +6.73%.",
+    "D3 Position value at the latest price: 1,280.75 USD.",
+    "M1 The ETF rose 1.8% over the last 20 sessions.",
+    "M2 The ETF is 2.1% below its all-time high of 523.30 USD.",
+    "N1 Index constituents reported mixed third-quarter guidance (fictional).",
+    "Q1 Zeta S&P 500 Test ETF Trust 평가액이 얼마인가요?"
+   ],
+   "answer": "현재 가격은 512.30 USD이고, 구매 평균 가격은 480.00 USD입니다. 현재 포지션 가치는 1,280.75 USD입니다. 제공된 사실만으로는 정확한 평가액을 판단하기 어렵습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "42:0",
+     "type": "number",
+     "text": "512.30 USD",
+     "start": 7,
+     "end": 17,
+     "sentence": "현재 가격은 512.30 USD이고, 구매 평균 가격은 480.00 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "42:1",
+     "type": "number",
+     "text": "480.00 USD",
+     "start": 31,
+     "end": 41,
+     "sentence": "현재 가격은 512.30 USD이고, 구매 평균 가격은 480.00 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "42:2",
+     "type": "number",
+     "text": "1,280.75 USD",
+     "start": 57,
+     "end": 69,
+     "sentence": "현재 포지션 가치는 1,280.75 USD입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 43,
+   "mode": "current",
+   "question": "q11",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 ZZAP 주가가 떨어졌는데 팔아야 하나요?"
+   ],
+   "answer": "현재 ZZAP 주가는 188.40 USD이며, 평균 매수 가격은 201.00 USD였습니다. 따라서 보유 주식의 현재 가치는 2,260.80 USD이고, 이전에 투자한 금액보다 약 -6.27% 하락했습니다. 비록 최근 주가가 하락했지만, 투자 결정은 추가적인 분석과 고려가 필요합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "43:0",
+     "type": "number",
+     "text": "188.40 USD",
+     "start": 12,
+     "end": 22,
+     "sentence": "현재 ZZAP 주가는 188.40 USD이며, 평균 매수 가격은 201.00 USD였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "43:1",
+     "type": "number",
+     "text": "201.00 USD",
+     "start": 36,
+     "end": 46,
+     "sentence": "현재 ZZAP 주가는 188.40 USD이며, 평균 매수 가격은 201.00 USD였습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "43:2",
+     "type": "number",
+     "text": "2,260.80 USD",
+     "start": 70,
+     "end": 82,
+     "sentence": "따라서 보유 주식의 현재 가치는 2,260.80 USD이고, 이전에 투자한 금액보다 약 -6.27% 하락했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "43:3",
+     "type": "number",
+     "text": "6.27%",
+     "start": 102,
+     "end": 107,
+     "sentence": "따라서 보유 주식의 현재 가치는 2,260.80 USD이고, 이전에 투자한 금액보다 약 -6.27% 하락했습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 44,
+   "mode": "current",
+   "question": "q12",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 ZZAP의 PER이 높은 편인가요?"
+   ],
+   "answer": "네, 현재 ZZAP의 주가수익비율(PER)이 높다고 볼 수 있습니다. 최근 PER이 24.3배이며, 이는 높은 편에 속합니다. 과거 평균 매수 가격인 201.00USD를 기준으로 함에 따라 현재 주가는 2,260.80USD 입니다.",
+   "items": [
+    {
+     "id": "44:0",
+     "type": "number",
+     "text": "24.3",
+     "start": 47,
+     "end": 51,
+     "sentence": "최근 PER이 24.3배이며, 이는 높은 편에 속합니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "44:1",
+     "type": "number",
+     "text": "201.00USD",
+     "start": 84,
+     "end": 93,
+     "sentence": "과거 평균 매수 가격인 201.00USD를 기준으로 함에 따라 현재 주가는 2,260.80USD 입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "44:2",
+     "type": "number",
+     "text": "2,260.80USD",
+     "start": 113,
+     "end": 124,
+     "sentence": "과거 평균 매수 가격인 201.00USD를 기준으로 함에 따라 현재 주가는 2,260.80USD 입니다.",
+     "judgement": "real-error",
+     "note": "\"현재 주가는 2,260.80USD\": 2,260.80 is the position value; the price is 188.40"
+    }
+   ]
+  },
+  {
+   "index": 45,
+   "mode": "current",
+   "question": "q13",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한가요?"
+   ],
+   "answer": "제공된 정보만으로는 삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한지 판단하기 어렵습니다. 현재 삼성테스트전자(900001) 보유량은 10주이며, 최근 가격은 65,320 KRW이고 평균 매수 가격 대비 8.00%의 언реа라이즈드 손실이 발생했습니다. 테스트바이오에 대한 정보는 포함되어 있지 않아 비교 분석이 불가능합니다.",
+   "items": [
+    {
+     "id": "45:0",
+     "type": "number",
+     "text": "10주",
+     "start": 78,
+     "end": 81,
+     "sentence": "현재 삼성테스트전자(900001) 보유량은 10주이며, 최근 가격은 65,320 KRW이고 평균 매수 가격 대비 8.00%의 언реа라이즈드 손실이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "45:1",
+     "type": "number",
+     "text": "65,320 KRW",
+     "start": 92,
+     "end": 102,
+     "sentence": "현재 삼성테스트전자(900001) 보유량은 10주이며, 최근 가격은 65,320 KRW이고 평균 매수 가격 대비 8.00%의 언реа라이즈드 손실이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "45:2",
+     "type": "number",
+     "text": "8.00%",
+     "start": 117,
+     "end": 122,
+     "sentence": "현재 삼성테스트전자(900001) 보유량은 10주이며, 최근 가격은 65,320 KRW이고 평균 매수 가격 대비 8.00%의 언реа라이즈드 손실이 발생했습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 46,
+   "mode": "current",
+   "question": "q13",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한가요?"
+   ],
+   "answer": "제시된 정보만으로는 삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한지 판단하기 어렵습니다. 테스트바이오의 경우, 임상 시험 결과에 따라 위험이 달라질 수 있다는 언급이 있습니다. 삼성테스트전자에 대한 정보는 제공되지 않았으므로 비교 분석이 불가능합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "46:0",
+     "type": "interpretation",
+     "text": "테스트바이오의 경우, 임상 시험 결과에 따라 위험이 달라질 수 있다는 언급이 있습니다.",
+     "start": 53,
+     "end": 102,
+     "sentence": "테스트바이오의 경우, 임상 시험 결과에 따라 위험이 달라질 수 있다는 언급이 있습니다.",
+     "judgement": "supported",
+     "note": "the risk depends on the pending trial result (N1)"
+    }
+   ]
+  },
+  {
+   "index": 47,
+   "mode": "current",
+   "question": "q14",
+   "holding": "BTC",
+   "facts": [
+    "H1 Holding: 비트코인 (BTC), Bitcoin.",
+    "H2 Quantity held: 0.25 BTC.",
+    "H3 Average purchase price: 95,000,000 KRW.",
+    "D1 Latest price (2026-09-25): 91,250,000 KRW.",
+    "D2 Unrealised change vs. average purchase price: -3.95%.",
+    "D3 Position value at the latest price: 22,812,500 KRW.",
+    "M1 Bitcoin fell 4.1% over the last 7 days.",
+    "M2 The 30-day high was 98,400,000 KRW on 2026-09-02.",
+    "N1 A large exchange reported a temporary withdrawal halt on 2026-09-23 (fictional).",
+    "Q1 비트코인이랑 금현물 비교해 주세요."
+   ],
+   "answer": "제공된 정보만으로는 비트코인과 금 현물 비교가 어렵습니다. 현재 비트코인의 보유량은 0.25 BTC이고, 평균 매수 가격은 9억 5천만 원, 최신 가격은 9억 1천 2백만 원입니다. 비트코인의 현재 가치 변동은 평균 매수 가격 대비 -3.95% 입니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "47:0",
+     "type": "number",
+     "text": "0.25 BTC",
+     "start": 47,
+     "end": 55,
+     "sentence": "현재 비트코인의 보유량은 0.25 BTC이고, 평균 매수 가격은 9억 5천만 원, 최신 가격은 9억 1천 2백만 원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "47:1",
+     "type": "number",
+     "text": "9억 5천만 원",
+     "start": 69,
+     "end": 77,
+     "sentence": "현재 비트코인의 보유량은 0.25 BTC이고, 평균 매수 가격은 9억 5천만 원, 최신 가격은 9억 1천 2백만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"평균 매수 가격은 9억 5천만 원\": it is 95,000,000 KRW (10x)"
+    },
+    {
+     "id": "47:2",
+     "type": "number",
+     "text": "9억 1천 2백만 원",
+     "start": 86,
+     "end": 97,
+     "sentence": "현재 비트코인의 보유량은 0.25 BTC이고, 평균 매수 가격은 9억 5천만 원, 최신 가격은 9억 1천 2백만 원입니다.",
+     "judgement": "real-error",
+     "note": "\"최신 가격은 9억 1천 2백만 원\": it is 91,250,000 KRW"
+    },
+    {
+     "id": "47:3",
+     "type": "number",
+     "text": "3.95%",
+     "start": 131,
+     "end": 136,
+     "sentence": "비트코인의 현재 가치 변동은 평균 매수 가격 대비 -3.95% 입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 48,
+   "mode": "current",
+   "question": "q14",
+   "holding": "KRX-GOLD",
+   "facts": [
+    "H1 Holding: KRX 금현물 (KRX-GOLD), KRX gold spot.",
+    "H2 Quantity held: 50 g.",
+    "H3 Average purchase price: 132,000 KRW per g.",
+    "D1 Latest price (2026-09-25): 148,500 KRW.",
+    "D2 Unrealised change vs. average purchase price: +12.50%.",
+    "D3 Position value at the latest price: 7,425,000 KRW.",
+    "M1 KRX gold spot rose 2.3% over the last 30 days.",
+    "M2 Daily trading volume averaged 310 kg over the last 20 sessions.",
+    "N1 Central bank gold purchases were reported to continue in the third quarter (fictional).",
+    "Q1 비트코인이랑 금현물 비교해 주세요."
+   ],
+   "answer": "제공된 정보만으로는 비트코인과 금현물을 비교하기 어렵습니다. 현재 금현물은 50g을 132,000원 평균 구매가로 보유하고 있으며, 현재 가격은 148,500원으로 12.50%의 무실현 수익을 기록하고 있습니다. 비트코인 관련 정보는 포함되어 있지 않습니다.",
+   "items": [
+    {
+     "id": "48:0",
+     "type": "number",
+     "text": "50g",
+     "start": 42,
+     "end": 45,
+     "sentence": "현재 금현물은 50g을 132,000원 평균 구매가로 보유하고 있으며, 현재 가격은 148,500원으로 12.50%의 무실현 수익을 기록하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "48:1",
+     "type": "number",
+     "text": "132,000원",
+     "start": 47,
+     "end": 55,
+     "sentence": "현재 금현물은 50g을 132,000원 평균 구매가로 보유하고 있으며, 현재 가격은 148,500원으로 12.50%의 무실현 수익을 기록하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "48:2",
+     "type": "number",
+     "text": "148,500원",
+     "start": 81,
+     "end": 89,
+     "sentence": "현재 금현물은 50g을 132,000원 평균 구매가로 보유하고 있으며, 현재 가격은 148,500원으로 12.50%의 무실현 수익을 기록하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "48:3",
+     "type": "number",
+     "text": "12.50%",
+     "start": 92,
+     "end": 98,
+     "sentence": "현재 금현물은 50g을 132,000원 평균 구매가로 보유하고 있으며, 현재 가격은 148,500원으로 12.50%의 무실현 수익을 기록하고 있습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 49,
+   "mode": "current",
+   "question": "q15",
+   "holding": "US:ZZSP",
+   "facts": [
+    "H1 Holding: Zeta S&P 500 Test ETF Trust (ZZSP), US listing.",
+    "H2 Quantity held: 2.5 shares.",
+    "H3 Average purchase price: 480.00 USD.",
+    "D1 Latest price (2026-09-25): 512.30 USD.",
+    "D2 Unrealised change vs. average purchase price: +6.73%.",
+    "D3 Position value at the latest price: 1,280.75 USD.",
+    "M1 The ETF rose 1.8% over the last 20 sessions.",
+    "M2 The ETF is 2.1% below its all-time high of 523.30 USD.",
+    "N1 Index constituents reported mixed third-quarter guidance (fictional).",
+    "Q1 ZZSP와 ZZAP 둘 다 괜찮나요?"
+   ],
+   "answer": "제공된 정보만으로는 ZZAP에 대한 판단을 내릴 수 없습니다. ZZSP에 대한 정보(현재 보유량, 매수 가격, 현재 가치 등)만 확인할 수 있습니다. 두 ETF의 비교를 위해서는 ZZAP에 대한 추가 정보가 필요합니다.",
+   "items": []
+  },
+  {
+   "index": 50,
+   "mode": "current",
+   "question": "q15",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 ZZSP와 ZZAP 둘 다 괜찮나요?"
+   ],
+   "answer": "제타 애플 테스트 Inc. (ZZAP) 주식에 대한 정보를 가지고 있습니다. 현재 주식 보유량은 12주이며, 평균 매수 가격은 201.00 USD입니다. 최근 주가 변동으로 인해 현재 주식 가치는 2,260.80 USD이며, 평균 매수 가격 대비 6.27%의 unrealised 손실이 발생했습니다. ZZSP 주식에 대한 정보는 제공되지 않습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "50:0",
+     "type": "number",
+     "text": "12주",
+     "start": 54,
+     "end": 57,
+     "sentence": "현재 주식 보유량은 12주이며, 평균 매수 가격은 201.00 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "50:1",
+     "type": "number",
+     "text": "201.00 USD",
+     "start": 71,
+     "end": 81,
+     "sentence": "현재 주식 보유량은 12주이며, 평균 매수 가격은 201.00 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "50:2",
+     "type": "number",
+     "text": "2,260.80 USD",
+     "start": 110,
+     "end": 122,
+     "sentence": "최근 주가 변동으로 인해 현재 주식 가치는 2,260.80 USD이며, 평균 매수 가격 대비 6.27%의 unrealised 손실이 발생했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "50:3",
+     "type": "number",
+     "text": "6.27%",
+     "start": 138,
+     "end": 143,
+     "sentence": "최근 주가 변동으로 인해 현재 주식 가치는 2,260.80 USD이며, 평균 매수 가격 대비 6.27%의 unrealised 손실이 발생했습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 51,
+   "mode": "current",
+   "question": "q16",
+   "holding": "BTC",
+   "facts": [
+    "H1 Holding: 비트코인 (BTC), Bitcoin.",
+    "H2 Quantity held: 0.25 BTC.",
+    "H3 Average purchase price: 95,000,000 KRW.",
+    "D1 Latest price (2026-09-25): 91,250,000 KRW.",
+    "D2 Unrealised change vs. average purchase price: -3.95%.",
+    "D3 Position value at the latest price: 22,812,500 KRW.",
+    "M1 Bitcoin fell 4.1% over the last 7 days.",
+    "M2 The 30-day high was 98,400,000 KRW on 2026-09-02.",
+    "N1 A large exchange reported a temporary withdrawal halt on 2026-09-23 (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "현재 보유 포트폴리오의 전체적인 점검은 불가능합니다. 제공된 정보는 비트코인(BTC) 0.25개 보유 현황, 평균 매수 가격, 최근 가격 변동률 및 보유 자산 가치에 대한 내용만 담고 있습니다. 포트폴리오 전체 점검을 위해서는 다른 자산에 대한 정보가 추가적으로 필요합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "51:0",
+     "type": "number",
+     "text": "0.25",
+     "start": 48,
+     "end": 52,
+     "sentence": "제공된 정보는 비트코인(BTC) 0.25개 보유 현황, 평균 매수 가격, 최근 가격 변동률 및 보유 자산 가치에 대한 내용만 담고 있습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 52,
+   "mode": "current",
+   "question": "q16",
+   "holding": "KRX-GOLD",
+   "facts": [
+    "H1 Holding: KRX 금현물 (KRX-GOLD), KRX gold spot.",
+    "H2 Quantity held: 50 g.",
+    "H3 Average purchase price: 132,000 KRW per g.",
+    "D1 Latest price (2026-09-25): 148,500 KRW.",
+    "D2 Unrealised change vs. average purchase price: +12.50%.",
+    "D3 Position value at the latest price: 7,425,000 KRW.",
+    "M1 KRX gold spot rose 2.3% over the last 30 days.",
+    "M2 Daily trading volume averaged 310 kg over the last 20 sessions.",
+    "N1 Central bank gold purchases were reported to continue in the third quarter (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "현재 포트폴리오의 핵심 자산은 KRX 금현물이며, 50g을 보유하고 있습니다. 현재 가격은 148,500 KRW이며, 평균 매수 가격인 132,000 KRW 대비 12.5%의 수익을 올리고 있습니다.  포트폴리오 전체에 대한 점검은 주어진 정보만으로는 불가능하며 추가적인 정보가 필요합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "52:0",
+     "type": "number",
+     "text": "50g",
+     "start": 28,
+     "end": 31,
+     "sentence": "현재 포트폴리오의 핵심 자산은 KRX 금현물이며, 50g을 보유하고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "52:1",
+     "type": "number",
+     "text": "148,500 KRW",
+     "start": 51,
+     "end": 62,
+     "sentence": "현재 가격은 148,500 KRW이며, 평균 매수 가격인 132,000 KRW 대비 12.5%의 수익을 올리고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "52:2",
+     "type": "number",
+     "text": "132,000 KRW",
+     "start": 76,
+     "end": 87,
+     "sentence": "현재 가격은 148,500 KRW이며, 평균 매수 가격인 132,000 KRW 대비 12.5%의 수익을 올리고 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "52:3",
+     "type": "number",
+     "text": "12.5%",
+     "start": 91,
+     "end": 96,
+     "sentence": "현재 가격은 148,500 KRW이며, 평균 매수 가격인 132,000 KRW 대비 12.5%의 수익을 올리고 있습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 53,
+   "mode": "current",
+   "question": "q16",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "현재 삼성테스트전자 (900001) 주식 10주를 보유하고 있으며, 평균 매수 가격은 71,000원입니다. 현재 주가는 65,320원이며, 이는 평균 매수 가격 대비 -8.00%의 unrealized 손실을 발생시켰습니다. 제시된 정보만으로는 전체 포트폴리오 점검이 불가능합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "53:0",
+     "type": "number",
+     "text": "10주",
+     "start": 23,
+     "end": 26,
+     "sentence": "현재 삼성테스트전자 (900001) 주식 10주를 보유하고 있으며, 평균 매수 가격은 71,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "53:1",
+     "type": "number",
+     "text": "71,000원",
+     "start": 48,
+     "end": 55,
+     "sentence": "현재 삼성테스트전자 (900001) 주식 10주를 보유하고 있으며, 평균 매수 가격은 71,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "53:2",
+     "type": "number",
+     "text": "65,320원",
+     "start": 67,
+     "end": 74,
+     "sentence": "현재 주가는 65,320원이며, 이는 평균 매수 가격 대비 -8.00%의 unrealized 손실을 발생시켰습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "53:3",
+     "type": "number",
+     "text": "8.00%",
+     "start": 94,
+     "end": 99,
+     "sentence": "현재 주가는 65,320원이며, 이는 평균 매수 가격 대비 -8.00%의 unrealized 손실을 발생시켰습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 54,
+   "mode": "current",
+   "question": "q16",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "포트폴리오 점검을 요청하셨습니다. 현재 테스트바이오(900006) 40주를 보유하고 있으며, 평균 매수 가격은 15,000원입니다. 최신 주가는 18,450원이며, 현재 포트폴리오 가치는 738,000원입니다.",
+   "items": [
+    {
+     "id": "54:0",
+     "type": "number",
+     "text": "40주",
+     "start": 37,
+     "end": 40,
+     "sentence": "현재 테스트바이오(900006) 40주를 보유하고 있으며, 평균 매수 가격은 15,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "54:1",
+     "type": "number",
+     "text": "15,000원",
+     "start": 62,
+     "end": 69,
+     "sentence": "현재 테스트바이오(900006) 40주를 보유하고 있으며, 평균 매수 가격은 15,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "54:2",
+     "type": "number",
+     "text": "18,450원",
+     "start": 81,
+     "end": 88,
+     "sentence": "최신 주가는 18,450원이며, 현재 포트폴리오 가치는 738,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "54:3",
+     "type": "number",
+     "text": "738,000원",
+     "start": 105,
+     "end": 113,
+     "sentence": "최신 주가는 18,450원이며, 현재 포트폴리오 가치는 738,000원입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 55,
+   "mode": "current",
+   "question": "q16",
+   "holding": "US:ZZSP",
+   "facts": [
+    "H1 Holding: Zeta S&P 500 Test ETF Trust (ZZSP), US listing.",
+    "H2 Quantity held: 2.5 shares.",
+    "H3 Average purchase price: 480.00 USD.",
+    "D1 Latest price (2026-09-25): 512.30 USD.",
+    "D2 Unrealised change vs. average purchase price: +6.73%.",
+    "D3 Position value at the latest price: 1,280.75 USD.",
+    "M1 The ETF rose 1.8% over the last 20 sessions.",
+    "M2 The ETF is 2.1% below its all-time high of 523.30 USD.",
+    "N1 Index constituents reported mixed third-quarter guidance (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "현재 포트폴리오는 Zeta S&P 500 Test ETF Trust (ZZSP) 2.5주를 보유하고 있으며, 평균 매수 가격은 480.00 USD입니다. 현재 주가는 512.30 USD로, 평균 매수 가격 대비 6.73% 상승했습니다. 포트폴리오 점검을 위해서는 추가 정보가 필요합니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "55:0",
+     "type": "number",
+     "text": "500",
+     "start": 19,
+     "end": 22,
+     "sentence": "현재 포트폴리오는 Zeta S&P 500 Test ETF Trust (ZZSP) 2.5주를 보유하고 있으며, 평균 매수 가격은 480.00 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "55:1",
+     "type": "number",
+     "text": "2.5주",
+     "start": 45,
+     "end": 49,
+     "sentence": "현재 포트폴리오는 Zeta S&P 500 Test ETF Trust (ZZSP) 2.5주를 보유하고 있으며, 평균 매수 가격은 480.00 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "55:2",
+     "type": "number",
+     "text": "480.00 USD",
+     "start": 71,
+     "end": 81,
+     "sentence": "현재 포트폴리오는 Zeta S&P 500 Test ETF Trust (ZZSP) 2.5주를 보유하고 있으며, 평균 매수 가격은 480.00 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "55:3",
+     "type": "number",
+     "text": "512.30 USD",
+     "start": 93,
+     "end": 103,
+     "sentence": "현재 주가는 512.30 USD로, 평균 매수 가격 대비 6.73% 상승했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "55:4",
+     "type": "number",
+     "text": "6.73%",
+     "start": 118,
+     "end": 123,
+     "sentence": "현재 주가는 512.30 USD로, 평균 매수 가격 대비 6.73% 상승했습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 56,
+   "mode": "current",
+   "question": "q16",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 전체 포트폴리오 점검해 주세요."
+   ],
+   "answer": "현재 포트폴리오는 Zeta Apple Test Inc. (ZZAP) 주식 12주를 보유하고 있으며, 평균 매입 가격은 201.00 USD 입니다. 최신 주가는 188.40 USD로, 평균 매입 가격 대비 6.27% 하락했습니다. 현재 포트폴리오 점검으로 얻을 수 있는 추가 정보는 사실 관계에서 확인할 수 없습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "56:0",
+     "type": "number",
+     "text": "12주",
+     "start": 41,
+     "end": 44,
+     "sentence": "(ZZAP) 주식 12주를 보유하고 있으며, 평균 매입 가격은 201.00 USD 입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "56:1",
+     "type": "number",
+     "text": "201.00 USD",
+     "start": 66,
+     "end": 76,
+     "sentence": "(ZZAP) 주식 12주를 보유하고 있으며, 평균 매입 가격은 201.00 USD 입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "56:2",
+     "type": "number",
+     "text": "188.40 USD",
+     "start": 89,
+     "end": 99,
+     "sentence": "최신 주가는 188.40 USD로, 평균 매입 가격 대비 6.27% 하락했습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "56:3",
+     "type": "number",
+     "text": "6.27%",
+     "start": 114,
+     "end": 119,
+     "sentence": "최신 주가는 188.40 USD로, 평균 매입 가격 대비 6.27% 하락했습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 57,
+   "mode": "current",
+   "question": "q17",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 삼성테스트전자 52주 최저가 근처인가요?"
+   ],
+   "answer": "현재 주가 65,320원입니다. 구입 가격이 71,000원이었으므로 현재 주가는 52주 최저가 근처인지 판단하기 위해서는 추가적인 정보가 필요합니다. 현재 제공된 정보만으로는 삼성테스트전자 주가가 52주 최저가 근처인지 알 수 없습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "57:0",
+     "type": "number",
+     "text": "65,320원",
+     "start": 6,
+     "end": 13,
+     "sentence": "현재 주가 65,320원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "57:1",
+     "type": "number",
+     "text": "71,000원",
+     "start": 25,
+     "end": 32,
+     "sentence": "구입 가격이 71,000원이었으므로 현재 주가는 52주 최저가 근처인지 판단하기 위해서는 추가적인 정보가 필요합니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "57:2",
+     "type": "number",
+     "text": "52주",
+     "start": 45,
+     "end": 48,
+     "sentence": "구입 가격이 71,000원이었으므로 현재 주가는 52주 최저가 근처인지 판단하기 위해서는 추가적인 정보가 필요합니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "57:3",
+     "type": "number",
+     "text": "52주",
+     "start": 110,
+     "end": 113,
+     "sentence": "현재 제공된 정보만으로는 삼성테스트전자 주가가 52주 최저가 근처인지 알 수 없습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 58,
+   "mode": "current",
+   "question": "q18",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 테스트바이오 임상 결과는 언제 나오나요?"
+   ],
+   "answer": "테스트바이오의 임상 결과 발표 시기에 대한 정보는 제공되지 않았습니다. 현재 임상 시험 지연 및 바이오테크 리스크로 인해 신중하게 모니터링해야 한다는 의견이 있습니다. 2026년 9월 25일 최신 주가는 18,450 KRW이며, 주식 보유량은 40주입니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "58:0",
+     "type": "number",
+     "text": "2026년 9월 25일",
+     "start": 94,
+     "end": 106,
+     "sentence": "2026년 9월 25일 최신 주가는 18,450 KRW이며, 주식 보유량은 40주입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "58:1",
+     "type": "number",
+     "text": "18,450 KRW",
+     "start": 114,
+     "end": 124,
+     "sentence": "2026년 9월 25일 최신 주가는 18,450 KRW이며, 주식 보유량은 40주입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "58:2",
+     "type": "number",
+     "text": "40주",
+     "start": 136,
+     "end": 139,
+     "sentence": "2026년 9월 25일 최신 주가는 18,450 KRW이며, 주식 보유량은 40주입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "58:3",
+     "type": "interpretation",
+     "text": "테스트바이오의 임상 결과 발표 시기에 대한 정보는 제공되지 않았습니다.",
+     "start": 0,
+     "end": 39,
+     "sentence": "테스트바이오의 임상 결과 발표 시기에 대한 정보는 제공되지 않았습니다.",
+     "judgement": "unsupported",
+     "note": "says the trial timing is not in the facts; N1 gives November 2026"
+    },
+    {
+     "id": "58:4",
+     "type": "interpretation",
+     "text": "현재 임상 시험 지연 및 바이오테크 리스크로 인해 신중하게 모니터링해야 한다는 의견이 있습니다.",
+     "start": 39,
+     "end": 93,
+     "sentence": "현재 임상 시험 지연 및 바이오테크 리스크로 인해 신중하게 모니터링해야 한다는 의견이 있습니다.",
+     "judgement": "unsupported",
+     "note": "\"임상 시험 지연\": no delay in the facts"
+    }
+   ]
+  },
+  {
+   "index": 59,
+   "mode": "current",
+   "question": "q19",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 ZZAP 자사주 매입 규모가 얼마인가요?"
+   ],
+   "answer": "제타 애플 테스트 잉크(ZZAP)의 자사주 매입 규모에 대한 정보는 제공된 사실에서 찾을 수 없습니다. 현재 보유량은 12주이고 평균 매입 가격은 201.00 USD입니다. 가장 최근 주가는 188.40 USD입니다.",
+   "items": [
+    {
+     "id": "59:0",
+     "type": "number",
+     "text": "12주",
+     "start": 66,
+     "end": 69,
+     "sentence": "현재 보유량은 12주이고 평균 매입 가격은 201.00 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "59:1",
+     "type": "number",
+     "text": "201.00 USD",
+     "start": 82,
+     "end": 92,
+     "sentence": "현재 보유량은 12주이고 평균 매입 가격은 201.00 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "59:2",
+     "type": "number",
+     "text": "188.40 USD",
+     "start": 107,
+     "end": 117,
+     "sentence": "가장 최근 주가는 188.40 USD입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "59:3",
+     "type": "interpretation",
+     "text": "제타 애플 테스트 잉크(ZZAP)의 자사주 매입 규모에 대한 정보는 제공된 사실에서 찾을 수 없습니다.",
+     "start": 0,
+     "end": 57,
+     "sentence": "제타 애플 테스트 잉크(ZZAP)의 자사주 매입 규모에 대한 정보는 제공된 사실에서 찾을 수 없습니다.",
+     "judgement": "unsupported",
+     "note": "says the buyback size is not in the facts; N1 gives 15,000,000,000 USD"
+    }
+   ]
+  },
+  {
+   "index": 60,
+   "mode": "current",
+   "question": "t01",
+   "holding": "KR:900001",
+   "facts": [
+    "H1 Holding: 삼성테스트전자 (900001), Korean listing.",
+    "H2 Quantity held: 10 shares.",
+    "H3 Average purchase price: 71,000 KRW.",
+    "D1 Latest price (2026-09-25): 65,320 KRW.",
+    "D2 Unrealised change vs. average purchase price: -8.00%.",
+    "D3 Position value at the latest price: 653,200 KRW.",
+    "M1 The share price fell 11.2% over the last 20 sessions.",
+    "M2 The price is below its 50-day moving average of 69,800 KRW.",
+    "M3 The 52-week low is 61,500 KRW.",
+    "N1 The company guided third-quarter operating profit 18% below the prior quarter (fictional).",
+    "Q1 삼성테스트전자의 배당금은 얼마인가요?"
+   ],
+   "answer": "제공된 사실에는 삼성테스트전자의 배당금에 대한 정보가 없습니다. 현재 주식 보유량은 10주이며, 평균 매수 가격은 71,000원입니다. 최신 주가는 65,320원이며, 현재 주식 가치는 653,200원입니다.",
+   "items": [
+    {
+     "id": "60:0",
+     "type": "number",
+     "text": "10주",
+     "start": 47,
+     "end": 50,
+     "sentence": "현재 주식 보유량은 10주이며, 평균 매수 가격은 71,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "60:1",
+     "type": "number",
+     "text": "71,000원",
+     "start": 64,
+     "end": 71,
+     "sentence": "현재 주식 보유량은 10주이며, 평균 매수 가격은 71,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "60:2",
+     "type": "number",
+     "text": "65,320원",
+     "start": 83,
+     "end": 90,
+     "sentence": "최신 주가는 65,320원이며, 현재 주식 가치는 653,200원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "60:3",
+     "type": "number",
+     "text": "653,200원",
+     "start": 104,
+     "end": 112,
+     "sentence": "최신 주가는 65,320원이며, 현재 주식 가치는 653,200원입니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 61,
+   "mode": "current",
+   "question": "t02",
+   "holding": "KR:900006",
+   "facts": [
+    "H1 Holding: 테스트바이오 (900006), Korean listing.",
+    "H2 Quantity held: 40 shares.",
+    "H3 Average purchase price: 15,000 KRW.",
+    "D1 Latest price (2026-09-25): 18,450 KRW.",
+    "D2 Unrealised change vs. average purchase price: +23.00%.",
+    "D3 Position value at the latest price: 738,000 KRW.",
+    "M1 The share price rose 27.4% over the last 20 sessions.",
+    "M2 Trading volume was 3.2 times its 20-day average on 2026-09-24.",
+    "N1 A phase 2 trial result is expected in November 2026 (fictional).",
+    "Q1 테스트바이오의 부채비율은 몇 퍼센트인가요?"
+   ],
+   "answer": "제공된 사실에는 테스트바이오의 부채 비율에 대한 정보가 없습니다. 현재 보유량은 40주이며, 평균 매입 가격은 15,000원입니다. 최신 주가는 18,450원입니다.\n\n\n\nFinal Decision: Hold the existing position in 테스트바이오 (900006). The recent strong performance and upcoming Phase 2 trial suggest a bullish outlook for the stock. However, the lack of risk mitigation strategies in the trader plan requires careful consideration.\n\n\n\n",
+   "items": [
+    {
+     "id": "61:0",
+     "type": "number",
+     "text": "40주",
+     "start": 45,
+     "end": 48,
+     "sentence": "현재 보유량은 40주이며, 평균 매입 가격은 15,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "61:1",
+     "type": "number",
+     "text": "15,000원",
+     "start": 62,
+     "end": 69,
+     "sentence": "현재 보유량은 40주이며, 평균 매입 가격은 15,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "61:2",
+     "type": "number",
+     "text": "18,450원",
+     "start": 81,
+     "end": 88,
+     "sentence": "최신 주가는 18,450원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "61:3",
+     "type": "interpretation",
+     "text": "The recent strong performance and upcoming Phase 2 trial suggest a bullish outlook for the stock.",
+     "start": 158,
+     "end": 256,
+     "sentence": "The recent strong performance and upcoming Phase 2 trial suggest a bullish outlook for the stock.",
+     "judgement": "unsupported",
+     "note": "\"suggest a bullish outlook\": a forecast the facts do not support"
+    }
+   ]
+  },
+  {
+   "index": 62,
+   "mode": "current",
+   "question": "t03",
+   "holding": "BTC",
+   "facts": [
+    "H1 Holding: 비트코인 (BTC), Bitcoin.",
+    "H2 Quantity held: 0.25 BTC.",
+    "H3 Average purchase price: 95,000,000 KRW.",
+    "D1 Latest price (2026-09-25): 91,250,000 KRW.",
+    "D2 Unrealised change vs. average purchase price: -3.95%.",
+    "D3 Position value at the latest price: 22,812,500 KRW.",
+    "M1 Bitcoin fell 4.1% over the last 7 days.",
+    "M2 The 30-day high was 98,400,000 KRW on 2026-09-02.",
+    "N1 A large exchange reported a temporary withdrawal halt on 2026-09-23 (fictional).",
+    "Q1 비트코인의 다음 반감기는 언제인가요?"
+   ],
+   "answer": "제공된 정보에는 비트코인의 다음 반감기에 대한 내용이 없습니다. 따라서 현재의 정보만으로는 해당 질문에 답할 수 없습니다. 추가적인 데이터가 필요합니다.",
+   "items": []
+  },
+  {
+   "index": 63,
+   "mode": "current",
+   "question": "t04",
+   "holding": "US:ZZSP",
+   "facts": [
+    "H1 Holding: Zeta S&P 500 Test ETF Trust (ZZSP), US listing.",
+    "H2 Quantity held: 2.5 shares.",
+    "H3 Average purchase price: 480.00 USD.",
+    "D1 Latest price (2026-09-25): 512.30 USD.",
+    "D2 Unrealised change vs. average purchase price: +6.73%.",
+    "D3 Position value at the latest price: 1,280.75 USD.",
+    "M1 The ETF rose 1.8% over the last 20 sessions.",
+    "M2 The ETF is 2.1% below its all-time high of 523.30 USD.",
+    "N1 Index constituents reported mixed third-quarter guidance (fictional).",
+    "Q1 ZZSP의 운용보수는 얼마인가요?"
+   ],
+   "answer": "제공된 사실에는 ZZSP의 운용보수 정보가 포함되어 있지 않습니다. 현재 보유량(2.5주), 평균 매입 가격(480.00 USD), 최신 가격(512.30 USD) 그리고 unrealised change와 현재 가치만 알 수 있습니다. 운용보수에 대한 언급이 없으므로 현재 있는 정보로 답변하기 어렵습니다.\n\n\n\n",
+   "items": [
+    {
+     "id": "63:0",
+     "type": "number",
+     "text": "2.5주",
+     "start": 45,
+     "end": 49,
+     "sentence": "현재 보유량(2.5주), 평균 매입 가격(480.00 USD), 최신 가격(512.30 USD) 그리고 unrealised change와 현재 가치만 알 수 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "63:1",
+     "type": "number",
+     "text": "480.00 USD",
+     "start": 61,
+     "end": 71,
+     "sentence": "현재 보유량(2.5주), 평균 매입 가격(480.00 USD), 최신 가격(512.30 USD) 그리고 unrealised change와 현재 가치만 알 수 있습니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "63:2",
+     "type": "number",
+     "text": "512.30 USD",
+     "start": 80,
+     "end": 90,
+     "sentence": "현재 보유량(2.5주), 평균 매입 가격(480.00 USD), 최신 가격(512.30 USD) 그리고 unrealised change와 현재 가치만 알 수 있습니다.",
+     "judgement": "correct"
+    }
+   ]
+  },
+  {
+   "index": 64,
+   "mode": "current",
+   "question": "t05",
+   "holding": "US:ZZAP",
+   "facts": [
+    "H1 Holding: Zeta Apple Test Inc. (ZZAP), US listing.",
+    "H2 Quantity held: 12 shares.",
+    "H3 Average purchase price: 201.00 USD.",
+    "D1 Latest price (2026-09-25): 188.40 USD.",
+    "D2 Unrealised change vs. average purchase price: -6.27%.",
+    "D3 Position value at the latest price: 2,260.80 USD.",
+    "M1 The share price fell 6.5% over the last 20 sessions.",
+    "M2 The stock trades at 24.3 times trailing earnings.",
+    "N1 The company announced a 15,000,000,000 USD share buyback on 2026-09-18 (fictional).",
+    "Q1 ZZAP의 다음 실적 발표일은 언제인가요?"
+   ],
+   "answer": "제공된 정보에는 Zeta Apple Test Inc. (ZZAP)의 다음 실적 발표일이 나와 있지 않습니다. 현재 주식 보유량, 구매 가격, 현재 가격 변화 등은 제공되었지만, 실적 발표 일정에 대한 정보는 없습니다. 따라서 제공된 사실만으로는 다음 실적 발표일을 알 수 없습니다.",
+   "items": []
+  },
+  {
+   "index": 65,
+   "mode": "current",
+   "question": "t06",
+   "holding": "KRX-GOLD",
+   "facts": [
+    "H1 Holding: KRX 금현물 (KRX-GOLD), KRX gold spot.",
+    "H2 Quantity held: 50 g.",
+    "H3 Average purchase price: 132,000 KRW per g.",
+    "D1 Latest price (2026-09-25): 148,500 KRW.",
+    "D2 Unrealised change vs. average purchase price: +12.50%.",
+    "D3 Position value at the latest price: 7,425,000 KRW.",
+    "M1 KRX gold spot rose 2.3% over the last 30 days.",
+    "M2 Daily trading volume averaged 310 kg over the last 20 sessions.",
+    "N1 Central bank gold purchases were reported to continue in the third quarter (fictional).",
+    "Q1 금현물의 내년 목표가는 얼마인가요?"
+   ],
+   "answer": "내년 목표가는 현재 제공된 사실만으로는 알 수 없습니다. 현재 가격은 148,500원이고, 평균 매입 가격은 132,000원입니다. 현재 12.5%의 미실현 수익이 발생하고 있으며, 현재 보유량은 50g입니다.\n\n\n\nFinal Decision: Hold the KRX gold position, capitalizing on current gains while carefully monitoring for reversals without specified exit criteria or stop-loss, adjustments are needed. Incorporate risk mitigation strategies like target profit levels or stop-loss orders into the trader plan to enhance robustness. Further research beyond the immediate market conditions is also warranted.\n\n\n\n",
+   "items": [
+    {
+     "id": "65:0",
+     "type": "number",
+     "text": "148,500원",
+     "start": 39,
+     "end": 47,
+     "sentence": "현재 가격은 148,500원이고, 평균 매입 가격은 132,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "65:1",
+     "type": "number",
+     "text": "132,000원",
+     "start": 61,
+     "end": 69,
+     "sentence": "현재 가격은 148,500원이고, 평균 매입 가격은 132,000원입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "65:2",
+     "type": "number",
+     "text": "12.5%",
+     "start": 77,
+     "end": 82,
+     "sentence": "현재 12.5%의 미실현 수익이 발생하고 있으며, 현재 보유량은 50g입니다.",
+     "judgement": "correct"
+    },
+    {
+     "id": "65:3",
+     "type": "number",
+     "text": "50g",
+     "start": 110,
+     "end": 113,
+     "sentence": "현재 12.5%의 미실현 수익이 발생하고 있으며, 현재 보유량은 50g입니다.",
+     "judgement": "correct"
+    }
+   ]
+  }
+ ],
+ "failed": []
+}

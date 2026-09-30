@@ -181,13 +181,14 @@ async function run(analysis?: Analysis) {
       const outputs = ROLES.map((r) => ({ role: r.node, text: result[r.writes] ?? '' }));
       // The question is model input too (FR-004): what it names is given, not invented.
       const given = [...analysis.facts, { id: 'Q1', kind: 'question' as const, text: analysis.question }];
-      let answer = finalDecision;
+      let answer = finalDecision, refs: { factId: string; start: number; end: number }[] = [];
       if (mode === 'refs') {
         const r = render(finalDecision, refTable(analysis.facts), analysis.question);
         answer = r.rendered;
+        refs = r.refs;
         Object.assign(facts, { numbers: { mode, raw: finalDecision, ...r } });
       }
-      Object.assign(facts, { grounding: ground(outputs, answer, given, known), answerLanguage: language(answer) });
+      Object.assign(facts, { grounding: ground(outputs, answer, given, known, refs), answerLanguage: language(answer) });
     }
   } else if (data === 'fixture') {
     // Step 2 — data: the committed Feature 004 fixture, unchanged.

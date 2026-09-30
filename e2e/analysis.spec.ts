@@ -68,7 +68,7 @@ test('T016 US5/SC-003: a fabricated number in the answer is marked; supported on
     };
   });
   const { record: r } = await analyse(page, 'KR:900001');
-  expect(r.analysis.grounding.counts).toEqual({ supported: 2, unsupported: 1, semanticMismatch: 0, unrecognised: 0 });
+  expect(r.analysis.grounding.counts).toEqual({ supported: 2, unsupported: 1, semanticMismatch: 0, unrecognised: 0, interpretationUnsupported: 0 });
   expect(r.analysis.answerLanguage).toBe('ko');
   const w = page.getByRole('dialog', { name: '답변' });
   await expect(w).toBeVisible();

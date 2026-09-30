@@ -122,3 +122,18 @@ test('Feature 016 A-016-1: the final role is told where the evidence stops (valu
   const src = (await import('node:fs')).readFileSync('src/graph/trading-graph.ts', 'utf8');
   assert.match(src, /do not call the stock under- or ' \+\s*'overvalued or state a long-term outlook unless the facts contain such evidence; if they do not, say that the evidence ' \+\s*'is insufficient\./);
 });
+
+test('Feature 017 F017-R1: unsupported interpretation claims are reported per answer, apart from the verdict input', async () => {
+  const { aggregate } = await import('../src/analysis/report.ts');
+  const { ground } = await import('../src/analysis/grounding.ts');
+  const { factSet } = await import('../src/analysis/facts.ts');
+  const { PORTFOLIO_FIXTURE } = await import('../src/analysis/portfolio-fixture.ts');
+  const h = PORTFOLIO_FIXTURE.portfolio.find((x) => x.instrument.id === 'BTC')!;
+  const answer = '비트코인의 장기적인 근본 요인이 긍정적이므로 보유를 유지합니다.';
+  const c = ground([], answer, factSet(h as never).facts).counts;
+  assert.deepEqual([c.unsupported, c.interpretationUnsupported], [0, 1]);
+  const run = (interpretation: number) => ({ question: 'q', kind: 'single' as const, holding: 'h', outcome: 'success', unsupported: 0, unrecognised: 0, language: 'ko', ms: 1, interpretation });
+  const a = aggregate([run(1), run(0)]);
+  assert.equal(a.zeroUnsupportedRate, 1);
+  assert.equal(a.interpretationUnsupportedPerAnswer, 0.5);
+});

@@ -265,3 +265,20 @@ A typed market-data failure is recorded as BLOCKED, never as PASS.
 - Fact semantics come from the templates in `src/analysis/semantics.ts`; the coverage test fails when the code writes
   a fact sentence no template (or the listed value-only forms) covers.
 - Re-score recorded reports with `node scripts/rescore-measurement.ts <report> [out]` — now also counts mismatches.
+
+## Feature 017 — Grounding precision
+
+- Frozen sets (sha256 in `specs/017-semantic-grounding-precision/verification.md`, never edited to fit results):
+  `test/fixtures/grounding/precision-dev.json` — development set (tuned on): the Feature 016 mismatches, the real
+  interpretation sentences, the 33 raw refs answers with citation fits; `test/fixtures/grounding/precision-d.json` —
+  held-out fixture D, scored once at the rules freeze (`BTA_SCORE_D=1 node --test test/precision.test.ts`; reported,
+  not asserted).
+- `claims(text, facts, known, { citations, variant })`: rendered refs are passed as citations (`ground()` does it for
+  refs answers); `variant: 'cite'` narrows a cited value to the cited fact before the cue check (not adopted; default
+  `plain`). Each claim may carry `citation { factId, source, fit }`.
+- Measurement records keep `raw` (the refs answer before rendering); `scripts/rescore-measurement.ts` re-renders it.
+- Held-out capture and blind audit:
+  `BTA_MEASURE=1 BTA_MEASURE_MODES=refs,current BTA_MEASURE_REPS=2 npm run test:prompt-api -- -g measurement`, then
+  `node scripts/audit-sheet.ts <report> <sheet.json>` (no checker output in the sheet) → judge every item → record the
+  sheet's sha256 → `node scripts/precision.ts <report> <sheet.json> [out.json]` (precision, recall, threshold ≥ 0.8
+  with no real error missed).

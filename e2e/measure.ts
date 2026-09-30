@@ -18,8 +18,8 @@ export type Question = { id: string; text: string; kind: 'single' | 'multi' | 't
 export const QUESTIONS: Question[] = JSON.parse(readFileSync('test/fixtures/grounding/questions.json', 'utf8')).questions;
 
 type Rec = { outcome: string; error?: string | null; evidenceClass: string; timing?: { graphMs?: number }; result?: { finalDecision?: string };
-  analysis: { holding: string; grounding?: { counts: { unsupported: number; unrecognised: number; semanticMismatch?: number } }; answerLanguage?: string;
-    numbers?: { mode: 'current' | 'formatted' | 'refs'; rendered?: string; violations?: unknown[] } } };
+  analysis: { holding: string; grounding?: { counts: { unsupported: number; unrecognised: number; semanticMismatch?: number; interpretationUnsupported?: number } }; answerLanguage?: string;
+    numbers?: { mode: 'current' | 'formatted' | 'refs'; raw?: string; rendered?: string; violations?: unknown[] } } };
 
 // Feature 013: `mode` is the page's number mode (?numbers=); it only labels the runs, the page decides.
 // `strict` (stand-in): the holdings of every question must be exactly the expected ones. Native (not strict): a run
@@ -48,11 +48,12 @@ export async function measure(page: Page, repetitions: number, meta: { model: st
       for (const r of recs) {
         const g = r.analysis.grounding?.counts, answer = r.analysis.numbers?.rendered ?? r.result?.finalDecision ?? '';
         runs.push({ question: q.id, kind: q.kind, holding: r.analysis.holding, outcome: r.outcome,
-          unsupported: g?.unsupported ?? 0, unrecognised: g?.unrecognised ?? 0, mismatch: g?.semanticMismatch ?? 0,
+          unsupported: g?.unsupported ?? 0, unrecognised: g?.unrecognised ?? 0, mismatch: g?.semanticMismatch ?? 0, interpretation: g?.interpretationUnsupported ?? 0,
           ...(q.kind === 'trap' ? { trapHandled: r.outcome === 'success' && trapHandled(answer, g?.unsupported ?? 0) } : {}),
           language: r.analysis.answerLanguage ?? 'none', ms: r.timing?.graphMs ?? 0, answer,
           ...(r.outcome !== 'success' ? { error: r.error ?? null } : {}),
-          ...(mode ? { mode, violations: r.analysis.numbers?.violations?.length ?? 0 } : {}) });
+          ...(mode ? { mode, violations: r.analysis.numbers?.violations?.length ?? 0 } : {}),
+          ...(r.analysis.numbers?.raw !== undefined ? { raw: r.analysis.numbers.raw } : {}) }); // Feature 017: citations re-scorable
       }
     }
   }

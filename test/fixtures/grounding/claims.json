@@ -156,10 +156,15 @@
    "known": [],
    "expect": [
     {
+     "text": "영업이익",
+     "status": "supported"
+    },
+    {
      "text": "18%",
      "status": "supported"
     }
-   ]
+   ],
+   "changed": "Feature 017 FR-009: the sentence restates the guidance news (N1: content key 영업이익, value 18%), so it is also a supported news claim"
   },
   {
    "holding": "KR:900001",
@@ -167,10 +172,15 @@
    "known": [],
    "expect": [
     {
+     "text": "영업이익",
+     "status": "unsupported"
+    },
+    {
      "text": "25%",
      "status": "unsupported"
     }
-   ]
+   ],
+   "changed": "Feature 017 FR-009: restates the guidance news (N1) with a value it does not hold (25% vs 18%), so the news claim is unsupported too"
   },
   {
    "holding": "KR:900001",
@@ -657,10 +667,15 @@
    "known": [],
    "expect": [
     {
+     "text": "자사주",
+     "status": "supported"
+    },
+    {
      "text": "15,000,000,000 USD",
      "status": "supported"
     }
-   ]
+   ],
+   "changed": "Feature 017 FR-009: restates the buyback news (N1: content key and amount), a supported news claim"
   },
   {
    "holding": "US:ZZAP",
@@ -743,11 +758,16 @@
    "known": [],
    "expect": [
     {
+     "text": "임상",
+     "status": "supported"
+    },
+    {
      "text": "2026년 11월",
      "status": "supported"
     }
    ],
-   "feature": "013"
+   "feature": "013",
+   "changed": "Feature 017 FR-009: restates the trial news (N1: content key and month), a supported news claim"
   },
   {
    "holding": "KR:900006",
@@ -755,11 +775,16 @@
    "known": [],
    "expect": [
     {
+     "text": "임상",
+     "status": "unsupported"
+    },
+    {
      "text": "2026년 12월",
      "status": "unsupported"
     }
    ],
-   "feature": "013"
+   "feature": "013",
+   "changed": "Feature 017 FR-009: restates the trial news (N1) with a month it does not hold, so the news claim is unsupported too"
   },
   {
    "holding": "KRX-GOLD",

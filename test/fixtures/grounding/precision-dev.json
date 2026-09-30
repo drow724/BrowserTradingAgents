@@ -1,0 +1,1160 @@
+{
+ "note": "Feature 017 development set (FR-011a). Tuned on; not evidence of generalisation. (a) the distinct semantic mismatches the Feature 016 checker flags in the recorded Feature 013 native answers (24 distinct sentence/target pairs; the Feature 016 audit counted 23 because two near-identical sentences were merged), with the hand judgement (real-error / correct / debatable) and the expected status; (b) every distinct interpretation sentence of the same answers with a judgement written 2026-09-30 before any rule change (supported / unsupported / none = not an interpretation claim); (c) the 33 raw refs answers of the Feature 013 spike with, per written number, the citation fit judged 2026-09-30 before any rule change, and the numbers judged real-error or debatable (all other numbers correct). Never edited to fit results.",
+ "mismatches": [
+  {
+   "id": "dm01",
+   "mode": "current",
+   "holding": "KR:900001",
+   "text": "네, 현재 주가는 65,320원이고, 52주 최저가가 65,320원입니다.",
+   "target": "65,320원",
+   "at": 30,
+   "judgement": "real-error",
+   "note": "65,320 is the latest price (D1); the 52-week low is 61,500 (M3) — value stated with the wrong metric",
+   "expect": {
+    "status": "semantic-mismatch"
+   },
+   "f016": "claim says basis weeks:52, metric range_low; D1 is price (latest)"
+  },
+  {
+   "id": "dm02",
+   "mode": "current",
+   "holding": "KR:900001",
+   "text": "따라서 현재 주가는 평단 가격보다 8,680원 더 낮은 65,320원에 거래되고 있습니다.",
+   "target": "65,320원",
+   "at": 31,
+   "judgement": "correct",
+   "note": "65,320 is the latest price; 평단 names the other side of the comparison",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis since_average_purchase, direction down; D1 is price (latest)"
+  },
+  {
+   "id": "dm03",
+   "mode": "current",
+   "holding": "BTC",
+   "text": "따라서 비트코인 평가 손익은 22,812,500 원의 손실이 발생했습니다.",
+   "target": "22,812,500 원",
+   "at": 16,
+   "judgement": "real-error",
+   "note": "22,812,500 is the position value (D3), stated as the unrealised loss",
+   "expect": {
+    "status": "semantic-mismatch"
+   },
+   "f016": "claim says basis since_average_purchase, metric unrealised_return, direction down; D3 is position_value (latest)"
+  },
+  {
+   "id": "dm04",
+   "mode": "current",
+   "holding": "US:ZZAP",
+   "text": "평균 매수 가격인 201.00 USD에 비해 현재 주가(188.40 USD)는 6.27% 감소했습니다.",
+   "target": "6.27%",
+   "at": 44,
+   "judgement": "correct",
+   "note": "6.27% is the change vs the average price (D2); the sentence compares against the average price",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price, direction down; D2 is unrealised_return (since_average_purchase) down"
+  },
+  {
+   "id": "dm05",
+   "mode": "current",
+   "holding": "US:ZZAP",
+   "text": "Therefore, continuing to hold is the most prudent course of action, anticipating a potential rebound, but diligent monitoring of the 6.27% unrealized loss and 6.5% recent downturn is essential.",
+   "target": "6.5%",
+   "at": 159,
+   "judgement": "correct",
+   "note": "6.5% is the 20-session fall (M1), labelled after the value (\"recent downturn\")",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis since_average_purchase, metric unrealised_return, direction down; M1 is price_return (sessions:20) down"
+  },
+  {
+   "id": "dm06",
+   "mode": "formatted",
+   "holding": "KR:900001",
+   "text": "현재 삼성테스트전자 주가가 6만 5,320원으로 52주 저가인 6만 1,500원보다 낮습니다.",
+   "target": "6만 5,320원",
+   "at": 15,
+   "judgement": "correct",
+   "note": "65,320 is the latest price (the sentence's comparison with 61,500 is itself wrong: a non-numeric comparison, F016-R4)",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis weeks:52, metric range_low, direction down; D1 is price (latest)"
+  },
+  {
+   "id": "dm07",
+   "mode": "formatted",
+   "holding": "US:ZZAP",
+   "text": "현재 주가가 201.00 USD보다 낮지만, 12주식을 보유하는 것이 좋습니다.",
+   "target": "201.00 USD",
+   "at": 7,
+   "judgement": "correct",
+   "note": "201.00 is the average price (H3), the reference side of \"보다\"",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price, direction down; H3 is cost_basis (since_average_purchase)"
+  },
+  {
+   "id": "dm08",
+   "mode": "formatted",
+   "holding": "KR:900006",
+   "text": "테스트바이오(900006) 주식 40주를 1만 5천 원에 매수하여 현재 주가는 1만 8천 4백 50원으로, 23%의 unrealised 수익을 기록하고 있습니다.",
+   "target": "1만 5천 원",
+   "at": 23,
+   "judgement": "correct",
+   "note": "1만 5천 원 is the purchase price (H3): \"…에 매수하여\"",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price; H3 is cost_basis (since_average_purchase)"
+  },
+  {
+   "id": "dm09",
+   "mode": "formatted",
+   "holding": "KR:900001",
+   "text": "네, 삼성테스트전자 주가는 현재 65,320 KRW로 52주 최저가인 61,500 KRW에 근접해 있습니다.",
+   "target": "65,320 KRW",
+   "at": 18,
+   "judgement": "correct",
+   "note": "65,320 is the latest price; 61,500 is the 52-week low",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis weeks:52, metric range_low; D1 is price (latest)"
+  },
+  {
+   "id": "dm10",
+   "mode": "formatted",
+   "holding": "US:ZZAP",
+   "text": "초기 평균 구매 가격은 201.00 USD였으며, 현재 주가는 188.40 USD로 6.27% 하락했습니다.",
+   "target": "6.27%",
+   "at": 47,
+   "judgement": "debatable",
+   "note": "6.27% is vs the average price, written as a plain fall of the current price",
+   "f016": "claim says basis latest, metric price, direction down; D2 is unrealised_return (since_average_purchase) down"
+  },
+  {
+   "id": "dm11",
+   "mode": "formatted",
+   "holding": "KR:900001",
+   "text": "네, 삼성테스트전자 주가는 현재 65,320 KRW로 52주 최저가인 61,500 KRW 근처입니다.",
+   "target": "65,320 KRW",
+   "at": 18,
+   "judgement": "correct",
+   "note": "65,320 is the latest price; 61,500 is the 52-week low",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis weeks:52, metric range_low; D1 is price (latest)"
+  },
+  {
+   "id": "dm12",
+   "mode": "refs",
+   "holding": "US:ZZSP",
+   "text": "현재 Zeta S&P 500 테스트 ETF 트러스트(ZZSP)의 포지션 가치는 1,280.75달러 1,280.75 USD입니다.",
+   "target": "500",
+   "at": 12,
+   "judgement": "correct",
+   "note": "\"500\" is part of the name \"S&P 500\" (H1), not a position value",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says metric position_value; H1 is holding"
+  },
+  {
+   "id": "dm13",
+   "mode": "refs",
+   "holding": "US:ZZAP",
+   "text": "지난 20개 거래일 동안 주가는 6.5% 6.5% 하락했으며, 현재 주가는 24.3배의 주가수익비율을 기록하고 있습니다 24.3.",
+   "target": "24.3",
+   "at": 42,
+   "judgement": "correct",
+   "note": "24.3 is the P/E (M2), labelled after the value",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price; M2 is valuation_multiple"
+  },
+  {
+   "id": "dm14",
+   "mode": "refs",
+   "holding": "US:ZZAP",
+   "text": "현재 주가는 24.3배의 감가상각된 순이익(trailing earnings)에 거래됩니다 24.3.",
+   "target": "24.3",
+   "at": 7,
+   "judgement": "correct",
+   "note": "24.3 is the P/E (M2), labelled after the value",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price, direction up; M2 is valuation_multiple"
+  },
+  {
+   "id": "dm15",
+   "mode": "refs",
+   "holding": "US:ZZSP",
+   "text": "최근 20일 동안 1.8% 1.8% 상승했으며, 현재 보유 가치 1,280.75달러는 구매 가격 480.00달러에 비해 +6.73% 6.73% 증가했습니다.",
+   "target": "1,280.75달러",
+   "at": 36,
+   "judgement": "correct",
+   "note": "1,280.75 is the position value (보유 가치, D3)",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis since_average_purchase, direction up; D3 is position_value (latest)"
+  },
+  {
+   "id": "dm16",
+   "mode": "refs",
+   "holding": "US:ZZAP",
+   "text": "네, 현재 주가 24.3배의 서킷 PER은 높은 편입니다 24.3.",
+   "target": "24.3",
+   "at": 9,
+   "judgement": "correct",
+   "note": "24.3 is the P/E (M2), labelled after the value (PER)",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price, direction up; M2 is valuation_multiple"
+  },
+  {
+   "id": "dm17",
+   "mode": "refs",
+   "holding": "US:ZZSP",
+   "text": "최근 20개 세션 동안 1.8% 1.8% 상승했으며, 현재 가격은 512.30달러 512.30 USD로 포트폴리오 가치는 1,280.75달러 1,280.75 USD 입니다.",
+   "target": "512.30 USD",
+   "at": 46,
+   "judgement": "correct",
+   "note": "512.30 is the latest price (D1); 포트폴리오 가치 applies to 1,280.75",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says metric position_value; D1 is price (latest)"
+  },
+  {
+   "id": "dm18",
+   "mode": "refs",
+   "holding": "KR:900001",
+   "text": "현재 주가인 6만 5,320원는 52주 최저가인 6만 1,500원와 유사합니다.",
+   "target": "6만 5,320원",
+   "at": 7,
+   "judgement": "correct",
+   "note": "6만 5,320원 is the latest price; 6만 1,500원 the 52-week low",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis weeks:52, metric range_low; D1 is price (latest)"
+  },
+  {
+   "id": "dm19",
+   "mode": "refs",
+   "holding": "KR:900001",
+   "text": "현재 주가는 평균 매수 가격보다 낮습니다 65만 3,200원.",
+   "target": "65만 3,200원",
+   "at": 23,
+   "judgement": "debatable",
+   "note": "refs-mode value (D3) appended to a sentence about price vs the average price",
+   "f016": "claim says basis since_average_purchase, direction down; D3 is position_value (latest)"
+  },
+  {
+   "id": "dm20",
+   "mode": "refs",
+   "holding": "BTC",
+   "text": "그러나 최근 7일 동안 비트코인은 하락했고 -3.95% 현재 가격은 평균 매수 가격보다 낮습니다 -3.95%.",
+   "target": "3.95%",
+   "at": 25,
+   "judgement": "correct",
+   "note": "-3.95% after \"평균 매수 가격보다 낮습니다\" is the change vs the average price (D2)",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price, direction down; D2 is unrealised_return (since_average_purchase) down"
+  },
+  {
+   "id": "dm21",
+   "mode": "refs",
+   "holding": "BTC",
+   "text": "포지션 가치는 현재 가격으로 2,281만 2,500원 입니다.",
+   "target": "2,281만 2,500원",
+   "at": 16,
+   "judgement": "correct",
+   "note": "2,281만 2,500원 is the position value at the current price (D3)",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price; D3 is position_value (latest)"
+  },
+  {
+   "id": "dm22",
+   "mode": "refs",
+   "holding": "US:ZZAP",
+   "text": "현재 주가는 24.3 24.3배이며, 이는 높은 P/E 비율에 해당합니다.",
+   "target": "24.3",
+   "at": 7,
+   "judgement": "correct",
+   "note": "24.3 is the P/E (M2) (\"24.3배 … P/E 비율\")",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price; M2 is valuation_multiple"
+  },
+  {
+   "id": "dm23",
+   "mode": "refs",
+   "holding": "US:ZZAP",
+   "text": "지난 20개 세션 동안 주가가 20 감소했고, 현재 주가에 대한 24.3배의  trailing earnings мультипликатор을 고려해야 합니다 24.3.",
+   "target": "24.3",
+   "at": 36,
+   "judgement": "correct",
+   "note": "24.3 is the P/E (M2), labelled after the value (trailing earnings)",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price; M2 is valuation_multiple"
+  },
+  {
+   "id": "dm24",
+   "mode": "refs",
+   "holding": "BTC",
+   "text": "포트폴리오의 전체 가치는 현재 가격을 기준으로 2,281만 2,500원이며, 보유량은 0.25 BTC입니다.",
+   "target": "2,281만 2,500원",
+   "at": 26,
+   "judgement": "correct",
+   "note": "2,281만 2,500원 is the position value (포트폴리오의 전체 가치, D3)",
+   "expect": {
+    "status": "supported"
+   },
+   "f016": "claim says basis latest, metric price; D3 is position_value (latest)"
+  }
+ ],
+ "interpretations": [
+  {
+   "id": "di01",
+   "mode": "current",
+   "holding": "BTC",
+   "text": "비트코인의 장기적인 근본 요인이 긍정적이라는 분석이 있으므로 현재 보유를 유지하는 것이 합리적입니다.",
+   "judgement": "unsupported",
+   "note": "long-term fundamentals: no fundamental evidence; the only news is a withdrawal halt",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di02",
+   "mode": "current",
+   "holding": "KR:900001",
+   "text": "현재 삼성테스트전자의 주가가 하락 중이지만, 투자 계획은 삼성의 장기적인 성과에 따른 가치 상승에 주목하고 있습니다.",
+   "judgement": "unsupported",
+   "note": "long-term value growth: no evidence",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di03",
+   "mode": "current",
+   "holding": "KR:900001",
+   "text": "따라서 투자 계획은 지속적인 모니터링을 통해 상황을 주시하며 장기적인 관점에서 유지될 것으로 보입니다.",
+   "judgement": "unsupported",
+   "note": "a long-term stance as the rationale: no evidence",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di04",
+   "mode": "current",
+   "holding": "BTC",
+   "text": "따라서, 보유하고 있는 위치와 장기적인 뷰를 고려할 때 현재 상태를 유지하는 것이 합리적일 수 있습니다.",
+   "judgement": "unsupported",
+   "note": "a long-term view as the rationale: no evidence",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di05",
+   "mode": "current",
+   "holding": "KR:900006",
+   "text": "테스트바이오는 Phase 2 임상 결과가 2027년 Q1에 발표될 예정으로 장기간의 불확실성이 존재합니다.",
+   "judgement": "unsupported",
+   "note": "restates the trial news with a wrong date (2027 Q1 vs November 2026)",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di06",
+   "mode": "current",
+   "holding": "US:ZZAP",
+   "text": "Therefore, continuing to hold is the most prudent course of action, anticipating a potential rebound, but diligent monitoring of the 6.27% unrealized loss and 6.5% recent downturn is essential.",
+   "judgement": "unsupported",
+   "note": "anticipates a rebound: forward-looking, no evidence",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di07",
+   "mode": "formatted",
+   "holding": "BTC",
+   "text": "초기 구매 가격 대비 현재 가치는 3.95% 하락했지만 장기적인 관점에서 성장 가능성이 여전히 높다고 판단됩니다.",
+   "judgement": "unsupported",
+   "note": "long-term growth potential: no evidence",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di08",
+   "mode": "formatted",
+   "holding": "US:ZZSP",
+   "text": "ZZSP는 최근 20일 동안 1.8% 상승했고, 현재 종가는 장기 최고가인 523.30 USD보다 2.1% 낮은 수준입니다.",
+   "judgement": "none",
+   "note": "\"장기 최고가\" is the all-time high (M2): not an outlook claim",
+   "expect": {
+    "status": "none"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di09",
+   "mode": "formatted",
+   "holding": "US:ZZSP",
+   "text": "The ETF's positive performance and diversified US market exposure continue to support a long-term outlook.",
+   "judgement": "unsupported",
+   "note": "long-term outlook from diversified exposure: not in the facts",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di10",
+   "mode": "formatted",
+   "holding": "KR:900006",
+   "text": "However, to strengthen this recommendation, a plan for profit-taking at a defined target price should be added to mitigate potential losses during any price correction.",
+   "judgement": "none",
+   "note": "\"potential losses\": risk wording, not an outlook claim",
+   "expect": {
+    "status": "none"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di11",
+   "mode": "formatted",
+   "holding": "BTC",
+   "text": "The recent market decline and potential exchange withdrawal halt indicate cautiousness is warranted.",
+   "judgement": "supported",
+   "note": "restates the withdrawal-halt news (N1)",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "N1"
+    ]
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di12",
+   "mode": "formatted",
+   "holding": "US:ZZSP",
+   "text": "경제 불확실성에도 불구하고 분산 투자와 장기 투자 전략에 부합하므로 현재 포지션을 유지하는 것이 합리적입니다.",
+   "judgement": "unsupported",
+   "note": "long-term investment strategy as the rationale: no evidence",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di13",
+   "mode": "formatted",
+   "holding": "US:ZZAP",
+   "text": "The trader plan's rationale aligns with the research's bullish sentiment, emphasizing the buyback program's undervaluation.",
+   "judgement": "unsupported",
+   "note": "\"undervaluation\": a valuation judgement without a benchmark",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "valuation supported [M2]"
+  },
+  {
+   "id": "di14",
+   "mode": "formatted",
+   "holding": "US:ZZAP",
+   "text": "Existing position will be maintained, monitoring for potential additions.",
+   "judgement": "none",
+   "note": "\"potential additions\": not an outlook claim",
+   "expect": {
+    "status": "none"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di15",
+   "mode": "formatted",
+   "holding": "KRX-GOLD",
+   "text": "또한 중앙은행의 금 구매가 지속될 것이라는 뉴스만 언급되어 있습니다.",
+   "judgement": "supported",
+   "note": "restates the central-bank gold purchase news (N1)",
+   "expect": {
+    "status": "supported",
+    "evidence": [
+     "N1"
+    ]
+   },
+   "f016": "news supported [N1]"
+  },
+  {
+   "id": "di16",
+   "mode": "formatted",
+   "holding": "BTC",
+   "text": "The bullish research and historical recovery patterns are supportive, but the recent withdrawal halt introduces unquantifiable risk.",
+   "judgement": "unsupported",
+   "note": "\"historical recovery patterns\": no evidence (the news part is fine)",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di17",
+   "mode": "formatted",
+   "holding": "BTC",
+   "text": "Adjust the plan to include contingency strategies, potentially reducing the position size or setting stop-loss orders, to mitigate potential impact.",
+   "judgement": "none",
+   "note": "\"potential impact\": not an outlook claim",
+   "expect": {
+    "status": "none"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di18",
+   "mode": "formatted",
+   "holding": "KR:900001",
+   "text": "However, add conditions for position adjustments based on Q3 results to mitigate potential risks.",
+   "judgement": "none",
+   "note": "\"potential risks\": not an outlook claim",
+   "expect": {
+    "status": "none"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di19",
+   "mode": "refs",
+   "holding": "US:ZZAP",
+   "text": "The trader's plan to hold ZZAP aligns with the research leaning towards caution, particularly given the high valuation.",
+   "judgement": "unsupported",
+   "note": "\"high valuation\": a valuation judgement without a benchmark",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "valuation supported [M2]"
+  },
+  {
+   "id": "di20",
+   "mode": "refs",
+   "holding": "US:ZZAP",
+   "text": "현재 ZZAP의 주가 변동은 6.5%이며, 주당 장기 수익률은 24.3배입니다.",
+   "judgement": "unsupported",
+   "note": "24.3 (P/E) stated as a long-term per-share return",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di21",
+   "mode": "refs",
+   "holding": "KR:900001",
+   "text": "This ensures preparedness for potential increased volatility and enables a more informed reassessment of the stock's intrinsic value.",
+   "judgement": "none",
+   "note": "\"potential volatility\", \"intrinsic value\": no judgement stated",
+   "expect": {
+    "status": "none"
+   },
+   "f016": "outlook supported [N1]"
+  },
+  {
+   "id": "di22",
+   "mode": "refs",
+   "holding": "KR:900001",
+   "text": "Continued monitoring and adaptability are crucial given the recent news and evolving outlook.",
+   "judgement": "unsupported",
+   "note": "\"recent news and evolving outlook\": no specific news content",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "news supported [N1]"
+  },
+  {
+   "id": "di23",
+   "mode": "refs",
+   "holding": "US:ZZAP",
+   "text": "시장 가치 평가 비율은 24.3입니다.",
+   "judgement": "none",
+   "note": "states the multiple 24.3 (M2) without a judgement",
+   "expect": {
+    "status": "none"
+   },
+   "f016": "valuation supported [M2]"
+  },
+  {
+   "id": "di24",
+   "mode": "refs",
+   "holding": "BTC",
+   "text": "특정 거래소에서 출금 중단을 발표했으나 2026년 9월 23일, 비트코인의 장기적인 네트워크 효과는 여전히 긍정적 입니다.",
+   "judgement": "unsupported",
+   "note": "long-term network effect: no evidence; the news part is fine",
+   "expect": {
+    "status": "unsupported"
+   },
+   "f016": "outlook supported [N1]"
+  }
+ ],
+ "raws": [
+  {
+   "id": "dr01",
+   "key": "q01|KR:900001",
+   "holding": "KR:900001",
+   "raw": "현재 삼성테스트전자 주가는 20 {M1b} 거래 기간 동안 11.2% 하락했습니다 {M1a}. 이는 50일 이동 평균치 {M2b} 밑으로 떨어졌으며, 현재 주가는 매수 가격 {H3}보다 8.00% 낮은 상태입니다 {D2}. 더불어 회사 측의 3분기 영업이익 전망은 전 분기 대비 18% 감소할 것으로 예상됩니다 {N1}.",
+   "citations": [
+    {
+     "written": "20",
+     "ref": "M1b",
+     "fit": "right"
+    },
+    {
+     "written": "11.2%",
+     "ref": "M1a",
+     "fit": "right"
+    },
+    {
+     "written": "8.00%",
+     "ref": "D2",
+     "fit": "right"
+    },
+    {
+     "written": "18%",
+     "ref": "N1",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr02",
+   "key": "q02|KR:900001",
+   "holding": "KR:900001",
+   "raw": "지분당 평단 손실은 8.00% 입니다 {D2}. 현재 주가는 65,320 KRW이고 평균 매수 가격은 71,000 KRW입니다 {D1b, H3}. 손실 금액은 보유 주식 수 10주에 곱하여 계산될 수 있습니다 {H2}.\n\n\n\n",
+   "citations": [
+    {
+     "written": "8.00%",
+     "ref": "D2",
+     "fit": "right"
+    },
+    {
+     "written": "10주",
+     "ref": "H2",
+     "fit": "right"
+    },
+    {
+     "ref": "D1b, H3",
+     "fit": "combined"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr03",
+   "key": "q03|KR:900006",
+   "holding": "KR:900006",
+   "raw": "테스트바이오 주가는 지난 20개 거래일 동안 27.4% 상승했습니다 {M1a}. 현재 평균 매수 가격은 15,000 KRW {H3}이며, 최신 주가는 18,450 KRW {D1b} 입니다. 최근 20개 거래일 동안의 거래량은 평일 평균 거래량의 3.2배였습니다 {M2a}.\n",
+   "citations": [
+    {
+     "written": "27.4%",
+     "ref": "M1a",
+     "fit": "right"
+    },
+    {
+     "written": "15,000 KRW",
+     "ref": "H3",
+     "fit": "right"
+    },
+    {
+     "written": "18,450 KRW",
+     "ref": "D1b",
+     "fit": "right"
+    },
+    {
+     "written": "3.2배",
+     "ref": "M2a",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr04",
+   "key": "q04|KR:900006",
+   "holding": "KR:900006",
+   "raw": "테스트바이오 주식 비중을 줄일 필요성은 현재 주어진 정보만으로는 판단하기 어렵습니다. 주가는 최근 {M1a} 상승했으며, 특히 {M2c}일의 거래량이 평소보다 많았습니다. 향후 {N1} 월의 임상 시험 결과에 대한 추적이 중요합니다.\n\n\n\n",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr05",
+   "key": "q05|BTC",
+   "holding": "BTC",
+   "raw": "비트코인 보유는 여전히 장기적으로 매력적입니다. 최근 7일 동안 비트코인은 하락했지만 {M1} 30일 최고가인 {M2b}에 가까웠습니다. 다만 최근 큰 거래소의 철회 중단 소식으로 인해 변동성을 주시해야 합니다 {N1}. \n\n",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr06",
+   "key": "q06|BTC",
+   "holding": "BTC",
+   "raw": "현재 비트코인 보유량은 {H2} 0.25 BTC 입니다. 평균 매입 가격은 {H3} 95,000,000 KRW 이었으며, 현재 가격은 {D1b} 91,250,000 KRW 입니다. 따라서 현재 비트코인 평가 손익은 {D2} -3.95% 입니다.\n\n\n\n",
+   "citations": [
+    {
+     "written": "0.25 BTC",
+     "ref": "H2",
+     "fit": "right"
+    },
+    {
+     "written": "95,000,000 KRW",
+     "ref": "H3",
+     "fit": "right"
+    },
+    {
+     "written": "91,250,000 KRW",
+     "ref": "D1b",
+     "fit": "right"
+    },
+    {
+     "written": "-3.95%",
+     "ref": "D2",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr07",
+   "key": "q07|KRX-GOLD",
+   "holding": "KRX-GOLD",
+   "raw": "현재 보유량 50g의 금현물은 평균 매입가 132,000원 대비 12.50%의 실현되지 않은 이익을 가지고 있습니다 {D2}. 어제 금현물 가격은 148,500원 {D1b}이었고, 지난 30일 동안 2.3% 상승했습니다 {M1a}. 금현물 보유 중인 수익률에 대한 더 자세한 정보는 제공되지 않았습니다.\n\n\n\n",
+   "citations": [
+    {
+     "written": "12.50%",
+     "ref": "D2",
+     "fit": "right"
+    },
+    {
+     "written": "148,500원",
+     "ref": "D1b",
+     "fit": "right"
+    },
+    {
+     "written": "2.3%",
+     "ref": "M1a",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr08",
+   "key": "q08|KRX-GOLD",
+   "holding": "KRX-GOLD",
+   "raw": "현재 KRX 금 보유량으로 충분한 결정을 내렸습니다. 최근 30일 동안 KRX 금은 2.3% 상승했으며, 현재 보유량의 실현 가치는 7,425,000 KRW입니다 {D3}. 중앙은행의 금 구매가 지속되고 있으며, 시장 상황이 긍정적입니다 {N1, M1a, M2a}. \n\n\n\n",
+   "citations": [
+    {
+     "written": "7,425,000 KRW",
+     "ref": "D3",
+     "fit": "right"
+    },
+    {
+     "ref": "N1, M1a, M2a",
+     "fit": "combined"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr09",
+   "key": "q09|US:ZZSP",
+   "holding": "US:ZZSP",
+   "raw": "현재까지의 정보와 연구 결정을 고려했을 때, ZZSP를 계속 보유하는 것이 적절해 보입니다. 최근 20개 세션 동안 1.8% 상승했으며, 구매 가격 대비 6.73%의 unrealized 이익을 보이고 있습니다 {M1a, D2}. 다만, 세부 지수 구성원의 견적이 혼합되어 있어 향후 성과에 영향을 줄 수 있습니다 {N1}.",
+   "citations": [
+    {
+     "ref": "M1a, D2",
+     "fit": "combined"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr10",
+   "key": "q10|US:ZZSP",
+   "holding": "US:ZZSP",
+   "raw": "제타 S&P 500 테스트 ETF 트러스트(ZZSP)의 포지션 값은 1,280.75 USD 입니다 {D3}. 현재 가격 512.30 USD {D1b}과 평균 매수 가격 480.00 USD {H3}의 차이는 6.73% {D2}입니다. 이 정보 외에 다른 평가액 관련 데이터는 제공되지 않았습니다.\n\n\n\n",
+   "citations": [
+    {
+     "written": "1,280.75 USD",
+     "ref": "D3",
+     "fit": "right"
+    },
+    {
+     "written": "512.30 USD",
+     "ref": "D1b",
+     "fit": "right"
+    },
+    {
+     "written": "480.00 USD",
+     "ref": "H3",
+     "fit": "right"
+    },
+    {
+     "written": "6.73%",
+     "ref": "D2",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr11",
+   "key": "q11|US:ZZAP",
+   "holding": "US:ZZAP",
+   "raw": "현재 주가는 구입 가격보다 {D2} 감소했습니다. 최근 {M1} 동안 주가가 하락했고, 주가수익비율은 {M2}입니다. 또한 {N1} 달러 규모의 주식 매입 계획이 발표되었으며, 이로 인해 현재 상황을 재검토해야 합니다.\n\n\n\n",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr12",
+   "key": "q12|US:ZZAP",
+   "holding": "US:ZZAP",
+   "raw": "현재 주가는 주당 24.3배의 당순이익률(PER)으로 거래되고 있습니다 {M2}. 따라서 ZZAP의 PER이 높은 편이라고 판단할 수 있습니다. PER은 기업의 가치를 평가하는 지표 중 하나이며, 현재 ZZAP의 PER 수준을 통해 기업의 실적과 미래 성장 가능성에 대한 정보를 얻을 수 있습니다.\n\n\n\n",
+   "citations": [
+    {
+     "written": "24.3배",
+     "ref": "M2",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr13",
+   "key": "q13|KR:900001",
+   "holding": "KR:900001",
+   "raw": "제공된 정보만으로는 삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한지 판단하기 어렵습니다. 삼성테스트전자의 최근 20일 동안 주가 변동폭은 {M1a}이며, 50일 이동평균선 {M2a} 아래에 있습니다. 테스트바이오에 대한 정보는 제공되지 않았습니다.\n\n\n\n",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr14",
+   "key": "q13|KR:900006",
+   "holding": "KR:900006",
+   "raw": "제시된 정보만으로는 삼성테스트전자와 테스트바이오 중 어느 쪽이 더 위험한지 판단하기 어렵습니다. 테스트바이오의 주가는 최근 {M1a}만큼 상승했지만, 삼성테스트전자 관련 정보는 나와 있지 않습니다. 두 회사의 위험도를 비교하려면 추가 정보가 필요합니다.\n\n\n\n",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr15",
+   "key": "q14|BTC",
+   "holding": "BTC",
+   "raw": "비트코인은 최근 7일 동안 {M1} 4.1% 하락했습니다. 현재 비트코인 가격은 {D1b} 91,250,000 KRW 이며, 구매 가격인 {H3} 95,000,000 KRW 보다 {D2} -3.95% 하락했습니다. 금 현물에 대한 정보는 제공되지 않았습니다.\n\n\n\n",
+   "citations": [
+    {
+     "written": "4.1%",
+     "ref": "M1",
+     "fit": "right"
+    },
+    {
+     "written": "91,250,000 KRW",
+     "ref": "D1b",
+     "fit": "right"
+    },
+    {
+     "written": "95,000,000 KRW",
+     "ref": "H3",
+     "fit": "right"
+    },
+    {
+     "written": "-3.95%",
+     "ref": "D2",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr16",
+   "key": "q14|KRX-GOLD",
+   "holding": "KRX-GOLD",
+   "raw": "제공된 정보만으로는 비트코인과 금현물의 비교가 어렵습니다.  금현물은 지난 30일 동안 상승률이 {M1a}이고, 최근 가격은 {D1b}이며, 보유량은 {H2}g이고, 평균 매입 가격은 {H3}입니다.  비트코인에 대한 정보는 포함되어 있지 않습니다.\n\n\n\n",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr17",
+   "key": "q15|US:ZZSP",
+   "holding": "US:ZZSP",
+   "raw": "제타 S&P 500 {H1} 테스트 ETF Trust (ZZSP)에 대한 정보만 제공됩니다. ZZAP에 대한 정보는 제공되지 않으므로 답변할 수 없습니다. 현재 ZZSP는 지난 20번의 세션 동안 1.8% 상승했으며, 평균 매수 가격 대비 6.73%의 무실현 수익을 가지고 있습니다.",
+   "citations": [
+    {
+     "written": "500",
+     "ref": "H1",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr18",
+   "key": "q15|US:ZZAP",
+   "holding": "US:ZZAP",
+   "raw": "제타 애플 테스트 Inc. (ZZAP)에 대한 정보만 제공되었으므로 ZZSP에 대한 답변은 드릴 수 없습니다. 제공된 정보에 따르면 현재 ZZAP 주식 12주를 보유하고 있으며, 평균 매수 가격은 {H3} USD입니다. 최근 주가 하락으로 인해 {D2}의 실현되지 않은 손실이 발생했습니다.",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr19",
+   "key": "q16|BTC",
+   "holding": "BTC",
+   "raw": "비트코인 포트폴리오는 현재 0.25 BTC를 보유하고 있으며, 평균 매수 가격은 {H3}입니다. 최근 7일 동안 비트코인 가격은 변동되었고 {M1}, 마지막 가격은 {D1b}이며, 평균 매수 가격 대비 현재 가치는 {D3}입니다.  일부 거래소의 일시적인 출금 중단이 있었지만 포트폴리오의 전체 점검을 위해 더 많은 정보가 필요합니다.\n\n\n\n",
+   "citations": [],
+   "errors": [
+    {
+     "text": "{D3}",
+     "judgement": "debatable",
+     "note": "position value (D3) described as \"평균 매수 가격 대비 현재 가치\""
+    }
+   ]
+  },
+  {
+   "id": "dr20",
+   "key": "q16|KRX-GOLD",
+   "holding": "KRX-GOLD",
+   "raw": "현재KRX 금현물 보유량은 {H2} 50g이며, 평균 매입 가격은 {H3} 132,000 KRW입니다. 최신 가격은 {D1b} 148,500 KRW이며, 보유 포트폴리오의 현재 가치는 {D3} 7,425,000 KRW 입니다. 최근 30일 동안 KRX 금 현물 가격은 상승했습니다 {M1a}.",
+   "citations": [
+    {
+     "written": "50g",
+     "ref": "H2",
+     "fit": "right"
+    },
+    {
+     "written": "132,000 KRW",
+     "ref": "H3",
+     "fit": "right"
+    },
+    {
+     "written": "148,500 KRW",
+     "ref": "D1b",
+     "fit": "right"
+    },
+    {
+     "written": "7,425,000 KRW",
+     "ref": "D3",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr21",
+   "key": "q16|KR:900001",
+   "holding": "KR:900001",
+   "raw": "삼성테스트전자 {900001} 주식을 10주 보유하고 있으며, 현재 주가는 {D1b} KRW입니다. 평균 매입 가격은 {H3} KRW이고, 현재 포트폴리오의 총 가치는 {D3} KRW입니다. 최근 20개 거래일 동안 주가가 {M1b} % 하락했으며, 50일 이동평균선 {M2a} KRW에 미달합니다.\n\n\n\n",
+   "citations": [],
+   "errors": [
+    {
+     "text": "{M1b} %",
+     "judgement": "real-error",
+     "note": "M1b is the 20-session window; the fall is 11.2% (M1a): wrong reference choice renders \"20 %\""
+    }
+   ]
+  },
+  {
+   "id": "dr22",
+   "key": "q16|KR:900006",
+   "holding": "KR:900006",
+   "raw": "포트폴리오 전체 점검을 요청하셨으나, 현재 제공된 정보만으로는 전체 포트폴리오를 파악할 수 없습니다. 테스트바이오 (900006) 주식 40주를 보유하고 있으며, 평균 매수 가격은 {H3}이고 최근 주가는 {D1b}입니다. 최근 20일 동안 주가가 27.4% 상승했으며, 거래량은 평일보다 3.2배 많았습니다 {M2a}.",
+   "citations": [
+    {
+     "written": "3.2배",
+     "ref": "M2a",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr23",
+   "key": "q16|US:ZZSP",
+   "holding": "US:ZZSP",
+   "raw": "현재 포트폴리오는 Zeta S&P 500 {H1} Test ETF Trust (ZZSP) 2.5주를 보유하고 있으며, 평균 매입 가격은 {H3} USD입니다. 최근 20개 기간 동안 {M1b} 1.8% 상승했으며, 현재 가격은 {D1b} USD입니다.  포트폴리오 전체 점검을 위해 추가 정보가 필요합니다.\n\n\n\n",
+   "citations": [
+    {
+     "written": "500",
+     "ref": "H1",
+     "fit": "right"
+    },
+    {
+     "written": "20",
+     "ref": "M1b",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr24",
+   "key": "q16|US:ZZAP",
+   "holding": "US:ZZAP",
+   "raw": "ZZAP 주식 12주를 보유하고 있으며, 평균 매입가 201.00 USD로 매수했습니다. 최근 20개 세션 동안 6.5% 하락했으며, 현재 주가는 188.40 USD입니다. 150억 USD 규모의 주식 소매 계획이 발표되었으며, 기업 주가는 24.3배의  trailing earnings의 비율로 거래 중입니다.\n\n\n\n",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr25",
+   "key": "q17|KR:900001",
+   "holding": "KR:900001",
+   "raw": "삼성테스트전자 주가는 52주 최저가인 {M3b} 근처입니다. 최근 20개 거래일 동안 주가가 {M1a} 하락했으며, 현재 주가인 {D1b}은 50일 이동평균선인 {M2b}보다 낮습니다.  현재 주가 가치가 65만 3200원 인 것으로 기록되어 있습니다 {D3}.\n\n\n\n",
+   "citations": [
+    {
+     "written": "65만 3200원",
+     "ref": "D3",
+     "fit": "right"
+    }
+   ],
+   "errors": [
+    {
+     "text": "65만 3200원",
+     "judgement": "debatable",
+     "note": "position value (D3) called \"현재 주가 가치\""
+    }
+   ]
+  },
+  {
+   "id": "dr26",
+   "key": "q18|KR:900006",
+   "holding": "KR:900006",
+   "raw": "테스트바이오의 임상 결과는 2026년 11월에 나올 예정입니다 {N1}. 현재 보유하고 있는 주식은 40주이며, 평균 매수 가격은 15,000원입니다 {H2, H3}. 최근 20일 동안 주가가 27.4% 상승했습니다 {M1a}.\n\n\n\n",
+   "citations": [
+    {
+     "written": "2026년 11월",
+     "ref": "N1",
+     "fit": "right"
+    },
+    {
+     "written": "27.4%",
+     "ref": "M1a",
+     "fit": "right"
+    },
+    {
+     "ref": "H2, H3",
+     "fit": "combined"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "id": "dr27",
+   "key": "q19|US:ZZAP",
+   "holding": "US:ZZAP",
+   "raw": "ZZAP 자사주 매입 규모는 150억 000만 달러입니다. {N1a} 이는 2026년 9월 18일에 발표되었습니다. {N1b} 텍스트에는 다른 자사주 매입 규모에 대한 정보는 제공되지 않았습니다.",
+   "citations": [
+    {
+     "written": "150억 000만 달러",
+     "ref": "N1a",
+     "fit": "right"
+    }
+   ],
+   "errors": [],
+   "note": "the citation {N1a} stands after the sentence end, so it falls into the next sentence (rule limitation expected)"
+  },
+  {
+   "id": "dr28",
+   "key": "t01|KR:900001",
+   "holding": "KR:900001",
+   "raw": "제공된 사실에는 삼성테스트전자의 배당금에 대한 정보가 없습니다. 따라서 배당금을 알려드릴 수 없습니다. 제시된 사실은 최근 주가 하락과 unrealized loss에 대한 내용으로 구성되어 있습니다.",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr29",
+   "key": "t02|KR:900006",
+   "holding": "KR:900006",
+   "raw": "제시된 사실에는 테스트바이오의 부채비율에 대한 정보가 포함되어 있지 않습니다. 따라서 부채비율을 몇 퍼센트인지 알 수 없습니다. 주어진 정보는 주식 보유량, 주식 매입 가치, 최신 주가, 수익률, 거래량 및 임상 시험 일정에 관한 내용입니다.\n\n\n\n",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr30",
+   "key": "t03|BTC",
+   "holding": "BTC",
+   "raw": "다음 반감기 날짜에 대한 정보는 제공되지 않습니다. 현재 비트코인의 보유량은 {H2}이며, 최근 가격 변동은 {D2}입니다. 지난 7일 동안 비트코인은 {M1} 하락했습니다.",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr31",
+   "key": "t04|US:ZZSP",
+   "holding": "US:ZZSP",
+   "raw": "제공된 사실에는 ZZSP의 운용 보수에 대한 정보가 포함되어 있지 않습니다. 따라서 해당 질문에 답할 수 없습니다. 관련된 정보가 사실에 명시되어 있지 않습니다. \n\n",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr32",
+   "key": "t05|US:ZZAP",
+   "holding": "US:ZZAP",
+   "raw": "다음 실적 발표일은 알려져 있지 않습니다. 제공된 사실에는 발표일에 대한 정보가 없습니다. 현재 주어진 정보로는 다음 실적 발표일을 알 수 없습니다.",
+   "citations": [],
+   "errors": []
+  },
+  {
+   "id": "dr33",
+   "key": "t06|KRX-GOLD",
+   "holding": "KRX-GOLD",
+   "raw": "내년 목표가는 현재 주어진 정보만으로는 알 수 없습니다. 최근 30일 동안 금현물 가격은 2.3% 상승했습니다 {M1a}, 그리고 현재 시세는 148,500 KRW 입니다 {D1b}. 또한 20번의 거래 내역에서 일평균 거래량은 310 kg 이었습니다 {M2a}.\n\n\n\n",
+   "citations": [
+    {
+     "written": "2.3%",
+     "ref": "M1a",
+     "fit": "right"
+    },
+    {
+     "written": "148,500 KRW",
+     "ref": "D1b",
+     "fit": "right"
+    },
+    {
+     "written": "310 kg",
+     "ref": "M2a",
+     "fit": "right"
+    }
+   ],
+   "errors": []
+  }
+ ]
+}

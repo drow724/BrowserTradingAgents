@@ -35,7 +35,7 @@ test('determinism, offsets, counts and speed (< 50 ms for 3,000 characters)', ()
   const answer = '평단 71,000원 대비 현재가 64,000원입니다. 칠만 천원은 틀린 표기입니다.';
   const a = ground([{ role: 'finalDecisionMaker', text: answer }], answer, facts, ['900001']);
   assert.deepEqual(a, ground([{ role: 'finalDecisionMaker', text: answer }], answer, facts, ['900001']));
-  assert.deepEqual(a.counts, { supported: 1, unsupported: 1, semanticMismatch: 0, unrecognised: 1 });
+  assert.deepEqual(a.counts, { supported: 1, unsupported: 1, semanticMismatch: 0, unrecognised: 1, interpretationUnsupported: 0 });
   for (const c of a.answer) assert.equal(answer.slice(c.start, c.end), c.text);
   const big = 'The price 65,320 KRW is 8.00% below 71,000 KRW on 2026-09-25 for 900001. '.repeat(45).slice(0, 3000);
   const t0 = performance.now();

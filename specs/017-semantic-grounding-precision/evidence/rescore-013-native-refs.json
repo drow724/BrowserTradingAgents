@@ -1,0 +1,63 @@
+{
+  "report": "specs/013-numbers-by-reference/evidence/measurement-native-refs.json",
+  "checker": {
+    "after": "065711d+working-tree"
+  },
+  "old": {
+    "runs": 99,
+    "completed": 99,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.97,
+    "unsupportedPerAnswer": 0.051,
+    "unrecognisedPerAnswer": 0.02,
+    "trapRuns": 18,
+    "trapHandledRate": 0.944,
+    "koreanRate": 0.929,
+    "formatViolationRate": 0.788,
+    "verdict": "USABLE"
+  },
+  "new": {
+    "runs": 99,
+    "completed": 99,
+    "failed": 0,
+    "zeroUnsupportedRate": 0.97,
+    "unsupportedPerAnswer": 0.051,
+    "unrecognisedPerAnswer": 0.02,
+    "trapRuns": 18,
+    "trapHandledRate": 0.944,
+    "koreanRate": 0.929,
+    "formatViolationRate": 0.788,
+    "semanticMismatchPerAnswer": 0.01,
+    "interpretationUnsupportedPerAnswer": 0.051,
+    "verdict": "USABLE"
+  },
+  "interpretations": {
+    "supported": 32,
+    "unsupported": 5
+  },
+  "hand": {
+    "zeroUnsupportedRate": 0.889,
+    "trapHandledRate": 0.889,
+    "verdict": "LIMITED"
+  },
+  "changedRuns": [
+    {
+      "index": 67,
+      "question": "q02",
+      "holding": "KR:900001",
+      "old": {
+        "unsupported": 0,
+        "unrecognised": 0
+      },
+      "new": {
+        "unsupported": 0,
+        "unrecognised": 0,
+        "mismatch": 1
+      },
+      "unsupportedClaims": [],
+      "mismatchClaims": [
+        "65만 3,200원 — claim says basis latest, metric price, direction down; D3 is position_value (latest)"
+      ]
+    }
+  ]
+}
