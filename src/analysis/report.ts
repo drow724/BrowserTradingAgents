@@ -10,7 +10,8 @@ export type MeasureRun = { question: string; kind: 'single' | 'multi' | 'trap'; 
   mode?: 'current' | 'formatted' | 'refs'; violations?: number; error?: string | null; // Feature 013
   mismatch?: number; // Feature 016: semantic mismatches in the answer
   raw?: string; // Feature 017: a refs answer before rendering (its citations can be re-scored offline)
-  interpretation?: number }; // Feature 017 (F017-R1): unsupported interpretation claims, not in `unsupported`
+  interpretation?: number; // Feature 017 (F017-R1): unsupported interpretation claims, not in `unsupported`
+  structure?: 'eight-role' | 'single-role'; calls?: number }; // Feature 018: absent structure = eight-role (older reports)
 export type Aggregate = { runs: number; completed: number; failed: number; zeroUnsupportedRate: number;
   unsupportedPerAnswer: number; unrecognisedPerAnswer: number; trapRuns: number; trapHandledRate: number; koreanRate: number;
   formatViolationRate?: number | null; // Feature 013: refs mode only, null otherwise

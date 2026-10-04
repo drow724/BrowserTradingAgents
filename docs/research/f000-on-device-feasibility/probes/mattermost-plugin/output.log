@@ -1,0 +1,14 @@
+# 2026-10-03 mattermost/mattermost-preview:latest pulled 2026-10-03 (docker, linux/amd64 under emulation); exact server version not captured
+# Client: Chrome 154 (user profile, Gemini Nano), page http://localhost:8065/f000/channels/backend
+# Plugin f000-probe (webapp only) installed via mmctl; code executed = plugin's registered function (window.__f000probe set in initialize)
+CSP: frame-ancestors 'self' ; script-src 'self'
+## run 1 (cold model)
+LanguageModel=function availability=available
+contextMs 17 (GET /api/v4/channels/{id}/posts, same-origin), messages 9 (8 seeded + system join msg)
+createMs 16625, promptMs 8716
+output {"action":"FIND_DECISIONS","decisions":["API 서버는 v2 엔드포인트로 가는 게 좋을 것 같아요","좋아요, 그럼 v2 엔드포인트로 확정합니다","배포는 다음 주 화요일 오전 10시로 결정했습니다","QA는 월요일에 진행하기로 합시다. 이견 없으면 확정"]}
+## run 2 (warm)
+createMs 1, promptMs 8213
+output {"action":"FIND_DECISIONS","decisions":["내일 배포 일정 어떻게 할까요?","API 서버는 v2 엔드포인트로 가는 게 좋을 것 같아요","좋아요, 그럼 v2 엔드포인트로 확정합니다","배포는 다음 주 화요일 오전 10시로 결정했습니다","QA는 월요일에 진행하기로 합시다. 이견 없으면 확정"]}
+## note
+channel header button registered with null icon did not render (UI not verified); not a feasibility issue

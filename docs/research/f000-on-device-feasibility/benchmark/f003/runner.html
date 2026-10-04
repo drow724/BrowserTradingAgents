@@ -1,0 +1,44 @@
+<!doctype html><meta charset=utf-8><title>F003 runner</title><pre id=o>idle</pre><script>
+// F003 TODO extraction runner: Gemini Nano (Prompt API) and the rule baseline, same conversations.
+const DUES = ['오늘','내일','모레','월요일','화요일','수요일','목요일','금요일','토요일','일요일','이번주','다음주','없음'];
+const SYS = `You extract TODOs from a Korean team chat conversation.
+A TODO is a concrete task that a specific participant is expected to do after the conversation: either they committed to it, or it was requested of them (by name, @mention, or as the other person in a DM) and they did not decline.
+NOT TODOs: decisions or schedules (even when they have a date), proposals that were not accepted, tasks already done, tasks cancelled or handed off (only the new owner gets the TODO), open requests nobody took, group-wide announcements, hypotheticals, chit-chat.
+Conversations often contain several TODOs for different people: check every message and list each TODO separately.
+For due, use the deadline stated for that specific task only; prefer a specific weekday over 이번주/다음주 when one is stated; use 없음 when that task has no deadline.
+Answer one TODO per line in the format: assignee|due|sources|task
+- assignee: participant id
+- due: one of ${DUES.join(', ')} ("없음" if no deadline was stated)
+- sources: comma-separated ids of the messages that establish the TODO (include both the request and the acceptance when they are separate messages)
+- task: short Korean description
+Example: u_kim|금요일|m2,m3|API 문서 인증 섹션 보강
+Answer NONE when there are no TODOs.`;
+const LANG = {expectedInputs: [{type: 'text', languages: ['en']}], expectedOutputs: [{type: 'text', languages: ['en']}]};
+const T = () => performance.now(), log = s => (document.getElementById('o').textContent = s, window.__progress = s);
+const fmt = c => `Participants: ${c.participants.map(p => `${p.id} (${p.name})`).join(', ')}\nConversation type: ${c.type}\nMessages:\n` +
+  c.messages.map(m => `[${m.id}] ${m.authorId}: ${m.text}`).join('\n');
+// Line format + regex constraint: JSON-schema constraints made Nano loop on whitespace (dev diagnosis, 2026-10-04).
+const alt = xs => xs.map(x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+const lineRe = c => `(${alt(c.participants.map(p => p.id))})\\|(${alt(DUES)})\\|(${alt(c.messages.map(m => m.id))})(,(${alt(c.messages.map(m => m.id))})){0,3}\\|[^|\\n]{1,60}`;
+const constraint = c => new RegExp(`^(NONE|${lineRe(c)}(\\n${lineRe(c)}){0,7})$`);
+const parse = raw => raw.trim() === 'NONE' ? [] : raw.trim().split('\n').map(l => { const [assignee, due, src, ...task] = l.split('|');
+  return {assignee, due: due === '없음' ? null : due, sources: src.split(','), task: task.join('|')}; });
+window.runNano = async (set, out, limit) => {
+  let convs = await (await fetch(set)).json(); if (limit) convs = convs.slice(0, limit);
+  const meta = {ua: navigator.userAgent, set, started: new Date().toISOString(), availability: await LanguageModel.availability(LANG)};
+  let t = T(); const base = await LanguageModel.create({...LANG, initialPrompts: [{role: 'system', content: SYS}]}); meta.createMs = T() - t;
+  const preds = {}, timing = [];
+  for (const [k, c] of convs.entries()) {
+    const r = {id: c.id};
+    try {
+      const s = await base.clone(), ac = new AbortController(), timer = setTimeout(() => ac.abort(), 60000); t = T();
+      try { r.raw = await s.prompt(fmt(c), {responseConstraint: constraint(c), omitResponseConstraintInput: true, signal: ac.signal}); } finally { clearTimeout(timer); s.destroy(); }
+      r.ms = T() - t; preds[c.id] = parse(r.raw); r.ok = true;
+    } catch (e) { r.error = `${e.name}: ${e.message}`; preds[c.id] = []; }
+    timing.push(r); log(`${out} ${k + 1}/${convs.length}`);
+  }
+  meta.finished = new Date().toISOString();
+  await fetch(`../results/${out}.json`, {method: 'POST', body: JSON.stringify({meta, preds, timing})});
+  log('DONE ' + out);
+};
+</script>

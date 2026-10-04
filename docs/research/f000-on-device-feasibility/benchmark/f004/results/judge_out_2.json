@@ -1,0 +1,1262 @@
+{
+ "t31": {
+  "X1": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "조기 납품 감사 누락"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "핵심 내용 모두 누락"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "'완료되셔서' 어색한 높임"
+  },
+  "X5": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "조기 납품 감사 누락"
+  }
+ },
+ "t32": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "불필요한 둘째 문장"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "강남 언급 없음"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "기한·후보 추천 약속 추가"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "기한 약속 추가"
+  }
+ },
+ "t33": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 1,
+   "natural": 2,
+   "usable": false,
+   "note": "무관한 내용"
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  }
+ },
+ "t34": {
+  "X1": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "라이선스 포함 여부 질문 아님"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 1,
+   "hallucination": true,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "'작가님' 호칭 오류, 질문 모호"
+  },
+  "X5": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 2,
+   "natural": 2,
+   "usable": false,
+   "note": "내용 없음"
+  }
+ },
+ "t35": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "김차장 발표 가정 추가"
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 2,
+   "natural": 2,
+   "usable": false,
+   "note": "내용 없음"
+  }
+ },
+ "t36": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "어떤 고객인지 질문 추가"
+  },
+  "X3": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 1,
+   "natural": 2,
+   "usable": false,
+   "note": "내용 없음"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 1,
+   "natural": 3,
+   "usable": false,
+   "note": "질문 추가, 후배에게 과한 존대"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  }
+ },
+ "t37": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 2,
+   "usable": false,
+   "note": "어색한 3인칭 문장 추가"
+  },
+  "X2": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "미확정 언급 없음"
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "반말 동료에게 존댓말"
+  },
+  "X5": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "미확정 언급 없음"
+  }
+ },
+ "t38": {
+  "X1": {
+   "intent": 0,
+   "hallucination": true,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "4시까지 한다고 오역, 점심 누락"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "반말 동료에게 존댓말"
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "'먹기로 했어' 어색"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "반말 동료에게 존댓말"
+  }
+ },
+ "t39": {
+  "X1": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 1,
+   "natural": 2,
+   "usable": false,
+   "note": "경로 누락"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 1,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "경로 변형(2026 폴더 누락)"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 1,
+   "hallucination": true,
+   "register": 2,
+   "natural": 2,
+   "usable": false,
+   "note": "'저 드라이브', 경로 변형"
+  }
+ },
+ "t40": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 2,
+   "natural": 2,
+   "usable": false,
+   "note": "멘토 지원 의사 불분명"
+  }
+ },
+ "t41": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "QA 후 배포 누락"
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "존댓말 동료에게 반말"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "본인이 QA 확인 받겠다는 약속 추가"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 2,
+   "usable": false,
+   "note": "'핫픽이는' 오타, 어미 어색"
+  }
+ },
+ "t42": {
+  "X1": {
+   "intent": 1,
+   "hallucination": true,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "사양 불명확, 김주임 근거 지어냄"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 2,
+   "usable": false,
+   "note": "[링크] 자리표시자 삽입"
+  },
+  "X3": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "김주임 추천 누락"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "김주임 경험 지어냄"
+  }
+ },
+ "t43": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 0,
+   "natural": 2,
+   "usable": false,
+   "note": "무관한 격식체"
+  },
+  "X4": {
+   "intent": 1,
+   "hallucination": true,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "대신 서준 것 누락, 내용 추가"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  }
+ },
+ "t44": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": true,
+   "note": "m1 내용 반복"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "무엇에 대한 감사인지 없음"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  }
+ },
+ "t45": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "공유 약속 추가, 존댓말"
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 5,
+   "usable": false,
+   "note": "반말 동료에게 존댓말"
+  },
+  "X4": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 1,
+   "natural": 1,
+   "usable": false,
+   "note": "무관한 내용"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 5,
+   "usable": false,
+   "note": "반말 동료에게 존댓말"
+  }
+ },
+ "t46": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "맡기기 아닌 도움 요청처럼 읽힘"
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 1,
+   "natural": 1,
+   "usable": false,
+   "note": "내용 없음"
+  }
+ },
+ "t47": {
+  "X1": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 2,
+   "natural": 1,
+   "usable": false,
+   "note": "무관한 내용"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  }
+ },
+ "t48": {
+  "X1": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 2,
+   "natural": 1,
+   "usable": false,
+   "note": "내용 없음"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 3,
+   "usable": false,
+   "note": "어색하고 무례하게 읽힘"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  }
+ },
+ "t49": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "고객 회신 누락, '까지'"
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  }
+ },
+ "t50": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 0,
+   "hallucination": true,
+   "register": 0,
+   "natural": 2,
+   "usable": false,
+   "note": "수락처럼 읽힘"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "다른 사람 부탁 제안 추가"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "다른 사람 부탁 제안 추가"
+  }
+ },
+ "t51": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": true,
+   "note": "장황함"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": true,
+   "note": "장황함"
+  },
+  "X5": {
+   "intent": 0,
+   "hallucination": true,
+   "register": 2,
+   "natural": 2,
+   "usable": false,
+   "note": "머지 승인처럼 읽힘"
+  }
+ },
+ "t52": {
+  "X1": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 1,
+   "natural": 1,
+   "usable": false,
+   "note": "깨진 문장"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "'참고하세요' 외부인에 지시조"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "'참고하세요' 외부인에 지시조"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  }
+ },
+ "t53": {
+  "X1": {
+   "intent": 0,
+   "hallucination": true,
+   "register": 2,
+   "natural": 2,
+   "usable": false,
+   "note": "승인하는 듯한 응답"
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 1,
+   "natural": 3,
+   "usable": false,
+   "note": "'저기요', 본인이 요청할 듯한 표현"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "상급자에게 지시조"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "본인이 요청 드리겠다는 뉘앙스"
+  }
+ },
+ "t54": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "계약 범위·견적 누락"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "'무상' 누락, 어미 어색"
+  }
+ },
+ "t55": {
+  "X1": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "'우선순위가 높아' 의미 왜곡"
+  },
+  "X2": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "우선순위 사유 변형"
+  },
+  "X3": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "'우선순위가 높아' 의미 왜곡"
+  },
+  "X4": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "추후 연락 누락"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  }
+ },
+ "t56": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 0,
+   "natural": 2,
+   "usable": false,
+   "note": "무관한 격식체"
+  },
+  "X3": {
+   "intent": 1,
+   "hallucination": true,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "B안 반대로 바뀜"
+  },
+  "X4": {
+   "intent": 1,
+   "hallucination": true,
+   "register": 1,
+   "natural": 3,
+   "usable": false,
+   "note": "B안 반대, 존댓말"
+  },
+  "X5": {
+   "intent": 1,
+   "hallucination": true,
+   "register": 1,
+   "natural": 4,
+   "usable": false,
+   "note": "B안 반대, 존댓말"
+  }
+ },
+ "t57": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "체크리스트 수락·사유 누락"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  }
+ },
+ "t58": {
+  "X1": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "QA 임대리 탓하는 뉘앙스"
+  },
+  "X2": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "모호함"
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 2,
+   "usable": false,
+   "note": "사유 지어냄, 탓 언급"
+  },
+  "X5": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "다음 릴리즈 반영 암시"
+  }
+ },
+ "t59": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "시간·사유 지어냄"
+  },
+  "X3": {
+   "intent": 1,
+   "hallucination": false,
+   "register": 1,
+   "natural": 1,
+   "usable": false,
+   "note": "깨진 문장"
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": true,
+   "register": 2,
+   "natural": 4,
+   "usable": false,
+   "note": "오후 2시 지어냄"
+  },
+  "X5": {
+   "intent": 1,
+   "hallucination": true,
+   "register": 2,
+   "natural": 3,
+   "usable": false,
+   "note": "시간 지어냄, 이번 주 불가 누락"
+  }
+ },
+ "t60": {
+  "X1": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X2": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 4,
+   "usable": true,
+   "note": ""
+  },
+  "X3": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X4": {
+   "intent": 2,
+   "hallucination": false,
+   "register": 2,
+   "natural": 5,
+   "usable": true,
+   "note": ""
+  },
+  "X5": {
+   "intent": 0,
+   "hallucination": false,
+   "register": 2,
+   "natural": 2,
+   "usable": false,
+   "note": "내용 없음"
+  }
+ }
+}

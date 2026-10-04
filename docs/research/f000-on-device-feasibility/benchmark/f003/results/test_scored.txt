@@ -1,0 +1,23 @@
+results/test_baseline.json
+   {'P': 0.87, 'R': 0.94, 'F1': 0.904, 'strictF1': 0.779, 'assignee_acc': 1.0, 'due_acc': 0.862, 'cross_turn_recall': 0.939, 'distractor_fp': 4, 'n_pred': 108, 'n_gold': 100}
+   by_category F1 {'cross_turn': 0.933, 'distractor_heavy': 0.857, 'explicit': 0.909, 'long_mixed': 0.904, 'no_todo': 0, 'status_update': 0.923} no_todo_fp 1
+results/test_nano_r1.json
+   {'P': 0.792, 'R': 0.95, 'F1': 0.864, 'strictF1': 0.655, 'assignee_acc': 0.947, 'due_acc': 0.8, 'cross_turn_recall': 1.0, 'distractor_fp': 16, 'n_pred': 120, 'n_gold': 100}
+   by_category F1 {'cross_turn': 0.875, 'distractor_heavy': 0.714, 'explicit': 0.912, 'long_mixed': 0.928, 'no_todo': 0, 'status_update': 0.857} no_todo_fp 4
+results/test_nano_r2.json
+   {'P': 0.74, 'R': 0.91, 'F1': 0.816, 'strictF1': 0.691, 'assignee_acc': 0.967, 'due_acc': 0.868, 'cross_turn_recall': 1.0, 'distractor_fp': 21, 'n_pred': 123, 'n_gold': 100}
+   by_category F1 {'cross_turn': 0.913, 'distractor_heavy': 0.714, 'explicit': 0.877, 'long_mixed': 0.845, 'no_todo': 0, 'status_update': 0.714} no_todo_fp 7
+results/test_nano_r3.json
+   {'P': 0.766, 'R': 0.95, 'F1': 0.848, 'strictF1': 0.679, 'assignee_acc': 0.979, 'due_acc': 0.821, 'cross_turn_recall': 1.0, 'distractor_fp': 19, 'n_pred': 124, 'n_gold': 100}
+   by_category F1 {'cross_turn': 0.917, 'distractor_heavy': 0.625, 'explicit': 0.877, 'long_mixed': 0.914, 'no_todo': 0, 'status_update': 0.923} no_todo_fp 4
+results/test_haiku.json
+   {'P': 1.0, 'R': 0.95, 'F1': 0.974, 'strictF1': 0.944, 'assignee_acc': 1.0, 'due_acc': 0.968, 'cross_turn_recall': 0.97, 'distractor_fp': 0, 'n_pred': 95, 'n_gold': 100}
+   by_category F1 {'cross_turn': 0.977, 'distractor_heavy': 1.0, 'explicit': 0.943, 'long_mixed': 0.985, 'no_todo': 0, 'status_update': 1.0} no_todo_fp 0
+  F1 diff results/test_nano_r1.json - results/test_baseline.json: -0.040  95% bootstrap CI (-0.108, 0.022)
+  strictF1 diff results/test_nano_r1.json - results/test_baseline.json: -0.124  95% bootstrap CI (-0.226, -0.022)
+  F1 diff results/test_nano_r2.json - results/test_baseline.json: -0.088  95% bootstrap CI (-0.161, -0.021)
+  strictF1 diff results/test_nano_r2.json - results/test_baseline.json: -0.088  95% bootstrap CI (-0.202, 0.026)
+  F1 diff results/test_nano_r3.json - results/test_baseline.json: -0.056  95% bootstrap CI (-0.119, 0.007)
+  strictF1 diff results/test_nano_r3.json - results/test_baseline.json: -0.100  95% bootstrap CI (-0.2, 0.008)
+  F1 diff results/test_haiku.json - results/test_baseline.json: +0.071  95% bootstrap CI (0.029, 0.115)
+  strictF1 diff results/test_haiku.json - results/test_baseline.json: +0.165  95% bootstrap CI (0.096, 0.241)

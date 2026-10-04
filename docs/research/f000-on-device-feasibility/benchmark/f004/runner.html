@@ -1,0 +1,33 @@
+<!doctype html><meta charset=utf-8><title>F004 runner</title><pre id=o>idle</pre><script>
+// F004 reply-draft runner (Gemini Nano). Output: one-line Korean reply, regex-limited length (no JSON: see F003 whitespace loop).
+const SYS = `You write a chat reply in Korean on behalf of u_me (나) in a team chat.
+Follow the user's intent exactly and include every concrete fact it gives (dates, times, numbers, links) verbatim.
+Do not invent dates, commitments, names, reasons or facts that are not in the intent or the conversation.
+Match the register: polite 존댓말 to seniors, formal 존댓말 to external partners; use 반말 only if u_me and the other person already talk casually in the conversation.
+Do not add questions, suggestions or extra sentences the intent did not ask for, and never write placeholders such as [링크].
+If the intent itself is written in casual shorthand to a peer who talks casually, reply in 반말.
+Keep it short like a real chat message (1–3 sentences). Output only the reply text.`;
+const LANG = {expectedInputs: [{type: 'text', languages: ['en']}], expectedOutputs: [{type: 'text', languages: ['en']}]};
+const T = () => performance.now(), log = s => (document.getElementById('o').textContent = s, window.__progress = s);
+const fmt = s => `Participants: ${s.participants.map(p => p.id === 'u_me' ? 'u_me (나, the sender)' : `${p.id} (${p.name}, ${p.relation} to u_me)`).join(', ')}\nConversation type: ${s.type}\nMessages:\n` +
+  s.messages.map(m => `[${m.id}] ${m.authorId}: ${m.text}`).join('\n') + `\n\nReply to: [${s.reply_to}]\nIntent of u_me: ${s.intent}`;
+const CONSTRAINT = /^[^\n]{2,220}$/;
+window.runNano = async (set, out, limit) => {
+  let sc = await (await fetch(set)).json(); if (limit) sc = sc.slice(0, limit);
+  const meta = {ua: navigator.userAgent, set, started: new Date().toISOString(), availability: await LanguageModel.availability(LANG)};
+  let t = T(); const base = await LanguageModel.create({...LANG, initialPrompts: [{role: 'system', content: SYS}]}); meta.createMs = T() - t;
+  const drafts = {}, timing = [];
+  for (const [k, s] of sc.entries()) {
+    const r = {id: s.id};
+    try {
+      const sess = await base.clone(), ac = new AbortController(), timer = setTimeout(() => ac.abort(), 60000); t = T();
+      try { r.raw = await sess.prompt(fmt(s), {responseConstraint: CONSTRAINT, omitResponseConstraintInput: true, signal: ac.signal}); } finally { clearTimeout(timer); sess.destroy(); }
+      r.ms = T() - t; drafts[s.id] = r.raw.trim();
+    } catch (e) { r.error = `${e.name}: ${e.message}`; drafts[s.id] = ''; }
+    timing.push(r); log(`${out} ${k + 1}/${sc.length}`);
+  }
+  meta.finished = new Date().toISOString();
+  await fetch(`../results/${out}.json`, {method: 'POST', body: JSON.stringify({meta, drafts, timing})});
+  log('DONE ' + out);
+};
+</script>

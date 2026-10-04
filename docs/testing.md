@@ -282,3 +282,16 @@ A typed market-data failure is recorded as BLOCKED, never as PASS.
   `node scripts/audit-sheet.ts <report> <sheet.json>` (no checker output in the sheet) → judge every item → record the
   sheet's sha256 → `node scripts/precision.ts <report> <sheet.json> [out.json]` (precision, recall, threshold ≥ 0.8
   with no real error missed).
+
+## Feature 018 — Effectiveness benchmark (single-role baseline)
+
+- `?roles=single` (measurement only, portfolio runs): the single-role baseline A-018-1 — one call, all of the run's
+  facts, the final role's answer policy (`buildSingleRoleGraph` in `src/graph/trading-graph.ts`). Without it the
+  eight-role prompts equal the `4b027df` snapshot (`test/fixtures/prompts-4b027df.json`, `test/structures.test.ts`).
+- Native capture: `BTA_MEASURE=1 BTA_MEASURE_STRUCTURES=eight,single BTA_MEASURE_MODES=refs,current BTA_MEASURE_REPS=5 npm run test:prompt-api -- -g measurement`
+  (≈ 5.6 h; cells rotated per repetition; reports record `structure` and `calls`).
+- Blind multi-report audit: `node scripts/audit-sheet.ts --seed <n> <sheet> <key> <report>...` (shuffled, opaque ids,
+  no mode/structure/question/checker; the key is kept apart) → judge → record the judged sheet's sha256 →
+  `node scripts/reliability-sample.ts sample|agree …` (10 % maintainer re-judgement, bar 0.95 / 0.70) →
+  `node scripts/compare-structures.ts <judged-sheet> <key> <agreement> <out>` (pre-registered rule: ≥ 4 of 5 repetition
+  pairs and a pooled gap above the within-structure spread).

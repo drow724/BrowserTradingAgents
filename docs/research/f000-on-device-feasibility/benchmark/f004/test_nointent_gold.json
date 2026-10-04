@@ -1,0 +1,1887 @@
+[
+ {
+  "id": "t01",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_mo_ext",
+    "name": "모상훈 차장 (해든리빙)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_mo_ext",
+    "text": "보내주신 샘플 잘 받았습니다. 내부 반응이 좋네요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_mo_ext",
+    "text": "샘플 10개 추가로 받을 수 있을까요? 그리고 본 주문 납기를 2주 정도 당길 수 있는지도 궁금합니다."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "샘플 10개는 가능하고, 납기 단축은 생산팀 확인 후 회신드린다고"
+ },
+ {
+  "id": "t02",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jaeho",
+    "name": "재호",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_jaeho",
+    "text": "주말 잘 보냈어?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_jaeho",
+    "text": "아 그리고 내 대학 동기가 스타트업 구매 담당인데 너네 솔루션 관심 있대. 연락처 방금 보냈어"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "소개해줘서 고마워, 미팅 잡히면 알려줄게"
+ },
+ {
+  "id": "t03",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_chu_ext",
+    "name": "추영민 부장 (동해물류)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_chu_ext",
+    "text": "안녕하세요, 동해물류 추영민입니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_chu_ext",
+    "text": "요즘 회신이 좀 늦으시던데, 혹시 담당 변경이 있으신가요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "다음 달부터 내 업무는 박서준 매니저가 맡는다고, 이메일 seojun.park@hanbit-corp.co.kr"
+ },
+ {
+  "id": "t04",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_lee_ext",
+    "name": "이정훈 과장 (한결물산)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "안녕하세요, 과장님. 지난번 말씀드린 연간 공급 계약 건으로 미팅을 요청드립니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_lee_ext",
+    "text": "안녕하세요. 10월 14일(화) 오후 3시에 저희 사무실에서 뵙는 건 어떠실까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "그 시간 좋다고, 우리가 방문하겠다고"
+ },
+ {
+  "id": "t05",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_gyu",
+    "name": "규리",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_gyu",
+    "text": "오후에 신규 기능 리뷰하는 거 맞지?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_gyu",
+    "text": "오늘 오후 리뷰 회의실 잡혔어? 어디야?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "7층 702호 예약해놨어, 3시부터 1시간"
+ },
+ {
+  "id": "t06",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_seok",
+    "name": "석팀장",
+    "relation": "senior"
+   },
+   {
+    "id": "u_ye",
+    "name": "예린",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_ye",
+    "text": "신규 배너 작업하는데 브랜드 가이드 최신본이 어디 있죠?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_seok",
+    "text": "나도 찾고 있었는데, 최신 링크 있는 사람?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "링크 https://www.figma.com/file/aB3xK9/brand-guide-2026 공유해줘"
+ },
+ {
+  "id": "t07",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_heo",
+    "name": "허부장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_heo",
+    "text": "A사 담당자한테 방금 전화 왔었어요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_heo",
+    "text": "A사 제안서 오늘 보낼 수 있죠? 그쪽에서 기다리고 있어요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "가격표 최종 확인이 안 돼서 내일 오전 10시로 미뤄도 되는지 여쭤봐줘"
+ },
+ {
+  "id": "t08",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hyeon",
+    "name": "현부장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hyeon",
+    "text": "바쁜데 미안해요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_hyeon",
+    "text": "정보보안 교육 수료 현황 좀 알려줄래요? 오늘 본부 보고 들어가야 해서요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "우리 팀 8명 중 6명 수료, 나머지 2명은 이번 주 안에 완료 예정"
+ },
+ {
+  "id": "t09",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_gu",
+    "name": "구민재",
+    "relation": "peer"
+   },
+   {
+    "id": "u_lim",
+    "name": "임팀장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_lim",
+    "text": "어제 결제 장애 포스트모템 문서는 누가 쓰기로 했죠?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_gu",
+    "text": "그거 담당이 정해졌던 걸로 아는데요."
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "원인 분석 끝나고 쓰겠다고, 목요일쯤 예상"
+ },
+ {
+  "id": "t10",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_seoyeon",
+    "name": "서연",
+    "relation": "junior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "서연 씨, 데이터 정리 작업 어디까지 됐어요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_seoyeon",
+    "text": "고객 데이터 중복 정리 끝났습니다. 1만 2천 건 중에 830건 정리했어요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "수고했다고 칭찬, 덕분에 보고서 일정 맞췄다고"
+ },
+ {
+  "id": "t11",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jeon_ext",
+    "name": "전수아 과장 (온누리제약)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "과장님, 계약 체결 축하드립니다. 프로젝트 잘 부탁드립니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_jeon_ext",
+    "text": "다음 주 목요일 오전 10시에 킥오프 미팅 가능하실까요? 그 전에 기존 시스템 아키텍처 문서도 받아볼 수 있으면 좋겠습니다."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "미팅은 좋다고, 문서는 내부 승인 받고 보내드린다고"
+ },
+ {
+  "id": "t12",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_do",
+    "name": "도팀장",
+    "relation": "senior"
+   },
+   {
+    "id": "u_ham",
+    "name": "함대리",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_do",
+    "text": "팀 노트북 교체 건 승인 났습니다. 신규 장비 순차 지급 예정이에요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_ham",
+    "text": "오 드디어!"
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "언제 받을 수 있는지 물어봐줘"
+ },
+ {
+  "id": "t13",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_seo",
+    "name": "서준",
+    "relation": "peer"
+   },
+   {
+    "id": "u_min",
+    "name": "민호",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_seo",
+    "text": "누가 이번 토요일 당직 좀 바꿔줄 사람? 대신 내가 다음 주 일요일 들어갈게"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_min",
+    "text": "난 토요일 결혼식 있어서 안 돼 ㅠ"
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "내가 토요일 할게 ㅇㅇ"
+ },
+ {
+  "id": "t14",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_nari",
+    "name": "나리",
+    "relation": "peer"
+   },
+   {
+    "id": "u_woo",
+    "name": "우진",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_nari",
+    "text": "오늘 스프린트 회의록 노션에 올렸어"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_woo",
+    "text": "고마워!"
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "액션아이템 담당자 정해졌는지 물어봐"
+ },
+ {
+  "id": "t15",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_oh_ext",
+    "name": "오세진 대리 (미래유통)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "견적서 송부드렸습니다. 검토 부탁드립니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_oh_ext",
+    "text": "검토했습니다. 수량 2,000개 기준으로 단가 12,500원에 진행 가능할까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "12,500원으로 진행 가능하다고 정중하게"
+ },
+ {
+  "id": "t16",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_ju",
+    "name": "주책임",
+    "relation": "senior"
+   },
+   {
+    "id": "u_sim",
+    "name": "심선임",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_ju",
+    "text": "다음 달에 주문 DB를 PostgreSQL 16으로 마이그레이션하려고 합니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_sim",
+    "text": "드디어 하는군요."
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "다운타임 얼마나 예상하는지 물어봐줘"
+ },
+ {
+  "id": "t17",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_siwoo",
+    "name": "시우",
+    "relation": "junior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_siwoo",
+    "text": "선배님, A 고객 리포트랑 B 대시보드 개선 중에 뭐부터 할까요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_siwoo",
+    "text": "그리고 B는 마감이 금요일인데 혹시 연장 가능할까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "A 먼저 하고, B 마감 연장은 팀장님께 확인해보고 알려준다고"
+ },
+ {
+  "id": "t18",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hr",
+    "name": "인사팀 염매니저",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hr",
+    "text": "[연말정산] 올해 연말정산 일정 안내드립니다. 자세한 내용은 첨부 파일 참고 바랍니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_hr",
+    "text": "[연말정산] 부양가족 공제 신청자는 가족관계증명서를 1월 15일까지 제출해주세요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "맞벌이인 경우에도 부양가족 공제 서류 내야 하는지 질문"
+ },
+ {
+  "id": "t19",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_ham_ext",
+    "name": "함지수 회계사 (정명회계법인)",
+    "relation": "external"
+   },
+   {
+    "id": "u_cfo",
+    "name": "남이사",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_ham_ext",
+    "text": "기말 감사 관련 요청 자료입니다. 1) 매출 원장 2) 매입 원장 3) 고정자산 대장 4) 특수관계자 거래 내역 보완본"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_cfo",
+    "text": "실무 담당자가 회신드릴 겁니다."
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "1~3번은 이번 주 금요일까지 보내고 4번 보완본이 무슨 의미인지 물어봐줘"
+ },
+ {
+  "id": "t20",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_eom",
+    "name": "엄팀장",
+    "relation": "senior"
+   },
+   {
+    "id": "u_ji",
+    "name": "지대리",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_eom",
+    "text": "[공지] 인프라 관련 안내입니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_eom",
+    "text": "다음 달 둘째 주에 서버실이 B동으로 이전합니다. 각 팀 장비 목록 정리 부탁드립니다."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "우리 팀 장비도 옮겨주는 건지, 우리가 직접 옮겨야 하는지"
+ },
+ {
+  "id": "t21",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_rin",
+    "name": "린",
+    "relation": "peer"
+   },
+   {
+    "id": "u_pm",
+    "name": "편PM",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_rin",
+    "text": "이벤트 페이지 1안, 2안 올렸어"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_rin",
+    "text": "어떤 게 나아? 그리고 최종본 다음 주 수요일까지 줘도 될까?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "1안 좋은데 색감만 좀 밝게, 일정은 다음 주 수요일 ㅇㅋ"
+ },
+ {
+  "id": "t22",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_byun",
+    "name": "변책임",
+    "relation": "senior"
+   },
+   {
+    "id": "u_ok",
+    "name": "옥주임",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_ok",
+    "text": "VPN 접속 다시 안 되는 분 있나요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_byun",
+    "text": "인증서 갱신 문제였습니다. 방금 조치 완료했으니 재접속해보세요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "빠르게 해결해주셔서 감사합니다 정도로 짧게"
+ },
+ {
+  "id": "t23",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_seol_ext",
+    "name": "설지호 과장 (한빛인쇄)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "과장님, 지난번 문의드린 브로슈어 인쇄 건 견적 부탁드립니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_seol_ext",
+    "text": "요청하신 브로슈어 3,000부 견적서 첨부드립니다. 총 4,200,000원입니다."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "부가세 포함 금액인지 확인해줘"
+ },
+ {
+  "id": "t24",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_wang_ext",
+    "name": "왕소희 대리 (누리상사)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_wang_ext",
+    "text": "안녕하세요, 누리상사 왕소희입니다. 10월 납품 건 잘 받았습니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_wang_ext",
+    "text": "10월 납품분 세금계산서는 언제 발행되나요? 저희 마감이 말일이라서요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "10월 31일 발행 예정이고 담당은 재무팀 이수진 매니저라고"
+ },
+ {
+  "id": "t25",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_dev1",
+    "name": "강현",
+    "relation": "peer"
+   },
+   {
+    "id": "u_dev2",
+    "name": "노을",
+    "relation": "peer"
+   },
+   {
+    "id": "u_lead",
+    "name": "편리드",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_dev1",
+    "text": "스테이징 지금 접속 안 되는 거 저만 그런가요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_dev2",
+    "text": "저도 안 돼요"
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "스테이징 DB 마이그레이션 때문에 15:00~15:30 중단이라고 공유"
+ },
+ {
+  "id": "t26",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jung",
+    "name": "정차장",
+    "relation": "senior"
+   },
+   {
+    "id": "u_kang",
+    "name": "강대리",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_jung",
+    "text": "9월분 법인카드 영수증 미제출자분들 10월 10일까지 증빙 첨부 부탁드립니다. 기한 이후엔 개인 부담 처리됩니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kang",
+    "text": "넵 오늘 올리겠습니다."
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "10/10까지 제출하겠다고"
+ },
+ {
+  "id": "t27",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_baek",
+    "name": "백실장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_baek",
+    "text": "내일 오전에 본부장님 보고가 잡혔어요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_baek",
+    "text": "3분기 매출 분석 보고서 오늘 받을 수 있죠?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "오늘은 힘들고 내일 오후 2시까지 드리겠다고"
+ },
+ {
+  "id": "t28",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_moon",
+    "name": "문부장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_moon",
+    "text": "요즘 프로젝트 마무리하느라 고생 많죠?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_moon",
+    "text": "이번 주 토요일 리더십 워크숍 있는데, 자리가 하나 남아서요. 같이 가면 좋을 것 같은데 어때요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "이번엔 개인 일정 때문에 어렵다고 정중하게 거절"
+ },
+ {
+  "id": "t29",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_sora",
+    "name": "소라",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_sora",
+    "text": "온보딩 화면 디자인 올려놨어!"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_sora",
+    "text": "피드백 언제쯤 줄 수 있어?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "ㅈㅅ 내일 중으로 줄게"
+ },
+ {
+  "id": "t30",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장",
+    "relation": "senior"
+   },
+   {
+    "id": "u_lee",
+    "name": "이수민",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_lee",
+    "text": "PR #482 올렸습니다. 결제 모듈 리팩토링 건이에요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_park",
+    "text": "이거 결제 쪽이라 꼼꼼히 봐야 해요. 혹시 내일 오전까지 리뷰 가능할까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "내일 오전까지 리뷰하겠다고"
+ },
+ {
+  "id": "t31",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_ma_ext",
+    "name": "마경호 차장 (대성정밀)",
+    "relation": "external"
+   },
+   {
+    "id": "u_ki",
+    "name": "기대리",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_ma_ext",
+    "text": "안녕하세요, 대성정밀 마경호입니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_ma_ext",
+    "text": "주문하신 부품 500개 오늘 오전 입고 완료되었습니다. 예정보다 사흘 앞당겨 보내드렸습니다."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "예정보다 빨리 납품해주셔서 감사하다고, 검수 결과는 다음 주에 공유"
+ },
+ {
+  "id": "t32",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jimin",
+    "name": "지민",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_jimin",
+    "text": "야 이번 주 금요일 팀 회식 장소 아직 못 정했어 ㅠ"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_jimin",
+    "text": "너 강남 쪽 좀 알아봐줄 수 있어? 난 홍대 쪽 볼게"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "ㅇㅋ 내가 강남쪽 알아본다고"
+ },
+ {
+  "id": "t33",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_cha_ext",
+    "name": "차민혁 대리 (세움테크)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_cha_ext",
+    "text": "안녕하세요, 세움테크 차민혁입니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_cha_ext",
+    "text": "지난주 보내드린 유지보수 계약서 검토 어떻게 되어가고 있을까요? 이번 주 내로 회신 주시면 감사하겠습니다."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "법무 검토 중이라 좀 늦어진다고, 일정 나오면 알려드리겠다고"
+ },
+ {
+  "id": "t34",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kook_ext",
+    "name": "국하은 디렉터 (플레인에이전시)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "디렉터님, 지난번 피드백 드린 부분 반영 부탁드립니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kook_ext",
+    "text": "로고 최종 시안 PNG로 전달드립니다. 확인 부탁드립니다."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "원본 AI 파일도 받을 수 있는지, 폰트 라이선스 포함인지 물어봐줘"
+ },
+ {
+  "id": "t35",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kim",
+    "name": "김차장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_kim",
+    "text": "다음 주 경영회의 안건이 확정됐어요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kim",
+    "text": "다음 주 경영회의용 시장 분석 보고서 부탁해요. 그리고 회의 때 발표도 필요할 것 같아요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "보고서는 금요일까지 하겠다고, 발표는 누가 하는지 물어봐줘"
+ },
+ {
+  "id": "t36",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hana",
+    "name": "하나",
+    "relation": "junior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hana",
+    "text": "선배님 잠깐 여쭤봐도 될까요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_hana",
+    "text": "선배님, 고객 한 분이 구독 환불 요청하시는데 어떻게 처리할까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "결제한 지 며칠 됐는지 먼저 물어봐"
+ },
+ {
+  "id": "t37",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jun",
+    "name": "준혁",
+    "relation": "peer"
+   },
+   {
+    "id": "u_eun",
+    "name": "은비",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_eun",
+    "text": "앱 쪽에서 주문 API 붙여야 하는데"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_jun",
+    "text": "스펙 문서 있으면 공유해줄 수 있어? 내일부터 작업하려고"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "아직 확정 안 돼서 확정되면 바로 공유한다고"
+ },
+ {
+  "id": "t38",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_gun",
+    "name": "건우",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_gun",
+    "text": "배고프다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_gun",
+    "text": "점심 같이 먹을래? 그리고 내 PR도 같이 좀 봐주면 좋겠는데"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "점심 ㅇㅋ, PR은 오후 4시 이후에 보자"
+ },
+ {
+  "id": "t39",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_minji",
+    "name": "민지",
+    "relation": "junior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_minji",
+    "text": "선배님, 고객사에서 견적 요청이 왔어요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_minji",
+    "text": "선배님, 고객사 보낼 단가표 최신 버전이 어디 있는지 모르겠어요 ㅠ"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "공유드라이브 영업팀 > 2026 > 단가표_v3.xlsx 에 있다고"
+ },
+ {
+  "id": "t40",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_choi",
+    "name": "최과장",
+    "relation": "senior"
+   },
+   {
+    "id": "u_han",
+    "name": "한주임",
+    "relation": "peer"
+   },
+   {
+    "id": "u_yoon",
+    "name": "윤사원",
+    "relation": "junior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_choi",
+    "text": "[공지] 11월 입사자 온보딩 멘토를 모집합니다. 희망하시는 분은 이 메시지에 답글 부탁드려요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_han",
+    "text": "저는 이번엔 프로젝트 마감이 겹쳐서 어려울 것 같습니다 ㅠ"
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "멘토 하겠다고 손들어줘"
+ },
+ {
+  "id": "t41",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_ian",
+    "name": "이안",
+    "relation": "peer"
+   },
+   {
+    "id": "u_qa2",
+    "name": "QA 채주임",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_ian",
+    "text": "주문 취소 버그 원인 찾았어요. 타임존 변환에서 하루 밀리는 문제였어요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_ian",
+    "text": "핫픽스 오늘 바로 배포할까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "원인 찾아줘서 고맙고, 배포는 QA 확인 받고 하자고"
+ },
+ {
+  "id": "t42",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hwang",
+    "name": "황팀장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hwang",
+    "text": "이번 분기 신규 고객 유치 성과 좋았어요. 수고 많았어요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_hwang",
+    "text": "다음 달 전사 타운홀에서 우리 팀 성과 발표 좀 맡아줄 수 있을까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "이번엔 사양하고 김주임 추천"
+ },
+ {
+  "id": "t43",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hyun",
+    "name": "현우",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "어제 배포 어떻게 됐어?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_hyun",
+    "text": "어제 야간 배포 별일 없이 끝났어~"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "어제 대신 서줘서 고마워, 커피 쏠게"
+ },
+ {
+  "id": "t44",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_gong",
+    "name": "공수석",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "수석님, 어제 피드백 주신 부분 반영해서 발표 잘 마쳤습니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_gong",
+    "text": "잘했네요. 질의응답도 깔끔하던데요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "발표 자료 봐주셔서 감사하다고"
+ },
+ {
+  "id": "t45",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_ara",
+    "name": "아라",
+    "relation": "peer"
+   },
+   {
+    "id": "u_lee2",
+    "name": "이팀장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_lee2",
+    "text": "주간회의 전에 CS 현황 공유 부탁해요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_ara",
+    "text": "나 지금 외근이라 대시보드 못 봐 ㅠ 너 미처리 건수 알아?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "어제 기준 미처리 23건, 그중 긴급 5건"
+ },
+ {
+  "id": "t46",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_yujin",
+    "name": "유진",
+    "relation": "junior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "이번 주 목요일 배포 준비 슬슬 시작해야겠다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_yujin",
+    "text": "선배님, 혹시 이번 배포 체크리스트 작성 제가 맡아봐도 될까요? 한번 해보고 싶어서요!"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "좋다고, 모르는 거 있으면 물어보라고"
+ },
+ {
+  "id": "t47",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hong",
+    "name": "홍과장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hong",
+    "text": "올해 하반기 사내 교육 일정 나왔어요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_hong",
+    "text": "데이터 리터러시 교육이 11월 6일 1차, 11월 20일 2차로 있어요. 둘 다 참석 가능해요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "1차는 참석, 2차는 출장이라 불참"
+ },
+ {
+  "id": "t48",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_yeon",
+    "name": "연차장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "차장님, B사 건 진행 상황 어떻게 되고 있나요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_yeon",
+    "text": "B사 구매팀이랑 다음 주 수요일에 미팅 잡혔어요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "몇 시인지랑 나도 가야 하는지 물어봐줘"
+ },
+ {
+  "id": "t49",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kwon",
+    "name": "권팀장",
+    "relation": "senior"
+   },
+   {
+    "id": "u_bae",
+    "name": "배사원",
+    "relation": "junior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_bae",
+    "text": "VIP 고객 김OO님 배송 지연 클레임 접수됐습니다. 세 번째 문의라 많이 화나신 상태예요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kwon",
+    "text": "이 건은 직접 챙겨줘요. 오늘 중으로 고객 회신 부탁해요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "알겠다고 오늘 6시 전에 회신하겠다고"
+ },
+ {
+  "id": "t50",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_tae",
+    "name": "태윤",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_tae",
+    "text": "바빠?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_tae",
+    "text": "야 혹시 오늘 저녁 모니터링 당번 대신 서줄 수 있어? 갑자기 일이 생겨서"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "미안 오늘은 안 돼"
+ },
+ {
+  "id": "t51",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_ryu",
+    "name": "류사원",
+    "relation": "junior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_ryu",
+    "text": "로그인 버그 수정 PR 올렸습니다!"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_ryu",
+    "text": "리뷰 승인 하나 받았는데 바로 머지해도 될까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "아직 통합 테스트 안 끝나서 머지는 기다려 달라고"
+ },
+ {
+  "id": "t52",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_pyo_ext",
+    "name": "표현주 실장 (콜플러스)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "실장님, 지난달 상담 품질 리포트 잘 받았습니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_pyo_ext",
+    "text": "상담 매뉴얼 개정본은 언제 받아볼 수 있을까요? 상담원 교육 일정을 잡아야 해서요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "개정본은 10월 20일에 전달 예정이라고"
+ },
+ {
+  "id": "t53",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_ahn",
+    "name": "안과장",
+    "relation": "senior"
+   },
+   {
+    "id": "u_jo",
+    "name": "조대리",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_jo",
+    "text": "이번 분기 클라우드 비용이 예산보다 340만 원 초과됐습니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_ahn",
+    "text": "급하니까 일단 그쪽에서 초과분 승인해줄 수 있어요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "나는 승인 권한 없다고, 재무팀 정부장님께 요청해야 한다고"
+ },
+ {
+  "id": "t54",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_shin_ext",
+    "name": "신동욱 팀장 (그린헬스)",
+    "relation": "external"
+   },
+   {
+    "id": "u_ko",
+    "name": "고과장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_shin_ext",
+    "text": "앱 런칭 전에 알림 예약 기능도 같이 넣어주시면 좋겠습니다. 큰 작업은 아닐 것 같아서 기존 계약 내에서 부탁드려요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_ko",
+    "text": "이 건은 담당자가 답변드리겠습니다."
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "계약 범위 밖이라 무상은 어렵다고, 별도 견적은 가능하다고"
+ },
+ {
+  "id": "t55",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_yang_ext",
+    "name": "양지원 매니저 (브릭스튜디오)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_yang_ext",
+    "text": "안녕하세요, 브릭스튜디오 양지원입니다. 연말 시즌 공동 프로모션을 제안드리고 싶어 연락드렸습니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_yang_ext",
+    "text": "간단히 통화 한번 가능하실까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "현재 내부 우선순위상 어렵다고, 나중에 기회 되면 연락드리겠다고"
+ },
+ {
+  "id": "t56",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_haneul",
+    "name": "하늘",
+    "relation": "peer"
+   },
+   {
+    "id": "u_dohyun",
+    "name": "도현",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_dohyun",
+    "text": "랜딩 페이지 시안 A/B 올렸어. 의견 줘~"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_haneul",
+    "text": "난 B가 더 깔끔한 듯"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_haneul",
+    "text": "B로 가는 거 괜찮아? 대신 CTA 버튼 색만 좀 더 진하게 할게"
+   }
+  ],
+  "reply_to": "m3",
+  "intent": "B안 좋아, 버튼 색 바꾸는 것도 ㅇㅇ"
+ },
+ {
+  "id": "t57",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_seong",
+    "name": "성팀장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_seong",
+    "text": "이번 달 인프라 점검 일정 확정됐어요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_seong",
+    "text": "이번 주말 정기 점검 같이 들어와 줄 수 있어요? 그리고 점검 체크리스트도 정리 부탁해요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "체크리스트는 하겠는데 주말 점검은 가족 행사가 있어서 어렵다고"
+ },
+ {
+  "id": "t58",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_song",
+    "name": "송디자이너",
+    "relation": "peer"
+   },
+   {
+    "id": "u_qa",
+    "name": "QA 임대리",
+    "relation": "peer"
+   },
+   {
+    "id": "u_nam",
+    "name": "남팀장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_song",
+    "text": "아이콘 리뉴얼 건 이번 3.2 릴리즈에 같이 넣을 수 있을까요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_qa",
+    "text": "3.2 회귀 테스트는 어제부로 마감됐습니다."
+   },
+   {
+    "id": "m3",
+    "authorId": "u_song",
+    "text": "어떻게 안 될까요? 마케팅 일정이 잡혀 있어서요 ㅠ"
+   }
+  ],
+  "reply_to": "m3",
+  "intent": "이번 릴리즈엔 못 넣는다고, 누구 탓하지 말고"
+ },
+ {
+  "id": "t59",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_dahye",
+    "name": "다혜",
+    "relation": "junior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_dahye",
+    "text": "선배님, 중간 평가 자기 평가서 제출 완료했습니다!"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_dahye",
+    "text": "선배님, 인턴 중간 평가 피드백 면담은 언제쯤 가능할까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "이번 주는 바빠서 다음 주 월요일에 하자고"
+ },
+ {
+  "id": "t60",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_tak",
+    "name": "탁주임",
+    "relation": "peer"
+   },
+   {
+    "id": "u_bang",
+    "name": "방대리",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_tak",
+    "text": "출장비 정산 양식이 새로 바뀌었어요. 그룹웨어 자료실에 올라와 있습니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_bang",
+    "text": "확인했어요~"
+   }
+  ],
+  "reply_to": "m1",
+  "intent": "언제부터 새 양식 써야 하는지 물어봐줘"
+ }
+]

@@ -10,3 +10,5 @@ next-env.d.ts
 public/office-art/
 # Feature 009: server-only secrets (e.g. BTA_DATA_GO_KR_KEY); never commit
 .env*.local
+# F000 research archive: local Mattermost preview test account; never commit
+docs/research/f000-on-device-feasibility/probes/mattermost-plugin/seed.env

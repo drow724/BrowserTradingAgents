@@ -1,0 +1,568 @@
+[
+ {
+  "id": "d01",
+  "category": "mixed",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_dan_ext",
+    "name": "단하율 매니저 (스킬업)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_dan_ext",
+    "text": "안녕하세요, 스킬업 단하율입니다. 문의 주신 교육 건 회신드립니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_dan_ext",
+    "text": "보안 교육 일정 11월 5일 가능하실까요? 그리고 참석 인원이 몇 명인지도 알려주세요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "11/5 좋다고, 인원은 확정되면 알려드리겠다고",
+  "must_include": [
+   "11월 5일 수락",
+   "인원은 확정 후 안내"
+  ],
+  "must_not": [
+   "인원수 지어내지 않기",
+   "반말 사용하지 않기"
+  ]
+ },
+ {
+  "id": "d02",
+  "category": "ask_question",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_ha_ext",
+    "name": "하지석 강사 (러닝랩)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "강사님, 지난 통화 때 말씀드린 교육 건 커리큘럼 부탁드립니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_ha_ext",
+    "text": "요청하신 데이터 분석 실무 교육 커리큘럼 첨부드립니다. 총 3회차입니다."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "수료증 발급되는지 물어봐",
+  "must_include": [
+   "수료증 발급 여부 문의"
+  ],
+  "must_not": [
+   "반말 사용하지 않기",
+   "커리큘럼 평가하지 않기"
+  ]
+ },
+ {
+  "id": "d03",
+  "category": "mixed",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_pyeon",
+    "name": "편차장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_pyeon",
+    "text": "인사팀에서 연말 직원 만족도 조사 진행한대요."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_pyeon",
+    "text": "직원 만족도 설문 문항 검토해주고, 전사 배포도 맡아줄 수 있어요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "검토는 오늘 하고, 배포 날짜는 언제로 할지 물어봐",
+  "must_include": [
+   "문항 검토 오늘 완료",
+   "배포 날짜 문의"
+  ],
+  "must_not": [
+   "배포 날짜 제안하지 않기",
+   "반말 사용하지 않기"
+  ]
+ },
+ {
+  "id": "d04",
+  "category": "thanks",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_bin",
+    "name": "빈팀장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "팀장님, 휴가 신청 올렸습니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_bin",
+    "text": "다음 주 휴가 승인했어요. 푹 쉬고 와요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "승인 감사하다고, 인수인계 문서는 정리해두겠다고",
+  "must_include": [
+   "휴가 승인 감사",
+   "인수인계 문서 정리"
+  ],
+  "must_not": [
+   "반말 사용하지 않기"
+  ]
+ },
+ {
+  "id": "d05",
+  "category": "accept",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_bom",
+    "name": "보미",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_bom",
+    "text": "일본 출시 일정 확정됐대!"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_bom",
+    "text": "앱 일본어 번역본 나왔는데 검수 좀 봐줄래? 급한 건 아니야"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "ㅇㅋ 저녁 전까지 봐줄게",
+  "must_include": [
+   "검수 수락",
+   "저녁 전까지"
+  ],
+  "must_not": [
+   "딱딱한 격식체(~하겠습니다/~드립니다) 위주로 쓰지 않기"
+  ]
+ },
+ {
+  "id": "d06",
+  "category": "delay",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_sa_ext",
+    "name": "사공준 대리 (라온코스메틱)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_sa_ext",
+    "text": "안녕하세요, 라온코스메틱 사공준입니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_sa_ext",
+    "text": "요청드린 샘플은 언제 발송되나요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "물류 사정으로 하루 늦어져서 10월 8일 발송 예정이라고",
+  "must_include": [
+   "하루 지연",
+   "10월 8일 발송 예정"
+  ],
+  "must_not": [
+   "반말 사용하지 않기",
+   "물류 사정 외 사유 지어내지 않기"
+  ]
+ },
+ {
+  "id": "d07",
+  "category": "ask_question",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_ian2",
+    "name": "지안",
+    "relation": "junior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "지안 씨, 로그 수집 작업 진행 상황 어때요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_ian2",
+    "text": "선배님, 로그 수집 스크립트 다 짰습니다!"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "어느 저장소에 올렸는지 물어봐",
+  "must_include": [
+   "업로드한 저장소 질문"
+  ],
+  "must_not": [
+   "저장소 이름 추측하지 않기"
+  ]
+ },
+ {
+  "id": "d08",
+  "category": "decline",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_chan",
+    "name": "찬희",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_chan",
+    "text": "해커톤 공지 봤어?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_chan",
+    "text": "이번 사내 해커톤 같이 나갈래? 팀 하나 비어서"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "이번엔 패스, 다음에 같이하자",
+  "must_include": [
+   "이번엔 불참",
+   "다음에 같이하자"
+  ],
+  "must_not": [
+   "딱딱한 격식체(~하겠습니다/~드립니다) 위주로 쓰지 않기",
+   "불참 사유 지어내지 않기"
+  ]
+ },
+ {
+  "id": "d09",
+  "category": "ask_question",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_cheon",
+    "name": "천과장",
+    "relation": "senior"
+   },
+   {
+    "id": "u_ro",
+    "name": "노주임",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_cheon",
+    "text": "이번 분기 목표 달성 축하합니다!"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_cheon",
+    "text": "다음 주 금요일 팀 회식 합니다. 장소는 회사 앞 한식당이에요."
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "몇 시에 시작하는지 물어봐줘",
+  "must_include": [
+   "시작 시간 문의"
+  ],
+  "must_not": [
+   "시간을 먼저 제안하지 않기",
+   "반말 사용하지 않기"
+  ]
+ },
+ {
+  "id": "d10",
+  "category": "share_info",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_yul",
+    "name": "율",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_yul",
+    "text": "팀 휴가 일정 취합하고 있어"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_yul",
+    "text": "너 이번 달 휴가 언제야? 일정표 정리 중이야"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "나 10/16~10/18 휴가야",
+  "must_include": [
+   "10/16~10/18 휴가"
+  ],
+  "must_not": [
+   "딱딱한 격식체(~하겠습니다/~드립니다) 위주로 쓰지 않기"
+  ]
+ },
+ {
+  "id": "d11",
+  "category": "thanks",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_dami",
+    "name": "다미",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "다미야 주간보고 양식 있으면 나도 좀 줘"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_dami",
+    "text": "말한 주간보고 템플릿 드라이브에 올려놨어~"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "템플릿 고마워 잘 쓸게",
+  "must_include": [
+   "템플릿 고마움"
+  ],
+  "must_not": [
+   "딱딱한 격식체(~하겠습니다/~드립니다) 위주로 쓰지 않기"
+  ]
+ },
+ {
+  "id": "d12",
+  "category": "delay",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_myung",
+    "name": "명부장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_me",
+    "text": "부장님, 오후 회의 4시 맞으시죠?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_myung",
+    "text": "오후 회의 자료 언제 돼요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "수치 검증 중이라 3시까지 드리겠다고",
+  "must_include": [
+   "수치 검증 중",
+   "3시까지 전달"
+  ],
+  "must_not": [
+   "반말 사용하지 않기"
+  ]
+ },
+ {
+  "id": "d13",
+  "category": "share_info",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_sun",
+    "name": "선팀장",
+    "relation": "senior"
+   },
+   {
+    "id": "u_eo",
+    "name": "어대리",
+    "relation": "peer"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_eo",
+    "text": "지연시간 대시보드 어디서 보나요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_sun",
+    "text": "그거 링크 아는 사람?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "https://grafana.internal.example.com/d/ops-latency 공유",
+  "must_include": [
+   "https://grafana.internal.example.com/d/ops-latency"
+  ],
+  "must_not": [
+   "링크 변형하지 않기",
+   "반말 사용하지 않기"
+  ]
+ },
+ {
+  "id": "d14",
+  "category": "accept",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_yook",
+    "name": "육팀장",
+    "relation": "senior"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_yook",
+    "text": "다음 주 고객 데모 준비는 잘 되고 있죠?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_yook",
+    "text": "내일 오후 고객 데모 리허설 있는데 같이 들어와줄 수 있어요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "네 들어가겠다고",
+  "must_include": [
+   "리허설 참석 수락"
+  ],
+  "must_not": [
+   "반말 사용하지 않기"
+  ]
+ },
+ {
+  "id": "d15",
+  "category": "decline",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_ga_ext",
+    "name": "가은혜 PD (테크포럼)",
+    "relation": "external"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_ga_ext",
+    "text": "안녕하세요, 테크포럼 가은혜 PD입니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_ga_ext",
+    "text": "11월 개발자 컨퍼런스 연사로 모시고 싶습니다. 30분 세션인데 가능하실까요?"
+   }
+  ],
+  "reply_to": "m2",
+  "intent": "일정상 어렵다고 정중히 거절",
+  "must_include": [
+   "연사 요청 거절",
+   "일정상 어려움"
+  ],
+  "must_not": [
+   "반말 사용하지 않기",
+   "다른 연사 추천하지 않기"
+  ]
+ }
+]

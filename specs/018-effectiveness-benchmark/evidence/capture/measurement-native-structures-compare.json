@@ -1,0 +1,78 @@
+{
+  "modes": [
+    "refs",
+    "current"
+  ],
+  "structures": [
+    "eight",
+    "single"
+  ],
+  "reps": 5,
+  "browser": "Chrome/154.0.0.0",
+  "compare": {
+    "eight-refs": {
+      "runs": 165,
+      "completed": 165,
+      "failed": 0,
+      "zeroUnsupportedRate": 0.945,
+      "unsupportedPerAnswer": 0.055,
+      "unrecognisedPerAnswer": 0.012,
+      "trapRuns": 30,
+      "trapHandledRate": 0.967,
+      "koreanRate": 0.939,
+      "formatViolationRate": 0.818,
+      "semanticMismatchPerAnswer": 0.03,
+      "interpretationUnsupportedPerAnswer": 0.073,
+      "verdict": "USABLE",
+      "medianMs": 52713
+    },
+    "single-refs": {
+      "runs": 165,
+      "completed": 165,
+      "failed": 0,
+      "zeroUnsupportedRate": 0.921,
+      "unsupportedPerAnswer": 0.079,
+      "unrecognisedPerAnswer": 0.012,
+      "trapRuns": 30,
+      "trapHandledRate": 0.967,
+      "koreanRate": 0.976,
+      "formatViolationRate": 0.879,
+      "semanticMismatchPerAnswer": 0.085,
+      "interpretationUnsupportedPerAnswer": 0.061,
+      "verdict": "USABLE",
+      "medianMs": 7207
+    },
+    "eight-current": {
+      "runs": 165,
+      "completed": 165,
+      "failed": 0,
+      "zeroUnsupportedRate": 0.885,
+      "unsupportedPerAnswer": 0.224,
+      "unrecognisedPerAnswer": 0,
+      "trapRuns": 30,
+      "trapHandledRate": 0.9,
+      "koreanRate": 0.97,
+      "formatViolationRate": null,
+      "semanticMismatchPerAnswer": 0.012,
+      "interpretationUnsupportedPerAnswer": 0.03,
+      "verdict": "LIMITED",
+      "medianMs": 52257
+    },
+    "single-current": {
+      "runs": 165,
+      "completed": 165,
+      "failed": 0,
+      "zeroUnsupportedRate": 0.812,
+      "unsupportedPerAnswer": 0.418,
+      "unrecognisedPerAnswer": 0,
+      "trapRuns": 30,
+      "trapHandledRate": 0.733,
+      "koreanRate": 0.958,
+      "formatViolationRate": null,
+      "semanticMismatchPerAnswer": 0.024,
+      "interpretationUnsupportedPerAnswer": 0.121,
+      "verdict": "LIMITED",
+      "medianMs": 7391
+    }
+  }
+}

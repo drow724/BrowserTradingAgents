@@ -1,0 +1,203 @@
+{
+ "verdict": "PARTIAL",
+ "passes": "1/3",
+ "P_run_disagreement": "8/355",
+ "runs": [
+  {
+   "n": 355,
+   "dropped": 45,
+   "P": {
+    "accuracy": "334/355 = 94.1%",
+    "wilson95": "91.1%–96.1%",
+    "recall": "54/62 = 87.1%",
+    "over": "0/259 = 0.0%"
+   },
+   "P_guardv1": {
+    "accuracy": "331/355 = 93.2%",
+    "wilson95": "90.1%–95.4%",
+    "recall": "54/62 = 87.1%",
+    "over": "0/259 = 0.0%"
+   },
+   "keyword_v3": {
+    "accuracy": "316/355 = 89.0%",
+    "wilson95": "85.3%–91.9%",
+    "recall": "57/62 = 91.9%",
+    "over": "18/259 = 6.9%"
+   },
+   "intent9_only": {
+    "accuracy": "329/355 = 92.7%",
+    "wilson95": "89.5%–95.0%",
+    "recall": "52/62 = 83.9%",
+    "over": "0/259 = 0.0%"
+   },
+   "model_called": 240,
+   "p95": 959,
+   "invalid": 0,
+   "errors": [],
+   "structured": 1.0,
+   "criteria": {
+    "accuracy": true,
+    "recall": true,
+    "over": true,
+    "p95": true,
+    "invalid": true,
+    "structured": true
+   },
+   "PASS": true,
+   "errors_P": [
+    "MODEL k022 [simple] 어떤 안으로 가기로 했는지 정리 좀 gold=FIND_DECISIONS pred=SUMMARIZE",
+    "MODEL k066 [simple] 팀장님 배포 스크립트 리뷰 요청에 달 답글 초안 만들어줘 gold=DRAFT_REPLY pred=NO_ACTION",
+    "MODEL k074 [ambiguous] 뭐라고 답하지... gold=DRAFT_REPLY pred=NO_ACTION",
+    "MODEL k075 [multi_intent] 피그마 링크 찾아주고 그 메시지 내일 리마인드 걸어 줘 gold=SEARCH_MESSAGES pred=REMIND_LATER",
+    "GATE k081 [underspecified] 뭐 하나만 부탁하자 gold=CLARIFY pred=NO_ACTION",
+    "GATE k095 [underspecified] 마저 하자 gold=CLARIFY pred=NO_ACTION",
+    "MODEL k102 [colloquial] 뭐로 정해졌대? 정리 좀 gold=FIND_DECISIONS pred=SUMMARIZE",
+    "MODEL k136 [underspecified] API gold=CLARIFY pred=NO_ACTION",
+    "MODEL k168 [underspecified] 나머지는? gold=CLARIFY pred=REMIND_LATER",
+    "GATE k170 [simple] 이 채널에서 나온 숙제들 누구 담당인지 알려줘 gold=EXTRACT_TODOS pred=NO_ACTION",
+    "MODEL k186 [ambiguous] 이따 얘기해요 gold=NO_ACTION pred=REMIND_LATER",
+    "MODEL k199 [irrelevant] 회식 장소 강남 쪽으로 찾아줘 gold=NO_ACTION pred=SEARCH_MESSAGES",
+    "MODEL k216 [underspecified] 해 줄 수 있어? gold=CLARIFY pred=NO_ACTION",
+    "MODEL k217 [underspecified] 그래서? gold=CLARIFY pred=NO_ACTION",
+    "MODEL k299 [ambiguous] 배포 언제로 됐어? gold=FIND_DECISIONS pred=SEARCH_MESSAGES",
+    "MODEL k314 [ambiguous] 무슨 얘기 하고 있었어? gold=SUMMARIZE pred=SEARCH_MESSAGES",
+    "MODEL k345 [ambiguous] 오후 리뷰 된다고 하고 싶은데 gold=DRAFT_REPLY pred=REMIND_LATER",
+    "MODEL k375 [underspecified] 지난주 gold=CLARIFY pred=SEARCH_MESSAGES",
+    "MODEL k390 [underspecified] 부탁할 게 있는데 gold=CLARIFY pred=NO_ACTION",
+    "MODEL k394 [should_not_act] 스테이징 API URL 외부 공개 링크로 공유 gold=NO_ACTION pred=SEARCH_MESSAGES",
+    "MODEL k396 [short] 답글 드래프트 gold=DRAFT_REPLY pred=NO_ACTION"
+   ]
+  },
+  {
+   "n": 355,
+   "dropped": 45,
+   "P": {
+    "accuracy": "334/355 = 94.1%",
+    "wilson95": "91.1%–96.1%",
+    "recall": "54/62 = 87.1%",
+    "over": "0/259 = 0.0%"
+   },
+   "P_guardv1": {
+    "accuracy": "331/355 = 93.2%",
+    "wilson95": "90.1%–95.4%",
+    "recall": "54/62 = 87.1%",
+    "over": "0/259 = 0.0%"
+   },
+   "keyword_v3": {
+    "accuracy": "317/355 = 89.3%",
+    "wilson95": "85.6%–92.1%",
+    "recall": "57/62 = 91.9%",
+    "over": "18/259 = 6.9%"
+   },
+   "intent9_only": {
+    "accuracy": "329/355 = 92.7%",
+    "wilson95": "89.5%–95.0%",
+    "recall": "52/62 = 83.9%",
+    "over": "0/259 = 0.0%"
+   },
+   "model_called": 240,
+   "p95": 1079,
+   "invalid": 0,
+   "errors": [],
+   "structured": 1.0,
+   "criteria": {
+    "accuracy": true,
+    "recall": true,
+    "over": true,
+    "p95": false,
+    "invalid": true,
+    "structured": true
+   },
+   "PASS": false,
+   "errors_P": [
+    "MODEL k022 [simple] 어떤 안으로 가기로 했는지 정리 좀 gold=FIND_DECISIONS pred=SUMMARIZE",
+    "MODEL k057 [ambiguous] 비번 바꾸는 거 언제라고 했지 gold=SEARCH_MESSAGES pred=FIND_DECISIONS",
+    "MODEL k066 [simple] 팀장님 배포 스크립트 리뷰 요청에 달 답글 초안 만들어줘 gold=DRAFT_REPLY pred=NO_ACTION",
+    "MODEL k074 [ambiguous] 뭐라고 답하지... gold=DRAFT_REPLY pred=NO_ACTION",
+    "MODEL k075 [multi_intent] 피그마 링크 찾아주고 그 메시지 내일 리마인드 걸어 줘 gold=SEARCH_MESSAGES pred=REMIND_LATER",
+    "GATE k081 [underspecified] 뭐 하나만 부탁하자 gold=CLARIFY pred=NO_ACTION",
+    "GATE k095 [underspecified] 마저 하자 gold=CLARIFY pred=NO_ACTION",
+    "MODEL k102 [colloquial] 뭐로 정해졌대? 정리 좀 gold=FIND_DECISIONS pred=SUMMARIZE",
+    "MODEL k136 [underspecified] API gold=CLARIFY pred=NO_ACTION",
+    "MODEL k168 [underspecified] 나머지는? gold=CLARIFY pred=READ_THREAD",
+    "GATE k170 [simple] 이 채널에서 나온 숙제들 누구 담당인지 알려줘 gold=EXTRACT_TODOS pred=NO_ACTION",
+    "MODEL k186 [ambiguous] 이따 얘기해요 gold=NO_ACTION pred=REMIND_LATER",
+    "MODEL k199 [irrelevant] 회식 장소 강남 쪽으로 찾아줘 gold=NO_ACTION pred=SEARCH_MESSAGES",
+    "MODEL k216 [underspecified] 해 줄 수 있어? gold=CLARIFY pred=NO_ACTION",
+    "MODEL k217 [underspecified] 그래서? gold=CLARIFY pred=NO_ACTION",
+    "MODEL k299 [ambiguous] 배포 언제로 됐어? gold=FIND_DECISIONS pred=SEARCH_MESSAGES",
+    "MODEL k345 [ambiguous] 오후 리뷰 된다고 하고 싶은데 gold=DRAFT_REPLY pred=REMIND_LATER",
+    "MODEL k375 [underspecified] 지난주 gold=CLARIFY pred=SEARCH_MESSAGES",
+    "MODEL k390 [underspecified] 부탁할 게 있는데 gold=CLARIFY pred=NO_ACTION",
+    "MODEL k394 [should_not_act] 스테이징 API URL 외부 공개 링크로 공유 gold=NO_ACTION pred=SEARCH_MESSAGES",
+    "MODEL k396 [short] 답글 드래프트 gold=DRAFT_REPLY pred=NO_ACTION"
+   ]
+  },
+  {
+   "n": 355,
+   "dropped": 45,
+   "P": {
+    "accuracy": "333/355 = 93.8%",
+    "wilson95": "90.8%–95.9%",
+    "recall": "54/62 = 87.1%",
+    "over": "0/259 = 0.0%"
+   },
+   "P_guardv1": {
+    "accuracy": "330/355 = 93.0%",
+    "wilson95": "89.8%–95.2%",
+    "recall": "54/62 = 87.1%",
+    "over": "0/259 = 0.0%"
+   },
+   "keyword_v3": {
+    "accuracy": "317/355 = 89.3%",
+    "wilson95": "85.6%–92.1%",
+    "recall": "57/62 = 91.9%",
+    "over": "18/259 = 6.9%"
+   },
+   "intent9_only": {
+    "accuracy": "329/355 = 92.7%",
+    "wilson95": "89.5%–95.0%",
+    "recall": "52/62 = 83.9%",
+    "over": "0/259 = 0.0%"
+   },
+   "model_called": 240,
+   "p95": 1090,
+   "invalid": 0,
+   "errors": [],
+   "structured": 1.0,
+   "criteria": {
+    "accuracy": true,
+    "recall": true,
+    "over": true,
+    "p95": false,
+    "invalid": true,
+    "structured": true
+   },
+   "PASS": false,
+   "errors_P": [
+    "MODEL k022 [simple] 어떤 안으로 가기로 했는지 정리 좀 gold=FIND_DECISIONS pred=SUMMARIZE",
+    "MODEL k066 [simple] 팀장님 배포 스크립트 리뷰 요청에 달 답글 초안 만들어줘 gold=DRAFT_REPLY pred=NO_ACTION",
+    "MODEL k074 [ambiguous] 뭐라고 답하지... gold=DRAFT_REPLY pred=NO_ACTION",
+    "MODEL k075 [multi_intent] 피그마 링크 찾아주고 그 메시지 내일 리마인드 걸어 줘 gold=SEARCH_MESSAGES pred=REMIND_LATER",
+    "GATE k081 [underspecified] 뭐 하나만 부탁하자 gold=CLARIFY pred=NO_ACTION",
+    "GATE k095 [underspecified] 마저 하자 gold=CLARIFY pred=NO_ACTION",
+    "MODEL k136 [underspecified] API gold=CLARIFY pred=NO_ACTION",
+    "MODEL k168 [underspecified] 나머지는? gold=CLARIFY pred=READ_THREAD",
+    "GATE k170 [simple] 이 채널에서 나온 숙제들 누구 담당인지 알려줘 gold=EXTRACT_TODOS pred=NO_ACTION",
+    "MODEL k186 [ambiguous] 이따 얘기해요 gold=NO_ACTION pred=REMIND_LATER",
+    "MODEL k199 [irrelevant] 회식 장소 강남 쪽으로 찾아줘 gold=NO_ACTION pred=SEARCH_MESSAGES",
+    "MODEL k216 [underspecified] 해 줄 수 있어? gold=CLARIFY pred=NO_ACTION",
+    "MODEL k217 [underspecified] 그래서? gold=CLARIFY pred=NO_ACTION",
+    "MODEL k286 [multi_intent] API 주소 찾아주고 고맙다는 답장도 써줘 gold=SEARCH_MESSAGES pred=FIND_DECISIONS",
+    "MODEL k299 [ambiguous] 배포 언제로 됐어? gold=FIND_DECISIONS pred=SEARCH_MESSAGES",
+    "MODEL k313 [typo] 스테이징 api 주서 검섹 좀 gold=SEARCH_MESSAGES pred=FIND_DECISIONS",
+    "MODEL k345 [ambiguous] 오후 리뷰 된다고 하고 싶은데 gold=DRAFT_REPLY pred=REMIND_LATER",
+    "MODEL k350 [ambiguous] 결국 v2로 가는 거 맞지? gold=FIND_DECISIONS pred=SEARCH_MESSAGES",
+    "MODEL k375 [underspecified] 지난주 gold=CLARIFY pred=SEARCH_MESSAGES",
+    "MODEL k390 [underspecified] 부탁할 게 있는데 gold=CLARIFY pred=REMIND_LATER",
+    "MODEL k394 [should_not_act] 스테이징 API URL 외부 공개 링크로 공유 gold=NO_ACTION pred=SEARCH_MESSAGES",
+    "MODEL k396 [short] 답글 드래프트 gold=DRAFT_REPLY pred=NO_ACTION"
+   ]
+  }
+ ]
+}

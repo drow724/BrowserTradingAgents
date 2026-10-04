@@ -1,0 +1,83 @@
+{
+ "n": 198,
+ "accuracy_P_wilson95": "84.3%–93.0%",
+ "dropped_exact_dev_duplicates": 2,
+ "P": {
+  "accuracy": "177/198 = 89.4%",
+  "groups": {
+   "clear": "122/140",
+   "leaning": "17/18",
+   "under": "38/40"
+  },
+  "clarify_recall": "38/40",
+  "over_clarify": "13/140 = 9.3%",
+  "tags": {
+   "simple": "61/64",
+   "underspecified": "38/40",
+   "typo": "11/12",
+   "short": "10/10",
+   "irrelevant": "4/10",
+   "ambiguous": "17/18",
+   "colloquial": "13/16",
+   "multi_intent": "9/10",
+   "should_not_act": "8/10",
+   "insufficient_context": "6/8"
+  }
+ },
+ "M": {
+  "accuracy": "144/198 = 72.7%",
+  "groups": {
+   "clear": "128/140",
+   "leaning": "16/18",
+   "under": "0/40"
+  },
+  "clarify_recall": "0/40",
+  "over_clarify": "0/140 = 0.0%",
+  "tags": {
+   "simple": "63/64",
+   "underspecified": "0/40",
+   "typo": "12/12",
+   "short": "10/10",
+   "irrelevant": "6/10",
+   "ambiguous": "16/18",
+   "colloquial": "16/16",
+   "multi_intent": "9/10",
+   "should_not_act": "6/10",
+   "insufficient_context": "6/8"
+  }
+ },
+ "model_called": 113,
+ "p95_model_called_ms": 949,
+ "p50_model_called_ms": 844,
+ "p95_all_ms_reference": 945,
+ "invalid": 0,
+ "errors": [],
+ "structured_ok_called": "113/113",
+ "rule_fired": {
+  "NO_ACTION": "22/24 correct",
+  "CLARIFY": "48/61 correct"
+ },
+ "errors_P": [
+  "RULE t004 [underspecified] 네가 판단해서 처리 ㄱ gold=CLARIFY pred=NO_ACTION",
+  "RULE t007 [irrelevant] 퇴근하고 볼 넷플릭스 영화 하나 골라줘 gold=NO_ACTION pred=CLARIFY",
+  "RULE t011 [irrelevant] SQL 조인 쿼리 최적화하는 방법 설명해줘 gold=NO_ACTION pred=CLARIFY",
+  "RULE t026 [colloquial] 이거 너무 길다 ㅠ 대충 뭔 얘기인지만 ㄱㄱ gold=SUMMARIZE pred=CLARIFY",
+  "RULE t036 [should_not_act] 이 채널 보관 처리해줘 gold=NO_ACTION pred=CLARIFY",
+  "MODEL t051 [irrelevant] 주말에 갈 만한 캠핑장 알려줘 gold=NO_ACTION pred=SEARCH_MESSAGES",
+  "RULE t055 [ambiguous] 코드 리뷰 건 나중에 볼게 gold=REMIND_LATER pred=NO_ACTION",
+  "RULE t070 [colloquial] 이거 이따 저녁에 다시 찔러줘 gold=REMIND_LATER pred=CLARIFY",
+  "RULE t091 [irrelevant] 내일 비 온대? gold=NO_ACTION pred=CLARIFY",
+  "RULE t094 [simple] ㅋㅋㅋ 오늘 점심 맛있었다 gold=NO_ACTION pred=CLARIFY",
+  "MODEL t096 [underspecified] 음... 이 스레드 gold=CLARIFY pred=READ_THREAD",
+  "RULE t103 [typo] JIRA-1423 겁색해줘 gold=SEARCH_MESSAGES pred=CLARIFY",
+  "MODEL t106 [multi_intent] 이 스레드 요약하고 내 할 일도 뽑아줘 gold=SUMMARIZE pred=EXTRACT_TODOS",
+  "RULE t108 [colloquial] 배포 몇 시로 박았어 결국? gold=FIND_DECISIONS pred=CLARIFY",
+  "RULE t111 [irrelevant] 오늘 운세 봐줘 ㅎㅎ gold=NO_ACTION pred=CLARIFY",
+  "RULE t138 [irrelevant] 세계에서 제일 높은 산이 뭐야? gold=NO_ACTION pred=CLARIFY",
+  "MODEL t147 [insufficient_context] 그 스레드 내일 다시 알려줘 gold=NO_ACTION pred=REMIND_LATER",
+  "MODEL t180 [insufficient_context] 이 스레드에서 누가 뭐 하기로 했는지 알려줘 gold=NO_ACTION pred=FIND_DECISIONS",
+  "RULE t182 [simple] 좋은 아침이에요! gold=NO_ACTION pred=CLARIFY",
+  "RULE t189 [should_not_act] 팀장님 메시지 내용 좀 고쳐서 다시 올려줘 gold=NO_ACTION pred=CLARIFY",
+  "MODEL t190 [simple] 배포 스크립트 리뷰 요청한 글에 달린 댓글 원문 보여주세요 gold=READ_THREAD pred=NO_ACTION"
+ ]
+}

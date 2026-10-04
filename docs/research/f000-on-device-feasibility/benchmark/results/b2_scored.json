@@ -1,0 +1,101 @@
+{
+ "B2": {
+  "n": 210,
+  "accuracy": 0.8952380952380953,
+  "invalid_rate": 0.0,
+  "structured_ok": 1.0,
+  "no_action_precision": 0.926829268292683,
+  "no_action_recall": 0.8085106382978723,
+  "tag_accuracy": {
+   "simple": "78/80",
+   "colloquial": "22/25",
+   "typo": "20/20",
+   "short": "20/20",
+   "ambiguous": "15/20",
+   "multi_intent": "11/15",
+   "irrelevant": "4/10",
+   "insufficient_context": "10/10",
+   "should_not_act": "8/10"
+  },
+  "failures": {
+   "wrong-action": 17,
+   "ambiguous-command": 5
+  },
+  "create_ms": 1798,
+  "first_ms": 1320,
+  "warm_p50_ms": 1356,
+  "warm_p95_ms": 1484,
+  "warm_mean_ms": 1357,
+  "clone_p50_ms": 0,
+  "accuracy_excl_insufficient": "178/200",
+  "accuracy_model_only": 0.8428571428571429,
+  "insufficient_model_only": "0/10",
+  "top_confusions": [
+   "NO_ACTION->SEARCH_MESSAGES: 7",
+   "SUMMARIZE->SEARCH_MESSAGES: 2",
+   "DRAFT_REPLY->NO_ACTION: 2",
+   "EXTRACT_TODOS->SUMMARIZE: 1",
+   "NO_ACTION->REMIND_LATER: 1",
+   "REMIND_LATER->NO_ACTION: 1",
+   "READ_THREAD->SUMMARIZE: 1",
+   "EXTRACT_TODOS->SEARCH_MESSAGES: 1"
+  ]
+ },
+ "B1r": {
+  "n": 210,
+  "accuracy": 0.8666666666666667,
+  "invalid_rate": 0.0,
+  "structured_ok": 1.0,
+  "no_action_precision": 0.9459459459459459,
+  "no_action_recall": 0.7446808510638298,
+  "tag_accuracy": {
+   "simple": "79/80",
+   "colloquial": "24/25",
+   "typo": "20/20",
+   "short": "20/20",
+   "ambiguous": "14/20",
+   "multi_intent": "6/15",
+   "irrelevant": "10/10",
+   "insufficient_context": "0/10",
+   "should_not_act": "9/10"
+  },
+  "failures": {
+   "wrong-action": 12,
+   "ambiguous-command": 6,
+   "insufficient-context": 10
+  },
+  "create_ms": 1221,
+  "first_ms": 2161,
+  "warm_p50_ms": 2305,
+  "warm_p95_ms": 2630,
+  "warm_mean_ms": 2110,
+  "clone_p50_ms": 0,
+  "accuracy_excl_insufficient": "182/200",
+  "top_confusions": [
+   "SUMMARIZE->FIND_DECISIONS: 3",
+   "NO_ACTION->READ_THREAD: 3",
+   "NO_ACTION->REMIND_LATER: 2",
+   "DRAFT_REPLY->NO_ACTION: 2",
+   "NO_ACTION->SUMMARIZE: 2",
+   "NO_ACTION->EXTRACT_TODOS: 2",
+   "NO_ACTION->DRAFT_REPLY: 2",
+   "READ_THREAD->SUMMARIZE: 1"
+  ]
+ },
+ "resources": {
+  "samples": 1292,
+  "model_rss_mb_max": 363.2,
+  "model_rss_mb_p50": 310.1,
+  "model_cpu_p50": 17.6,
+  "gpu_proc_cpu_p50": 0.0,
+  "gpu_util_p50": 96.0,
+  "gpu_util_p95": 100.0
+ },
+ "meta": {
+  "experiment": "B2",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "started": "2026-10-03T14:39:35.939Z",
+  "availability": "available",
+  "finished": "2026-10-03T14:51:49.275Z"
+ }
+}

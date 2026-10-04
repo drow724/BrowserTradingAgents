@@ -217,30 +217,37 @@ test('native Prompt API: hallucination measurement (BTA_MEASURE=1 only)', async 
       expect(report.evidenceClass).toBe('REAL_BROWSER_PROMPT_API');
       return;
     }
-    const byMode = new Map<string, Awaited<ReturnType<typeof measure>>[]>();
+    // Feature 018 (research R4): BTA_MEASURE_STRUCTURES=eight,single adds the structure dimension — cells in the order
+    // (eight, mode 1), (single, mode 1), (eight, mode 2), …, rotated per repetition. Without it: the Feature 013 loop.
+    const structures = process.env.BTA_MEASURE_STRUCTURES?.split(',').map((x) => x.trim()) as ('eight' | 'single')[] | undefined;
+    const cells = modes.flatMap((mode) => (structures ?? ['eight' as const]).map((structure) => ({ mode, structure })));
+    const name = (c: { mode: string; structure: string }) => (structures ? `${c.structure}-${c.mode}` : c.mode);
+    const byCell = new Map<string, Awaited<ReturnType<typeof measure>>[]>();
     for (let rep = 0; rep < reps; rep++) {
-      for (const mode of [...modes.slice(rep % modes.length), ...modes.slice(0, rep % modes.length)]) {
-        await page.goto(`${baseURL}/?runner=playwright&quotes=fixture&numbers=${mode}`);
+      for (const cell of [...cells.slice(rep % cells.length), ...cells.slice(0, rep % cells.length)]) {
+        await page.goto(`${baseURL}/?runner=playwright&quotes=fixture&numbers=${cell.mode}${cell.structure === 'single' ? '&roles=single' : ''}`);
         await expect(page.getByRole('button', { name: 'Run Graph', exact: true })).toBeEnabled({ timeout: 60_000 });
-        const r = await measure(page, 1, meta, mode, false);
-        byMode.set(mode, [...(byMode.get(mode) ?? []), r]);
+        const r = { ...(await measure(page, 1, meta, cell.mode, false)), ...(structures ? { repetition: rep + 1 } : {}) };
+        byCell.set(name(cell), [...(byCell.get(name(cell)) ?? []), r]);
         // Written at once, so a later failure cannot lose finished repetitions.
-        writeFileSync(testInfo.outputPath(`measurement-native-${mode}-rep${rep + 1}.json`), JSON.stringify(r, null, 2) + '\n');
-        console.log('Feature 013 native', mode, 'repetition', rep + 1, JSON.stringify(r.aggregate));
+        writeFileSync(testInfo.outputPath(`measurement-native-${name(cell)}-rep${rep + 1}.json`), JSON.stringify(r, null, 2) + '\n');
+        console.log(`Feature ${structures ? '018' : '013'} native`, name(cell), 'repetition', rep + 1, JSON.stringify(r.aggregate));
       }
     }
     const compare: Record<string, unknown> = {};
-    for (const [mode, parts] of byMode) {
+    for (const [cell, parts] of byCell) {
       const runs = parts.flatMap((p) => p.runs);
       const agg = aggregate(runs);
       const report = { ...parts[0], repetitions: reps, generatedAt: new Date().toISOString(), aggregate: agg,
         verdict: verdict(agg, parts[0].evidenceClass), runs };
-      writeFileSync(testInfo.outputPath(`measurement-native-${mode}.json`), JSON.stringify(report, null, 2) + '\n');
-      compare[mode] = { ...agg, verdict: report.verdict, medianMs: runs.map((x) => x.ms).sort((a, b) => a - b)[Math.floor(runs.length / 2)] };
+      delete (report as { repetition?: number }).repetition;
+      writeFileSync(testInfo.outputPath(`measurement-native-${cell}.json`), JSON.stringify(report, null, 2) + '\n');
+      compare[cell] = { ...agg, verdict: report.verdict, medianMs: runs.map((x) => x.ms).sort((a, b) => a - b)[Math.floor(runs.length / 2)] };
       expect(report.evidenceClass).toBe('REAL_BROWSER_PROMPT_API');
     }
-    writeFileSync(testInfo.outputPath('measurement-native-compare.json'), JSON.stringify({ modes, reps, browser: ua, compare }, null, 2) + '\n');
-    console.log('Feature 013 native compare', JSON.stringify(compare));
+    writeFileSync(testInfo.outputPath(structures ? 'measurement-native-structures-compare.json' : 'measurement-native-compare.json'),
+      JSON.stringify({ modes, ...(structures ? { structures } : {}), reps, browser: ua, compare }, null, 2) + '\n');
+    console.log(`Feature ${structures ? '018' : '013'} native compare`, JSON.stringify(compare));
   } finally {
     await close();
   }

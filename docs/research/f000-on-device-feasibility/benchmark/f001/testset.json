@@ -1,0 +1,1402 @@
+[
+ {
+  "id": "t001",
+  "command": "이 대화에서 나온 TODO 리스트 만들어줘",
+  "gold": "EXTRACT_TODOS",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t002",
+  "command": "DB 비밀번호 교체 관련해서 누가 공지했는지 찾아줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t003",
+  "command": "코드리뷰 요청에 정중하게 거절하는 답장 초안 작성해줘",
+  "gold": "DRAFT_REPLY",
+  "tag": "simple",
+  "state": "s_dm"
+ },
+ {
+  "id": "t004",
+  "command": "네가 판단해서 처리 ㄱ",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t005",
+  "command": "이 스래드 답글 전체 보여줘",
+  "gold": "READ_THREAD",
+  "tag": "typo",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t006",
+  "command": "그만",
+  "gold": "NO_ACTION",
+  "tag": "short",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t007",
+  "command": "퇴근하고 볼 넷플릭스 영화 하나 골라줘",
+  "gold": "NO_ACTION",
+  "tag": "irrelevant",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t008",
+  "command": "오 그렇게 됐구나 ㅇㅋ",
+  "gold": "NO_ACTION",
+  "tag": "ambiguous",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t009",
+  "command": "스레드 전체 대화 원문으로 볼래요",
+  "gold": "READ_THREAD",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t010",
+  "command": "야 김대리가 준 스테이징 url 뭐였더라 좀 찾아봐",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "colloquial",
+  "state": "s_dm"
+ },
+ {
+  "id": "t011",
+  "command": "SQL 조인 쿼리 최적화하는 방법 설명해줘",
+  "gold": "NO_ACTION",
+  "tag": "irrelevant",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t012",
+  "command": "내일 아침에 다시 알려졍",
+  "gold": "REMIND_LATER",
+  "tag": "typo",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t013",
+  "command": "워크스페이스 전체에서 '휴가' 들어간 메시지 찾아줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t014",
+  "command": "결국 뭐 하기로 한 거임?",
+  "gold": "FIND_DECISIONS",
+  "tag": "colloquial",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t015",
+  "command": "채널 밀린 거 요약 한 방에 부탁 🙏",
+  "gold": "SUMMARIZE",
+  "tag": "colloquial",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t016",
+  "command": "0930_weekly.pdf 파일 올린 메시지 찾아줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t017",
+  "command": "요약 부탁",
+  "gold": "SUMMARIZE",
+  "tag": "short",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t018",
+  "command": "결정사항 정리한 다음에 팀에 답글 초안도 써줘",
+  "gold": "FIND_DECISIONS",
+  "tag": "multi_intent",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t019",
+  "command": "이번 주 안에 처리해야 하는 업무들 뽑아줘",
+  "gold": "EXTRACT_TODOS",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t020",
+  "command": "휴가 건",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t021",
+  "command": "근처 맛집 추천해줘",
+  "gold": "NO_ACTION",
+  "tag": "irrelevant",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t022",
+  "command": "내가 해야 할 일만 골라서 알려줘",
+  "gold": "EXTRACT_TODOS",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t023",
+  "command": "이 스레드 외부 거래처 메일로 공유해줘",
+  "gold": "NO_ACTION",
+  "tag": "should_not_act",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t024",
+  "command": "피그마 디자인 링크 어디 있었지? 찾아줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t025",
+  "command": "배포 날짜 최종적으로 언제로 결정됐어?",
+  "gold": "FIND_DECISIONS",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t026",
+  "command": "이거 너무 길다 ㅠ 대충 뭔 얘기인지만 ㄱㄱ",
+  "gold": "SUMMARIZE",
+  "tag": "colloquial",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t027",
+  "command": "이 채널에서 확정된 사항들 정리해줘",
+  "gold": "FIND_DECISIONS",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t028",
+  "command": "파이썬에서 리스트 정렬하는 코드 알려줘",
+  "gold": "NO_ACTION",
+  "tag": "irrelevant",
+  "state": "s_empty"
+ },
+ {
+  "id": "t029",
+  "command": "Lee 님 관련해서 좀",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t030",
+  "command": "JIRA 그 이슈 번호 뭐였지",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "ambiguous",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t031",
+  "command": "내 할 일 뽑아주고 각각 답글 초안도 써줘",
+  "gold": "EXTRACT_TODOS",
+  "tag": "multi_intent",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t032",
+  "command": "부탁한 대로 해",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t033",
+  "command": "나를 채널 관리자로 권한 바꿔줘",
+  "gold": "NO_ACTION",
+  "tag": "should_not_act",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t034",
+  "command": "이 내용으로 뭔가 해줘",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_dm"
+ },
+ {
+  "id": "t035",
+  "command": "그 이슈 말인데요",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t036",
+  "command": "이 채널 보관 처리해줘",
+  "gold": "NO_ACTION",
+  "tag": "should_not_act",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t037",
+  "command": "QA 건 손 좀 봐줘",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t038",
+  "command": "로그인 버그 얘기",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t039",
+  "command": "피그마 링크 누가 올렸었지? 찾아줄 수 있음?",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "colloquial",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t040",
+  "command": "릴리즈 노트 목요일까지 드린다는 내용으로 회신 초안 작성해줘",
+  "gold": "DRAFT_REPLY",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t041",
+  "command": "논의 결과 확정된 결정사항 리스트로 줘",
+  "gold": "FIND_DECISIONS",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t042",
+  "command": "다음 단계로 넘어가자",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t043",
+  "command": "김대리가 보낸 스테이징 API 주소 찾아줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "simple",
+  "state": "s_dm"
+ },
+ {
+  "id": "t044",
+  "command": "이 대화 요약 좀 해주세요",
+  "gold": "NO_ACTION",
+  "tag": "insufficient_context",
+  "state": "s_empty"
+ },
+ {
+  "id": "t045",
+  "command": "팀장님 배포 스크립트 리뷰 요청에 확인하겠다고 답글 초안 좀",
+  "gold": "DRAFT_REPLY",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t046",
+  "command": "김대리한테 ㅇㅋ 할게요 느낌으로 답장 초안 하나만",
+  "gold": "DRAFT_REPLY",
+  "tag": "colloquial",
+  "state": "s_dm"
+ },
+ {
+  "id": "t047",
+  "command": "할일 목록 뽑아쥬ㅓ",
+  "gold": "EXTRACT_TODOS",
+  "tag": "typo",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t048",
+  "command": "API 얘기 어떻게 됐어?",
+  "gold": "FIND_DECISIONS",
+  "tag": "ambiguous",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t049",
+  "command": "이번 주 채널 요약해주고 0930_weekly.pdf도 찾아줘",
+  "gold": "SUMMARIZE",
+  "tag": "multi_intent",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t050",
+  "command": "내일 오전에 이 메시지 알려주고, 답장 초안도 미리 써둬",
+  "gold": "REMIND_LATER",
+  "tag": "multi_intent",
+  "state": "s_dm"
+ },
+ {
+  "id": "t051",
+  "command": "주말에 갈 만한 캠핑장 알려줘",
+  "gold": "NO_ACTION",
+  "tag": "irrelevant",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t052",
+  "command": "이 채널 좀 봐줄래?",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t053",
+  "command": "스테이징 URL 검색",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "short",
+  "state": "s_dm"
+ },
+ {
+  "id": "t054",
+  "command": "처리 ㄱㄱ",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t055",
+  "command": "코드 리뷰 건 나중에 볼게",
+  "gold": "REMIND_LATER",
+  "tag": "ambiguous",
+  "state": "s_dm"
+ },
+ {
+  "id": "t056",
+  "command": "원글이랑 답글 통째로 좀 띄워봐",
+  "gold": "READ_THREAD",
+  "tag": "colloquial",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t057",
+  "command": "일단 해보자",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t058",
+  "command": "나 뭐 해야 됨? 할 일 좀 뽑아봐",
+  "gold": "EXTRACT_TODOS",
+  "tag": "colloquial",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t059",
+  "command": "이 대화 나중에 다시 볼 수 있게 한 시간 뒤 알림 걸어줘",
+  "gold": "REMIND_LATER",
+  "tag": "simple",
+  "state": "s_dm"
+ },
+ {
+  "id": "t060",
+  "command": "1시간 뒤 알림",
+  "gold": "REMIND_LATER",
+  "tag": "short",
+  "state": "s_dm"
+ },
+ {
+  "id": "t061",
+  "command": "배포 관련해서",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t062",
+  "command": "내가 할 일만 추출해쥬",
+  "gold": "EXTRACT_TODOS",
+  "tag": "typo",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t063",
+  "command": "팀장님 메시지 좀",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t064",
+  "command": "API 엔드포인트 관련해서 팀이 합의한 게 뭐야?",
+  "gold": "FIND_DECISIONS",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t065",
+  "command": "배포 스크립트 리뷰 건 30분 뒤에 상기시켜줘",
+  "gold": "REMIND_LATER",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t066",
+  "command": "합의한 결론 머야",
+  "gold": "FIND_DECISIONS",
+  "tag": "typo",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t067",
+  "command": "점심 얘기 말고 업무 얘기만 간추려줘",
+  "gold": "SUMMARIZE",
+  "tag": "ambiguous",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t068",
+  "command": "릴리즈 체크리스트 스레드 원본 열어줘",
+  "gold": "READ_THREAD",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t069",
+  "command": "스레드 펼쳐줘",
+  "gold": "READ_THREAD",
+  "tag": "short",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t070",
+  "command": "이거 이따 저녁에 다시 찔러줘",
+  "gold": "REMIND_LATER",
+  "tag": "colloquial",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t071",
+  "command": "금요일 DB 비밀번호 교체 공지 목요일에 다시 알림 줘",
+  "gold": "REMIND_LATER",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t072",
+  "command": "Kim님 관련된 거",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t073",
+  "command": "나 금요일까지 뭐 있었지?",
+  "gold": "EXTRACT_TODOS",
+  "tag": "ambiguous",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t074",
+  "command": "결정된 사항 정릭해줘",
+  "gold": "FIND_DECISIONS",
+  "tag": "typo",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t075",
+  "command": "채널에서 나한테 할당된 작업 있어?",
+  "gold": "EXTRACT_TODOS",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t076",
+  "command": "이 대화에서 결정된 사항 정리해줘",
+  "gold": "NO_ACTION",
+  "tag": "insufficient_context",
+  "state": "s_empty"
+ },
+ {
+  "id": "t077",
+  "command": "ㅇㅋ",
+  "gold": "NO_ACTION",
+  "tag": "short",
+  "state": "s_dm"
+ },
+ {
+  "id": "t078",
+  "command": "이 채널에서 뭐 좀 해줘",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t079",
+  "command": "환율 지금 얼마야?",
+  "gold": "NO_ACTION",
+  "tag": "irrelevant",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t080",
+  "command": "DB 마이그레이션 금요일까지 하겠다고 답장 초안 부탁",
+  "gold": "DRAFT_REPLY",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t081",
+  "command": "아냐 됐어, 아무것도 하지 마",
+  "gold": "NO_ACTION",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t082",
+  "command": "JIRA-1423 언급된 메시지 검색해줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t083",
+  "command": "김대리한테 답장 초안 써주고 2시에 리마인드도 걸어줘",
+  "gold": "DRAFT_REPLY",
+  "tag": "multi_intent",
+  "state": "s_dm"
+ },
+ {
+  "id": "t084",
+  "command": "김대리 코드리뷰 요청 오후 2시에 리마인드 해줘",
+  "gold": "REMIND_LATER",
+  "tag": "simple",
+  "state": "s_dm"
+ },
+ {
+  "id": "t085",
+  "command": "이 채널 메시지 전부 삭제해줘",
+  "gold": "NO_ACTION",
+  "tag": "should_not_act",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t086",
+  "command": "Lee님 채널에서 강퇴시켜",
+  "gold": "NO_ACTION",
+  "tag": "should_not_act",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t087",
+  "command": "필요한 거 해줘",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_dm"
+ },
+ {
+  "id": "t088",
+  "command": "회의 내용 가지고 좀",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t089",
+  "command": "최종 합의 내용만 정리 부탁해요",
+  "gold": "FIND_DECISIONS",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t090",
+  "command": "릴리즈 체크리스트 공유된 메시지 다른 채널에도 있는지 검색해줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t091",
+  "command": "내일 비 온대?",
+  "gold": "NO_ACTION",
+  "tag": "irrelevant",
+  "state": "s_empty"
+ },
+ {
+  "id": "t092",
+  "command": "나 대신 좀 해줄 수 있어?",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t093",
+  "command": "이번주 채널 내용 요약좀 해줘ㅓ",
+  "gold": "SUMMARIZE",
+  "tag": "typo",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t094",
+  "command": "ㅋㅋㅋ 오늘 점심 맛있었다",
+  "gold": "NO_ACTION",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t095",
+  "command": "김대리 건",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_dm"
+ },
+ {
+  "id": "t096",
+  "command": "음... 이 스레드",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t097",
+  "command": "이 스레드 답글 전부 원문 그대로 보여줘",
+  "gold": "READ_THREAD",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t098",
+  "command": "감사합니다~ 많은 도움 됐어요",
+  "gold": "NO_ACTION",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t099",
+  "command": "코드 리뷰",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_dm"
+ },
+ {
+  "id": "t100",
+  "command": "릴리즈 체크리스트를 마케팅 채널로 전달해줘",
+  "gold": "NO_ACTION",
+  "tag": "should_not_act",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t101",
+  "command": "알잘딱 부탁",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t102",
+  "command": "이 스레드에 로그인 버그 오늘 중으로 고치겠다는 답글 써줘, 보내진 말고",
+  "gold": "DRAFT_REPLY",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t103",
+  "command": "JIRA-1423 겁색해줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "typo",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t104",
+  "command": "이번 주 무슨 일 있었어?",
+  "gold": "SUMMARIZE",
+  "tag": "ambiguous",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t105",
+  "command": "김대리한테 오늘 오후 코드 리뷰 가능하다고 답장 초안 써줘",
+  "gold": "DRAFT_REPLY",
+  "tag": "simple",
+  "state": "s_dm"
+ },
+ {
+  "id": "t106",
+  "command": "이 스레드 요약하고 내 할 일도 뽑아줘",
+  "gold": "SUMMARIZE",
+  "tag": "multi_intent",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t107",
+  "command": "진행시켜",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t108",
+  "command": "배포 몇 시로 박았어 결국?",
+  "gold": "FIND_DECISIONS",
+  "tag": "colloquial",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t109",
+  "command": "ㅇㅋㅇㅋ 땡큐",
+  "gold": "NO_ACTION",
+  "tag": "colloquial",
+  "state": "s_dm"
+ },
+ {
+  "id": "t110",
+  "command": "원문 보기",
+  "gold": "READ_THREAD",
+  "tag": "short",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t111",
+  "command": "오늘 운세 봐줘 ㅎㅎ",
+  "gold": "NO_ACTION",
+  "tag": "irrelevant",
+  "state": "s_dm"
+ },
+ {
+  "id": "t112",
+  "command": "김대리헌테 답장 초앙 써줘",
+  "gold": "DRAFT_REPLY",
+  "tag": "typo",
+  "state": "s_dm"
+ },
+ {
+  "id": "t113",
+  "command": "v2 API 엔드포인트 얘기 처음 꺼낸 사람이 누군지 검색해줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t114",
+  "command": "이번 주 일정 관련",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t115",
+  "command": "DB 비밀번호 네가 대신 바꿔줄래?",
+  "gold": "NO_ACTION",
+  "tag": "should_not_act",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t116",
+  "command": "김대리랑 나눈 DM 내용 요약 좀",
+  "gold": "SUMMARIZE",
+  "tag": "simple",
+  "state": "s_dm"
+ },
+ {
+  "id": "t117",
+  "command": "QA 월요일 건에 참석 가능하다고 회신 문안 만들어줘",
+  "gold": "DRAFT_REPLY",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t118",
+  "command": "답장 초안",
+  "gold": "DRAFT_REPLY",
+  "tag": "short",
+  "state": "s_dm"
+ },
+ {
+  "id": "t119",
+  "command": "회의 못 들어갔는데 채널 대화 요약해서 알려주세요",
+  "gold": "SUMMARIZE",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t120",
+  "command": "월요일 QA 일정 일요일 저녁에 리마인더 설정해줘",
+  "gold": "REMIND_LATER",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t121",
+  "command": "스레드 댓글 다 까서 보여줘봐",
+  "gold": "READ_THREAD",
+  "tag": "colloquial",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t122",
+  "command": "체크리스트 중에 내 거 뭐야?",
+  "gold": "EXTRACT_TODOS",
+  "tag": "ambiguous",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t123",
+  "command": "마이그레이션 건",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t124",
+  "command": "아 맞다 그거 내일 출근하자마자 알려줘라",
+  "gold": "REMIND_LATER",
+  "tag": "colloquial",
+  "state": "s_dm"
+ },
+ {
+  "id": "t125",
+  "command": "릴리즈 노트 건 목요일 전에 한 번 챙겨줘",
+  "gold": "REMIND_LATER",
+  "tag": "ambiguous",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t126",
+  "command": "아까 그 메시지 말이야",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t127",
+  "command": "오늘 오후 건",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_dm"
+ },
+ {
+  "id": "t128",
+  "command": "ㄳㄳ 확인했습ㄴ다",
+  "gold": "NO_ACTION",
+  "tag": "typo",
+  "state": "s_dm"
+ },
+ {
+  "id": "t129",
+  "command": "결정사항 전체 채널에 공지로 뿌려줘",
+  "gold": "NO_ACTION",
+  "tag": "should_not_act",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t130",
+  "command": "이 스레드 답글 전부 보여줘",
+  "gold": "NO_ACTION",
+  "tag": "insufficient_context",
+  "state": "s_ch_noreplies"
+ },
+ {
+  "id": "t131",
+  "command": "긴 거 다 읽기 귀찮으니까 핵심만 요약해줘",
+  "gold": "SUMMARIZE",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t132",
+  "command": "오케이 그럼 이만",
+  "gold": "NO_ACTION",
+  "tag": "simple",
+  "state": "s_dm"
+ },
+ {
+  "id": "t133",
+  "command": "답글 달아야 하는데 뭐라고 하지",
+  "gold": "DRAFT_REPLY",
+  "tag": "ambiguous",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t134",
+  "command": "수고하셨습니다 :)",
+  "gold": "NO_ACTION",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t135",
+  "command": "팀장님 리뷰 요청 답글 초안 대충 뽑아줘~",
+  "gold": "DRAFT_REPLY",
+  "tag": "colloquial",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t136",
+  "command": "할 일",
+  "gold": "EXTRACT_TODOS",
+  "tag": "short",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t137",
+  "command": "이 문장 영어로 번역해줘: 회의는 내일입니다",
+  "gold": "NO_ACTION",
+  "tag": "irrelevant",
+  "state": "s_dm"
+ },
+ {
+  "id": "t138",
+  "command": "세계에서 제일 높은 산이 뭐야?",
+  "gold": "NO_ACTION",
+  "tag": "irrelevant",
+  "state": "s_empty"
+ },
+ {
+  "id": "t139",
+  "command": "스테이징 주소 차자줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "typo",
+  "state": "s_dm"
+ },
+ {
+  "id": "t140",
+  "command": "스레드 원문 먼저 보여주고 그 다음에 결정된 거 정리해줘",
+  "gold": "READ_THREAD",
+  "tag": "multi_intent",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t141",
+  "command": "여기 할 일 목록 뽑아줘",
+  "gold": "NO_ACTION",
+  "tag": "insufficient_context",
+  "state": "s_empty"
+ },
+ {
+  "id": "t142",
+  "command": "김대리한테 지금 바로 리뷰 가능하다고 보내줘",
+  "gold": "NO_ACTION",
+  "tag": "should_not_act",
+  "state": "s_dm"
+ },
+ {
+  "id": "t143",
+  "command": "이 스레드 퇴근 전에 다시 띄워줘",
+  "gold": "REMIND_LATER",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t144",
+  "command": "DB 쪽은?",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t145",
+  "command": "좀 도와줘",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t146",
+  "command": "이 채널에서 오간 대화 세 줄로 요약 부탁드려요",
+  "gold": "SUMMARIZE",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t147",
+  "command": "그 스레드 내일 다시 알려줘",
+  "gold": "NO_ACTION",
+  "tag": "insufficient_context",
+  "state": "s_ch_noreplies"
+ },
+ {
+  "id": "t148",
+  "command": "거기서 하던 거 계속",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t149",
+  "command": "피그마 링크 검색",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "short",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t150",
+  "command": "이 메시지 내일 아침 9시에 다시 알려줘",
+  "gold": "REMIND_LATER",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t151",
+  "command": "팀장님이 뭐라고 하셨는지 전부 그대로 보고 싶어",
+  "gold": "READ_THREAD",
+  "tag": "ambiguous",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t152",
+  "command": "스레드 좀 보자",
+  "gold": "READ_THREAD",
+  "tag": "ambiguous",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t153",
+  "command": "액션 아이템 정리해줘, 담당자랑 기한 포함해서",
+  "gold": "EXTRACT_TODOS",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t154",
+  "command": "김대리 메시지에 4시 이후에 가능하다고 답변 초안 만들어줄래요?",
+  "gold": "DRAFT_REPLY",
+  "tag": "simple",
+  "state": "s_dm"
+ },
+ {
+  "id": "t155",
+  "command": "김대리 메시지 어떻게 답하지?",
+  "gold": "DRAFT_REPLY",
+  "tag": "ambiguous",
+  "state": "s_dm"
+ },
+ {
+  "id": "t156",
+  "command": "됐다 됐어 신경 꺼~",
+  "gold": "NO_ACTION",
+  "tag": "colloquial",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t157",
+  "command": "디자인 시안 어디 있더라",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "ambiguous",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t158",
+  "command": "Lee님이랑 Kim님한테 맡겨진 일 뭐였는지 태스크로 정리해줘",
+  "gold": "EXTRACT_TODOS",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t159",
+  "command": "방금 온 메시지에 답장 초안 써줘",
+  "gold": "NO_ACTION",
+  "tag": "insufficient_context",
+  "state": "s_empty"
+ },
+ {
+  "id": "t160",
+  "command": "이 스레드에서 결정 난 거 있어?",
+  "gold": "FIND_DECISIONS",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t161",
+  "command": "김대리 쪽 좀 챙겨",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_dm"
+ },
+ {
+  "id": "t162",
+  "command": "오늘 안에 내가 쳐내야 할 거 뭐 있냐",
+  "gold": "EXTRACT_TODOS",
+  "tag": "colloquial",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t163",
+  "command": "합의된 결론만 뽑아서 보여줘",
+  "gold": "FIND_DECISIONS",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t164",
+  "command": "이 스레드 깔끔하게 정리해줘",
+  "gold": "SUMMARIZE",
+  "tag": "ambiguous",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t165",
+  "command": "배포 일정 제안한 메시지 스레드 열어서 답글 다 보여줘",
+  "gold": "READ_THREAD",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t166",
+  "command": "넵 확인했습니다",
+  "gold": "NO_ACTION",
+  "tag": "simple",
+  "state": "s_dm"
+ },
+ {
+  "id": "t167",
+  "command": "이것 좀 다뤄줘",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t168",
+  "command": "이 메시지로 할 수 있는 거 해줘",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t169",
+  "command": "릴리즈 쪽 좀 신경 써줘",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t170",
+  "command": "이거 까먹으면 안 되는데",
+  "gold": "REMIND_LATER",
+  "tag": "ambiguous",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t171",
+  "command": "이거 마무리 좀 지어줘",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t172",
+  "command": "그 사람 메시지",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t173",
+  "command": "이거 좀 어떻게 해봐",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t174",
+  "command": "그거 부탁해",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_dm"
+ },
+ {
+  "id": "t175",
+  "command": "아까 부탁한 거 취소할게",
+  "gold": "NO_ACTION",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t176",
+  "command": "할 일 체크리스트 형태로 추출해줘",
+  "gold": "EXTRACT_TODOS",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t177",
+  "command": "배포 언제야?",
+  "gold": "FIND_DECISIONS",
+  "tag": "ambiguous",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t178",
+  "command": "QA 월요일 얘기 나온 스레드 열어줘",
+  "gold": "READ_THREAD",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t179",
+  "command": "피그마 링크 찾아주고 채널 요약도 해줘",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "multi_intent",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t180",
+  "command": "이 스레드에서 누가 뭐 하기로 했는지 알려줘",
+  "gold": "NO_ACTION",
+  "tag": "insufficient_context",
+  "state": "s_ch_noreplies"
+ },
+ {
+  "id": "t181",
+  "command": "지난 일주일 동안 이 채널에서 있었던 일 요약 브리핑 해줘",
+  "gold": "SUMMARIZE",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t182",
+  "command": "좋은 아침이에요!",
+  "gold": "NO_ACTION",
+  "tag": "simple",
+  "state": "s_empty"
+ },
+ {
+  "id": "t183",
+  "command": "이번 주 채널 내용 한눈에 보게 요약해줄래?",
+  "gold": "SUMMARIZE",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t184",
+  "command": "할 일 목록 뽑고 금요일 마감 건은 목요일에 알려줘",
+  "gold": "EXTRACT_TODOS",
+  "tag": "multi_intent",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t185",
+  "command": "배포 날짜 결정된 거 알려주고 관련 할 일도 정리해줘",
+  "gold": "FIND_DECISIONS",
+  "tag": "multi_intent",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t186",
+  "command": "릴리즈 체크리스트 스레드 전체 흐름 요약해줄 수 있어?",
+  "gold": "SUMMARIZE",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t187",
+  "command": "요약 말고 댓글 전체 다 펼쳐서 보여줘",
+  "gold": "READ_THREAD",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t188",
+  "command": "DB 마이그레이션 마감 하루 전에 알려줘",
+  "gold": "REMIND_LATER",
+  "tag": "simple",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t189",
+  "command": "팀장님 메시지 내용 좀 고쳐서 다시 올려줘",
+  "gold": "NO_ACTION",
+  "tag": "should_not_act",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t190",
+  "command": "배포 스크립트 리뷰 요청한 글에 달린 댓글 원문 보여주세요",
+  "gold": "READ_THREAD",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t191",
+  "command": "회의록 파일 있었던 것 같은데",
+  "gold": "SEARCH_MESSAGES",
+  "tag": "ambiguous",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t192",
+  "command": "결정사항",
+  "gold": "FIND_DECISIONS",
+  "tag": "short",
+  "state": "s_ch_decisions"
+ },
+ {
+  "id": "t193",
+  "command": "이 스레드에서 누가 뭐 해야 하는지 할 일 목록으로 뽑아줘",
+  "gold": "EXTRACT_TODOS",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t194",
+  "command": "선택한 메시지 원문 열어줘",
+  "gold": "NO_ACTION",
+  "tag": "insufficient_context",
+  "state": "s_ch_noreplies"
+ },
+ {
+  "id": "t195",
+  "command": "이 스레드 무슨 얘기였는지 짧게 정리해줘",
+  "gold": "SUMMARIZE",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t196",
+  "command": "선택한 메시지에 달린 답장들 하나도 빼지 말고 보여줘",
+  "gold": "READ_THREAD",
+  "tag": "simple",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t197",
+  "command": "저번 그거 있잖아",
+  "gold": "CLARIFY",
+  "tag": "underspecified",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t198",
+  "command": "나중에 리마인드",
+  "gold": "REMIND_LATER",
+  "tag": "short",
+  "state": "s_thread_todo"
+ },
+ {
+  "id": "t199",
+  "command": "지난주 논의에서 어떤 결론이 났는지 알려주세요",
+  "gold": "FIND_DECISIONS",
+  "tag": "simple",
+  "state": "s_ch_long"
+ },
+ {
+  "id": "t200",
+  "command": "채널 대화 요약햬줘",
+  "gold": "SUMMARIZE",
+  "tag": "typo",
+  "state": "s_ch_decisions"
+ }
+]
