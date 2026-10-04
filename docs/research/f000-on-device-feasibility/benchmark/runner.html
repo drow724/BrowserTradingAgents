@@ -1,0 +1,176 @@
+<!doctype html><meta charset=utf-8><title>F000 B1 runner</title><pre id=o>idle</pre><script src="f001/preclassify.js"></script><script>
+// Prompts and scoring are frozen per preregistration.md (Experiment B1).
+const ACTIONS = ['SEARCH_MESSAGES','READ_THREAD','SUMMARIZE','EXTRACT_TODOS','FIND_DECISIONS','DRAFT_REPLY','REMIND_LATER','NO_ACTION'];
+const CAPS = `SEARCH_MESSAGES: find specific past messages or information (links, addresses, files, who said what).
+READ_THREAD: open and show the full original replies of a thread/message, without summarizing.
+SUMMARIZE: summarize a conversation, thread or channel.
+EXTRACT_TODOS: extract action items / tasks (who must do what).
+FIND_DECISIONS: list decisions or conclusions that were agreed.
+DRAFT_REPLY: write a draft reply to a message (not sent automatically).
+REMIND_LATER: set a reminder about a message or conversation for later.
+NO_ACTION: do nothing (chit-chat, thanks/acknowledgement, cancel, requests outside these capabilities, destructive or unsupported operations like deleting, sending, editing or permission changes, or when the referenced conversation/message does not exist).`;
+const SYS_A = `You are an assistant inside a team chat app (Slack/Mattermost). You have these capabilities:\n${CAPS}\nIf a command asks for several things, handle the first one first.\nRead the user's command and briefly say what you will do and which capability you will use.`;
+const SYS_B = `You route a user's command in a team chat app (Slack/Mattermost) to exactly one action. Actions:\n${CAPS}\nIf the command asks for several things, choose the first requested one.\nUse the conversation state to check that the referenced conversation, thread or message exists.\nAnswer only with JSON {"action": <ACTION>}.`;
+const SYS_X = SYS_B.replace('Answer only with JSON {"action": <ACTION>}.', 'Perform the action on the conversation state and answer with JSON {"action": <ACTION>, "result": [short strings in Korean]}.');
+const SCHEMA_B = {type:'object', properties:{action:{enum:ACTIONS}}, required:['action']};
+const SCHEMA_X = {type:'object', properties:{action:{enum:ACTIONS}, result:{type:'array', items:{type:'string'}}}, required:['action','result']};
+const LANG = {expectedInputs:[{type:'text',languages:['en']}], expectedOutputs:[{type:'text',languages:['en']}]};
+const T = () => performance.now(), log = s => (document.getElementById('o').textContent = s, window.__progress = s);
+const withTimeout = (p, ms) => Promise.race([p, new Promise((_, j) => setTimeout(() => j(new Error('timeout')), ms))]);
+const userB = (ds, it) => `State:\n${JSON.stringify(ds.states[it.state])}\n\nCommand: ${it.command}`;
+function parseA(text) {
+  const up = text.toUpperCase(); let best = null, at = Infinity;
+  for (const a of ACTIONS) { const i = up.indexOf(a); if (i >= 0 && i < at) { at = i; best = a; } }
+  return best;
+}
+async function runCondition(name, ds, items, sys, makeUser, opts, parse) {
+  const out = [];
+  let t = T(); const base = await LanguageModel.create({...LANG, initialPrompts:[{role:'system', content:sys}]});
+  const createMs = T() - t;
+  for (const [k, it] of items.entries()) {
+    const r = {id: it.id, gold: it.gold, tag: it.tag, first: k === 0};
+    try {
+      t = T(); const s = await base.clone(); r.cloneMs = T() - t;
+      t = T(); r.raw = await withTimeout(s.prompt(makeUser(ds, it), opts), 30000); r.ms = T() - t;
+      s.destroy(); Object.assign(r, parse(r.raw));
+    } catch (e) { r.error = e.message === 'timeout' ? 'timeout' : `${e.name}: ${e.message}`; }
+    out.push(r); log(`${name} ${k + 1}/${items.length}`);
+  }
+  base.destroy();
+  return {createMs, items: out};
+}
+const parseB = raw => { try { const j = JSON.parse(raw); return ACTIONS.includes(j.action) ? {pred: j.action, structuredOk: true} : {pred: null, structuredOk: false}; } catch { return {pred: null, structuredOk: false}; } };
+// limit: harness smoke test only (results/smoke.json, not scored)
+window.startBench = async (limit) => {
+  const ds = await (await fetch('dataset.json')).json();
+  if (limit) { ds.items = ds.items.slice(0, limit); ds.extraction = ds.extraction.slice(0, 1); }
+  const meta = {ua: navigator.userAgent, started: new Date().toISOString(), availability: await LanguageModel.availability(LANG)};
+  const A = await runCondition('A', ds, ds.items, SYS_A, (d, it) => it.command, {}, raw => ({pred: parseA(raw)}));
+  const B = await runCondition('B', ds, ds.items, SYS_B, userB, {responseConstraint: SCHEMA_B}, parseB);
+  const X = await runCondition('X', ds, ds.extraction, SYS_X, userB, {responseConstraint: SCHEMA_X}, parseB);
+  meta.finished = new Date().toISOString();
+  await fetch(limit ? 'results/smoke.json' : 'results/b1.json', {method:'POST', body: JSON.stringify({meta, A, B, X})});
+  log('DONE');
+};
+// ---- Experiment B2 (preregistration-b2.md) ----
+const SYS_B2 = SYS_B.replace('Use the conversation state to check', 'Use the context to check');
+const threadExists = st => st.conversationType === 'thread' || st.messages.some(m => m.hasReplies) || !!st.selectedMessageId;
+const userB2 = (ds, it) => { const st = ds.states[it.state];
+  return `Context: conversationType=${st.conversationType}; messages=${st.messages.length}; threadExists=${threadExists(st)}; selectedMessage=${!!st.selectedMessageId}; mentionsMe=${st.messages.filter(m => m.mentionsCurrentUser).length}\n\nCommand: ${it.command}`; };
+function guard(action, st) {
+  if (['SUMMARIZE','EXTRACT_TODOS','FIND_DECISIONS','DRAFT_REPLY','REMIND_LATER'].includes(action) && st.messages.length === 0) return 'NO_ACTION';
+  if (action === 'READ_THREAD' && !threadExists(st)) return 'NO_ACTION';
+  return action;
+}
+window.startB2 = async (limit) => {
+  const ds = await (await fetch('dataset.json')).json();
+  if (limit) ds.items = ds.items.slice(0, limit);
+  const meta = {experiment: 'B2', ua: navigator.userAgent, started: new Date().toISOString(), availability: await LanguageModel.availability(LANG)};
+  const B2 = await runCondition('B2', ds, ds.items, SYS_B2, userB2, {responseConstraint: SCHEMA_B}, parseB);
+  for (const r of B2.items) { r.predModel = r.pred ?? null; if (r.pred) r.pred = guard(r.pred, ds.states[ds.items.find(i => i.id === r.id).state]); }
+  const B1r = await runCondition('B1r', ds, ds.items, SYS_B, userB, {responseConstraint: SCHEMA_B}, parseB);
+  meta.finished = new Date().toISOString();
+  await fetch(limit ? 'results/smoke-b2.json' : 'results/b2.json', {method:'POST', body: JSON.stringify({meta, B2, B1r})});
+  log('DONE');
+};
+// ---- Experiment B3 (preregistration-b3.md): latency attribution ----
+const SYS_C4 = SYS_B2.replace('Answer only with JSON {"action": <ACTION>}.', 'Answer only with the action name.');
+const SYS_C5 = `Classify the user's command in a team chat app into one action: ${ACTIONS.join(', ')}.\nIf the command asks for several things, choose the first requested one.\nUse the context to check that the referenced conversation, thread or message exists.\nAnswer only with JSON {"action": <ACTION>}.`;
+const B3 = {
+  C1: {sys: SYS_B2, opts: {responseConstraint: SCHEMA_B}},
+  C2: {sys: SYS_B2, opts: {responseConstraint: SCHEMA_B, omitResponseConstraintInput: true}},
+  C3: {sys: SYS_B2, opts: {}},
+  C4: {sys: SYS_C4, opts: {}},
+  C5: {sys: SYS_C5, opts: {}},
+};
+const usage = s => s.inputUsage ?? s.contextUsage ?? null;
+window.startB3 = async (limit) => {
+  const ds = await (await fetch('dataset.json')).json();
+  let items = ds.items.filter((_, i) => i % 4 === 0); if (limit) items = items.slice(0, limit);
+  const names = Object.keys(B3), bases = {}, out = [];
+  const meta = {experiment: 'B3', ua: navigator.userAgent, started: new Date().toISOString(), n: items.length};
+  for (const c of names) { const t = T(); bases[c] = await LanguageModel.create({...LANG, initialPrompts: [{role: 'system', content: B3[c].sys}]}); meta[c + '_createMs'] = T() - t; meta[c + '_baseUsage'] = usage(bases[c]); }
+  for (const [k, it] of items.entries()) {
+    for (let j = 0; j < names.length; j++) {
+      const c = names[(k + j) % names.length], r = {id: it.id, gold: it.gold, tag: it.tag, cond: c, pos: j};
+      try {
+        const sess = await bases[c].clone(); r.usage0 = usage(sess);
+        const t0 = T(); let txt = '', chunks = 0;
+        for await (const ch of sess.promptStreaming(userB2(ds, it), B3[c].opts)) { if (!chunks) r.ttft = T() - t0; chunks++; txt += ch; }
+        r.total = T() - t0; r.decode = r.total - r.ttft; r.chunks = chunks; r.raw = txt; r.usage1 = usage(sess);
+        sess.destroy();
+      } catch (e) { r.error = `${e.name}: ${e.message}`; }
+      out.push(r);
+    }
+    log(`B3 ${k + 1}/${items.length}`);
+  }
+  meta.finished = new Date().toISOString();
+  await fetch(limit ? 'results/smoke-b3.json' : 'results/b3.json', {method: 'POST', body: JSON.stringify({meta, items: out})});
+  log('DONE');
+};
+// ---- Experiment B4 (preregistration-b4.md) ----
+const SYS_B4 = SYS_C4;
+const B4_SCHEMA = {opts: {responseConstraint: {type: 'string', enum: ACTIONS}, omitResponseConstraintInput: true}, mode: 'schema',
+  parse: raw => { try { const a = JSON.parse(raw); return ACTIONS.includes(a) ? {pred: a, structuredOk: true} : {pred: null, structuredOk: false}; } catch { return {pred: null, structuredOk: false}; } }};
+const B4_REGEX = {opts: {responseConstraint: new RegExp(`^(${ACTIONS.join('|')})$`), omitResponseConstraintInput: true}, mode: 'regex',
+  parse: raw => ACTIONS.includes(raw.trim()) ? {pred: raw.trim(), structuredOk: true} : {pred: null, structuredOk: false}};
+window.startB4 = async (limit, mode = 'schema') => {
+  const ds = await (await fetch('dataset.json')).json(), cfg = mode === 'regex' ? B4_REGEX : B4_SCHEMA;
+  if (limit) { ds.items = ds.items.slice(0, limit); ds.heldout = ds.heldout.slice(0, limit); }
+  const meta = {experiment: 'B4', constraintMode: cfg.mode, ua: navigator.userAgent, started: new Date().toISOString(), availability: await LanguageModel.availability(LANG)};
+  const run = async (name, items) => { const c = await runCondition(name, ds, items, SYS_B4, userB2, cfg.opts, cfg.parse);
+    for (const r of c.items) { r.predModel = r.pred ?? null; if (r.pred) r.pred = guard(r.pred, ds.states[items.find(i => i.id === r.id).state]); } return c; };
+  const B4 = await run('B4', ds.items), B4h = await run('B4h', ds.heldout);
+  meta.finished = new Date().toISOString();
+  await fetch(limit ? 'results/smoke-b4.json' : 'results/b4.json', {method: 'POST', body: JSON.stringify({meta, B4, B4h})});
+  log('DONE');
+};
+// ---- Experiment B5 (preregistration-b5.md): CLARIFY ----
+const ACTIONS9 = [...ACTIONS.slice(0, 7), 'CLARIFY', 'NO_ACTION'];
+const CAPS5 = CAPS.replace('NO_ACTION:', 'CLARIFY: ask the user a short clarifying question when the command is too vague to choose one action (it could mean two or more different actions and the context does not decide).\nNO_ACTION:');
+const SYS_B5 = SYS_C4.replace(CAPS, CAPS5);
+const B5_OPTS = {responseConstraint: {type: 'string', enum: ACTIONS9}, omitResponseConstraintInput: true};
+const parseB5 = raw => { try { const a = JSON.parse(raw); return ACTIONS9.includes(a) ? {pred: a, structuredOk: true} : {pred: null, structuredOk: false}; } catch { return {pred: null, structuredOk: false}; } };
+window.startB5 = async (limit) => {
+  const ds = await (await fetch('dataset.json')).json();
+  let items = [...ds.items, ...ds.heldout, ...ds.b5_underspecified]; if (limit) items = [...ds.items.slice(0, limit), ...ds.b5_underspecified.slice(0, limit)];
+  if (SYS_B5 === SYS_C4) throw new Error('CAPS5 not applied');
+  const meta = {experiment: 'B5', ua: navigator.userAgent, started: new Date().toISOString(), availability: await LanguageModel.availability(LANG), sys: SYS_B5};
+  const B5 = await runCondition('B5', ds, items, SYS_B5, userB2, B5_OPTS, parseB5);
+  for (const r of B5.items) { r.predModel = r.pred ?? null; if (r.pred) r.pred = guard(r.pred, ds.states[items.find(i => i.id === r.id).state]); }
+  meta.finished = new Date().toISOString();
+  await fetch(limit ? 'results/smoke-b5.json' : 'results/b5.json', {method: 'POST', body: JSON.stringify({meta, B5})});
+  log('DONE');
+};
+// ---- F001-E1 (f001/preregistration.md) ----
+// cfg (E2): {testset, classifierFile, classifierFn, out}; v3 is evaluated in its own scope to avoid const clashes with v1.
+window.startF001 = async (limit, cfg = {testset: 'f001/testset.json', out: 'f001'}) => {
+  const ds = await (await fetch('dataset.json')).json();
+  let items = await (await fetch(cfg.testset)).json(); if (limit) items = items.slice(0, limit);
+  const pre = cfg.classifierFile ? new Function('module', (await (await fetch(cfg.classifierFile)).text()) + `; return ${cfg.classifierFn};`)(undefined) : preclassify;
+  const meta = {experiment: cfg.out, classifier: cfg.classifierFile || 'f001/preclassify.js', ua: navigator.userAgent, started: new Date().toISOString(), availability: await LanguageModel.availability(LANG)};
+  const M = await runCondition('M', ds, items, SYS_B4, userB2, B4_SCHEMA.opts, B4_SCHEMA.parse);
+  for (const r of M.items) {
+    const it = items.find(i => i.id === r.id), st = ds.states[it.state];
+    r.predModel = r.pred ?? null; r.pred = r.pred ? guard(r.pred, st) : null;
+    r.pre = pre(it.command); r.predP = r.pre ?? r.pred;
+  }
+  meta.finished = new Date().toISOString();
+  await fetch(`results/${limit ? 'smoke-' : ''}${cfg.out}.json`, {method: 'POST', body: JSON.stringify({meta, M})});
+  log('DONE');
+};
+// ---- F002-E1 (f002/preregistration.md): learned gate; variants are computed offline in f002/score.py ----
+const loadFn = async (file, name) => new Function('module', (await (await fetch(file)).text()) + `; return ${name};`)(undefined);
+window.startF002 = async (run, limit) => {
+  const ds = await (await fetch('dataset.json')).json();
+  let items = await (await fetch('f002/testset.json')).json(); if (limit) items = items.slice(0, limit);
+  const mk = await loadFn('f002/classify.js', 'makeClassifier'), v3 = await loadFn('f001/preclassify-v3.js', 'preclassifyV3');
+  const gate = mk(await (await fetch('f002/gate.json')).json()), i9 = mk(await (await fetch('f002/intent9.json')).json());
+  const meta = {experiment: 'F002-E1', run, ua: navigator.userAgent, started: new Date().toISOString(), availability: await LanguageModel.availability(LANG)};
+  const M = await runCondition('F002 r' + run, ds, items, SYS_B4, userB2, B4_SCHEMA.opts, B4_SCHEMA.parse);
+  for (const r of M.items) { const it = items.find(i => i.id === r.id); r.predModel = r.pred ?? null; r.gate = gate(it.command); r.i9 = i9(it.command); r.v3 = v3(it.command); }
+  meta.finished = new Date().toISOString();
+  await fetch(`results/${limit ? 'smoke-' : ''}f002-r${run}.json`, {method: 'POST', body: JSON.stringify({meta, M})});
+  log('DONE r' + run);
+};
+</script>

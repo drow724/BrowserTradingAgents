@@ -1,0 +1,7 @@
+<!doctype html><meta charset=utf-8><pre id=o>running</pre><script>
+(async()=>{const r={ua:navigator.userAgent,secure:isSecureContext};
+for(const n of ['LanguageModel','Summarizer','Writer','Rewriter','Translator','LanguageDetector','Proofreader'])r[n]=typeof self[n];
+r.windowAi=typeof self.ai;
+for(const n of ['LanguageModel','Summarizer']){try{r[n+'.availability']=self[n]?await self[n].availability():'n/a'}catch(e){r[n+'.availability']='ERR '+e}}
+const s=JSON.stringify(r,null,1);document.getElementById('o').textContent=s;console.log('PROBE '+s);window.__done=s})();
+</script>

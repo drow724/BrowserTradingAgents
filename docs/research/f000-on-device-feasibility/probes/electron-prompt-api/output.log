@@ -1,0 +1,24 @@
+# 2026-10-03T13:49:09Z macOS 15.7.4 / Apple M1 16GB
+## electron main.js
+electron 43.3.0 chrome 150.0.7871.212
+{
+ "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.7871.212 Electron/43.3.0 Safari/537.36",
+ "secure": true,
+ "LanguageModel": "function",
+ "Summarizer": "function",
+ "Writer": "undefined",
+ "Rewriter": "undefined",
+ "Translator": "function",
+ "LanguageDetector": "function",
+ "Proofreader": "undefined",
+ "windowAi": "undefined",
+ "LanguageModel.availability": "downloadable",
+ "Summarizer.availability": "downloadable"
+}
+## electron create.js
+dl 0
+dl 1
+created 306ms
+prompt: On-device model is not available in Chromium, this API is just echoing back the input:
+Reply with one word: OK
+avail after: available

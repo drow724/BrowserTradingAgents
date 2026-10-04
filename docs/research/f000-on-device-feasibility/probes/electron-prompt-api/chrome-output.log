@@ -1,0 +1,12 @@
+# 2026-10-03 Chrome 154.0.8037.93, user profile (Gemini Nano OptGuideOnDeviceModel 2025.8.8.1141), Mac M1 16GB
+# page: http://127.0.0.1:8765/probe.html, executed via Claude in Chrome javascript_tool
+## probe.html
+LanguageModel=function Summarizer=function Translator=function LanguageDetector=function
+Writer/Rewriter/Proofreader=undefined
+LanguageModel.availability=available Summarizer.availability=available
+## create + prompt (expectedInputs/Outputs en)
+create 17738ms
+first prompt 3413ms -> "OK\n"
+warm x5 ms 376,287,281,300,280   (fresh clone() per prompt)
+structured (responseConstraint enum, Korean command "이 스레드 요약해줘") 1661ms -> {"action": "SUMMARIZE"}
+contextWindow 9216

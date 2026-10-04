@@ -1,0 +1,1 @@
+{"id":"f000-probe","name":"F000 Probe","version":"0.0.1","min_server_version":"9.0.0","webapp":{"bundle_path":"webapp/dist/main.js"}}

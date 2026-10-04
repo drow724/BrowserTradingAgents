@@ -1,0 +1,913 @@
+{
+  "t01": [
+    {
+      "assignee": "u_shin",
+      "task": "3% 역제안 메일 보내기",
+      "due": "오늘",
+      "sources": [
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "계약서 조정된 단가 반영하여 재작성",
+      "due": "목요일",
+      "sources": [
+        "m4"
+      ]
+    }
+  ],
+  "t02": [
+    {
+      "assignee": "u_bae",
+      "task": "물류팀에 배송 지연 원인 파악 요청",
+      "due": "오늘",
+      "sources": [
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_oh",
+      "task": "챗봇 환불 문의 케이스 정리",
+      "due": "목요일",
+      "sources": [
+        "m4",
+        "m5"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "FAQ에 배송 지연 안내 문구 추가",
+      "due": null,
+      "sources": [
+        "m6"
+      ]
+    }
+  ],
+  "t03": [
+    {
+      "assignee": "u_bae",
+      "task": "미지급 비용 리스트 작성",
+      "due": "오늘",
+      "sources": [
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_shin",
+      "task": "외화 환산 차이 검토",
+      "due": "내일",
+      "sources": [
+        "m5",
+        "m6"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "법인세 중간예납 자료 세무사에 제출",
+      "due": "금요일",
+      "sources": [
+        "m7",
+        "m8"
+      ]
+    }
+  ],
+  "t04": [
+    {
+      "assignee": "u_me",
+      "task": "PR #482 리뷰",
+      "due": "오늘",
+      "sources": [
+        "m1",
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_jiwon",
+      "task": "storybook 버그 수정",
+      "due": null,
+      "sources": [
+        "m3"
+      ]
+    }
+  ],
+  "t05": [
+    {
+      "assignee": "u_jung",
+      "task": "lodash와 axios 업데이트",
+      "due": "이번주",
+      "sources": [
+        "m2",
+        "m4"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "jsonwebtoken과 multer 패키지 업데이트",
+      "due": "다음주",
+      "sources": [
+        "m3",
+        "m5"
+      ]
+    }
+  ],
+  "t06": [
+    {
+      "assignee": "u_bae",
+      "task": "E사 세금계산서 발행",
+      "due": "금요일",
+      "sources": [
+        "m5"
+      ]
+    }
+  ],
+  "t07": [
+    {
+      "assignee": "u_me",
+      "task": "신규 입사자 노트북 및 계정 세팅 IT팀 요청",
+      "due": null,
+      "sources": [
+        "m7"
+      ]
+    }
+  ],
+  "t08": [
+    {
+      "assignee": "u_seo",
+      "task": "외주 업체 비교표 작성",
+      "due": null,
+      "sources": [
+        "m4"
+      ]
+    }
+  ],
+  "t09": [
+    {
+      "assignee": "u_lim",
+      "task": "logrotate 설정 추가",
+      "due": "오늘",
+      "sources": [
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "스테이징 디스크 증설 견적 조회",
+      "due": "이번주",
+      "sources": [
+        "m5"
+      ]
+    }
+  ],
+  "t10": [
+    {
+      "assignee": "u_oh",
+      "task": "워크샵 장소별 버스 대절 견적 조회",
+      "due": null,
+      "sources": [
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "워크샵 참석 인원 명단 취합",
+      "due": "내일",
+      "sources": [
+        "m4"
+      ]
+    }
+  ],
+  "t11": [
+    {
+      "assignee": "u_me",
+      "task": "뉴스레터 10월호 교정 및 링크 체크",
+      "due": "내일",
+      "sources": [
+        "m3",
+        "m4"
+      ]
+    }
+  ],
+  "t12": [
+    {
+      "assignee": "u_lim",
+      "task": "5명에게 MFA 등록 리마인드",
+      "due": "이번주",
+      "sources": [
+        "m7"
+      ]
+    }
+  ],
+  "t13": [
+    {
+      "assignee": "u_jung",
+      "task": "인증서 만료 알림 자동화",
+      "due": "이번주",
+      "sources": [
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "런북에 인증서 갱신 절차 추가",
+      "due": null,
+      "sources": [
+        "m5",
+        "m6"
+      ]
+    },
+    {
+      "assignee": "u_lee",
+      "task": "장애 공지 템플릿 수정",
+      "due": "다음주",
+      "sources": [
+        "m7"
+      ]
+    }
+  ],
+  "t14": [
+    {
+      "assignee": "u_me",
+      "task": "두 번째 지원자 포트폴리오 검토",
+      "due": "수요일",
+      "sources": [
+        "m2"
+      ]
+    }
+  ],
+  "t15": [
+    {
+      "assignee": "u_me",
+      "task": "안드로이드 12 푸시 알림 버그 수정",
+      "due": "내일",
+      "sources": [
+        "m3",
+        "m4"
+      ]
+    },
+    {
+      "assignee": "u_kim",
+      "task": "푸시 알림 테스트 기기 세팅",
+      "due": null,
+      "sources": [
+        "m5"
+      ]
+    }
+  ],
+  "t16": [
+    {
+      "assignee": "u_bae",
+      "task": "마케팅팀 예산 집행 내역 수집",
+      "due": "월요일",
+      "sources": [
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "3분기 예산 집행률 보고서 작성",
+      "due": null,
+      "sources": [
+        "m5",
+        "m6"
+      ]
+    }
+  ],
+  "t17": [
+    {
+      "assignee": "u_jung",
+      "task": "서버 OS 패치",
+      "due": "목요일",
+      "sources": [
+        "m5",
+        "m6"
+      ]
+    }
+  ],
+  "t18": [
+    {
+      "assignee": "u_me",
+      "task": "송년회 성수 장소 예약",
+      "due": "이번주",
+      "sources": [
+        "m8"
+      ]
+    }
+  ],
+  "t19": [
+    {
+      "assignee": "u_sora",
+      "task": "온보딩 애니메이션 완성",
+      "due": "오늘",
+      "sources": [
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_taeho",
+      "task": "딥링크 처리 버그 수정",
+      "due": "내일",
+      "sources": [
+        "m4"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "접근성 라벨 누락 정리",
+      "due": "이번주",
+      "sources": [
+        "m5"
+      ]
+    },
+    {
+      "assignee": "u_jiwon",
+      "task": "앱 스토어 스크린샷 업데이트",
+      "due": null,
+      "sources": [
+        "m6"
+      ]
+    }
+  ],
+  "t20": [
+    {
+      "assignee": "u_kim",
+      "task": "DB 마이그레이션 롤백 스크립트 준비",
+      "due": null,
+      "sources": [
+        "m2",
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_lee",
+      "task": "DB 마이그레이션 사전 공지 메일",
+      "due": "월요일",
+      "sources": [
+        "m4",
+        "m5"
+      ]
+    }
+  ],
+  "t21": [
+    {
+      "assignee": "u_me",
+      "task": "상세페이지 리뉴얼 와이어프레임 피드백 정리",
+      "due": "금요일",
+      "sources": [
+        "m2",
+        "m3"
+      ]
+    }
+  ],
+  "t22": [
+    {
+      "assignee": "u_jung",
+      "task": "CDN 비용 증가 원인 분석",
+      "due": "목요일",
+      "sources": [
+        "m3",
+        "m5"
+      ]
+    }
+  ],
+  "t23": [
+    {
+      "assignee": "u_me",
+      "task": "위젯 관련 QA 시나리오 작성",
+      "due": "수요일",
+      "sources": [
+        "m8"
+      ]
+    }
+  ],
+  "t24": [
+    {
+      "assignee": "u_me",
+      "task": "파트너사 NDA 초안 상대측 회신",
+      "due": "화요일",
+      "sources": [
+        "m2"
+      ]
+    }
+  ],
+  "t25": [
+    {
+      "assignee": "u_me",
+      "task": "비밀번호 재설정 메일 템플릿 수정",
+      "due": "내일",
+      "sources": [
+        "m4",
+        "m5"
+      ]
+    }
+  ],
+  "t26": [
+    {
+      "assignee": "u_me",
+      "task": "3층 회의실 프로젝터 수리 접수",
+      "due": null,
+      "sources": [
+        "m4"
+      ]
+    }
+  ],
+  "t27": [
+    {
+      "assignee": "u_me",
+      "task": "인스타 이벤트 경품 발송",
+      "due": "내일",
+      "sources": [
+        "m4",
+        "m5"
+      ]
+    }
+  ],
+  "t28": [
+    {
+      "assignee": "u_me",
+      "task": "4분기 마케팅 채널별 예산 배분표 작성",
+      "due": "내일",
+      "sources": [
+        "m8"
+      ]
+    }
+  ],
+  "t29": [
+    {
+      "assignee": "u_yejin",
+      "task": "이벤트 페이지 일러스트 작업",
+      "due": "월요일",
+      "sources": [
+        "m3",
+        "m4"
+      ]
+    },
+    {
+      "assignee": "u_seo",
+      "task": "일러스트 레퍼런스 자료 전달",
+      "due": "오늘",
+      "sources": [
+        "m3",
+        "m5"
+      ]
+    }
+  ],
+  "t30": [],
+  "t31": [
+    {
+      "assignee": "u_me",
+      "task": "신규 입사자 사내 투어",
+      "due": null,
+      "sources": [
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_oh",
+      "task": "신규 입사자 노트북 수령 안내",
+      "due": null,
+      "sources": [
+        "m3",
+        "m4"
+      ]
+    },
+    {
+      "assignee": "u_han",
+      "task": "신규 입사자 첫 주 교육 일정표 작성",
+      "due": "금요일",
+      "sources": [
+        "m6",
+        "m7"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "웰컴키트 재고 확인",
+      "due": "내일",
+      "sources": [
+        "m10"
+      ]
+    }
+  ],
+  "t32": [],
+  "t33": [
+    {
+      "assignee": "u_kim",
+      "task": "소셜 로그인 애플 추가",
+      "due": null,
+      "sources": [
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_lee",
+      "task": "결제 에러 로그 대시보드 작성",
+      "due": "금요일",
+      "sources": [
+        "m4"
+      ]
+    },
+    {
+      "assignee": "u_choi",
+      "task": "QA 계획서 작성",
+      "due": "월요일",
+      "sources": [
+        "m6",
+        "m7"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "이메일 인증 만료 버그 수정",
+      "due": "내일",
+      "sources": [
+        "m8"
+      ]
+    }
+  ],
+  "t34": [
+    {
+      "assignee": "u_kang",
+      "task": "공동 프로모션 기획안 작성",
+      "due": "다음주",
+      "sources": [
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_shin",
+      "task": "법무팀에 데이터 공유 검토 요청",
+      "due": "오늘",
+      "sources": [
+        "m5"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "C사 담당자 감사 메일 발송",
+      "due": null,
+      "sources": [
+        "m7",
+        "m8"
+      ]
+    }
+  ],
+  "t35": [
+    {
+      "assignee": "u_me",
+      "task": "법인카드 사용 규정 변경사항 팀 위키 정리",
+      "due": null,
+      "sources": [
+        "m6",
+        "m7"
+      ]
+    }
+  ],
+  "t36": [],
+  "t37": [
+    {
+      "assignee": "u_oh",
+      "task": "VIP 고객 해피콜 (21명)",
+      "due": "금요일",
+      "sources": [
+        "m2",
+        "m3",
+        "m5"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "VIP 고객 해피콜 (나머지)",
+      "due": "금요일",
+      "sources": [
+        "m2",
+        "m4",
+        "m5"
+      ]
+    }
+  ],
+  "t38": [],
+  "t39": [
+    {
+      "assignee": "u_kim",
+      "task": "결제 모듈 QA 마무리",
+      "due": "내일",
+      "sources": [
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "릴리즈 노트 초안 작성",
+      "due": "목요일",
+      "sources": [
+        "m3"
+      ]
+    }
+  ],
+  "t40": [
+    {
+      "assignee": "u_song",
+      "task": "고객 세미나 발표 자료 최종본 작성",
+      "due": "월요일",
+      "sources": [
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "고객 세미나 참가자 안내 문자 발송",
+      "due": "내일",
+      "sources": [
+        "m5"
+      ]
+    }
+  ],
+  "t41": [
+    {
+      "assignee": "u_me",
+      "task": "상표 출원 서류 대표님 결재 받기",
+      "due": "수요일",
+      "sources": [
+        "m4"
+      ]
+    }
+  ],
+  "t42": [
+    {
+      "assignee": "u_bae",
+      "task": "환불 정책 변경사항 상담 매뉴얼 수정",
+      "due": "다음주",
+      "sources": [
+        "m7",
+        "m8"
+      ]
+    }
+  ],
+  "t43": [
+    {
+      "assignee": "u_yu",
+      "task": "A/B 테스트 통계 검정",
+      "due": "오늘",
+      "sources": [
+        "m3",
+        "m4"
+      ]
+    }
+  ],
+  "t44": [
+    {
+      "assignee": "u_song",
+      "task": "블프 캠페인 카피 최종안 선정",
+      "due": "내일",
+      "sources": [
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_seo",
+      "task": "블프 캠페인 메인 배너 시안",
+      "due": "금요일",
+      "sources": [
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "블프 캠페인 앱 푸시 발송 스케줄 초안 작성",
+      "due": null,
+      "sources": [
+        "m7"
+      ]
+    }
+  ],
+  "t45": [
+    {
+      "assignee": "u_kim",
+      "task": "결제 API 재시도 로직 수정",
+      "due": "월요일",
+      "sources": [
+        "m3",
+        "m5"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "결제 API 타임아웃 설정 수정",
+      "due": "월요일",
+      "sources": [
+        "m4",
+        "m5"
+      ]
+    }
+  ],
+  "t46": [
+    {
+      "assignee": "u_jung",
+      "task": "PII 마스킹 정책 보안팀 미팅",
+      "due": "이번주",
+      "sources": [
+        "m4",
+        "m5"
+      ]
+    },
+    {
+      "assignee": "u_yu",
+      "task": "로그 테이블 파티셔닝 전략 정리",
+      "due": "금요일",
+      "sources": [
+        "m7",
+        "m8"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "기존 Airflow DAG 정리",
+      "due": null,
+      "sources": [
+        "m9"
+      ]
+    }
+  ],
+  "t47": [],
+  "t48": [],
+  "t49": [
+    {
+      "assignee": "u_yejin",
+      "task": "디자인 시스템 아이콘 세트 SVG 정리",
+      "due": "다음주",
+      "sources": [
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_kim",
+      "task": "컴포넌트 라이브러리 버전업",
+      "due": "다음주",
+      "sources": [
+        "m5",
+        "m6"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "디자인 시스템 마이그레이션 가이드 초안",
+      "due": "목요일",
+      "sources": [
+        "m7"
+      ]
+    }
+  ],
+  "t50": [
+    {
+      "assignee": "u_yu",
+      "task": "리텐션 대시보드 쿼리 수정",
+      "due": "월요일",
+      "sources": [
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "리텐션 리포트 기준 변경 주석 추가",
+      "due": "오늘",
+      "sources": [
+        "m4"
+      ]
+    }
+  ],
+  "t51": [
+    {
+      "assignee": "u_oh",
+      "task": "10월 프로모션 배너 인스타 이미지",
+      "due": "모레",
+      "sources": [
+        "m3"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "10월 프로모션 배너 랜딩페이지 문구 반영",
+      "due": "내일",
+      "sources": [
+        "m4"
+      ]
+    }
+  ],
+  "t52": [
+    {
+      "assignee": "u_seo",
+      "task": "온보딩 화면 버튼 컬러 수정",
+      "due": "오늘",
+      "sources": [
+        "m3"
+      ]
+    }
+  ],
+  "t53": [
+    {
+      "assignee": "u_me",
+      "task": "스프린트 회고 템플릿 작성",
+      "due": "수요일",
+      "sources": [
+        "m7"
+      ]
+    }
+  ],
+  "t54": [
+    {
+      "assignee": "u_kang",
+      "task": "4분기 로드맵 업데이트",
+      "due": "오늘",
+      "sources": [
+        "m4"
+      ]
+    }
+  ],
+  "t55": [
+    {
+      "assignee": "u_bae",
+      "task": "고객사 환불 지연 사과 메일 및 안내",
+      "due": "오늘",
+      "sources": [
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "환불 지연 원인 확인 요청",
+      "due": null,
+      "sources": [
+        "m3"
+      ]
+    }
+  ],
+  "t56": [
+    {
+      "assignee": "u_me",
+      "task": "iOS 앱 개인정보 처리방침 링크 추가 및 재제출",
+      "due": "오늘",
+      "sources": [
+        "m2"
+      ]
+    },
+    {
+      "assignee": "u_kim",
+      "task": "안드로이드 개인정보 처리방침 링크 확인",
+      "due": null,
+      "sources": [
+        "m3"
+      ]
+    }
+  ],
+  "t57": [
+    {
+      "assignee": "u_me",
+      "task": "공통 버튼 컴포넌트 props 정리",
+      "due": "다음주",
+      "sources": [
+        "m5"
+      ]
+    }
+  ],
+  "t58": [
+    {
+      "assignee": "u_me",
+      "task": "데모 테스트 계정 생성",
+      "due": "오늘",
+      "sources": [
+        "m4",
+        "m5"
+      ]
+    }
+  ],
+  "t59": [
+    {
+      "assignee": "u_jung",
+      "task": "ES 인덱스 보존 기간 30일로 단축",
+      "due": "이번주",
+      "sources": [
+        "m7"
+      ]
+    }
+  ],
+  "t60": [
+    {
+      "assignee": "u_oh",
+      "task": "인턴 OT 자료 업데이트",
+      "due": "금요일",
+      "sources": [
+        "m3",
+        "m4"
+      ]
+    },
+    {
+      "assignee": "u_me",
+      "task": "복지 안내 최신본 오사원 전달",
+      "due": null,
+      "sources": [
+        "m5"
+      ]
+    }
+  ]
+}

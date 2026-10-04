@@ -1,0 +1,495 @@
+{
+ "d01": [
+  {
+   "assignee": "u_yuna",
+   "task": "이벤트 맵 리소스는 내가 오늘 밤까지 올릴게",
+   "due": "오늘",
+   "sources": [
+    "m2"
+   ]
+  },
+  {
+   "assignee": "u_sumin",
+   "task": "그거 수민이 기획팀한테 내일까지 받아줄 수 있어?",
+   "due": "내일",
+   "sources": [
+    "m4"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "점검 공지 다국어 번역 요청은 내가 넣을게",
+   "due": null,
+   "sources": [
+    "m6"
+   ]
+  }
+ ],
+ "d02": [
+  {
+   "assignee": "u_hoon",
+   "task": "굿 그럼 남은 건 계약서 검토네. 그건 내가 다음주에 할게",
+   "due": "다음주",
+   "sources": [
+    "m5"
+   ]
+  }
+ ],
+ "d03": [
+  {
+   "assignee": "u_gyuri",
+   "task": "총무팀에 남는 박스 있대. 내가 내일 몇 개 받아다 줄게",
+   "due": "내일",
+   "sources": [
+    "m3"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "나 라벨 스티커 있음. 우리 팀 짐 라벨은 내가 오늘 다 붙여놓을게",
+   "due": "오늘",
+   "sources": [
+    "m4"
+   ]
+  }
+ ],
+ "d04": [
+  {
+   "assignee": "u_kim",
+   "task": "인증 섹션은 제가 오늘 중으로 보강해둘게요",
+   "due": "오늘",
+   "sources": [
+    "m2"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "에러 코드 표는 제가 금요일까지 정리하겠습니다",
+   "due": "금요일",
+   "sources": [
+    "m3"
+   ]
+  }
+ ],
+ "d05": [
+  {
+   "assignee": "u_oh",
+   "task": "저 이번주 병가라서요 ㅠ 혹시 누가 대신 해주실 수 있을까요",
+   "due": "이번주",
+   "sources": [
+    "m2",
+    "m3"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "수신자 리스트 최신본은 제가 오늘 오사원님께 보내드릴게요",
+   "due": "오늘",
+   "sources": [
+    "m5"
+   ]
+  }
+ ],
+ "d06": [],
+ "d07": [
+  {
+   "assignee": "u_song",
+   "task": "에코백은 제가 업체 알아볼게요",
+   "due": null,
+   "sources": [
+    "m3"
+   ]
+  },
+  {
+   "assignee": "u_oh",
+   "task": "그건 제가요! 디자인 파일은 이번주 안에 넘길게요",
+   "due": "이번주",
+   "sources": [
+    "m5"
+   ]
+  }
+ ],
+ "d08": [
+  {
+   "assignee": "u_yuna",
+   "task": "오 고마워. 아 그럼 주간회의 안건 문서엔 내가 적어둘게",
+   "due": null,
+   "sources": [
+    "m7"
+   ]
+  }
+ ],
+ "d09": [
+  {
+   "assignee": "u_me",
+   "task": "나 오늘 고객사 미팅 연달아 있어서 그런데 너가 좀 써줄래?",
+   "due": "오늘",
+   "sources": [
+    "m3"
+   ]
+  }
+ ],
+ "d10": [
+  {
+   "assignee": "u_yoon",
+   "task": "우리 팀은 금요일 오후에 다같이 듣는 걸로 하고, 일정 공지는 제가 내일 올릴게요",
+   "due": "내일",
+   "sources": [
+    "m8"
+   ]
+  }
+ ],
+ "d11": [
+  {
+   "assignee": "u_shin",
+   "task": "발주는 제가 오늘 넣겠습니다",
+   "due": "오늘",
+   "sources": [
+    "m8"
+   ]
+  }
+ ],
+ "d12": [
+  {
+   "assignee": "u_kang",
+   "task": "촬영 대본 초안은 제가 월요일까지 드릴게요",
+   "due": "월요일",
+   "sources": [
+    "m2"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "@나 인터뷰이 3명 섭외해서 이번주 안에 명단 주세요",
+   "due": "이번주",
+   "sources": [
+    "m3"
+   ]
+  }
+ ],
+ "d13": [
+  {
+   "assignee": "u_me",
+   "task": "나님 오늘 중으로 부탁해도 될까요?",
+   "due": "오늘",
+   "sources": [
+    "m3"
+   ]
+  },
+  {
+   "assignee": "u_jung",
+   "task": "정선임님은 다른 SaaS에도 남은 거 있는지 이번주까지 전수 조사 부탁해요",
+   "due": "이번주",
+   "sources": [
+    "m3"
+   ]
+  },
+  {
+   "assignee": "u_jung",
+   "task": "네 알겠습니다",
+   "due": null,
+   "sources": [
+    "m5"
+   ]
+  }
+ ],
+ "d14": [],
+ "d15": [
+  {
+   "assignee": "u_bae",
+   "task": "@배대리 1~9번 항목 수요일까지 준비해주세요",
+   "due": "수요일",
+   "sources": [
+    "m2"
+   ]
+  },
+  {
+   "assignee": "u_shin",
+   "task": "10~18번은 제가 직접 챙길게요",
+   "due": null,
+   "sources": [
+    "m3"
+   ]
+  }
+ ],
+ "d16": [
+  {
+   "assignee": "u_hong",
+   "task": "재택근무 정책 개편 관련 정리할게요",
+   "due": null,
+   "sources": [
+    "m1"
+   ]
+  },
+  {
+   "assignee": "u_han",
+   "task": "공지문은 제가 이번주 금요일까지 작성할게요",
+   "due": "금요일",
+   "sources": [
+    "m3"
+   ]
+  },
+  {
+   "assignee": "u_bae",
+   "task": "배대리님이 양식 수정 부탁해요",
+   "due": "내일",
+   "sources": [
+    "m5"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "그건 나님이 IT팀에 요청해주세요",
+   "due": "오늘",
+   "sources": [
+    "m8"
+   ]
+  }
+ ],
+ "d17": [
+  {
+   "assignee": "u_jihye",
+   "task": "아 네 제가 부탁드려볼게요. 다음주 초까지 받아볼게요",
+   "due": "다음주",
+   "sources": [
+    "m4"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "아 네 제가 부탁드려볼게요. 다음주 초까지 받아볼게요",
+   "due": "다음주",
+   "sources": [
+    "m4",
+    "m5"
+   ]
+  }
+ ],
+ "d18": [
+  {
+   "assignee": "u_me",
+   "task": "그럼 나님은 테스트 결과 리포트 취합만 해서 금요일에 공유해줘요",
+   "due": "금요일",
+   "sources": [
+    "m4"
+   ]
+  }
+ ],
+ "d19": [
+  {
+   "assignee": "u_kim",
+   "task": "받았어요. 반응형 깨지는 부분은 제가 수요일까지 고칠게요",
+   "due": "수요일",
+   "sources": [
+    "m3"
+   ]
+  },
+  {
+   "assignee": "u_choi",
+   "task": "목요일에 해주세요 최주임님",
+   "due": "목요일",
+   "sources": [
+    "m5"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "오픈 공지 보도자료는 나님이 써주세요.",
+   "due": "금요일",
+   "sources": [
+    "m7"
+   ]
+  }
+ ],
+ "d20": [
+  {
+   "assignee": "u_park",
+   "task": "그건 이번엔 안 할게요",
+   "due": null,
+   "sources": [
+    "m6"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "결제 페이지 가격 표기 변경은 제가 다음주 수요일까지 반영할게요",
+   "due": "수요일",
+   "sources": [
+    "m7"
+   ]
+  }
+ ],
+ "d21": [
+  {
+   "assignee": "u_me",
+   "task": "E2E flaky 실패 근본 원인은 제가 다음주까지 파볼게요",
+   "due": "다음주",
+   "sources": [
+    "m2"
+   ]
+  },
+  {
+   "assignee": "u_jung",
+   "task": "CI 러너 사양 올리는 건 제가 오늘 인프라팀에 요청할게요",
+   "due": "오늘",
+   "sources": [
+    "m3"
+   ]
+  }
+ ],
+ "d22": [
+  {
+   "assignee": "u_yu",
+   "task": "학습 데이터 라벨링 기준 문서는 제가 오늘 공유할게요",
+   "due": "오늘",
+   "sources": [
+    "m2"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "모델 성능 모니터링 알람은 누가 붙일까요?",
+   "due": "다음주",
+   "sources": [
+    "m5",
+    "m6"
+   ]
+  },
+  {
+   "assignee": "u_jung",
+   "task": "피처 스토어 마이그레이션은 제가 이번주에 시작할게요",
+   "due": "이번주",
+   "sources": [
+    "m7"
+   ]
+  }
+ ],
+ "d23": [
+  {
+   "assignee": "u_yu",
+   "task": "실험 설계서는 제가 화요일까지 올릴게요",
+   "due": "화요일",
+   "sources": [
+    "m2"
+   ]
+  },
+  {
+   "assignee": "u_song",
+   "task": "랜딩 카피 변형 3종은 제가 만들어둘게요",
+   "due": null,
+   "sources": [
+    "m3"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "이벤트 트래킹 태그 심는 건 제가 내일 할게요",
+   "due": "내일",
+   "sources": [
+    "m5"
+   ]
+  }
+ ],
+ "d24": [
+  {
+   "assignee": "u_me",
+   "task": "@나 우리 팀 검진 대상자 명단 월요일까지 인사팀에 제출해줘요",
+   "due": "월요일",
+   "sources": [
+    "m8"
+   ]
+  }
+ ],
+ "d25": [
+  {
+   "assignee": "u_lim",
+   "task": "제가 해볼게요",
+   "due": null,
+   "sources": [
+    "m3"
+   ]
+  }
+ ],
+ "d26": [
+  {
+   "assignee": "u_me",
+   "task": "저 지금 그 근처 코드 보고 있어서 제가 할게요. 오늘 PR 올릴게요",
+   "due": "오늘",
+   "sources": [
+    "m5"
+   ]
+  }
+ ],
+ "d27": [
+  {
+   "assignee": "u_me",
+   "task": "넵 올릴게요",
+   "due": null,
+   "sources": [
+    "m4"
+   ]
+  },
+  {
+   "assignee": "u_oh",
+   "task": "고객님께는 제가 처리 중이라고 안내해둘게요",
+   "due": null,
+   "sources": [
+    "m5"
+   ]
+  }
+ ],
+ "d28": [
+  {
+   "assignee": "u_kang",
+   "task": "SSO 연동 가이드는 제가 다음주까지 F사용으로 커스터마이즈할게요",
+   "due": "다음주",
+   "sources": [
+    "m3"
+   ]
+  },
+  {
+   "assignee": "u_jihye",
+   "task": "교육 자료는 지혜님이 준비해주세요",
+   "due": null,
+   "sources": [
+    "m6"
+   ]
+  },
+  {
+   "assignee": "u_me",
+   "task": "데이터 이관 템플릿은 제가 내일 F사에 보내드릴게요",
+   "due": "내일",
+   "sources": [
+    "m8"
+   ]
+  }
+ ],
+ "d29": [
+  {
+   "assignee": "u_me",
+   "task": "ㅇㅋ 들어갈게",
+   "due": null,
+   "sources": [
+    "m2"
+   ]
+  },
+  {
+   "assignee": "u_eunbi",
+   "task": "고마워 ㅠ 회의록은 내가 모레 와서 정리할게",
+   "due": "모레",
+   "sources": [
+    "m3"
+   ]
+  }
+ ],
+ "d30": [
+  {
+   "assignee": "u_me",
+   "task": "GPL 라이브러리 하나가 목록에서 빠져 있어서 그거 추가해서 목요일까지 다시 보내주세요",
+   "due": "목요일",
+   "sources": [
+    "m2"
+   ]
+  }
+ ]
+}

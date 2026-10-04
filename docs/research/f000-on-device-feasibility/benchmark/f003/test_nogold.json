@@ -1,0 +1,3116 @@
+[
+ {
+  "id": "t01",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_shin",
+    "name": "신과장"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_shin",
+    "text": "B사 견적서 회신 왔는데 단가 5% 조정 요청이네요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kang",
+    "text": "내부 마진 기준으로는 3%까지만 가능해요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_shin",
+    "text": "그럼 제가 3%로 역제안하는 메일 오늘 보낼게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_kang",
+    "text": "@나 계약서 초안에 조정된 단가 반영해서 목요일까지 다시 뽑아주세요"
+   }
+  ]
+ },
+ {
+  "id": "t02",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_bae",
+    "name": "배대리"
+   },
+   {
+    "id": "u_oh",
+    "name": "오사원"
+   },
+   {
+    "id": "u_hong",
+    "name": "홍팀장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hong",
+    "text": "이번주 CS 이슈 공유해주세요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_bae",
+    "text": "배송 지연 문의가 전주 대비 2배예요. 물류팀에 원인 파악 요청은 제가 오늘 넣을게요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_oh",
+    "text": "챗봇이 환불 문의를 제대로 분류 못 하는 케이스가 많아요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_hong",
+    "text": "그거 챗봇 시나리오 수정 필요하겠네요. 오사원님이 케이스 모아서 목요일까지 정리해줄래요?"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_oh",
+    "text": "네!"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_me",
+    "text": "FAQ에 배송 지연 안내 문구 추가하는 건 제가 할게요"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_hong",
+    "text": "좋아요. 그리고 주말 상담 인력 충원은 이번 분기엔 안 하기로 했어요"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_bae",
+    "text": "아쉽네여 ㅠ"
+   },
+   {
+    "id": "m9",
+    "authorId": "u_hong",
+    "text": "다음주 CS 회의는 화요일로 옮깁니다"
+   }
+  ]
+ },
+ {
+  "id": "t03",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_shin",
+    "name": "신과장"
+   },
+   {
+    "id": "u_bae",
+    "name": "배대리"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_shin",
+    "text": "9월 결산 마감 D-3입니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_bae",
+    "text": "미지급 비용 리스트는 오늘 오후에 올릴게요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_shin",
+    "text": "감가상각 계산 시트는 누가 업데이트했죠?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "그건 어제 제가 업데이트 완료했어요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_park",
+    "text": "외화 환산 차이 검토는 신과장님이 내일까지 봐주세요"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_shin",
+    "text": "넵"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_park",
+    "text": "그리고 나님은 법인세 중간예납 자료 금요일까지 세무사한테 넘겨주세요"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_me",
+    "text": "네 알겠습니다"
+   },
+   {
+    "id": "m9",
+    "authorId": "u_bae",
+    "text": "혹시 결산 마감 하루 미루는 건 안 될까요?"
+   },
+   {
+    "id": "m10",
+    "authorId": "u_park",
+    "text": "그건 어려워요. 일정대로 갑니다"
+   }
+  ]
+ },
+ {
+  "id": "t04",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jiwon",
+    "name": "지원"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_jiwon",
+    "text": "형 PR #482 리뷰 좀 해줄 수 있어? 내일 머지하고 싶어서"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_me",
+    "text": "오케이 482 오늘 저녁에 리뷰할게"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_jiwon",
+    "text": "땡큐 ㅎㅎ 그리고 storybook 깨진 거는 내가 고칠게"
+   }
+  ]
+ },
+ {
+  "id": "t05",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jung",
+    "name": "정선임"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_park",
+    "text": "보안팀에서 분기 점검 결과 왔습니다. 취약 패키지 4개 업데이트 필요하대요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_park",
+    "text": "@정선임 lodash랑 axios 업데이트는 이번주 안에 처리해주세요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_park",
+    "text": "@나 나머지 두 개(jsonwebtoken, multer)는 다음주까지 부탁해요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_jung",
+    "text": "네네"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "넵 multer는 메이저 버전 올라가서 테스트 좀 길게 해야 할 것 같아요"
+   }
+  ]
+ },
+ {
+  "id": "t06",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_bae",
+    "name": "배대리"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_bae",
+    "text": "지난번 부탁드린 거래처 세금계산서 발행 건이요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_me",
+    "text": "아 그거 오늘 아침에 발행 완료했어요!"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_bae",
+    "text": "오 감사합니다 👍 그럼 D사 건은요?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "D사는 계약이 취소돼서 발행 안 해도 된대요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_bae",
+    "text": "아 그렇군요. 그럼 E사 건만 남았네요. 그건 제가 금요일에 처리할게요"
+   }
+  ]
+ },
+ {
+  "id": "t07",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hong",
+    "name": "홍팀장"
+   },
+   {
+    "id": "u_han",
+    "name": "한매니저"
+   },
+   {
+    "id": "u_yoon",
+    "name": "윤책임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hong",
+    "text": "프론트엔드 최종 후보 2명 중 김OO님으로 확정했습니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_han",
+    "text": "처우 협의는 지난번 기준대로 가면 될까요?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_hong",
+    "text": "네 기준표대로요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_yoon",
+    "text": "입사일은 11월 1일로 협의됐다고 들었어요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_han",
+    "text": "다른 후보분께 불합격 안내는 누가 하죠? 보통 인사팀에서 하나요?"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_hong",
+    "text": "네 그건 인사팀 프로세스대로 자동 발송돼요"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_me",
+    "text": "입사 전에 노트북이랑 계정 세팅 요청은 제가 IT팀에 넣어둘게요"
+   }
+  ]
+ },
+ {
+  "id": "t08",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   },
+   {
+    "id": "u_song",
+    "name": "송주임"
+   },
+   {
+    "id": "u_seo",
+    "name": "서디자이너"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_kang",
+    "text": "창립 10주년 기념 영상 제작 건, 외주 업체 3곳 견적 받았어요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_song",
+    "text": "C업체가 제일 저렴한데 포트폴리오가 좀 약하더라고요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_kang",
+    "text": "업체별 장단점 비교표가 있으면 결정이 쉬울 것 같은데"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_seo",
+    "text": "그건 제가 만들어볼게요. 포트폴리오는 디자인팀 시각으로 보는 게 나을 듯 해서요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_kang",
+    "text": "좋아요 그럼 비교표 보고 다음주에 최종 결정합시다"
+   }
+  ]
+ },
+ {
+  "id": "t09",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jung",
+    "name": "정선임"
+   },
+   {
+    "id": "u_lim",
+    "name": "임대리"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_jung",
+    "text": "어제 새벽 스테이징 디스크 사용률 90% 넘었다는 알람 떴었어요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_lim",
+    "text": "로그 로테이션 설정이 빠져있더라구요. 제가 오늘 오후에 logrotate 설정 추가해둘게요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_me",
+    "text": "혹시 모니터링 임계치도 80%로 낮추는 게 어떨까요?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_jung",
+    "text": "음 그건 다음 회의 때 같이 얘기해봐요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "그럼 저는 스테이징 디스크 증설 견적만 이번주 안에 뽑아볼게요"
+   }
+  ]
+ },
+ {
+  "id": "t10",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_oh",
+    "name": "오사원"
+   },
+   {
+    "id": "u_han",
+    "name": "한매니저"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_han",
+    "text": "다음달 워크샵 장소 후보 세 곳 정리했어요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_han",
+    "text": "장소 투표 마감은 금요일입니다"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_oh",
+    "text": "제가 각 장소 버스 대절 견적도 같이 알아볼게요!"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "저는 참석 인원 명단 내일까지 취합해서 공유드릴게요"
+   }
+  ]
+ },
+ {
+  "id": "t11",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_song",
+    "name": "송주임"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_song",
+    "text": "뉴스레터 10월호 원고 다 모였어요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kang",
+    "text": "교정이랑 링크 체크 한 번 돌려야겠네요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_kang",
+    "text": "@나 가능하실까요?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "네 내일 오전 중으로 해둘게요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_song",
+    "text": "발송은 수요일 오전 10시로 확정입니다"
+   }
+  ]
+ },
+ {
+  "id": "t12",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jung",
+    "name": "정선임"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장"
+   },
+   {
+    "id": "u_lim",
+    "name": "임대리"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_park",
+    "text": "사내 VPN 교체는 내년으로 연기됐습니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_lim",
+    "text": "MFA 의무화는요?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_park",
+    "text": "MFA는 다음달 1일부터 전사 의무화예요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_jung",
+    "text": "개발 서버 SSH 키도 이번에 다 교체하면 어떨까요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_park",
+    "text": "좋은 생각인데 범위가 커서 별도로 논의하죠"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_lim",
+    "text": "저희 팀 MFA 등록 현황 보니까 아직 5명 안 했더라고요"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_park",
+    "text": "@임대리 그 5명한테 이번주 안에 등록하라고 리마인드 해줘요"
+   }
+  ]
+ },
+ {
+  "id": "t13",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jung",
+    "name": "정선임"
+   },
+   {
+    "id": "u_lim",
+    "name": "임대리"
+   },
+   {
+    "id": "u_yoon",
+    "name": "윤책임"
+   },
+   {
+    "id": "u_lee",
+    "name": "이과장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_yoon",
+    "text": "어제 장애 회고 액션아이템 정리합니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_yoon",
+    "text": "원인은 인증서 만료였고, 복구까지 47분 걸렸습니다"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_jung",
+    "text": "인증서 만료 알림 자동화는 제가 이번주 안에 붙일게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_lim",
+    "text": "런북에 인증서 갱신 절차가 없었어요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_yoon",
+    "text": "런북 업데이트 누가 해주실래요?"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_me",
+    "text": "제가 할게요"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_lee",
+    "text": "장애 공지 템플릿도 손봐야 할 것 같은데, 그건 제가 다음주까지 할게요"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_yoon",
+    "text": "좋습니다. 그리고 다음 분기 온콜 체계 개편은 별도 회의로 하겠습니다"
+   },
+   {
+    "id": "m9",
+    "authorId": "u_lim",
+    "text": "혹시 인증서 관리 툴 도입도 검토해볼 만하지 않을까요?"
+   },
+   {
+    "id": "m10",
+    "authorId": "u_yoon",
+    "text": "그건 다음 분기 얘기로 하죠"
+   }
+  ]
+ },
+ {
+  "id": "t14",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_han",
+    "name": "한매니저"
+   },
+   {
+    "id": "u_yoon",
+    "name": "윤책임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_han",
+    "text": "백엔드 경력직 서류 3건 들어왔습니다."
+   },
+   {
+    "id": "m2",
+    "authorId": "u_yoon",
+    "text": "@나 이 중에 두 번째 지원자 포트폴리오 수요일까지 검토 의견 남겨주세요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_han",
+    "text": "면접 일정은 다음주 화요일 오후로 잡혀 있어요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_yoon",
+    "text": "나머지 두 명은 이번엔 보류하는 걸로 결정했습니다"
+   }
+  ]
+ },
+ {
+  "id": "t15",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_choi",
+    "name": "최주임"
+   },
+   {
+    "id": "u_kim",
+    "name": "김대리"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_choi",
+    "text": "안드로이드 12에서 푸시 알림 안 오는 버그 재현됐어요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kim",
+    "text": "아 그거 FCM 토큰 갱신 로직 문제 같은데"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_choi",
+    "text": "누가 수정 들어가실 수 있나요? 이번 핫픽스에 넣어야 해서 내일까지는 돼야 해요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "제가 FCM 쪽 코드 작성했었으니까 제가 잡을게요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_kim",
+    "text": "👍 저는 푸시 테스트용 기기 세팅해둘게요"
+   }
+  ]
+ },
+ {
+  "id": "t16",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_shin",
+    "name": "신과장"
+   },
+   {
+    "id": "u_bae",
+    "name": "배대리"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_park",
+    "text": "3분기 예산 집행률 보고서 다음주 화요일 임원 보고예요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_shin",
+    "text": "마케팅 쪽 집행 내역이 아직 안 들어왔어요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_park",
+    "text": "그건 배대리님이 마케팅팀이랑 얘기해서 받아줘요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_bae",
+    "text": "넵 월요일까진 받아올게요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_park",
+    "text": "취합해서 보고서 형태로 만드는 건 나님이 해주시고요"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_me",
+    "text": "알겠습니다"
+   }
+  ]
+ },
+ {
+  "id": "t17",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jung",
+    "name": "정선임"
+   },
+   {
+    "id": "u_lim",
+    "name": "임대리"
+   },
+   {
+    "id": "u_yoon",
+    "name": "윤책임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_yoon",
+    "text": "지난주 액션아이템 체크합니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_jung",
+    "text": "백업 정책 문서화 완료했어요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_lim",
+    "text": "모니터링 대시보드 개편은 요구사항 바뀌어서 일단 중단했습니다"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_yoon",
+    "text": "넵. 서버 OS 패치는 누가 하기로 했었죠?"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "제가요. 근데 이번주 휴가라 정선임님께 넘겨도 될까요?"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_jung",
+    "text": "네 제가 가져갈게요. 목요일 야간에 할게요"
+   }
+  ]
+ },
+ {
+  "id": "t18",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_minji",
+    "name": "민지"
+   },
+   {
+    "id": "u_jun",
+    "name": "준"
+   },
+   {
+    "id": "u_song",
+    "name": "송주임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_minji",
+    "text": "송년회 장소 강남 vs 성수 투표 결과 성수 승!"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_jun",
+    "text": "날짜는 12월 19일 금요일 맞지?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_minji",
+    "text": "ㅇㅇ 확정"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_song",
+    "text": "장기자랑 이번엔 하지 말자는 의견이 많던데요 ㅋㅋ"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_minji",
+    "text": "그건 빼는 걸로~"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_jun",
+    "text": "경품 예산은 얼마로 할까? 인당 3만원?"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_minji",
+    "text": "그건 팀장님 확인 받아봐야 함"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_me",
+    "text": "성수 장소 예약은 내가 이번주 안에 할게"
+   }
+  ]
+ },
+ {
+  "id": "t19",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_taeho",
+    "name": "태호"
+   },
+   {
+    "id": "u_sora",
+    "name": "소라"
+   },
+   {
+    "id": "u_jiwon",
+    "name": "지원"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_taeho",
+    "text": "앱 3.0 남은 작업 정리하자"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_sora",
+    "text": "온보딩 애니메이션은 내가 오늘 끝낼게"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_jiwon",
+    "text": "딥링크 처리 버그 아직 남았는데 누가 볼래?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_taeho",
+    "text": "그거 내가 볼게. 내일까지"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "접근성 라벨 누락된 거 내가 정리할게. 이번주 안에"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_jiwon",
+    "text": "그럼 난 스토어 스크린샷 업데이트할게"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_taeho",
+    "text": "ㅇㅋ 출시는 다음주 화요일 확정"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_sora",
+    "text": "아 다국어 지원은 3.1로 미루는 거 맞지?"
+   },
+   {
+    "id": "m9",
+    "authorId": "u_taeho",
+    "text": "ㅇㅇ"
+   }
+  ]
+ },
+ {
+  "id": "t20",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kim",
+    "name": "김대리"
+   },
+   {
+    "id": "u_lee",
+    "name": "이과장"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_park",
+    "text": "다음주 DB 마이그레이션 일정 확정됐어요. 수요일 새벽 2시"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_park",
+    "text": "롤백 스크립트 준비는 누가 맡을 수 있을까요?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_kim",
+    "text": "제가 할게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_lee",
+    "text": "그럼 사전 공지 메일은 제가 돌릴게요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_park",
+    "text": "감사합니다. 공지는 월요일까지 나가면 좋겠어요"
+   }
+  ]
+ },
+ {
+  "id": "t21",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_seo",
+    "name": "서디자이너"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_kang",
+    "text": "상세페이지 리뉴얼 와이어프레임 피드백 정리가 필요한데요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kang",
+    "text": "이거 금요일까지 정리해서 디자인팀에 넘겨야 해요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_me",
+    "text": "그거 제가 정리할게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_seo",
+    "text": "감사해요! 정리되면 저는 바로 시안 작업 들어갈게요"
+   }
+  ]
+ },
+ {
+  "id": "t22",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jung",
+    "name": "정선임"
+   },
+   {
+    "id": "u_lim",
+    "name": "임대리"
+   },
+   {
+    "id": "u_yoon",
+    "name": "윤책임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_yoon",
+    "text": "CDN 비용이 지난달 대비 40% 늘었어요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_jung",
+    "text": "이미지 캐시 정책 바뀐 이후부터 그런거 같아요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_yoon",
+    "text": "원인 분석 누가 좀 해줄 수 있을까요?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_lim",
+    "text": "저 이번주는 장애 대응 때문에 어려울 것 같아요 ㅠ"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_jung",
+    "text": "제가 볼게요. 목요일까지 정리해서 공유드릴게요"
+   }
+  ]
+ },
+ {
+  "id": "t23",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장"
+   },
+   {
+    "id": "u_kim",
+    "name": "김대리"
+   },
+   {
+    "id": "u_choi",
+    "name": "최주임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_park",
+    "text": "다음 릴리즈 범위 정리합니다. 다크모드는 이번에 빼기로 했어요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kim",
+    "text": "그럼 위젯 기능은요?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_park",
+    "text": "위젯은 넣습니다. 코드 프리즈는 다음주 목요일"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_choi",
+    "text": "혹시 다크모드 일부만이라도 넣는 건 어떨까요? 설정 토글만이라도"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_park",
+    "text": "음 그건 품질 이슈 생길 것 같아서 이번엔 패스할게요"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_kim",
+    "text": "QA 기간은 3일로 잡혀있죠?"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_park",
+    "text": "네 3일이요"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_me",
+    "text": "위젯 관련 QA 시나리오는 제가 수요일까지 작성해둘게요"
+   }
+  ]
+ },
+ {
+  "id": "t24",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_moon",
+    "name": "문책임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_moon",
+    "text": "나님, 파트너사 NDA 초안 법무 검토 끝났어요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_moon",
+    "text": "수정 요청 사항 3개 표시해뒀으니 확인하시고 상대측에 화요일까지 회신 부탁드려요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_me",
+    "text": "네 확인했습니다. 근데 3번 조항은 저희 팀장님 의견도 들어봐야 할 것 같아요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_moon",
+    "text": "그건 실무 선에서 판단하셔도 돼요"
+   }
+  ]
+ },
+ {
+  "id": "t25",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kim",
+    "name": "김대리"
+   },
+   {
+    "id": "u_choi",
+    "name": "최주임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_kim",
+    "text": "어제 말한 캐시 무효화 버그 수정 PR 머지했습니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_choi",
+    "text": "확인했어요. 스테이징에서 재현 안 되네요 👍"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_me",
+    "text": "원래 제가 하기로 한 로그인 화면 리팩터링은 이번 스프린트에서 빼기로 했어요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_kim",
+    "text": "아 그럼 그 대신 비밀번호 재설정 메일 템플릿 수정 해주실 수 있어요?"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "네 그건 내일까지 할게요"
+   }
+  ]
+ },
+ {
+  "id": "t26",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_han",
+    "name": "한매니저"
+   },
+   {
+    "id": "u_lim",
+    "name": "임대리"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_han",
+    "text": "3층 회의실 프로젝터 또 고장났어요 😩"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_lim",
+    "text": "지난번에 AS 받았던 업체 연락처 아시는 분?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_me",
+    "text": "저 있어요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_han",
+    "text": "그럼 연락해서 수리 접수 좀 부탁드려요 ㅎㅎ"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "넵ㅎㅎ"
+   }
+  ]
+ },
+ {
+  "id": "t27",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_minji",
+    "name": "민지"
+   },
+   {
+    "id": "u_jun",
+    "name": "준"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_minji",
+    "text": "인스타 이벤트 당첨자 발표 글 올렸어?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_jun",
+    "text": "ㅇㅇ 아까 올림"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_minji",
+    "text": "굿 경품 발송은?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_jun",
+    "text": "그건 원래 내가 하기로 했는데 내일 외근이라 ㅠ"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "내가 할게. 내일 오전에 발송할게"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_minji",
+    "text": "땡큐! 아 그리고 리뷰 이벤트는 이번엔 취소됐어"
+   }
+  ]
+ },
+ {
+  "id": "t28",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   },
+   {
+    "id": "u_song",
+    "name": "송주임"
+   },
+   {
+    "id": "u_shin",
+    "name": "신과장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_shin",
+    "text": "4분기 마케팅 예산 1.2억으로 확정됐습니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kang",
+    "text": "오 생각보다 많네요. 유튜브 광고 비중 늘려볼까요?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_song",
+    "text": "작년엔 유튜브 효율이 별로였어요. 검색광고 유지하는 게 나을 수도"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_kang",
+    "text": "그럼 일단 비율은 기존대로 가고 11월에 다시 보죠"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_shin",
+    "text": "집행 승인은 건별 500만원 이상만 팀장 결재 받으면 됩니다"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_song",
+    "text": "인플루언서 협업은 이번 분기엔 안 하는 걸로 정리했었죠?"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_kang",
+    "text": "네 맞아요"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_me",
+    "text": "채널별 예산 배분표는 제가 기존 비율로 만들어서 내일 공유드릴게요"
+   }
+  ]
+ },
+ {
+  "id": "t29",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_seo",
+    "name": "서디자이너"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   },
+   {
+    "id": "u_yejin",
+    "name": "예진"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_kang",
+    "text": "이벤트 페이지 일러스트, 원래 서디자이너님이 하시기로 했었죠?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_seo",
+    "text": "네 근데 제가 리브랜딩 때문에 도저히 시간이 안 나서요 ㅠㅠ"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_kang",
+    "text": "그럼 예진님이 대신 맡아줄 수 있을까요? 다음주 수요일 오픈이라 월요일까지는 필요해요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_yejin",
+    "text": "네 제가 할게요!"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_seo",
+    "text": "감사해요 ㅠ 레퍼런스 자료는 제가 오늘 예진님께 넘겨드릴게요"
+   }
+  ]
+ },
+ {
+  "id": "t30",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_minsu",
+    "name": "민수"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_minsu",
+    "text": "야 법카 영수증 정산 마감 언제까지였지?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_me",
+    "text": "이번주 금요일까지래"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_minsu",
+    "text": "헐 나 아직 하나도 안 했는데 ㅋㅋ 내일 몰아서 올릴게"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "ㅋㅋ 나도 지난달 출장비 아직 안 올렸다. 오늘 퇴근 전에 올려야지"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_minsu",
+    "text": "ㄱㄱ"
+   }
+  ]
+ },
+ {
+  "id": "t31",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hong",
+    "name": "홍팀장"
+   },
+   {
+    "id": "u_han",
+    "name": "한매니저"
+   },
+   {
+    "id": "u_oh",
+    "name": "오사원"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hong",
+    "text": "다음주 월요일 신규 입사자 2명 옵니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_han",
+    "text": "근로계약서는 인사팀에서 이미 다 받았어요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_hong",
+    "text": "첫날 사내 투어는 나님이 해주시고, 오사원님은 노트북 수령 안내 맡아주세요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_oh",
+    "text": "넵!"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "넵 알겠습니다"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_hong",
+    "text": "첫 주 교육 일정표는 한매니저님이 금요일까지 공유해주세요"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_han",
+    "text": "네 그럴게요"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_oh",
+    "text": "자리 배치는 어떻게 하나요?"
+   },
+   {
+    "id": "m9",
+    "authorId": "u_hong",
+    "text": "그건 총무팀이 정해서 알려준대요"
+   },
+   {
+    "id": "m10",
+    "authorId": "u_me",
+    "text": "웰컴키트 재고 확인은 제가 내일 해볼게요"
+   }
+  ]
+ },
+ {
+  "id": "t32",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hong",
+    "name": "홍팀장"
+   },
+   {
+    "id": "u_bae",
+    "name": "배대리"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hong",
+    "text": "다음주 고객사 방문 준비 건이요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_bae",
+    "text": "제가 발표 자료 만들기로 했었는데요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_hong",
+    "text": "고객사 사정으로 방문 자체가 취소됐어요. 자료 안 만드셔도 돼요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_bae",
+    "text": "아 넵 알겠습니다"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "그럼 잡아둔 회의실도 제가 아까 취소해뒀어요"
+   }
+  ]
+ },
+ {
+  "id": "t33",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kim",
+    "name": "김대리"
+   },
+   {
+    "id": "u_lee",
+    "name": "이과장"
+   },
+   {
+    "id": "u_choi",
+    "name": "최주임"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_park",
+    "text": "스프린트 23 플래닝 정리합니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_park",
+    "text": "이번 목표는 회원가입 개선이랑 결제 안정화. 배포는 다음주 수요일로 확정"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_kim",
+    "text": "회원가입 소셜 로그인 애플 추가는 제가 맡을게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_lee",
+    "text": "결제 쪽 에러 로그 대시보드는 제가 만들게요. 금요일까지요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_choi",
+    "text": "QA 계획서는 언제까지 드리면 될까요?"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_park",
+    "text": "월요일까지 부탁해요 최주임님"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_choi",
+    "text": "넵"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_me",
+    "text": "이메일 인증 만료 버그는 제가 내일까지 고칠게요"
+   },
+   {
+    "id": "m9",
+    "authorId": "u_park",
+    "text": "좋아요. 다크모드는 이번에도 백로그 유지"
+   },
+   {
+    "id": "m10",
+    "authorId": "u_lee",
+    "text": "아 그리고 PG사 점검이 화요일 새벽에 있대요"
+   }
+  ]
+ },
+ {
+  "id": "t34",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_shin",
+    "name": "신과장"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   },
+   {
+    "id": "u_song",
+    "name": "송주임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_shin",
+    "text": "C사 파트너십 미팅 결과 공유합니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_shin",
+    "text": "공동 프로모션은 긍정적, 데이터 공유는 법무 검토 후 결정하기로 했어요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_kang",
+    "text": "공동 프로모션 기획안은 제가 다음주까지 만들게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_song",
+    "text": "법무 검토 요청은 누가 넣나요?"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_shin",
+    "text": "제가 넣을게요. 오늘 중으로"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_kang",
+    "text": "아 그리고 C사 담당자한테 미팅 감사 메일은 보냈어요?"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_shin",
+    "text": "아직이요 ㅠ"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_me",
+    "text": "그거 제가 보낼게요. 회의록도 같이 첨부해서요"
+   },
+   {
+    "id": "m9",
+    "authorId": "u_kang",
+    "text": "굿굿"
+   },
+   {
+    "id": "m10",
+    "authorId": "u_song",
+    "text": "다음 미팅은 C사 쪽에서 날짜 주기로 했죠?"
+   },
+   {
+    "id": "m11",
+    "authorId": "u_shin",
+    "text": "네 기다리면 돼요"
+   }
+  ]
+ },
+ {
+  "id": "t35",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_bae",
+    "name": "배대리"
+   },
+   {
+    "id": "u_shin",
+    "name": "신과장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_shin",
+    "text": "이번달부터 법인카드 사용 한도 월 300으로 조정됐습니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_bae",
+    "text": "기존 200에서 올라간 거죠?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_shin",
+    "text": "네. 그리고 증빙 마감은 매월 5일로 변경이에요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_bae",
+    "text": "경비 시스템 개편 얘기는 어떻게 됐어요?"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_shin",
+    "text": "그건 내년 예산 나오면 다시 검토한대요"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_me",
+    "text": "혹시 바뀐 규정 팀 위키에 정리해둘까요?"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_shin",
+    "text": "네 그래주시면 감사하죠 🙏"
+   }
+  ]
+ },
+ {
+  "id": "t36",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_seojin",
+    "name": "서진"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_seojin",
+    "text": "어제 회의 때 말한 그 API 문서 다 썼어?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_me",
+    "text": "ㅇㅇ 어제 퇴근 전에 다 올렸지"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_seojin",
+    "text": "오 빠르다 ㅋㅋ 나도 내 파트 아까 올림"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "ㅋㅋ 고생했다 이제 점심 뭐 먹지"
+   }
+  ]
+ },
+ {
+  "id": "t37",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_bae",
+    "name": "배대리"
+   },
+   {
+    "id": "u_oh",
+    "name": "오사원"
+   },
+   {
+    "id": "u_hong",
+    "name": "홍팀장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_bae",
+    "text": "VIP 고객 대상 해피콜 리스트 정리 끝났어요. 총 42명"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_hong",
+    "text": "수고했어요. 콜은 오사원님이랑 나님 둘이 나눠서 할까요?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_oh",
+    "text": "그럼 제가 앞에 21명 할게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "넵 그럼 저는 나머지 맡을게요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_hong",
+    "text": "이번주 금요일까지 끝내주세요"
+   }
+  ]
+ },
+ {
+  "id": "t38",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장"
+   },
+   {
+    "id": "u_kim",
+    "name": "김대리"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_park",
+    "text": "이번 릴리즈 일정 최종 공유합니다. 화요일 오전 10시 배포 확정이에요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kim",
+    "text": "롤백 플랜은 지난번 거 그대로 쓰는 거죠?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_park",
+    "text": "네 동일합니다"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "넵 확인했습니다"
+   }
+  ]
+ },
+ {
+  "id": "t39",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kim",
+    "name": "김대리"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_park",
+    "text": "이번주 금요일 v2.4 릴리즈 예정입니다. 다들 준비 상황 공유 부탁해요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_kim",
+    "text": "저는 결제 모듈 QA 거의 끝났고 남은 케이스 2개는 내일까지 마무리할께요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_me",
+    "text": "릴리즈 노트 초안은 제가 목요일까지 써서 올려둘게요 📝"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_park",
+    "text": "좋아요 👍 금요일 오후 2시 배포로 진행합시다"
+   }
+  ]
+ },
+ {
+  "id": "t40",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_song",
+    "name": "송주임"
+   },
+   {
+    "id": "u_yoon",
+    "name": "윤책임"
+   },
+   {
+    "id": "u_lim",
+    "name": "임대리"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_yoon",
+    "text": "다음주 수요일 고객 세미나 리허설은 화요일 4시에 합니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_song",
+    "text": "발표 자료 최종본은 제가 월요일 오전까지 공유드릴게요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_lim",
+    "text": "현장 등록 데스크 운영 인원은 아직 미정이죠?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_yoon",
+    "text": "네 그건 다음에 정해요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "참가자 안내 문자는 제가 내일 발송하겠습니다 📱"
+   }
+  ]
+ },
+ {
+  "id": "t41",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_moon",
+    "name": "문책임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_moon",
+    "text": "상표 출원 관련해서 변리사님한테 받은 서류 있잖아요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_me",
+    "text": "네 지난주에 받은 거요?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_moon",
+    "text": "네 그거 서명해서 다시 보내야 하는데 대표님 서명이 필요하대요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "아 그럼 제가 대표님 결재 올려서 받아둘게요. 수요일까진 될 거예요"
+   }
+  ]
+ },
+ {
+  "id": "t42",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hong",
+    "name": "홍팀장"
+   },
+   {
+    "id": "u_bae",
+    "name": "배대리"
+   },
+   {
+    "id": "u_oh",
+    "name": "오사원"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hong",
+    "text": "환불 정책 개정안 법무 검토 통과했습니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_bae",
+    "text": "시행일은 언제로 하나요?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_hong",
+    "text": "11월 1일 시행으로 확정이요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_oh",
+    "text": "기존 고객들 공지는 어떻게 하죠? 앱 푸시로 할까요 메일로 할까요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_hong",
+    "text": "둘 다 할 건데 문구는 아직 미정이에요"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_bae",
+    "text": "상담 매뉴얼도 바뀌어야 할 텐데…"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_hong",
+    "text": "맞아요. 상담 매뉴얼 수정은 배대리님이 다음주까지 해주세요"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_bae",
+    "text": "넵"
+   }
+  ]
+ },
+ {
+  "id": "t43",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_yu",
+    "name": "유선임"
+   },
+   {
+    "id": "u_shin",
+    "name": "신과장"
+   },
+   {
+    "id": "u_jung",
+    "name": "정선임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_shin",
+    "text": "추천 모델 A/B 테스트 결과 나왔어요. B안이 CTR 3% 높습니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_yu",
+    "text": "통계적으로 유의한지 확인해봐야 할 것 같은데요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_shin",
+    "text": "맞아요. 유선임님이 검정 돌려주실 수 있어요?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_yu",
+    "text": "네 오늘 중으로 돌려볼게요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_jung",
+    "text": "유의하면 전체 배포는 다음주 월요일로 하죠"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_shin",
+    "text": "좋습니다 그렇게 하죠"
+   }
+  ]
+ },
+ {
+  "id": "t44",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   },
+   {
+    "id": "u_song",
+    "name": "송주임"
+   },
+   {
+    "id": "u_oh",
+    "name": "오사원"
+   },
+   {
+    "id": "u_seo",
+    "name": "서디자이너"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_kang",
+    "text": "블프 캠페인 준비 현황 체크할게요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_song",
+    "text": "카피는 3안까지 나왔고 최종안은 제가 내일 골라서 공유할게요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_seo",
+    "text": "메인 배너 시안은 금요일에 드릴 수 있어요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_kang",
+    "text": "쿠폰 정책은 지난 회의에서 20% 할인으로 결정됐죠"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_oh",
+    "text": "네 맞아요. 근데 중복 사용 가능 여부는 아직 안 정해졌어요"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_kang",
+    "text": "그건 제가 재무팀이랑 얘기해볼게요"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_me",
+    "text": "앱 푸시 발송 스케줄 초안은 제가 짜볼게요"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_kang",
+    "text": "넵 감사합니다 👍 다들 화이팅"
+   },
+   {
+    "id": "m9",
+    "authorId": "u_song",
+    "text": "아 SNS 사전 티저는 이번엔 안 하기로 했어요"
+   }
+  ]
+ },
+ {
+  "id": "t45",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kim",
+    "name": "김대리"
+   },
+   {
+    "id": "u_lee",
+    "name": "이과장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_lee",
+    "text": "결제 API 응답 지연 이슈, 원인은 외부 PG 타임아웃이었습니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_lee",
+    "text": "재시도 로직이랑 타임아웃 설정 둘 다 손봐야 할 것 같아요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_kim",
+    "text": "재시도 로직은 제가 할게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "타임아웃 설정은 제가요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_lee",
+    "text": "감사합니다. 둘 다 화요일 배포에 포함시키죠. 월요일까지 PR 부탁드려요"
+   }
+  ]
+ },
+ {
+  "id": "t46",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_yu",
+    "name": "유선임"
+   },
+   {
+    "id": "u_jung",
+    "name": "정선임"
+   },
+   {
+    "id": "u_lee",
+    "name": "이과장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_lee",
+    "text": "데이터 웨어하우스 이관 진행 상황 공유 부탁드려요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_yu",
+    "text": "주문 테이블 이관은 지난주에 끝났습니다"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_jung",
+    "text": "회원 테이블은 PII 마스킹 이슈로 잠깐 멈춰있어요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_lee",
+    "text": "마스킹 정책은 보안팀 확인이 필요하죠? 정선임님이 이번주 안에 보안팀이랑 미팅 잡아주세요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_jung",
+    "text": "네 잡을게요"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_yu",
+    "text": "로그 테이블은 용량이 커서 파티셔닝 전략부터 정해야 할 것 같아요"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_lee",
+    "text": "그거 유선임님이 안 두세 개 정리해서 금요일 회의 때 가져와 주세요"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_yu",
+    "text": "넵 알겠습니다"
+   },
+   {
+    "id": "m9",
+    "authorId": "u_me",
+    "text": "이관 후 기존 Airflow DAG 정리는 제가 맡을게요"
+   },
+   {
+    "id": "m10",
+    "authorId": "u_lee",
+    "text": "감사합니다. 최종 컷오버는 11월 셋째 주로 잡겠습니다"
+   }
+  ]
+ },
+ {
+  "id": "t47",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   },
+   {
+    "id": "u_yu",
+    "name": "유선임"
+   },
+   {
+    "id": "u_shin",
+    "name": "신과장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_yu",
+    "text": "만약 다음 분기에 트래픽 2배 되면 지금 구조로 버틸 수 있을까요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_shin",
+    "text": "그 정도면 DB 샤딩 고려해야 할 수도 있겠네요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_kang",
+    "text": "근데 그건 투자 유치 결과 보고 나서 판단해도 늦지 않을 것 같아요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_yu",
+    "text": "맞아요 일단 지켜보죠"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "동의합니다. 지금은 현 구조 유지로"
+   }
+  ]
+ },
+ {
+  "id": "t48",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_han",
+    "name": "한매니저"
+   },
+   {
+    "id": "u_lim",
+    "name": "임대리"
+   },
+   {
+    "id": "u_oh",
+    "name": "오사원"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_han",
+    "text": "다음달 사내 해커톤 운영진 한 명 더 필요하대요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_han",
+    "text": "혹시 하실 분 계신가요?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_lim",
+    "text": "저는 그 주에 출장이라서요 ㅠ"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_oh",
+    "text": "해커톤 주제는 정해졌나요?"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_han",
+    "text": "아직이요. 다음주에 공지 나온대요"
+   }
+  ]
+ },
+ {
+  "id": "t49",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_seo",
+    "name": "서디자이너"
+   },
+   {
+    "id": "u_yejin",
+    "name": "예진"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   },
+   {
+    "id": "u_kim",
+    "name": "김대리"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_kang",
+    "text": "디자인 시스템 v2 마이그레이션 회의 정리할게요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_seo",
+    "text": "컬러 토큰 네이밍 규칙은 오늘 확정한 대로 semantic 기준으로 갑니다"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_yejin",
+    "text": "아이콘 세트 SVG 정리는 제가 다음주까지 할게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_kim",
+    "text": "컴포넌트 라이브러리 버전업은 프론트에서 맡아야겠죠?"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_kang",
+    "text": "네 김대리님이 해주시면 좋겠어요"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_kim",
+    "text": "네 그럼 제가 할게요. 이번 스프린트는 어렵고 다음 스프린트에 할게요"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_me",
+    "text": "마이그레이션 가이드 문서는 제가 초안 써볼게요. 목요일까지요"
+   },
+   {
+    "id": "m8",
+    "authorId": "u_seo",
+    "text": "타이포 스케일 변경은 보류하기로 한 거 맞죠?"
+   },
+   {
+    "id": "m9",
+    "authorId": "u_kang",
+    "text": "네 보류요"
+   }
+  ]
+ },
+ {
+  "id": "t50",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_shin",
+    "name": "신과장"
+   },
+   {
+    "id": "u_yu",
+    "name": "유선임"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_shin",
+    "text": "9월 리텐션 리포트 숫자가 대시보드랑 달라요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_yu",
+    "text": "아 그거 집계 기준이 바뀌어서 그래요. 대시보드 쿼리는 제가 월요일까지 새 기준으로 고쳐놓겠습니다"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_shin",
+    "text": "리포트에 기준 변경됐다고 주석 달아두는 건 어때요?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "좋네요, 리포트 상단에 기준 변경 주석은 제가 오늘 달아둘게요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_shin",
+    "text": "그리고 10월부턴 리텐션 주간 단위로 보는 걸로 확정이에요"
+   }
+  ]
+ },
+ {
+  "id": "t51",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   },
+   {
+    "id": "u_song",
+    "name": "송주임"
+   },
+   {
+    "id": "u_oh",
+    "name": "오사원"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_kang",
+    "text": "10월 프로모션 배너 문구 최종안 나왔나요?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_song",
+    "text": "네 어제 나온 B안으로 가기로 했어요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_kang",
+    "text": "@오사원 B안 기준으로 인스타 피드용 이미지 사이즈별로 뽑아서 모레까지 드라이브에 올려줘요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "랜딩페이지 문구 교체는 제가 내일 오전에 반영할게요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_kang",
+    "text": "👍"
+   }
+  ]
+ },
+ {
+  "id": "t52",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_seo",
+    "name": "서디자이너"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_seo",
+    "text": "혹시 지금 시간 괜찮으세요? 온보딩 화면 시안 관련해서요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_me",
+    "text": "네 말씀하세요~"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_seo",
+    "text": "2번 화면 버튼 컬러가 브랜드 가이드랑 안 맞는 것 같아서요. 제가 오늘 중으로 수정본 다시 올려드릴게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_me",
+    "text": "감사합니다! 그럼 저는 수정본 받으면 개발팀에 전달할게요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_seo",
+    "text": "넵넵"
+   }
+  ]
+ },
+ {
+  "id": "t53",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_dongwook",
+    "name": "동욱"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_dongwook",
+    "text": "야 다음 스프린트 회고 때 배포 자동화 얘기 꺼낼 거야?"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_me",
+    "text": "음 꺼내볼까 생각 중. 근데 팀장님이 별로 안 좋아하실 듯"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_dongwook",
+    "text": "그치 ㅋㅋ 작년에도 한 번 까였잖아"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_dongwook",
+    "text": "차라리 GitHub Actions로 작은 거부터 해보자고 하면 어때"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "오 그게 낫겠다. 근데 그건 회고 때 같이 얘기해보자"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_dongwook",
+    "text": "ㅇㅋ 아 그리고 회고 날짜 금요일에서 목요일로 바뀜"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_me",
+    "text": "아 그럼 회고 템플릿은 내가 수요일까지 노션에 올려둘게"
+   }
+  ]
+ },
+ {
+  "id": "t54",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_kang",
+    "name": "강PM"
+   },
+   {
+    "id": "u_park",
+    "name": "박팀장"
+   },
+   {
+    "id": "u_seo",
+    "name": "서디자이너"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_kang",
+    "text": "4분기 로드맵 초안 공유드려요. 1순위 검색 개선, 2순위 알림센터"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_park",
+    "text": "알림센터는 디자인 리소스가 부족해서 1월로 미루는 게 맞을 듯"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_seo",
+    "text": "동의해요. 지금 리브랜딩 작업이랑 겹쳐요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_kang",
+    "text": "그럼 알림센터는 1월로 옮겨서 로드맵 문서 오늘 수정해둘게요"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_park",
+    "text": "검색 개선 킥오프는 다음주 월요일 11시에 하죠"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_seo",
+    "text": "혹시 킥오프 전에 사용자 인터뷰 자료 보면 좋을까요?"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_kang",
+    "text": "있으면 좋긴 한데 필수는 아니에요"
+   }
+  ]
+ },
+ {
+  "id": "t55",
+  "type": "thread",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_bae",
+    "name": "배대리"
+   },
+   {
+    "id": "u_hong",
+    "name": "홍팀장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_bae",
+    "text": "고객사 A에서 환불 처리 지연 건으로 클레임 들어왔습니다 😥"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_hong",
+    "text": "@배대리 오늘 중으로 고객사에 사과 메일이랑 처리 예정일 안내 부탁해요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_hong",
+    "text": "@나 결제팀에 해당 건 환불 지연 원인 확인 요청해주세요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_bae",
+    "text": "지난번 비슷한 건은 쿠폰 보상으로 마무리했었어요"
+   }
+  ]
+ },
+ {
+  "id": "t56",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_choi",
+    "name": "최주임"
+   },
+   {
+    "id": "u_kim",
+    "name": "김대리"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_choi",
+    "text": "iOS 심사 리젝 당했습니다.. 사유는 개인정보 처리방침 링크 누락이래요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_me",
+    "text": "개인정보 처리방침 링크 설정 화면에 추가해서 오늘 밤에 제가 재제출할게요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_kim",
+    "text": "안드로이드 쪽도 처리방침 링크 빠져있는지 제가 확인해볼게요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_choi",
+    "text": "감사합니다. 재심사는 보통 하루 정도 걸려요"
+   }
+  ]
+ },
+ {
+  "id": "t57",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_taeho",
+    "name": "태호"
+   },
+   {
+    "id": "u_sora",
+    "name": "소라"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_taeho",
+    "text": "공통 버튼 컴포넌트 props 너무 지저분함 ㅋㅋ"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_sora",
+    "text": "ㅇㅈ variant만 6개임"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_taeho",
+    "text": "정리 한번 해야 될 듯. 근데 이번 스프린트에 여유 있는 사람?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_sora",
+    "text": "난 결제 화면 때문에 꽉 참"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "내가 할게. 다음주까지 PR 올릴게"
+   }
+  ]
+ },
+ {
+  "id": "t58",
+  "type": "dm",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_hyejin",
+    "name": "혜진"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hyejin",
+    "text": "내일 데모 때 쓸 테스트 계정 아직 안 만들어졌더라"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_hyejin",
+    "text": "시간 되면 좀 부탁해도 돼?"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_me",
+    "text": "ㅇㅋ 내가 할게. 몇 개 필요해?"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_hyejin",
+    "text": "세 개면 충분해! 관리자 1 일반 2"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "오늘 안에 만들어서 슬랙으로 보내줄게"
+   }
+  ]
+ },
+ {
+  "id": "t59",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_jung",
+    "name": "정선임"
+   },
+   {
+    "id": "u_lim",
+    "name": "임대리"
+   },
+   {
+    "id": "u_lee",
+    "name": "이과장"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_lee",
+    "text": "로깅 스택 ELK에서 Loki로 바꾸는 건 내년 1분기로 미루기로 했습니다"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_jung",
+    "text": "그럼 ES 클러스터 라이선스 갱신은 해야겠네요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_lee",
+    "text": "네 갱신은 구매팀에서 이미 처리했어요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_lim",
+    "text": "그 사이에 Loki PoC라도 해보면 좋을 것 같은데"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_lee",
+    "text": "여유 되면요. 지금은 우선순위 낮아요"
+   },
+   {
+    "id": "m6",
+    "authorId": "u_jung",
+    "text": "ES 디스크 정리 크론은 지난주에 제가 걸어놨습니다"
+   },
+   {
+    "id": "m7",
+    "authorId": "u_lee",
+    "text": "굿. 그럼 이번주에는 인덱스 보존 기간 30일로 줄이는 것만 해주세요 @정선임"
+   }
+  ]
+ },
+ {
+  "id": "t60",
+  "type": "channel",
+  "participants": [
+   {
+    "id": "u_me",
+    "name": "나"
+   },
+   {
+    "id": "u_han",
+    "name": "한매니저"
+   },
+   {
+    "id": "u_hong",
+    "name": "홍팀장"
+   },
+   {
+    "id": "u_oh",
+    "name": "오사원"
+   }
+  ],
+  "messages": [
+   {
+    "id": "m1",
+    "authorId": "u_hong",
+    "text": "인턴 OT 자료 작년 거 그대로 쓰기엔 좀 오래됐네요"
+   },
+   {
+    "id": "m2",
+    "authorId": "u_han",
+    "text": "업데이트 필요한 부분이 조직도랑 복지 안내 쪽이에요"
+   },
+   {
+    "id": "m3",
+    "authorId": "u_hong",
+    "text": "이거 오사원님이 좀 맡아줄래요? 다음주 월요일 OT라 금요일까지요"
+   },
+   {
+    "id": "m4",
+    "authorId": "u_oh",
+    "text": "넵 알겠습니다!"
+   },
+   {
+    "id": "m5",
+    "authorId": "u_me",
+    "text": "복지 안내 최신본은 제가 오사원님께 전달할게요"
+   }
+  ]
+ }
+]

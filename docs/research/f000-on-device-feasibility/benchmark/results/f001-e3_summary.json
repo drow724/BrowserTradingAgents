@@ -1,0 +1,57 @@
+{
+ "runs": [
+  {
+   "run": "r1",
+   "accuracy": "315/369 = 85.4%",
+   "wilson95": "81.4%–88.6%",
+   "recall": "54/65",
+   "over": "12/268 = 4.5%",
+   "p95": 947,
+   "invalid": 0,
+   "structured": "267/267",
+   "errors": 0,
+   "failed": [
+    "accuracy"
+   ],
+   "PASS": false
+  },
+  {
+   "run": "r2",
+   "accuracy": "313/369 = 84.8%",
+   "wilson95": "80.8%–88.1%",
+   "recall": "54/65",
+   "over": "12/268 = 4.5%",
+   "p95": 948,
+   "invalid": 0,
+   "structured": "267/267",
+   "errors": 0,
+   "failed": [
+    "accuracy"
+   ],
+   "PASS": false
+  },
+  {
+   "run": "r3",
+   "accuracy": "312/369 = 84.6%",
+   "wilson95": "80.5%–87.9%",
+   "recall": "54/65",
+   "over": "12/268 = 4.5%",
+   "p95": 949,
+   "invalid": 0,
+   "structured": "267/267",
+   "errors": 0,
+   "failed": [
+    "accuracy"
+   ],
+   "PASS": false
+  }
+ ],
+ "verdict": "FAIL",
+ "passes": "0/3",
+ "model_called": 279,
+ "run_disagreement": "18/279 = 6.5%",
+ "rule_vs_model_errors_r1": {
+  "rule": 15,
+  "model": 39
+ }
+}

@@ -1,0 +1,125 @@
+{
+ "verdict": "템플릿보다는 낫지만 그대로 쓰기 어려움",
+ "practical": false,
+ "incremental": true,
+ "judge_consistency": {
+  "n": 60,
+  "agreement": 0.917,
+  "kappa": 0.834
+ },
+ "results": {
+  "A": {
+   "usable": 0.016666666666666666,
+   "hallucination": 0.31666666666666665,
+   "intent2": 0.016666666666666666,
+   "register2": 0.7166666666666667,
+   "natural": 2.4833333333333334,
+   "exact_fact_ok": "11/40"
+  },
+  "B1": {
+   "usable": 0.5166666666666667,
+   "hallucination": 0.25,
+   "intent2": 0.8666666666666667,
+   "register2": 0.8333333333333334,
+   "natural": 3.966666666666667,
+   "exact_fact_ok": "36/40",
+   "p50_ms": 3058,
+   "p95_ms": 4942,
+   "usable_minus_A": 0.5,
+   "ci95": [
+    0.367,
+    0.633
+   ]
+  },
+  "B2": {
+   "usable": 0.48333333333333334,
+   "hallucination": 0.16666666666666666,
+   "intent2": 0.9,
+   "register2": 0.8166666666666667,
+   "natural": 3.9166666666666665,
+   "exact_fact_ok": "36/40",
+   "p50_ms": 2935,
+   "p95_ms": 4006,
+   "usable_minus_A": 0.467,
+   "ci95": [
+    0.333,
+    0.6
+   ]
+  },
+  "B3": {
+   "usable": 0.45,
+   "hallucination": 0.25,
+   "intent2": 0.8333333333333334,
+   "register2": 0.8166666666666667,
+   "natural": 3.9166666666666665,
+   "exact_fact_ok": "34/40",
+   "p50_ms": 2614,
+   "p95_ms": 4079,
+   "usable_minus_A": 0.433,
+   "ci95": [
+    0.317,
+    0.55
+   ]
+  },
+  "C": {
+   "usable": 0.9166666666666666,
+   "hallucination": 0.0,
+   "intent2": 1.0,
+   "register2": 0.9166666666666666,
+   "natural": 4.616666666666666,
+   "exact_fact_ok": "31/40",
+   "usable_minus_A": 0.9,
+   "ci95": [
+    0.817,
+    0.967
+   ]
+  }
+ },
+ "usable_by_category": {
+  "A": {
+   "accept": "0/10",
+   "ask_question": "0/10",
+   "decline": "0/8",
+   "delay": "0/8",
+   "mixed": "0/10",
+   "share_info": "1/8",
+   "thanks": "0/6"
+  },
+  "B1": {
+   "accept": "7/10",
+   "ask_question": "5/10",
+   "decline": "4/8",
+   "delay": "3/8",
+   "mixed": "7/10",
+   "share_info": "2/8",
+   "thanks": "3/6"
+  },
+  "B2": {
+   "accept": "6/10",
+   "ask_question": "6/10",
+   "decline": "2/8",
+   "delay": "3/8",
+   "mixed": "6/10",
+   "share_info": "3/8",
+   "thanks": "3/6"
+  },
+  "B3": {
+   "accept": "5/10",
+   "ask_question": "7/10",
+   "decline": "2/8",
+   "delay": "2/8",
+   "mixed": "6/10",
+   "share_info": "3/8",
+   "thanks": "2/6"
+  },
+  "C": {
+   "accept": "10/10",
+   "ask_question": "10/10",
+   "decline": "6/8",
+   "delay": "8/8",
+   "mixed": "9/10",
+   "share_info": "7/8",
+   "thanks": "5/6"
+  }
+ }
+}

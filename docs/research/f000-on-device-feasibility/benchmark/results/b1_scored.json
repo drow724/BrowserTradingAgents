@@ -1,0 +1,119 @@
+{
+ "A": {
+  "n": 210,
+  "accuracy": 0.7571428571428571,
+  "invalid_rate": 0.09047619047619047,
+  "structured_ok": null,
+  "no_action_precision": 0.8421052631578947,
+  "no_action_recall": 0.3404255319148936,
+  "tag_accuracy": {
+   "simple": "70/80",
+   "colloquial": "22/25",
+   "typo": "18/20",
+   "short": "14/20",
+   "ambiguous": "15/20",
+   "multi_intent": "12/15",
+   "irrelevant": "2/10",
+   "insufficient_context": "0/10",
+   "should_not_act": "6/10"
+  },
+  "failures": {
+   "invalid-action": 19,
+   "wrong-action": 18,
+   "ambiguous-command": 5,
+   "insufficient-context": 9
+  },
+  "create_ms": 2383,
+  "first_ms": 4825,
+  "warm_p50_ms": 3143,
+  "warm_p95_ms": 7470,
+  "warm_mean_ms": 3719,
+  "clone_p50_ms": 0,
+  "accuracy_excl_insufficient": "159/200",
+  "top_confusions": [
+   "NO_ACTION->None: 11",
+   "NO_ACTION->SEARCH_MESSAGES: 8",
+   "NO_ACTION->SUMMARIZE: 3",
+   "SEARCH_MESSAGES->None: 2",
+   "FIND_DECISIONS->SUMMARIZE: 2",
+   "DRAFT_REPLY->None: 2",
+   "NO_ACTION->REMIND_LATER: 2",
+   "READ_THREAD->SUMMARIZE: 2"
+  ]
+ },
+ "B": {
+  "n": 210,
+  "accuracy": 0.8714285714285714,
+  "invalid_rate": 0.0,
+  "structured_ok": 1.0,
+  "no_action_precision": 0.9459459459459459,
+  "no_action_recall": 0.7446808510638298,
+  "tag_accuracy": {
+   "simple": "79/80",
+   "colloquial": "23/25",
+   "typo": "20/20",
+   "short": "20/20",
+   "ambiguous": "16/20",
+   "multi_intent": "6/15",
+   "irrelevant": "10/10",
+   "insufficient_context": "0/10",
+   "should_not_act": "9/10"
+  },
+  "failures": {
+   "wrong-action": 13,
+   "ambiguous-command": 4,
+   "insufficient-context": 10
+  },
+  "create_ms": 1122,
+  "first_ms": 2098,
+  "warm_p50_ms": 2376,
+  "warm_p95_ms": 2665,
+  "warm_mean_ms": 2127,
+  "clone_p50_ms": 0,
+  "accuracy_excl_insufficient": "183/200",
+  "top_confusions": [
+   "NO_ACTION->READ_THREAD: 3",
+   "NO_ACTION->REMIND_LATER: 2",
+   "DRAFT_REPLY->NO_ACTION: 2",
+   "SUMMARIZE->FIND_DECISIONS: 2",
+   "NO_ACTION->SUMMARIZE: 2",
+   "NO_ACTION->EXTRACT_TODOS: 2",
+   "NO_ACTION->DRAFT_REPLY: 2",
+   "READ_THREAD->SUMMARIZE: 1"
+  ]
+ },
+ "X": {
+  "n": 20,
+  "accuracy": 1.0,
+  "invalid_rate": 0.0,
+  "structured_ok": 1.0,
+  "no_action_precision": null,
+  "no_action_recall": null,
+  "tag_accuracy": {
+   "extraction": "20/20"
+  },
+  "failures": {},
+  "create_ms": 1222,
+  "first_ms": 6286,
+  "warm_p50_ms": 4390,
+  "warm_p95_ms": 5896,
+  "warm_mean_ms": 4480,
+  "clone_p50_ms": 0,
+  "accuracy_excl_insufficient": "20/20"
+ },
+ "resources": {
+  "samples": 2284,
+  "model_rss_mb_max": 389.9,
+  "model_rss_mb_p50": 280.7,
+  "model_cpu_p50": 21.8,
+  "gpu_proc_cpu_p50": 0.0,
+  "gpu_util_p50": 95.0,
+  "gpu_util_p95": 100.0
+ },
+ "meta": {
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "started": "2026-10-03T14:12:33.702Z",
+  "availability": "available",
+  "finished": "2026-10-03T14:34:40.593Z"
+ }
+}

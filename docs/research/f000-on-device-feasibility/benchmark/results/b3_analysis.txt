@@ -1,0 +1,23 @@
+n per cond {'C1': 53, 'C2': 53, 'C3': 53, 'C4': 53, 'C5': 53} errors 0
+cond    p50    p95  ttft50  dec50 outLen  inTok acc
+C1     1279   1358     734    530     25    128 42/53
+C2     1014   1158     479    567     26     54 44/53
+C3      916   1147     401    552     26     54 45/53
+C4      602    742     406    207     11     49 45/53
+C5      927   1069     404    559     26     54 38/53
+
+paired median differences (ms); >=200 = major factor
+  schema in input        C1-C2 total      252  MAJOR
+  schema in input        C1-C2 ttft       255  MAJOR
+  schema in input        C1-C2 decode      -6  
+  constrained decoding   C2-C3 total      101  
+  constrained decoding   C2-C3 ttft        86  
+  constrained decoding   C2-C3 decode      20  
+  output length          C3-C4 total      313  MAJOR
+  output length          C3-C4 ttft        -5  
+  output length          C3-C4 decode     317  MAJOR
+  system prompt length   C3-C5 total        0  
+  system prompt length   C3-C5 ttft        -5  
+  system prompt length   C3-C5 decode       2  
+
+example outputs {'C1': '{"action": "SEARCH_MESSAGES"}', 'C2': '{"action": "SEARCH_MESSAGES"}', 'C3': '{"action": "SEARCH_MESSAGES"}', 'C4': 'SEARCH_MESSAGES', 'C5': '{"action": "SEARCH_MESSAGES"}'}

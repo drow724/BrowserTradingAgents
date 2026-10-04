@@ -1,0 +1,15 @@
+# 2026-10-04T01:04:41Z macOS 15.7.4 / Apple M1
+## HANDLER=1 BLINK=1
+electron 45.0.0-alpha.14 chrome 156.0.8077.0 { useHandler: true, useBlink: true }
+utility: {"handlerCalled":{"webContentsId":1,"securityOrigin":"http://127.0.0.1:8767","frameToken":"755243DBF4CF91C7AC3C06C69F6A5D5F","renderProcessId":6}}
+RESULT {"typeofLM":"function","availability":"available","createMs":1,"prompt":"HANDLER_OK roles=user constraint=false text=hello 안녕","promptMs":0,"constrained":"HANDLER_OK roles=user constraint=true text=route this | \n\nRemember to respond in JSON that follows this \"JSON Schema\" speci","contextWindow":4096}
+## HANDLER=1 BLINK=0
+electron 45.0.0-alpha.14 chrome 156.0.8077.0 { useHandler: true, useBlink: false }
+utility: {"handlerCalled":{"webContentsId":1,"securityOrigin":"http://127.0.0.1:8767","frameToken":"9AFFE3EBF7B8AA02EB790EFE72DE810D","renderProcessId":5}}
+RESULT {"typeofLM":"function","availability":"available","createMs":1,"prompt":"HANDLER_OK roles=user constraint=false text=hello 안녕","promptMs":0,"constrained":"HANDLER_OK roles=user constraint=true text=route this | \n\nRemember to respond in JSON that follows this \"JSON Schema\" speci","contextWindow":4096}
+## HANDLER=0 BLINK=1
+electron 45.0.0-alpha.14 chrome 156.0.8077.0 { useHandler: false, useBlink: true }
+RESULT {"typeofLM":"function","availability":"unavailable","error":"NotSupportedError: The service is unable to create new session."}
+## HANDLER=0 BLINK=0
+electron 45.0.0-alpha.14 chrome 156.0.8077.0 { useHandler: false, useBlink: false }
+RESULT {"typeofLM":"function","availability":"unavailable","error":"NotSupportedError: The service is unable to create new session."}

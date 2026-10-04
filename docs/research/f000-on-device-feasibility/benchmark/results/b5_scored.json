@@ -1,0 +1,68 @@
+{
+ "B5": {
+  "name": "B5",
+  "n": 310,
+  "accuracy": "245/310 = 79.0%",
+  "model_only": "230/310",
+  "groups": {
+   "clear": "216/244",
+   "leaning": "20/26",
+   "under": "9/40"
+  },
+  "clarify_recall": "9/40",
+  "over_clarify": "7/244 = 2.9%",
+  "clarify_precision": "12/19",
+  "invalid": 0,
+  "errors": [],
+  "structured_ok": "310/310",
+  "p50_ms": 806,
+  "p95_ms": 929,
+  "clear_vs_B4": {
+   "regressed": [
+    "c133",
+    "c134",
+    "c181",
+    "c182",
+    "c183",
+    "c184",
+    "c185",
+    "c187",
+    "c188",
+    "c189",
+    "c202",
+    "c206",
+    "h047",
+    "h050",
+    "h051"
+   ],
+   "fixed": [
+    "c039",
+    "c072",
+    "c174"
+   ]
+  }
+ },
+ "B4_baseline": {
+  "name": "B4 rescored (no CLARIFY possible)",
+  "n": 270,
+  "accuracy": "243/270 = 90.0%",
+  "model_only": "228/270",
+  "groups": {
+   "clear": "228/244",
+   "leaning": "15/26"
+  },
+  "clarify_recall": null,
+  "over_clarify": "0/244 = 0.0%",
+  "clarify_precision": null,
+  "invalid": 0,
+  "errors": [
+   [
+    "c072",
+    "UnknownError: An unknown error occurred: kErrorUnknown"
+   ]
+  ],
+  "structured_ok": "269/270",
+  "p50_ms": 818,
+  "p95_ms": 952
+ }
+}
